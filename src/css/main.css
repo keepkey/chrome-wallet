@@ -1,0 +1,162 @@
+body {
+  cursor: default;
+  font-family: Open Sans, sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  width: 320px;
+}
+
+/* header */
+
+header {
+  height: 48px;
+  border-bottom: 1px solid #ECECED;
+  background-color: #FDFDFD;
+  position: relative;
+  padding: 1px;
+  margin: 0;
+  overflow: hidden;
+}
+
+header h1 {
+  display: inline;
+  margin: 0 auto;
+  font-family: Roboto, sans-serif;
+  font-size: 26px;
+  text-align: center;
+  font-weight: normal;
+  display: block;
+  color: #B8B8B8;
+  margin-top: 13px;
+}
+
+.header-button#settings div,
+.header-button#refresh div,
+.header-button#create div {
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  text-align: center;
+}
+
+.header-button#settings div,
+.header-button#refresh div {
+  font-size: 22px;
+  margin: 6px 0 0 4px;
+}
+
+#create div {
+  font-size: 34px;
+  margin: -7px 0 0 5px;
+}
+
+.header-button {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    border-radius: 200px;
+    top: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 30px;
+    transition: all 0.1s ease-in;
+}
+
+.header-button:active {
+  opacity: 0.6;
+}
+
+.button-left {
+    background-color: #496B89;
+    left: 10px;
+}
+.button-right {
+    background-color: #549482;
+    right: 10px;
+}
+
+.header-button div {
+  transition: 0.3s all ease-out;
+  -webkit-transform-origin:61% 50%;
+}
+
+#refresh div {
+  -webkit-transform-origin:64% 50%;
+}
+
+#settings:hover div,
+#refresh:hover div {
+  -webkit-transform: rotate(-120deg);
+}
+
+#settings:active div,
+#refresh:active div {
+  -webkit-transform: rotate(-360deg);
+
+}
+
+.header-button.button-left:hover {
+  background-color: #375168;
+}
+
+.header-button.button-right:hover {
+  background-color: #427365;
+}
+
+/* main */
+
+#context-wrapper {
+  position:relative;
+  padding:1px;
+  height:167px;
+  overflow:hidden;
+}
+
+.content-context {
+  position: absolute;
+  width: 100%;
+}
+
+.content-context p span.cornflower-txt {
+  color: #000;
+  font-weight: 200;
+}
+
+b {
+  font-weight: 700;
+}
+
+.content-context p {
+  max-width: 220px;
+  margin: 0 auto;
+  text-align: center;
+  color: #BBBBBB;
+  margin-top: 40px;
+}
+
+.button {
+  text-align: center;
+  padding: 5px;
+  border-radius: 200px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+#init-btn {
+  margin-top: 20px;
+  width: 140px;
+  background-color: #539582;
+  color: #fff;
+}
+
+#init-btn {
+  transition: 0.2s all ease-in;
+}
+
+#init-btn:hover {
+  background-color: #417465; 
+}
+
+#init-btn:active {
+  opacity: 0.2;
+}

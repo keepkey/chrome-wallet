@@ -1,0 +1,16 @@
+{
+  "name": "Trove",
+  "description": "Complete cryptocurrency intigration with Chrome.",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_icon": "src/assets/icons/128x128.png",
+    "default_title": "That's the tool tip",
+    "default_popup": "src/popup.html"
+  },
+  "icons": {
+     "16": "src/assets/icons/16x16.png",
+     "48": "src/assets/icons/48x48.png",
+     "128": "src/assets/icons/128x128.png"
+  }
+}
