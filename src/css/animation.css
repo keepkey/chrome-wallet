@@ -1,0 +1,54 @@
+/* Default Enter/Leave */
+.ng-enter,
+.ng-leave {
+    transition-timing-function: ease;
+    transition-duration: 250ms;
+    transition-property: opacity;
+}
+
+.ng-enter {
+    opacity: 0;
+}
+
+.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.ng-leave {
+    opacity: 1;
+}
+
+.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+/* slideLeft and slideRight  */
+.slideLeft.ng-enter, .slideLeft.ng-leave, .slideRight.ng-enter, .slideRight.ng-leave {
+    -webkit-transition:all 1s;
+    transition:all 1s;
+    transition-duration: 500ms;
+}
+
+.slideLeft.ng-enter {
+    left:100%;
+}
+
+.slideLeft.ng-enter.ng-enter-active {
+    left:0;
+}
+
+.slideLeft.ng-leave.ng-leave-active {
+    left:-100%;
+}
+
+.slideRight.ng-enter {
+    left:-100%;
+}
+
+.slideRight.ng-enter.ng-enter-active {
+    left:0;
+}
+
+.slideRight.ng-leave.ng-leave-active {
+    left:100%;
+}
