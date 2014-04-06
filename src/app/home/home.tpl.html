@@ -2,13 +2,13 @@
   <a class="button-left header-button" id="settings"><div class="icon-settings"></div></a>
   <h1>Trove</h1>
   <!-- <div class="button-right header-button" id="refresh"><div class="icon-refresh"></div></div> -->
-  <a class="button-right header-button" id="create" ng-click="go('home')"><div class="icon-create"></div></a>
+  <a class="button-right header-button" id="create" ng-click="go('/creating', 'slideLeft')"><div class="icon-create"></div></a>
 </header>
 
-<div id="context-wrapper">
-  <div class="content-context active" id="initialize">
+<div id="content-wrapper">
+  <div class="content">
       <p><span class="cornflower-txt">Your <b>KeepKey</b> needs to be initialized</span>
       before you can use it.</p>
-      <div id="init-btn" class="button">Initialize <b>KeepKey</b></div>
+      <a id="init-btn" class="button" ng-click="go('/initializing', 'slideLeft')">Initialize <b>KeepKey</b></a>
   </div>
 </div>

@@ -1,4 +1,4 @@
-var trove = angular.module( 'trove', ['ngRoute'])
+var trove = angular.module( 'trove', ['ngRoute', 'ngAnimate'])
 
 .config(['$routeProvider',function($routeProvider) {
     $routeProvider.
@@ -6,12 +6,20 @@ var trove = angular.module( 'trove', ['ngRoute'])
     contoller: 'HomeCtrl',
     templateUrl: 'app/home/home.tpl.html'
   }).
+  when('/initializing', {
+    contoller: 'InitializingCtrl',
+    templateUrl: 'app/initializing/initializing.tpl.html'
+  }).
+  when('/creating', {
+    contoller: 'CreatingCtrl',
+    templateUrl: 'app/creating/creating.tpl.html'
+  }).
   otherwise({
     redirectTo: '/'
   });
 }])
 
-.run(['$rootScope', '$location', function ($rootScope, $location, $window) {
+.run(['$rootScope', '$location', function ($rootScope, $location) {
 
     'use strict';
 
@@ -23,7 +31,7 @@ var trove = angular.module( 'trove', ['ngRoute'])
     $rootScope.go = function (path, pageAnimationClass) {
 
         if (typeof(pageAnimationClass) === 'undefined') { // Use a default, your choice
-            $rootScope.pageAnimationClass = 'slideLeft';
+            $rootScope.pageAnimationClass = '';
         } else { // Use the specified animation
             $rootScope.pageAnimationClass = pageAnimationClass;
         }
