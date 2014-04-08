@@ -2,7 +2,7 @@ var trove = angular.module( 'trove', ['ngRoute', 'ngAnimate'])
 
 .config(['$routeProvider',function($routeProvider) {
     $routeProvider.
-  when('/', {
+  when('/home', {
     contoller: 'HomeCtrl',
     templateUrl: 'app/home/home.tpl.html'
   }).
@@ -13,6 +13,14 @@ var trove = angular.module( 'trove', ['ngRoute', 'ngAnimate'])
   when('/creating', {
     contoller: 'CreatingCtrl',
     templateUrl: 'app/creating/creating.tpl.html'
+  }).
+  when('/', {
+    contoller: 'WalletListCtrl',
+    templateUrl: 'app/walletlist/walletlist.tpl.html'
+  }).
+  when('/wallet', {
+    contoller: 'WalletCtrl',
+    templateUrl: 'app/wallet/wallet.tpl.html'
   }).
   otherwise({
     redirectTo: '/'
