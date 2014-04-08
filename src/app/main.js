@@ -22,6 +22,10 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
     contoller: 'WalletCtrl',
     templateUrl: 'app/wallet/wallet.tpl.html'
   }).
+  when('/send', {
+    contoller: 'SendCtrl',
+    templateUrl: 'app/send/send.tpl.html'
+  }).
   otherwise({
     redirectTo: '/'
   });

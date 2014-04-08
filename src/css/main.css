@@ -65,15 +65,15 @@ header h1 {
 }
 
 .header-button {
-    position: absolute;
-    height: 30px;
-    width: 30px;
-    border-radius: 200px;
-    top: 10px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 30px;
-    transition: all 0.1s ease-in;
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  border-radius: 200px;
+  top: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 30px;
+  transition: all 0.1s ease-in;
 }
 
 .header-button:active {
@@ -131,7 +131,7 @@ header h1 {
   width: 100%;
 }
 
-.content p span.cornflower-txt {
+.content h2 span.cornflower-txt {
   color: #000;
   font-weight: 200;
 }
@@ -140,12 +140,14 @@ b {
   font-weight: 700;
 }
 
-.content p {
+.content h2 {
+  font-size: 12px;
+  font-weight: 200;
   max-width: 220px;
   margin: 0 auto;
   text-align: center;
   color: #BBBBBB;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .button {
@@ -155,24 +157,19 @@ b {
   border-radius: 200px;
   margin: 0 auto;
   cursor: pointer;
-}
-
-#init-btn {
   margin-top: 20px;
   width: 140px;
   background-color: #539582;
   color: #fff;
-}
-
-#init-btn {
+  text-decoration: none;
   transition: 0.2s all ease-in;
 }
 
-#init-btn:hover {
+.button:hover {
   background-color: #417465; 
 }
 
-#init-btn:active {
+.button:active {
   opacity: 0.2;
 }
 
@@ -222,12 +219,6 @@ b {
 #loader div:nth-child(3){top: 50%;-webkit-animation-delay: 0.5s;}
 #loader div:nth-child(2){top: 60%;-webkit-animation-delay: 0.6s;}
 #loader div:nth-child(1){top: 75%;-webkit-animation-delay: 0.45s;-webkit-animation-play-state:paused; }
-
-/* initialize page */
-
-#initialize p {
-  margin-top: 20px;
-}
 
 /* wallet list page */
 
@@ -459,4 +450,38 @@ footer .create-btn:hover {
   color: #2f5349;
   height: 18px;
   border-bottom: 1px solid #B8B8B8;
+}
+
+/* wallet functions */
+
+.wallet-function {
+  width: 280px;
+  margin: 0 auto;
+}
+
+.wallet-function-heading {
+  text-align: center;
+  border-bottom: 1px solid #EBEBEC;
+  padding: 0;
+}
+
+.wallet-function h2 {
+  font-size: 12px;
+  font-weight: 200;
+  margin: 5px 0 5px 0;
+}
+
+.wallet-function form {
+  margin-top: 10px;
+}
+
+.wallet-function label {
+  display: block;
+  margin-top: 5px;
+}
+
+.wallet-function input {
+  width: 100%;
+  height: 25px;
+  border: 1px solid #EBEBEC;
 }
