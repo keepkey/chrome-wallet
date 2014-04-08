@@ -1,4 +1,4 @@
-trove
+kkWallet
 
 // .filter('multiply', function () {
 //   return function (value) {

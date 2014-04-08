@@ -1,4 +1,4 @@
-var trove = angular.module( 'trove', ['ngRoute', 'ngAnimate'])
+var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
 
 .config(['$routeProvider',function($routeProvider) {
     $routeProvider.
