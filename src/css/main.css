@@ -3,13 +3,13 @@ body {
   font-family: Open Sans, sans-serif;
   font-size: 12px;
   line-height: 20px;
-  width: 320px;
+  width: 300px;
   height: 280px;
   margin: 0;
 }
 
 .view {
-  width: 320px;
+  width: 300px;
   position:absolute;
   top: 0;
   left: 0;
@@ -122,13 +122,14 @@ header h1 {
 #content-wrapper {
   position:relative;
   padding:1px;
-  height:167px;
+  height:227px;
   overflow:hidden;
 }
 
 .content {
   position: absolute;
   width: 100%;
+  top: 50%;
 }
 
 .content h2 span.cornflower-txt {
@@ -147,7 +148,6 @@ b {
   margin: 0 auto;
   text-align: center;
   color: #BBBBBB;
-  margin-top: 30px;
 }
 
 .button {
@@ -173,6 +173,22 @@ b {
   opacity: 0.2;
 }
 
+/* no device */
+#device {
+  margin: 20px auto;
+  width: 82px;
+  height: 53px;
+  background: url('../assets/img/device.png') 0 0 no-repeat;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) { 
+  #device{
+      background: url('../assets/img/device-highres.png') 0 0 no-repeat;
+      background-size: 82px 53px;
+  }
+}
+
 /* initializing animation */
 
 @-webkit-keyframes play {
@@ -182,6 +198,7 @@ b {
 #loader {
   margin:0 auto;
   margin-top:20px;
+  margin-bottom:35px;
   opacity: 0.2;
   height:60px;
   width:60px;
@@ -234,7 +251,7 @@ b {
 .wallet {
   height: 63px;
   padding: 1px;
-  width: 280px;
+  width: 260px;
   margin: 0 auto;
   transition: 0.3s all ease-in;
 }
@@ -455,7 +472,7 @@ footer .create-btn:hover {
 /* wallet functions */
 
 .wallet-function {
-  width: 280px;
+  width: 260px;
   margin: 0 auto;
 }
 
@@ -468,7 +485,12 @@ footer .create-btn:hover {
 .wallet-function h2 {
   font-size: 12px;
   font-weight: 200;
+  color: #BBBBBB;
   margin: 5px 0 5px 0;
+}
+
+.wallet-function h2 b {
+  color: #000
 }
 
 .wallet-function form {
@@ -476,6 +498,8 @@ footer .create-btn:hover {
 }
 
 .wallet-function label {
+  color: #BBBBBB;
+  font-style: italic;
   display: block;
   margin-top: 5px;
 }
@@ -484,4 +508,33 @@ footer .create-btn:hover {
   width: 100%;
   height: 25px;
   border: 1px solid #EBEBEC;
+}
+
+/* content page heights */
+
+#connect {
+  height: 132px;
+  margin-top: -66px;
+}
+
+#initialize {
+  height: 90px;
+  margin-top: -45px;
+}
+
+#initializing, #creating {
+  height: 186px;
+  margin-top: -93px;
+}
+
+#empty {
+  height: 40px;
+  margin-top: -20px;
+}
+
+ /* mockup */
+
+#mockup {
+  height: 260px;
+  border: 0;
 }

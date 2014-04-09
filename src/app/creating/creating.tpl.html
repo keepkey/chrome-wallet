@@ -1,13 +1,14 @@
 <header>
-  <a class="button-left header-button" id="back" ng-click="go('/', 'slideRight')"><div class="icon-back"></div></a>
+  <a class="button-left header-button" id="back" ng-click="go('/walletlist', 'slideRight')"><div class="icon-back"></div></a>
 </header>
 
 <div id="content-wrapper">
-  <div class="content">
-    <h2><span class="cornflower-txt"><b>Creating Bitcoin Wallet</b></span><br>
-    confirm creation on KeepKey...</h2>
+  <div class="content" id="creating">
+    <h2><span class="cornflower-txt"><b>Creating Bitcoin Wallet.</b></span><br>
+    Confirm creation on KeepKey.</h2>
     <div id="loader">
       <div></div><div></div><div></div><div></div><div></div><div class="second-top"></div><div class="top"></div>
     </div>
+    <a class="button" ng-click="go('/walletlist', 'slideRight')">Cancel</a>
   </div>
 </div>

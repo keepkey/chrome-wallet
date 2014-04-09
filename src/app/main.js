@@ -2,9 +2,18 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
 
 .config(['$routeProvider',function($routeProvider) {
     $routeProvider.
-  when('/home', {
-    contoller: 'HomeCtrl',
-    templateUrl: 'app/home/home.tpl.html'
+  when('/', {
+    templateUrl: 'app/mockup/mockup.tpl.html'
+  }).
+  when('/connect', {
+    templateUrl: 'app/connect/connect.tpl.html'
+  }).
+  when('/empty', {
+    templateUrl: 'app/empty/empty.tpl.html'
+  }).
+  when('/initialize', {
+    contoller: 'InitializeCtrl',
+    templateUrl: 'app/initialize/initialize.tpl.html'
   }).
   when('/initializing', {
     contoller: 'InitializingCtrl',
@@ -14,7 +23,7 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
     contoller: 'CreatingCtrl',
     templateUrl: 'app/creating/creating.tpl.html'
   }).
-  when('/', {
+  when('/walletlist', {
     contoller: 'WalletListCtrl',
     templateUrl: 'app/walletlist/walletlist.tpl.html'
   }).
