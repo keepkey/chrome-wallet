@@ -523,13 +523,22 @@ footer .create-btn:hover {
 }
 
 #initializing, #creating {
-  height: 186px;
-  margin-top: -93px;
+  height: 130px;
+  margin-top: -65px;
 }
 
 #empty {
   height: 40px;
   margin-top: -20px;
+}
+
+/* recieve page */
+
+#qr-address {
+  margin: 0 35px;
+  width: 175px;
+  height: 175px;
+  background: url('../assets/img/qr-address.png') 0 0 no-repeat;
 }
 
  /* mockup */

@@ -35,6 +35,14 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
     contoller: 'SendCtrl',
     templateUrl: 'app/send/send.tpl.html'
   }).
+  when('/receive', {
+    contoller: 'ReceiveCtrl',
+    templateUrl: 'app/receive/receive.tpl.html'
+  }).
+  when('/password', {
+    contoller: 'PasswordCtrl',
+    templateUrl: 'app/password/password.tpl.html'
+  }).
   otherwise({
     redirectTo: '/'
   });
