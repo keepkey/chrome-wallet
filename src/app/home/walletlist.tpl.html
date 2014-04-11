@@ -1,0 +1,36 @@
+<header>
+  <a class="button-left header-button" id="settings"><div class="icon-settings"></div></a>
+  <a class="button-right header-button" id="create" ng-click="go('/creating', 'slideLeft')"><div class="icon-create"></div></a>
+</header>
+
+<div class="wallets">
+  <div class="wallet" ng-click="go('/wallet', 'slideLeft')">
+      <div class="online">
+      </div>
+      <div class="details">
+        <h2 class="val">23.01 <span>mbtc</span></h2>
+        <h3 class="currency-val">($15,504)</h3>
+      </div>
+      <div class="go-side">
+        <div class="go-btn"><div class="icon-forward"></div></div>
+      </div>
+  </div>
+  <div class="wallet" ng-click="go('/wallet', 'slideLeft')">
+    <div class="online">
+    </div>
+    <div class="details">
+      <h2 class="val">6.405 <span>ltc</span></h2>
+      <h3 class="currency-val">($12,321)</h3>
+    </div>
+    <!-- <div class="go-side notification"> -->
+    <div class="go-side">
+      <div class="go-btn"><div class="icon-forward"></div></div>
+      <!-- <div class="notice">Pay 43.5 mtbc</div> -->
+    </div>
+  </div>
+</div>
+
+<footer>
+    <div class="connection-status"><b>1 KeepKey</b> connected</div>
+    <a class="create-btn" ng-click="go('/creating', 'slideLeft')">Create a New Wallet</a>
+</footer>
