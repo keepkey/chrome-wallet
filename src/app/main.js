@@ -1,51 +1,38 @@
 var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
 
 .config(['$routeProvider',function($routeProvider) {
-    $routeProvider.
-  when('/', {
-    templateUrl: 'app/mockup/mockup.tpl.html'
-  }).
-  when('/connect', {
-    templateUrl: 'app/connect/connect.tpl.html'
-  }).
-  when('/empty', {
-    templateUrl: 'app/empty/empty.tpl.html'
-  }).
-  when('/initialize', {
-    contoller: 'InitializeCtrl',
-    templateUrl: 'app/initialize/initialize.tpl.html'
-  }).
-  when('/initializing', {
-    contoller: 'InitializingCtrl',
-    templateUrl: 'app/initializing/initializing.tpl.html'
-  }).
-  when('/creating', {
-    contoller: 'CreatingCtrl',
-    templateUrl: 'app/creating/creating.tpl.html'
-  }).
-  when('/walletlist', {
-    contoller: 'WalletListCtrl',
-    templateUrl: 'app/walletlist/walletlist.tpl.html'
-  }).
-  when('/wallet', {
-    contoller: 'WalletCtrl',
-    templateUrl: 'app/wallet/wallet.tpl.html'
-  }).
-  when('/send', {
-    contoller: 'SendCtrl',
-    templateUrl: 'app/send/send.tpl.html'
-  }).
-  when('/receive', {
-    contoller: 'ReceiveCtrl',
-    templateUrl: 'app/receive/receive.tpl.html'
-  }).
-  when('/password', {
-    contoller: 'PasswordCtrl',
-    templateUrl: 'app/password/password.tpl.html'
-  }).
-  otherwise({
-    redirectTo: '/'
-  });
+  $routeProvider.
+    when('/', {
+      controller: 'HomeCtrl',
+      templateUrl: 'app/home/home.tpl.html'
+    }).
+    when('/initialize', {
+      controller: 'InitializeCtrl',
+      templateUrl: 'app/initialize/initialize.tpl.html'
+    }).
+    when('/initializing', {
+      controller: 'InitializingCtrl',
+      templateUrl: 'app/initializing/initializing.tpl.html'
+    }).
+    when('/creating', {
+      controller: 'CreatingCtrl',
+      templateUrl: 'app/creating/creating.tpl.html'
+    }).
+    when('/send', {
+      controller: 'SendCtrl',
+      templateUrl: 'app/send/send.tpl.html'
+    }).
+    when('/receive', {
+      controller: 'ReceiveCtrl',
+      templateUrl: 'app/receive/receive.tpl.html'
+    }).
+    when('/password', {
+      controller: 'PasswordCtrl',
+      templateUrl: 'app/password/password.tpl.html'
+    }).
+    otherwise({
+      redirectTo: '/'
+    });
 }])
 
 .run(['$rootScope', '$location', function ($rootScope, $location) {
