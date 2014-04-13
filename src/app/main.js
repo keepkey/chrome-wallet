@@ -1,38 +1,48 @@
 var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
 
+// define keepkey status constants
+.constant('KEEPKEY_DISCONNECTED', -1)
+.constant('KEEPKEY_UNINITIALIZED', 0)
+.constant('KEEPKEY_READY', 1)
+
 .config(['$routeProvider',function($routeProvider) {
   $routeProvider.
-    when('/', {
-      controller: 'HomeCtrl',
-      templateUrl: 'app/home/home.tpl.html'
-    }).
-    when('/initialize', {
-      controller: 'InitializeCtrl',
-      templateUrl: 'app/initialize/initialize.tpl.html'
-    }).
-    when('/initializing', {
-      controller: 'InitializingCtrl',
-      templateUrl: 'app/initializing/initializing.tpl.html'
-    }).
-    when('/creating', {
-      controller: 'CreatingCtrl',
-      templateUrl: 'app/creating/creating.tpl.html'
-    }).
-    when('/send', {
-      controller: 'SendCtrl',
-      templateUrl: 'app/send/send.tpl.html'
-    }).
-    when('/receive', {
-      controller: 'ReceiveCtrl',
-      templateUrl: 'app/receive/receive.tpl.html'
-    }).
-    when('/password', {
-      controller: 'PasswordCtrl',
-      templateUrl: 'app/password/password.tpl.html'
-    }).
-    otherwise({
-      redirectTo: '/'
-    });
+  when('/disconnected', {
+    templateUrl: 'app/disconnected/disconnected.tpl.html'
+  }).
+  when('/wallets', {
+    templateUrl: 'app/wallets/wallets.tpl.html'
+  }).
+  when('/wallet/:walletId', {
+    templateUrl: 'app/wallet/wallet.tpl.html'
+  }).
+  when('/initialize', {
+    contoller: 'InitializeCtrl',
+    templateUrl: 'app/initialize/initialize.tpl.html'
+  }).
+  when('/initializing', {
+    contoller: 'InitializingCtrl',
+    templateUrl: 'app/initializing/initializing.tpl.html'
+  }).
+  when('/creating', {
+    contoller: 'CreatingCtrl',
+    templateUrl: 'app/creating/creating.tpl.html'
+  }).
+  when('/send', {
+    contoller: 'SendCtrl',
+    templateUrl: 'app/send/send.tpl.html'
+  }).
+  when('/receive', {
+    contoller: 'ReceiveCtrl',
+    templateUrl: 'app/receive/receive.tpl.html'
+  }).
+  when('/password', {
+    contoller: 'PasswordCtrl',
+    templateUrl: 'app/password/password.tpl.html'
+  }).
+  otherwise({
+    redirectTo: '/'
+  });
 }])
 
 .run(['$rootScope', '$location', function ($rootScope, $location) {
@@ -54,6 +64,10 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
 
         $location.path(path);
     };
+}])
+
+.controller('KKWalletCtrl', ['$scope', '$location', function($scope, $location){
+  $location.path('/wallets');
 }])
 
 ;
