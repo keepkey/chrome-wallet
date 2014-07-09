@@ -17,7 +17,11 @@
     <!-- <li><a class="button notification" href="#">Pay 43.6 mbtc</a></li> -->
     <li><a class="button" ng-click="go('/send', 'slideLeft')">Send Money</a></li>
     <li><a class="button" ng-click="go('/receive', 'slideLeft')">Receive Money</a></li>
-    <li><a class="button" ng-click="go('/password', 'slideLeft')">Set Password</a></li>
     <li><a class="button">Transaction History</a></li>
   </ul>
 </div>
+
+<footer>
+    <div class="connection-status"><b>KeepKey</b> connected</div>
+    <a class="create-btn" ng-click="go('/creating', 'slideLeft')">Create a New Wallet</a>
+</footer>

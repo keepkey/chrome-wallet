@@ -1,20 +1,15 @@
 var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
 
-// define keepkey status constants
-.constant('KEEPKEY_DISCONNECTED', -1)
-.constant('KEEPKEY_UNINITIALIZED', 0)
-.constant('KEEPKEY_READY', 1)
-
 .config(['$routeProvider',function($routeProvider) {
-  $routeProvider.
-  when('/disconnected', {
-    templateUrl: 'app/disconnected/disconnected.tpl.html'
+    $routeProvider.
+  when('/', {
+    templateUrl: 'app/mockup/mockup.tpl.html'
   }).
-  when('/wallets', {
-    templateUrl: 'app/wallets/wallets.tpl.html'
+  when('/connect', {
+    templateUrl: 'app/connect/connect.tpl.html'
   }).
-  when('/wallet/:walletId', {
-    templateUrl: 'app/wallet/wallet.tpl.html'
+  when('/empty', {
+    templateUrl: 'app/empty/empty.tpl.html'
   }).
   when('/initialize', {
     contoller: 'InitializeCtrl',
@@ -27,6 +22,14 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
   when('/creating', {
     contoller: 'CreatingCtrl',
     templateUrl: 'app/creating/creating.tpl.html'
+  }).
+  when('/walletlist', {
+    contoller: 'WalletListCtrl',
+    templateUrl: 'app/walletlist/walletlist.tpl.html'
+  }).
+  when('/wallet', {
+    contoller: 'WalletCtrl',
+    templateUrl: 'app/wallet/wallet.tpl.html'
   }).
   when('/send', {
     contoller: 'SendCtrl',
@@ -64,10 +67,6 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
 
         $location.path(path);
     };
-}])
-
-.controller('KKWalletCtrl', ['$scope', '$location', function($scope, $location){
-  $location.path('/wallets');
 }])
 
 ;
