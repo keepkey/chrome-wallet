@@ -522,7 +522,12 @@ footer .create-btn:hover {
   margin-top: -45px;
 }
 
-#initializing, #creating {
+#initializing {
+  height: 130px;
+  margin-top: -95px;
+}
+
+#creating, #syncing {
   height: 130px;
   margin-top: -65px;
 }

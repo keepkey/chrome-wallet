@@ -43,6 +43,14 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
     contoller: 'PasswordCtrl',
     templateUrl: 'app/password/password.tpl.html'
   }).
+  when('/label', {
+    contoller: 'LabelCtrl',
+    templateUrl: 'app/label/label.tpl.html'
+  }).
+  when('/syncing', {
+    contoller: 'SyncingCtrl',
+    templateUrl: 'app/syncing/syncing.tpl.html'
+  }).
   otherwise({
     redirectTo: '/'
   });

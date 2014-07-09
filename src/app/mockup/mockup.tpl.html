@@ -1,7 +1,8 @@
 <div class="wallet-menu" id="mockup">
   <ul>
-    <li><a class="button" ng-click="go('/connect')">No KeepKey Present &amp; No Cached Wallets</a></li>
-    <li><a class="button" ng-click="go('/initialize')">KeepKey Present But Not Initialized</a></li>
+    <li><a class="button" ng-click="go('/connect')">Default State</a></li>
+    <li><a class="button" ng-click="go('/initialize')">Uninitialized State</a></li>
+    <li><a class="button" ng-click="go('/syncing')">Syncing State</a></li>
     <li><a class="button" ng-click="go('/empty')">KeepKey Present But No Wallets</a></li>
     <li><a class="button" ng-click="go('/wallet')">KeepKey Present &amp; 1 Wallet</a></li>
     <li><a class="button" ng-click="go('/walletlist')">KeepKey Present &amp; 1+ Wallet</a></li>
