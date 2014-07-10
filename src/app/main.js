@@ -8,9 +8,6 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
   when('/connect', {
     templateUrl: 'app/connect/connect.tpl.html'
   }).
-  when('/empty', {
-    templateUrl: 'app/empty/empty.tpl.html'
-  }).
   when('/initialize', {
     contoller: 'InitializeCtrl',
     templateUrl: 'app/initialize/initialize.tpl.html'

@@ -260,7 +260,7 @@ b {
   border-bottom:none;
 }*/
 
-.wallet .online, .wallet .offline {
+.wallet .connection-light {
   width: 9px;;
   border-radius: 999px;
   margin: 20px 10px 33px 0;
@@ -268,11 +268,11 @@ b {
   height: 9px;
 }
 
-.wallet .online {
+.online .connection-light {
   background-color: #8FDA61;
 }  
 
-.wallet .offline {
+.offline .connection-light {
   background-color: #cccccc;
 }
 
@@ -360,6 +360,14 @@ b {
   color: #d26464;
 }
 
+.offline .go-btn {
+  border: 1px solid #cccccc;
+}
+
+.offline .go-btn div {
+  color: #cccccc;
+}
+
 .notification .go-btn {
   border: 1px solid #d26464;
   margin-top: 11px;
@@ -374,6 +382,15 @@ b {
 .wallet:hover .go-btn {
   background-color: #8DDA61;
   color: #fff;
+}
+
+.offline:hover .go-btn {
+  background-color: #cccccc;
+  color: #fff;
+}
+
+.wallets .offline:hover .go-btn div {
+  color: #ffffff;
 }
 
 .wallets .wallet:hover .notification .go-btn {
