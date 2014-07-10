@@ -512,12 +512,12 @@ footer .create-btn:hover {
 }
 
 div.error input {
-  border-color: red;
+  border-color: #d26464;
 }
 
 div.error span {
   float: right;
-  color: red;
+  color: #d26464;
   font-style: italic;
   margin-top: 5px;
 }
