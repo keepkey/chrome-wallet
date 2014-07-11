@@ -72,6 +72,10 @@ var kkWallet = angular.module( 'kkWallet', ['ngRoute', 'ngAnimate'])
 
         $location.path(path);
     };
+
+    $rootScope.keepkey = function () {
+        chrome.tabs.create({url: "src/keepkey.html#options"});
+    };
 }])
 
 ;

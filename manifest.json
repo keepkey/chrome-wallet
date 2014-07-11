@@ -3,6 +3,7 @@
   "description": "Complete cryptocurrency intigration with Chrome.",
   "version": "0.0.1",
   "manifest_version": 2,
+  "options_page": "src/keepkey.html#options",
   "browser_action": {
     "default_icon": "src/assets/icons/128x128.png",
     "default_title": "KeepKey Wallet",
