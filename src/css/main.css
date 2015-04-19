@@ -1,6 +1,6 @@
 body {
   cursor: default;
-  font-family: Open Sans, sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 12px;
   line-height: 20px;
   width: 300px;
@@ -29,7 +29,6 @@ header {
 
 header h1 {
   margin: 0 auto;
-  font-family: Roboto, sans-serif;
   font-size: 22px;
   text-align: center;
   font-weight: normal;
@@ -81,11 +80,11 @@ header h1 {
 }
 
 .button-left {
-    background-color: #496B89;
+    background-color: #6d6e71;
     left: 10px;
 }
 .button-right {
-    background-color: #549482;
+    background-color: #6d6e71;
     right: 10px;
 }
 
@@ -110,11 +109,11 @@ header h1 {
 }
 
 .header-button.button-left:hover {
-  background-color: #375168;
+  background-color: #404041;
 }
 
 .header-button.button-right:hover {
-  background-color: #427365;
+  background-color: #404041;
 }
 
 /* main content */
@@ -147,7 +146,7 @@ b {
   max-width: 220px;
   margin: 0 auto;
   text-align: center;
-  color: #BBBBBB;
+  color: #999999;
 }
 
 .button {
@@ -159,14 +158,14 @@ b {
   cursor: pointer;
   margin-top: 20px;
   width: 140px;
-  background-color: #539582;
+  background-color: #9FAE00;
   color: #fff;
   text-decoration: none;
   transition: 0.2s all ease-in;
 }
 
 .button:hover {
-  background-color: #417465; 
+  background-color: #7A8500; 
 }
 
 .button:active {
@@ -269,7 +268,7 @@ b {
 }
 
 .online .connection-light {
-  background-color: #8FDA61;
+  background-color: #C4D600;
 }  
 
 .offline .connection-light {
@@ -288,8 +287,8 @@ b {
 }
 
 .wallet .val {
+  font-family: 'Open Sans', sans-serif;
   margin-top: 14px;
-  font-family: Roboto, sans-serif;
   font-size: 26px;
   font-weight: 300;
   margin-bottom: 1px;
@@ -297,19 +296,18 @@ b {
 }
 
 .wallet .val span {
-  font-family: Montserrat, sans-serif;
   font-size: 11px;
   margin-left: 0px;
 }
 
 .wallet .currency-val {
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
-  font-family: Roboto, sans-serif;
   color: #bbbbbb;
   font-size: 11px;
   letter-spacing: 1.3px;
   font-weight: 300;
-
+  margin-top: -4px;
 }
 
 .wallet h2.val {
@@ -334,11 +332,11 @@ b {
 
 .go-btn {
   position: relative;
-  color: #8EDA61;
+  color: #C4D600;
   cursor: pointer;
   width: 24px;
   height: 24px;
-  border: 1px solid #8FDA61;
+  border: 1px solid #C4D600;
   border-radius: 63px;
   margin-top: 17px;
   transition: all 0.3s ease-in-out;
@@ -349,7 +347,7 @@ b {
   height: 18px;
   font-size: 16px;
   text-align: center;
-  top: 50%;
+  top: 55%;
   left: 50%;
   margin-left: -8px;
   margin-top: -8px;
@@ -357,6 +355,7 @@ b {
 }
 
 .notification .go-btn div, .notification .notice {
+  font-family: 'Open Sans', sans-serif;
   color: #d26464;
 }
 
@@ -380,7 +379,7 @@ b {
 }
 
 .wallet:hover .go-btn {
-  background-color: #8DDA61;
+  background-color: #C4D600;
   color: #fff;
 }
 
@@ -422,7 +421,7 @@ b {
   width: 270px;
   height: 20px;
   padding: 2px 2px 2px 2px;
-  color: #539582;
+  color: #9FAE00;
   text-decoration: none;
   border: 1px solid #ECECED;
   background: #ffffff;
@@ -430,14 +429,18 @@ b {
   transition: 0.2s all ease-in;
 }
 
+.wallet-menu .button.offline {
+  color: #ECECED;
+}
+
 .wallet-menu .button.notification {
   color: #d26464;
 }
 
 .wallet-menu .button:hover {
-  background-color: #539582;
+  background-color: #9FAE00;
   color: #fff;
-  border: 1px solid #539582;
+  border: 1px solid #9FAE00;
 }
 
 .wallet-menu .button.notification:hover {
@@ -470,7 +473,7 @@ footer .connection-status {
 
 footer .create-btn {
   margin:8px 10px;
-  color:#539582;
+  color:#9FAE00;
   font-size:11px;
   font-weight:500;
   -webkit-text-stroke:1px rgba(184,184,188,0.1);
@@ -481,7 +484,7 @@ footer .create-btn {
 }
 
 footer .create-btn:hover {
-  color: #2f5349;
+  color: #7A8500;
   height: 18px;
   border-bottom: 1px solid #B8B8B8;
 }
@@ -502,7 +505,7 @@ footer .create-btn:hover {
 .wallet-function h2 {
   font-size: 12px;
   font-weight: 200;
-  color: #BBBBBB;
+  color: #999999;
   margin: 5px 0 5px 0;
 }
 
@@ -515,7 +518,7 @@ footer .create-btn:hover {
 }
 
 .wallet-function label {
-  color: #BBBBBB;
+  color: #999999;
   font-style: italic;
   display: block;
   margin-top: 5px;
@@ -577,10 +580,16 @@ div.error label {
 /* recieve page */
 
 #qr-address {
-  margin: 0 35px;
-  width: 175px;
-  height: 175px;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
   background: url('../assets/img/qr-address.png') 0 0 no-repeat;
+}
+
+#address {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  margin-top: 10px;
 }
 
  /* mockup */
@@ -588,4 +597,31 @@ div.error label {
 #mockup {
   height: 260px;
   border: 0;
+}
+
+/*  pin */
+
+.pin-row  {
+  margin: 0 auto;
+  width: 115px;
+}
+
+.button.pin {
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 0px;
+  display: inline-block;
+  width: 30px;
+  margin-top: 3px;
+  padding: 3px;
+  background-color: #96979b;
+}
+
+.button.pin:hover {
+  background-color: #6d6e71; 
+}
+
+.pin-view {
+  margin: 20px 0 -20px 0;
+  font-size: 40px;
+  text-align: center;
 }
