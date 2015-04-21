@@ -1,7 +1,7 @@
 {
-  "name": "KeepKey Wallet",
-  "description": "Complete cryptocurrency intigration with Chrome.",
-  "version": "0.0.1",
+  "name": "KeepKey Wallet (Test)",
+  "description": "Complete cryptocurrency integration with Chrome.",
+  "version": "0.0.3",
   "manifest_version": 2,
   "options_page": "src/keepkey.html#options",
   "browser_action": {
@@ -10,8 +10,8 @@
     "default_popup": "src/popup.html"
   },
   "icons": {
-     "16": "src/assets/icons/16x16.png",
-     "48": "src/assets/icons/48x48.png",
-     "128": "src/assets/icons/128x128.png"
+    "16": "src/assets/icons/16x16.png",
+    "48": "src/assets/icons/48x48.png",
+    "128": "src/assets/icons/128x128.png"
   }
 }
