@@ -61,11 +61,11 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
                 });
         }])
 
-        .run(['$rootScope', '$location', function ($rootScope, $location) {
+        .run(['$rootScope', '$location', 'environmentConfig', function ($rootScope, $location, environmentConfig) {
 
             'use strict';
 
-            var keepKeyProxyId = "ijpagkpmefhldobnknedpbknjhinagpf";
+            var keepKeyProxyId = environmentConfig.keepkeyProxy.applicationId;
 
             $rootScope.go = function (path, pageAnimationClass) {
 

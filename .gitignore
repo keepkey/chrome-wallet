@@ -1,6 +1,7 @@
 node_modules
 vendor
 dist
+generatedJs
 dist.crx
 dist.pem
 *.zip

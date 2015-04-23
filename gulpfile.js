@@ -13,6 +13,10 @@ var minifyHTML = require('gulp-minify-html');
 var zip = require('gulp-zip');
 var jsonminify = require('gulp-jsonminify');
 var minifyCss = require('gulp-minify-css');
+var args = require('yargs').argv;
+var yaml = require('gulp-yaml');
+var rename = require('gulp-rename');
+var ngConstant = require('gulp-ng-constant');
 
 // Settings
 var vendorJavascriptFiles = [
@@ -22,17 +26,31 @@ var vendorJavascriptFiles = [
 ];
 var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
 
+
 // Default task
 gulp.task('default', function () {
     // place code for your default task here
 });
 
 gulp.task('clean', function (cb) {
-    del(['dist'], cb);
+    del(['dist', 'generatedJs'], cb);
 });
 
 gulp.task('build', ['vendorScriptsProduction', 'appScriptsProduction', 'cssProduction', 'assetsProduction',
-    'htmlProduction', 'manifestProduction', 'zip']);
+    'htmlProduction', 'manifestProduction', 'buildConfig', 'zip']);
+
+gulp.task('buildConfig', function () {
+    var envConfig = require('./config/' + (args.environment || 'local') + '.json');
+    return ngConstant({
+        name: 'kkWallet',
+        constants: {environmentConfig: envConfig},
+        stream: true,
+        deps: false
+    })
+        .pipe(gulp.dest('generatedJs'));
+
+
+});
 
 gulp.task('vendorScriptsProduction', function () {
     return gulp.src(vendorJavascriptFiles)
@@ -49,24 +67,24 @@ gulp.task('htmlProduction', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('zip', function() {
+gulp.task('zip', ['vendorScriptsProduction', 'appScriptsProduction', 'cssProduction', 'assetsProduction',
+    'htmlProduction', 'manifestProduction', 'buildConfig'], function () {
     return gulp.src('dist/**/*')
         .pipe(zip('keepkey-wallet-test.zip'))
         .pipe(gulp.dest('.'));
 });
 
-gulp.task('appScriptsProduction', function () {
+gulp.task('appScriptsProduction', ['buildConfig'], function () {
     return merge2(
-        gulp.src('src/app/**/*.js')
-            .pipe(concat('tmpsrc.min.js'))
-            .pipe(uglify()),
+        gulp.src(['src/app/**/*.js', 'generatedJs/constants.js'])
+            .pipe(concat('tmpsrc.min.js')),
+            //.pipe(uglify()),
         gulp.src('src/app/**/*.tpl.html')
             .pipe(minifyHTML())
             .pipe(templateCache({
                 root: 'app/',
                 module: 'kkWallet'
             }))
-
     )
         .pipe(concat('main.js'))
         .pipe(gulp.dest('dist'));
