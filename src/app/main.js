@@ -3,7 +3,7 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
         .config(['$routeProvider', function ($routeProvider) {
             $routeProvider
                 .when('/', {
-                    templateUrl: 'app/mockup/mockup.tpl.html'
+                    templateUrl: 'app/connect/connect.tpl.html'
                 })
                 .when('/connect', {
                     templateUrl: 'app/connect/connect.tpl.html'
@@ -65,12 +65,11 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
 
             'use strict';
 
-            /**
-             * Helper method for main page transitions. Useful for specifying a new page partial and an arbitrary transition.
-             * @param  {String} path               The root-relative url for the new route
-             * @param  {String} pageAnimationClass A classname defining the desired page transition
-             */
+            var keepKeyProxyId = "ijpagkpmefhldobnknedpbknjhinagpf";
+
             $rootScope.go = function (path, pageAnimationClass) {
+
+                console.log('navigating to %s', path);
 
                 if (typeof(pageAnimationClass) === 'undefined') { // Use a default, your choice
                     $rootScope.pageAnimationClass = '';
@@ -78,8 +77,10 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
                     $rootScope.pageAnimationClass = pageAnimationClass;
                 }
 
+
                 $location.path(path);
-            };
+                $rootScope.$digest();
+            }
 
             $rootScope.keepkey = function () {
                 var optionsUrl = chrome.extension.getURL("src/keepkey.html");
@@ -92,4 +93,40 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
                     }
                 });
             };
-        }]);
+
+            chrome.runtime.onMessageExternal.addListener(
+                function (request, sender, sendResponse) {
+                    console.log("External message:", request.messageType)
+                    if (sender.id === keepKeyProxyId) {
+                        switch (request.messageType) {
+                            case 'connected':
+                                $rootScope.go('/initialize');
+                                break;
+                            case 'disconnected':
+                                $rootScope.go('/connect');
+                                break;
+                        }
+                    } else {
+                        sendResponse({
+                            messageType: "Error",
+                            result: "Unknown sender " + sender.id + ", message rejected"
+                        });
+                    }
+                }
+            );
+
+            chrome.runtime.sendMessage(
+                keepKeyProxyId, { messageType: "deviceReady" },
+                function (response) {
+                    console.log('got response:', response);
+                    if (response.result) {
+                        $rootScope.go('/initialize');
+                    } else {
+                        $rootScope.go('/connect');
+                    }
+                }
+            );
+
+
+        }])
+    ;
