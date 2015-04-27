@@ -1,72 +1,114 @@
 var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
 
-        .config(['$routeProvider', function ($routeProvider) {
-            $routeProvider
-                .when('/', {
-                    templateUrl: 'app/connect/connect.tpl.html'
-                })
-                .when('/connect', {
-                    templateUrl: 'app/connect/connect.tpl.html'
-                })
-                .when('/initialize', {
-                    contoller: 'InitializeCtrl',
-                    templateUrl: 'app/initialize/initialize.tpl.html'
-                })
-                .when('/initializing', {
-                    contoller: 'InitializingCtrl',
-                    templateUrl: 'app/initializing/initializing.tpl.html'
-                })
-                .when('/creating', {
-                    contoller: 'CreatingCtrl',
-                    templateUrl: 'app/creating/creating.tpl.html'
-                })
-                .when('/walletlist', {
-                    contoller: 'WalletListCtrl',
-                    templateUrl: 'app/walletlist/walletlist.tpl.html'
-                })
-                .when('/wallet', {
-                    contoller: 'WalletCtrl',
-                    templateUrl: 'app/wallet/wallet.tpl.html'
-                })
-                .when('/send', {
-                    contoller: 'SendCtrl',
-                    templateUrl: 'app/send/send.tpl.html'
-                })
-                .when('/sending', {
-                    contoller: 'SendingCtrl',
-                    templateUrl: 'app/sending/sending.tpl.html'
-                })
-                .when('/receive', {
-                    contoller: 'ReceiveCtrl',
-                    templateUrl: 'app/receive/receive.tpl.html'
-                })
-                .when('/pin', {
-                    contoller: 'PinCtrl',
-                    templateUrl: 'app/pin/pin.tpl.html'
-                })
-                .when('/passphrase', {
-                    contoller: 'PassphraseCtrl',
-                    templateUrl: 'app/passphrase/passphrase.tpl.html'
-                })
-                .when('/label', {
-                    contoller: 'LabelCtrl',
-                    templateUrl: 'app/label/label.tpl.html'
-                })
-                .when('/syncing', {
-                    contoller: 'SyncingCtrl',
-                    templateUrl: 'app/syncing/syncing.tpl.html'
-                })
-                .otherwise({
-                    redirectTo: '/'
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'app/connect/connect.tpl.html'
+            })
+            .when('/connect', {
+                templateUrl: 'app/connect/connect.tpl.html'
+            })
+            .when('/initialize', {
+                contoller: 'InitializeCtrl',
+                templateUrl: 'app/initialize/initialize.tpl.html'
+            })
+            .when('/initializing', {
+                contoller: 'InitializingCtrl',
+                templateUrl: 'app/initializing/initializing.tpl.html'
+            })
+            .when('/creating', {
+                contoller: 'CreatingCtrl',
+                templateUrl: 'app/creating/creating.tpl.html'
+            })
+            .when('/walletlist', {
+                contoller: 'WalletListCtrl',
+                templateUrl: 'app/walletlist/walletlist.tpl.html'
+            })
+            .when('/wallet', {
+                contoller: 'WalletCtrl',
+                templateUrl: 'app/wallet/wallet.tpl.html'
+            })
+            .when('/send', {
+                contoller: 'SendCtrl',
+                templateUrl: 'app/send/send.tpl.html'
+            })
+            .when('/sending', {
+                contoller: 'SendingCtrl',
+                templateUrl: 'app/sending/sending.tpl.html'
+            })
+            .when('/receive', {
+                contoller: 'ReceiveCtrl',
+                templateUrl: 'app/receive/receive.tpl.html'
+            })
+            .when('/pin', {
+                contoller: 'PinCtrl',
+                templateUrl: 'app/pin/pin.tpl.html'
+            })
+            .when('/passphrase', {
+                contoller: 'PassphraseCtrl',
+                templateUrl: 'app/passphrase/passphrase.tpl.html'
+            })
+            .when('/label', {
+                contoller: 'LabelCtrl',
+                templateUrl: 'app/label/label.tpl.html'
+            })
+            .when('/syncing', {
+                contoller: 'SyncingCtrl',
+                templateUrl: 'app/syncing/syncing.tpl.html'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    }])
+
+    .run(['$rootScope', '$location', '$q', 'environmentConfig', function ($rootScope, $location, $q, environmentConfig) {
+
+        'use strict';
+
+        var keepKeyProxyId = environmentConfig.keepkeyProxy.applicationId;
+
+        function getExtensionList() {
+            var deferred = $q.defer();
+
+            chrome.management.getAll(function(extensions) {
+               deferred.resolve(extensions);
+            });
+
+            return deferred.promise;
+        }
+
+        function proxyApplicationInstalled(extensions) {
+            var deferred = $q.defer();
+
+            setTimeout(function() {
+                var extFound = false;
+                extensions.forEach(function (ext) {
+                    if (ext.id === keepKeyProxyId) {
+                        if (ext.enabled) {
+                            chrome.management.launchApp(ext.id);
+                        }
+                        else {
+                            chrome.management.setEnabled(ext.id, true, function () {
+                                chrome.management.launchApp(ext.id);
+                            });
+                        }
+                        deferred.resolve(ext);
+                        extFound = true;
+                    }
                 });
-        }])
+                if (!extFound)
+                    deferred.reject();
+            }, 0);
 
-        .run(['$rootScope', '$location', 'environmentConfig', function ($rootScope, $location, environmentConfig) {
+            return deferred.promise;
+        }
 
-            'use strict';
+        function loadProxyDownloadPage() {
+            var keepKeyProxyUrl = "https://chrome.google.com/webstore/detail/" + keepKeyProxyId;
+            chrome.tabs.create({url: keepKeyProxyUrl});
+        }
 
-            var keepKeyProxyId = environmentConfig.keepkeyProxy.applicationId;
-
+        function runWallet() {
             $rootScope.go = function (path, pageAnimationClass) {
 
                 console.log('navigating to %s', path);
@@ -105,6 +147,13 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
                             case 'disconnected':
                                 $rootScope.go('/connect');
                                 break;
+                            case 'ping':
+                                break;
+                            default:
+                                sendResponse({
+                                    messageType: "Error",
+                                    result: "Unknown messageType " + request.messageType + ", message rejected"
+                                });
                         }
                     } else {
                         sendResponse({
@@ -116,7 +165,7 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
             );
 
             chrome.runtime.sendMessage(
-                keepKeyProxyId, { messageType: "deviceReady" },
+                keepKeyProxyId, {messageType: "deviceReady"},
                 function (response) {
                     console.log('got response:', response);
                     if (response.result) {
@@ -126,7 +175,10 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
                     }
                 }
             );
+        }
 
+        getExtensionList()
+            .then(proxyApplicationInstalled)
+            .then(runWallet, loadProxyDownloadPage);
+    }]);
 
-        }])
-    ;

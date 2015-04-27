@@ -33,9 +33,8 @@ __Bold__ indicates steps that are different from the Dev mode procedure
 
 ##Uploading the test application to the Chrome Webstore
 1. Bump the version number of the package (```gulp bumpPatch```).
-2. ```gulp build```.
-3. Goto the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard). _Note: The
-test application is currently uploaded through Ken's account._
+2. ```gulp build --environment test```.
+3. Goto the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard).
 4. Click _edit_ for the _KeepKey Wallet (Test)_ application.
 5. Click _upload updated package_.
 6. Select ```keepkey-wallet-test.zip``` from the root of the project for upload.

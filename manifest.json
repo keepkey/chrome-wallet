@@ -13,5 +13,11 @@
     "16": "src/assets/icons/16x16.png",
     "48": "src/assets/icons/48x48.png",
     "128": "src/assets/icons/128x128.png"
+  },
+  "permissions": [
+    "management"
+  ],
+  "background": {
+    "scripts": ["src/background.js"]
   }
 }

@@ -33,10 +33,10 @@ gulp.task('default', function () {
 });
 
 gulp.task('clean', function (cb) {
-    del(['dist', 'generatedJs'], cb);
+    del(['dist', 'generatedJs', '*.zip'], cb);
 });
 
-gulp.task('build', ['vendorScriptsProduction', 'appScriptsProduction', 'cssProduction', 'assetsProduction',
+gulp.task('build', ['vendorScriptsProduction', 'appScriptsProduction', 'backgroundScript', 'cssProduction', 'assetsProduction',
     'htmlProduction', 'manifestProduction', 'buildConfig', 'zip']);
 
 gulp.task('buildConfig', function () {
@@ -55,6 +55,11 @@ gulp.task('buildConfig', function () {
 gulp.task('vendorScriptsProduction', function () {
     return gulp.src(vendorJavascriptFiles)
         .pipe(concat('vendor-scripts.min.js'))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('backgroundScript', function() {
+    return gulp.src(['src/background.js'])
         .pipe(gulp.dest('dist'));
 });
 
@@ -110,6 +115,7 @@ gulp.task('manifestProduction', function () {
             json.icons["16"] = json.icons["16"].replace('src/', '');
             json.icons["48"] = json.icons["48"].replace('src/', '');
             json.icons["128"] = json.icons["128"].replace('src/', '');
+            json.background.scripts[0] = json.background.scripts[0].replace('src/', '');
 
             return json;
         }))
@@ -139,4 +145,8 @@ gulp.task('bundleTemplates', function () {
     gulp.src('src/app/**/*.tpl.html')
         .pipe(templateCache())
         .pipe(gulp.dest('public'));
+});
+
+gulp.task('watch', function() {
+    return gulp.watch(['src/**/*', 'gulpfile.js', 'package.json', 'bower.json', 'manifest.json', 'config'], ['build']);
 });
