@@ -1,9 +1,5 @@
 var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
 
-    .factory('chrome', ['$window', function (window) {
-        return window.chrome;
-    }])
-
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', {
@@ -53,7 +49,7 @@ var kkWallet = angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
             });
     }])
 
-    .run(['$rootScope', '$location', '$q', 'environmentConfig', 'DeviceBridge', 'chrome',
+    .run(['$rootScope', '$location', '$q', 'environmentConfig', 'DeviceBridgeService', 'chrome',
         function ($rootScope, $location, $q, environmentConfig, deviceBridge, chrome) {
             var keepKeyProxyId = environmentConfig.keepkeyProxy.applicationId;
 

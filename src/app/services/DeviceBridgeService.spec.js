@@ -1,10 +1,10 @@
-//require('DeviceBridge.js');
+//require('DeviceBridgeService.js');
 
-describe('DeviceBridge', function () {
+describe('DeviceBridgeService', function () {
     var service, $rootScope;
 
-    beforeEach(inject(function(DeviceBridge){
-        service = DeviceBridge;
+    beforeEach(inject(function(DeviceBridgeService){
+        service = DeviceBridgeService;
     }));
 
     beforeEach(inject(function(_$rootScope_) {
