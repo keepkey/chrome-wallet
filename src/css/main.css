@@ -149,7 +149,7 @@ b {
   color: #999999;
 }
 
-.button {
+.button, input.button {
   display: block;
   text-align: center;
   padding: 5px;
@@ -164,11 +164,11 @@ b {
   transition: 0.2s all ease-in;
 }
 
-.button:hover {
+.button:hover, input.button:hover {
   background-color: #7A8500; 
 }
 
-.button:active {
+.button:active, input.button:active {
   opacity: 0.2;
 }
 

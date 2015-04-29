@@ -1,19 +1,27 @@
-<header>
-  <a class="button-left header-button" id="back" ng-click="go('/password', 'slideRight')"><div class="icon-back"></div></a>
-</header>
+<div ng-controller="InitializationController">
+    <header>
+        <a class="button-left header-button" id="back" ng-click="go('/password', 'slideRight')">
+            <div class="icon-back"></div>
+        </a>
+    </header>
 
-<div class="wallet-function">
-  <div class="wallet-function-heading">
-    <h2><span class="cornflower-txt"><b>Choose Label</b></span> For Your KeepKey</h2>
-  </div>
+    <div class="wallet-function">
+        <div class="wallet-function-heading">
+            <h2><span class="cornflower-txt"><b>Choose Label</b></span> For Your KeepKey</h2>
+        </div>
 
-  <form>
+        <form name="form" novalidate>
 
-    <div style="padding: 25px 0 25px 0">
-      <label>Label</label>
-      <input type="text" value="My KeepKey">
+            <div style="padding: 25px 0 25px 0">
+                <label>Label</label>
+                <input name="idLabel" type="text" placeholder="Name your KeepKey" ng-model="initializationData.label" required>
+                <div ng-show="form.$submitted || form.idLabel.$touched">
+                    <div ng-show="form.idLabel.$error.required">Your KeepKey must have a label assigned to it</div>
+                </div>
+
+            </div>
+
+            <button class="button" type="submit" ng-click="go('/pin', 'slideLeft')">Choose Label</button>
+        </form>
     </div>
-
-    <a class="button" ng-click="go('/pin', 'slideLeft')">Choose Label</a>
-  </form>
 </div>

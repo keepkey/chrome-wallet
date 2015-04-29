@@ -17,6 +17,8 @@ var args = require('yargs').argv;
 var yaml = require('gulp-yaml');
 var rename = require('gulp-rename');
 var ngConstant = require('gulp-ng-constant');
+var mocha = require('gulp-mocha');
+var karma = require('karma').server;
 
 // Settings
 var vendorJavascriptFiles = [
@@ -46,8 +48,7 @@ gulp.task('buildConfig', function () {
         constants: {environmentConfig: envConfig},
         stream: true,
         deps: false
-    })
-        .pipe(gulp.dest('generatedJs'));
+    }).pipe(gulp.dest('generatedJs'));
 
 
 });
@@ -81,7 +82,7 @@ gulp.task('zip', ['vendorScriptsProduction', 'appScriptsProduction', 'cssProduct
 
 gulp.task('appScriptsProduction', ['buildConfig'], function () {
     return merge2(
-        gulp.src(['src/app/**/*.js', 'generatedJs/constants.js'])
+        gulp.src(['src/app/**/*.js', '!src/app/**/*.spec.js', 'generatedJs/constants.js'])
             .pipe(concat('tmpsrc.min.js')),
             //.pipe(uglify()),
         gulp.src('src/app/**/*.tpl.html')
@@ -150,3 +151,11 @@ gulp.task('bundleTemplates', function () {
 gulp.task('watch', function() {
     return gulp.watch(['src/**/*', 'gulpfile.js', 'package.json', 'bower.json', 'manifest.json', 'config'], ['build']);
 });
+
+gulp.task('test', function (done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done);
+});
+
