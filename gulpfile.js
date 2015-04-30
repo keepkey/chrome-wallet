@@ -82,7 +82,7 @@ gulp.task('zip', ['vendorScriptsProduction', 'appScriptsProduction', 'cssProduct
 
 gulp.task('appScriptsProduction', ['buildConfig'], function () {
     return merge2(
-        gulp.src(['src/app/**/*.js', '!src/app/**/*.spec.js', 'generatedJs/constants.js'])
+        gulp.src(['src/app/main.js', 'src/app/**/*.js', '!src/app/**/*.spec.js', 'generatedJs/constants.js'])
             .pipe(concat('tmpsrc.min.js')),
             //.pipe(uglify()),
         gulp.src('src/app/**/*.tpl.html')
@@ -155,7 +155,15 @@ gulp.task('watch', function() {
 gulp.task('test', function (done) {
     karma.start({
         configFile: __dirname + '/karma.conf.js',
+        browsers: ['PhantomJS'],
         singleRun: true
     }, done);
 });
 
+gulp.task('testDebug', function (done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js',
+        browsers: ['Chrome'],
+        singleRun: false
+    }, done);
+});

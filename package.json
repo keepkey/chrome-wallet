@@ -43,5 +43,25 @@
     "sinon": "^1.14.1",
     "sinon-chrome": "^0.1.1",
     "yargs": "^3.7.2"
+  },
+  "jshintConfig": {
+    "browserify": true,
+    "mocha": true,
+    "node": true,
+    "nonew": true,
+    "curly": true,
+    "noarg": true,
+    "trailing": true,
+    "forin": true,
+    "noempty": true,
+    "eqeqeq": true,
+    "strict": false,
+    "undef": true,
+    "bitwise": true,
+    "browser": true,
+    "globals": {
+      "Promise": false,
+      "angular": false
+    }
   }
 }

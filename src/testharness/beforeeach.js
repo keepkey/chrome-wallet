@@ -1,4 +1,5 @@
-window.assert = chai.assert;
+/* globals chai, sinon */
+window.assert = angular.extend({}, chai.assert, sinon.assert);
 window.stub = sinon.stub;
 
 beforeEach(module('kkWallet', function ($provide) {
@@ -14,4 +15,6 @@ beforeEach(module('kkWallet', function ($provide) {
     $provide.value('environmentConfig', this.mockEnvironmentConfig);
 }));
 
-beforeEach(module('kkWallet'));
+afterEach(function() {
+   window.chrome.reset();
+});

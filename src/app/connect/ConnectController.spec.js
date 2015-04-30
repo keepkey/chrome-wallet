@@ -1,7 +1,7 @@
 //require('ConnectController.js');
 
 describe('ConnectController', function () {
-    var $rootScope, $controller, $q, controller,  mockDeviceBridgeService;
+    var $rootScope, $controller, $q, controller,  mockDeviceBridgeService, mockNav;
 
     beforeEach(module('kkWallet'));
 
@@ -10,26 +10,29 @@ describe('ConnectController', function () {
         $controller = _$controller_;
         $q = _$q_;
 
-        $rootScope.go = sinon.stub();
+        mockNav = {
+            go: stub()
+        }
 
         mockDeviceBridgeService = {
-            isDeviceReady: sinon.stub().returns($q.when({result: true}))
+            isDeviceReady: stub().returns($q.when({result: true}))
         };
 
         controller = $controller('ConnectController', {
             $rootScope: $rootScope,
-            DeviceBridgeService: mockDeviceBridgeService
+            DeviceBridgeService: mockDeviceBridgeService,
+            NavigationService: mockNav
         });
     }));
 
     it('when it is started, the connected status of the device is checked', function () {
-        $rootScope.$apply()
-        sinon.assert.calledOnce(mockDeviceBridgeService.isDeviceReady);
+        $rootScope.$apply();
+        assert.calledOnce(mockDeviceBridgeService.isDeviceReady);
     });
 
     it('when the device is ready, route to initialize', function () {
-        $rootScope.$apply()
-        sinon.assert.calledOnce($rootScope.go);
-        sinon.assert.calledWith($rootScope.go, '/initialize');
+        $rootScope.$apply();
+        assert.calledOnce(mockNav.go);
+        assert.calledWith(mockNav.go, '/initialize');
     });
 });

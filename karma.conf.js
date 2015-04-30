@@ -1,6 +1,5 @@
 module.exports = function(config) {
     config.set({
-        browsers: ['PhantomJS'],  //[ 'Chrome'],
         frameworks: ['mocha'],
         files: [
             'node_modules/chai/chai.js',

@@ -1,9 +1,8 @@
-kkWallet.controller( 'WalletListCtrl', function WalletListCtrl( $scope ) {
+angular.module('kkWallet')
+    .controller('WalletListCtrl', function WalletListCtrl($scope) {
 
-  // $scope.testme = function () {
-  //   return 5;
-  // }
+        // $scope.testme = function () {
+        //   return 5;
+        // }
 
-})
-
-;
+    });
