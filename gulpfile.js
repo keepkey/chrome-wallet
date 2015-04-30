@@ -102,7 +102,7 @@ gulp.task('assetsProduction', function () {
 });
 
 gulp.task('cssProduction', function () {
-    return gulp.src('src/css/**/*')
+    return gulp.src(['vendor/angular/angular-csp.css', 'src/css/**/*'])
         .pipe(minifyCss())
         .pipe(gulp.dest('dist/css'));
 });

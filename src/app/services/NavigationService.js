@@ -65,9 +65,6 @@ angular.module('kkWallet')
                     }
 
                     $location.path(path);
-                },
-                onDeviceConnected: function() {
-                    this.go();
                 }
             };
         }

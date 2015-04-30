@@ -1,6 +1,6 @@
 angular.module('kkWallet')
     .run(['$rootScope', '$location', '$q', 'environmentConfig', 'DeviceBridgeService', 'chrome', 'NavigationService',
-        function ($rootScope, $location, $q, config, deviceBridge, chrome, nav) {
+        function ($rootScope, $location, $q, config, deviceBridge, chrome, navigationService) {
             function getExtensionList() {
                 var deferred = $q.defer();
 
@@ -59,11 +59,10 @@ angular.module('kkWallet')
 
                 deviceBridge.isDeviceReady().then(function (response) {
                     if (response.result) {
-                        nav.go('/initialize');
+                        navigationService.go('/initialize');
                     } else {
-                        nav.go('/connect');
+                        navigationService.go('/connect');
                     }
-                    //$rootScope.$digest();
                 });
             }
 

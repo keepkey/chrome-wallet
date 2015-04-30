@@ -1,3 +1,5 @@
+/* globals inject, stub, assert */
+
 //require('ConnectController.js');
 
 describe('ConnectController', function () {
