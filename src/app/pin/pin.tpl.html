@@ -1,20 +1,36 @@
-<header>
-  <a class="button-left header-button" id="back" ng-click="go('/label', 'slideRight')"><div class="icon-back"></div></a>
-</header>
+<div ng-controller="InitializationController">
+    <header>
+        <a class="button-left header-button" id="back" ng-click="go('/label', 'slideRight')">
+            <div class="icon-back"></div>
+        </a>
+    </header>
 
-<div class="wallet-function">
-  <div class="wallet-function-heading">
-    <h2><span class="cornflower-txt"><b>Choose PIN</b></span> For Your KeepKey</h2>
-  </div>
+    <div class="wallet-function">
+        <div class="wallet-function-heading">
+            <h2><span class="cornflower-txt"><b>Choose a PIN</b></span> For Your KeepKey</h2>
+        </div>
 
-  <form>
+        <form>
+            <div class="form-input-container">
+                <div class="pin-row">
+                    <a class="button pin" ng-click="appendToPin(1)">1</a>
+                    <a class="button pin" ng-click="appendToPin(2)">2</a>
+                    <a class="button pin" ng-click="appendToPin(3)">3</a>
+                </div>
+                <div class="pin-row">
+                    <a class="button pin" ng-click="appendToPin(4)">4</a>
+                    <a class="button pin" ng-click="appendToPin(5)">5</a>
+                    <a class="button pin" ng-click="appendToPin(6)">6</a>
+                </div>
+                <div class="pin-row">
+                    <a class="button pin" ng-click="appendToPin(7)">7</a>
+                    <a class="button pin" ng-click="appendToPin(8)">8</a>
+                    <a class="button pin" ng-click="appendToPin(9)">9</a>
+                </div>
 
-    <div class="pin-row"><a class="button pin">1</a> <a class="button pin">2</a> <a class="button pin">3</a></div>
-    <div class="pin-row"><a class="button pin">4</a> <a class="button pin">5</a> <a class="button pin">6</a></div>
-    <div class="pin-row"><a class="button pin">7</a> <a class="button pin">8</a> <a class="button pin">9</a></div>
-
-    <div class="pin-view">****</div>
-
-    <a class="button" ng-click="go('/passphrase', 'slideLeft')">Choose PIN</a>
-  </form>
+                <div class="pin-view">{{displayPin}}</div>
+            </div>
+            <a class="button" ng-click="go('/passphrase', 'slideLeft')">Choose PIN</a>
+        </form>
+    </div>
 </div>

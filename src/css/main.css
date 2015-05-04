@@ -155,6 +155,7 @@ b {
     text-align: center;
     padding: 5px;
     border-radius: 200px;
+    border-style: none;
     margin: 0 auto;
     cursor: pointer;
     margin-top: 20px;
@@ -163,6 +164,7 @@ b {
     color: #fff;
     text-decoration: none;
     transition: 0.2s all ease-in;
+    line-height: 20px;
 }
 
 .button:hover, input.button:hover {
@@ -668,7 +670,7 @@ div.error label {
 
 .pin-view {
     margin: 20px 0 -20px 0;
-    font-size: 40px;
+    font-size: 20px;
     text-align: center;
 }
 
@@ -676,6 +678,17 @@ div.error label {
     height: 104px;
 }
 
-.form-input-container .validation-failed-text {
-    color: #DB7093;
+.form-input-container label {
+    float: left;
+}
+
+.form-input-container .invalid {
+    float: right;
+    color: #d26464;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.form-input-container .ng-touched.ng-invalid {
+    border-color: #d26464;
 }

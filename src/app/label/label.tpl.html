@@ -1,4 +1,4 @@
-<div ng-controller="InitializationController">
+<div ng-controller="ResetController">
     <header>
         <a class="button-left header-button" id="back" ng-click="go('/initialize', 'slideRight')">
             <div class="icon-back"></div>
@@ -14,13 +14,19 @@
 
             <div class="form-input-container">
                 <label>Label</label>
-                <input name="deviceLabel" type="text" placeholder="Name your KeepKey" ng-model="initializationData.label" required>
-                <div ng-show="form.$submitted || form.deviceLabel.$touched">
-                    <div ng-show="form.deviceLabel.$error.required" class="validation-failed-text">Your KeepKey must have a label</div>
+                <div class="invalid" ng-show="form.$submitted || form.deviceLabel.$touched">
+                    <div ng-show="form.deviceLabel.$error.required">Required</div>
                 </div>
+                <input
+                        name="deviceLabel"
+                        type="text"
+                        placeholder="Name your KeepKey"
+                        ng-model="initializationData.label"
+                        required
+                        focus>
             </div>
 
-            <button class="button" type="submit" ng-click="form.$valid && go('/pin', 'slideLeft')">Choose Label</button>
+            <button class="button" type="submit" ng-click="sendLabelToDevice()">Choose Label</button>
         </form>
     </div>
 </div>

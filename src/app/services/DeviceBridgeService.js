@@ -14,9 +14,7 @@ angular.module('kkWallet')
         this.$get = ['$q', 'chrome', 'environmentConfig', '$injector', function ($q, chrome, environmentConfig, $injector) {
             function sendMessage(message) {
                 return $q(function (resolve) {
-                    chrome.runtime.sendMessage(environmentConfig.keepkeyProxy.applicationId, message, function (result) {
-                        resolve(result);
-                    });
+                    chrome.runtime.sendMessage(environmentConfig.keepkeyProxy.applicationId, message, resolve);
                 });
             }
 
@@ -53,8 +51,15 @@ angular.module('kkWallet')
                     chrome.runtime.onMessageExternal.removeListener(respondToMessages);
                 },
                 isDeviceReady: function () {
-                    return sendMessage({messageType: "deviceReady"});
+                    return sendMessage({messageType: 'deviceReady'});
+                },
+                resetDevice: function (options) {
+                    var message = angular.extend({
+                        messageType: 'reset'
+                    }, options);
+                    return sendMessage(message);
                 }
+
             };
         }];
     })
