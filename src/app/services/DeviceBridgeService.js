@@ -77,8 +77,8 @@ angular.module('kkWallet')
             }
 
             deviceBridgeServiceProvider.when('connected', navigateToLocation('/initialize'));
-
             deviceBridgeServiceProvider.when('disconnected', navigateToLocation('/connect'));
+            deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin'));
 
             deviceBridgeServiceProvider.when('ping', function () {
                 // Do nothing
