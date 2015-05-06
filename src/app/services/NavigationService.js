@@ -31,7 +31,7 @@ angular.module('kkWallet')
             .when('/receive', {
                 templateUrl: 'app/receive/receive.tpl.html'
             })
-            .when('/pin', {
+            .when('/pin/:type', {
                 templateUrl: 'app/pin/pin.tpl.html'
             })
             .when('/passphrase', {

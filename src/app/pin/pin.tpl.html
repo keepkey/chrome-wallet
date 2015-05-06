@@ -1,4 +1,4 @@
-<div ng-controller="InitializationController">
+<div ng-controller="PinController">
     <header>
         <a class="button-left header-button" id="back" ng-click="go('/label', 'slideRight')">
             <div class="icon-back"></div>
@@ -6,31 +6,46 @@
     </header>
 
     <div class="wallet-function">
-        <div class="wallet-function-heading">
-            <h2><span class="cornflower-txt"><b>Choose a PIN</b></span> For Your KeepKey</h2>
+        <div class="wallet-function-heading" ng-switch="requestType">
+            <h2 ng-switch-when="PinMatrixRequestType_NewFirst">
+                <span class="cornflower-txt"><b>Choose a PIN</b></span> For Your KeepKey
+            </h2>
+            <h2 ng-switch-when="PinMatrixRequestType_NewSecond">
+                <span class="cornflower-txt"><b>Re-enter the PIN</b></span> For Your KeepKey
+            </h2>
+            <h2 ng-switch-when="PinMatrixRequestType_Current">
+                <span class="cornflower-txt"><b>Enter the PIN</b></span> For Your KeepKey
+            </h2>
+            <h2 ng-switch-default>
+                <span class="cornflower-txt"><b>Unimplemented PIN Request Type</b></span>
+            </h2>
         </div>
 
         <form>
             <div class="form-input-container">
                 <div class="pin-row">
-                    <a class="button pin" ng-click="appendToPin(1)">1</a>
-                    <a class="button pin" ng-click="appendToPin(2)">2</a>
-                    <a class="button pin" ng-click="appendToPin(3)">3</a>
+                    <a class="button pin" ng-click="appendToPin(7)">*</a>
+                    <a class="button pin" ng-click="appendToPin(8)">*</a>
+                    <a class="button pin" ng-click="appendToPin(9)">*</a>
                 </div>
                 <div class="pin-row">
-                    <a class="button pin" ng-click="appendToPin(4)">4</a>
-                    <a class="button pin" ng-click="appendToPin(5)">5</a>
-                    <a class="button pin" ng-click="appendToPin(6)">6</a>
+                    <a class="button pin" ng-click="appendToPin(4)">*</a>
+                    <a class="button pin" ng-click="appendToPin(5)">*</a>
+                    <a class="button pin" ng-click="appendToPin(6)">*</a>
                 </div>
                 <div class="pin-row">
-                    <a class="button pin" ng-click="appendToPin(7)">7</a>
-                    <a class="button pin" ng-click="appendToPin(8)">8</a>
-                    <a class="button pin" ng-click="appendToPin(9)">9</a>
+                    <a class="button pin" ng-click="appendToPin(1)">*</a>
+                    <a class="button pin" ng-click="appendToPin(2)">*</a>
+                    <a class="button pin" ng-click="appendToPin(3)">*</a>
                 </div>
 
-                <div class="pin-view">{{displayPin}}</div>
+                <div class="pin-view" ng-bind="displayPin"></div>
             </div>
-            <a class="button" ng-click="go('/passphrase', 'slideLeft')">Choose PIN</a>
+            <a class="button" ng-click="sendPinToDevice()" ng-switch="requestType">
+                <span ng-switch-when="PinMatrixRequestType_NewFirst">Choose PIN</span>
+                <span ng-switch-when="PinMatrixRequestType_NewSecond">Confirm PIN</span>
+                <span ng-switch-default>Send PIN</span>
+            </a>
         </form>
     </div>
 </div>

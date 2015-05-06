@@ -19,7 +19,7 @@ angular.module('kkWallet')
             }
 
             function respondToMessages(request, sender, sendResponse) {
-                console.log("External message:", request.messageType)
+                console.log("External message:", request);
 
                 var messageArguments = {
                     request: request,
@@ -58,17 +58,26 @@ angular.module('kkWallet')
                         messageType: 'reset'
                     }, options);
                     return sendMessage(message);
+                },
+                sendPin: function(options) {
+                    var message = angular.extend({ messageType: 'PinMatrixAck'}, options);
+                    return sendMessage(message);
                 }
-
             };
         }];
     })
     .config(['DeviceBridgeServiceProvider',
         function (deviceBridgeServiceProvider) {
 
-            function navigateToLocation(location) {
+            function navigateToLocation(locationTemplate) {
                 return ['NavigationService', '$rootScope',
                     function (navigationService, $rootScope) {
+                        var location = locationTemplate;
+                        for (var field in this.request.message) {
+                            if (this.request.message.hasOwnProperty(field)) {
+                                location = location.replace(':' + field, this.request.message[field]);
+                            }
+                        }
                         navigationService.go(location);
                         $rootScope.$digest();
 
@@ -78,7 +87,7 @@ angular.module('kkWallet')
 
             deviceBridgeServiceProvider.when('connected', navigateToLocation('/initialize'));
             deviceBridgeServiceProvider.when('disconnected', navigateToLocation('/connect'));
-            deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin'));
+            deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
 
             deviceBridgeServiceProvider.when('ping', function () {
                 // Do nothing
