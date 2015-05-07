@@ -1,0 +1,27 @@
+<div ng-controller="ButtonRequestController">
+    <header>
+        <a class="button-left header-button" id="back" ng-click="go('/passphrase', 'slideRight')">
+            <div class="icon-back"></div>
+        </a>
+    </header>
+
+    <div id="content-wrapper" ng-switch="buttonRequestType">
+        <div class="content" ng-switch-when="ButtonRequest_ConfirmWord">
+            <h2>
+                <span class="cornflower-txt"><b>Almost Done!</b></span><br>
+                Write down your recovery sentence displayed on your KeepKey. This sentence serves as your device's
+                backup. Save it in a safe and secure place.
+            </h2>
+            <a class="button" ng-click="onCancel()">Cancel</a>
+        </div>
+        <div class="content" ng-switch-when="ButtonRequest_WipeDevice">
+            <h2>
+                <span class="cornflower-txt"><b>Device Wipe Requested</b></span><br>
+                Your KeepKey is about to be wiped. Please acknowledge that this is what you want to do by pushing and
+                holding the button. ALL DATA ON THE DEVICE WILL BE DESTROYED.
+            </h2>
+            <a class="button" ng-click="onCancel()">Cancel</a>
+        </div>
+        <div class="content" ng-switch-default>Unknown button request</div>
+    </div>
+</div>

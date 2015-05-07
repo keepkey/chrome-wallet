@@ -10,8 +10,8 @@ angular.module('kkWallet')
             .when('/initialize', {
                 templateUrl: 'app/initialize/initialize.tpl.html'
             })
-            .when('/initializing', {
-                templateUrl: 'app/initializing/initializing.tpl.html'
+            .when('/buttonRequest/:code', {
+                templateUrl: 'app/buttonRequest/buttonRequest.tpl.html'
             })
             .when('/creating', {
                 templateUrl: 'app/creating/creating.tpl.html'
@@ -70,7 +70,7 @@ angular.module('kkWallet')
         }
     ])
     .run(['$rootScope', 'NavigationService',
-        function($rootScope, nav) {
-            $rootScope.go = nav.go;
+        function($rootScope, navigationService) {
+            $rootScope.go = navigationService.go;
         }
     ]);

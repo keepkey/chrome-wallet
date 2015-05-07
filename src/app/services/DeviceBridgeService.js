@@ -59,9 +59,12 @@ angular.module('kkWallet')
                     }, options);
                     return sendMessage(message);
                 },
-                sendPin: function(options) {
-                    var message = angular.extend({ messageType: 'PinMatrixAck'}, options);
+                sendPin: function (options) {
+                    var message = angular.extend({messageType: 'PinMatrixAck'}, options);
                     return sendMessage(message);
+                },
+                initialize: function() {
+                    return sendMessage({messageType: 'Initialize'});
                 }
             };
         }];
@@ -80,14 +83,39 @@ angular.module('kkWallet')
                         }
                         navigationService.go(location);
                         $rootScope.$digest();
-
                     }
                 ];
             }
 
-            deviceBridgeServiceProvider.when('connected', navigateToLocation('/initialize'));
+            deviceBridgeServiceProvider.when('connected', ['DeviceBridgeService',
+                function(deviceBridgeService){
+                    deviceBridgeService.initialize();
+                }
+            ]);
+
             deviceBridgeServiceProvider.when('disconnected', navigateToLocation('/connect'));
             deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
+            deviceBridgeServiceProvider.when('ButtonRequest', navigateToLocation('/buttonRequest/:code'));
+            deviceBridgeServiceProvider.when('Success', ['NavigationService', '$rootScope',
+                function (navigationService, $rootScope) {
+                    if (this.request.message.message === "Device wiped") {
+                        navigationService.go('/initialize');
+                        $rootScope.$digest();
+                    } else {
+                        console.log('Unhandled success message:', this.request.message.message);
+                    }
+                }
+            ]);
+            deviceBridgeServiceProvider.when('Features', ['NavigationService', '$rootScope',
+                function (navigationService, $rootScope) {
+                    if (this.request.message.initialized) {
+                        navigationService.go('/wallet');
+                    } else {
+                        navigationService.go('/initialize');
+                    }
+                    $rootScope.$digest();
+                }
+            ]);
 
             deviceBridgeServiceProvider.when('ping', function () {
                 // Do nothing

@@ -1,9 +1,10 @@
 angular.module('kkWallet')
-    .controller('ConnectController', ['$rootScope', 'DeviceBridgeService', 'NavigationService',
-        function ($rootScope, deviceBridgeService, nav) {
+    .controller('ConnectController', ['DeviceBridgeService',
+        function (deviceBridgeService) {
             deviceBridgeService.isDeviceReady().then(function (response) {
+                console.log('device ready:', response.result);
                 if (response.result) {
-                    nav.go('/initialize');
+                    deviceBridgeService.initialize();
                 }
             });
         }

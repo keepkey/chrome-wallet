@@ -15,7 +15,6 @@ angular.module('kkWallet')
             $scope.sendPinToDevice = function() {
                 DeviceBridgeService.sendPin($scope.pinData);
                 $scope.pinData.clear();
-                //$scope.go('/waitForDevice');
             };
         }
     ])
