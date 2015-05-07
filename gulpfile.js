@@ -19,6 +19,7 @@ var rename = require('gulp-rename');
 var ngConstant = require('gulp-ng-constant');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
+var manifest = require('./manifest');
 
 // Settings
 var vendorJavascriptFiles = [
@@ -83,6 +84,7 @@ gulp.task('zip', ['vendorScriptsProduction', 'appScriptsProduction', 'cssProduct
 gulp.task('appScriptsProduction', ['buildConfig'], function () {
     return merge2(
         gulp.src(['src/app/main.js', 'src/app/**/*.js', '!src/app/**/*.spec.js', 'generatedJs/constants.js'])
+            .pipe(replace("{{VERSION}}", manifest.version))
             .pipe(concat('tmpsrc.min.js')),
             //.pipe(uglify()),
         gulp.src('src/app/**/*.tpl.html')

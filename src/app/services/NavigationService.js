@@ -10,11 +10,17 @@ angular.module('kkWallet')
             .when('/initialize', {
                 templateUrl: 'app/initialize/initialize.tpl.html'
             })
+            .when('/initialized', {
+                templateUrl: 'app/initialized/initialized.tpl.html'
+            })
             .when('/buttonRequest/:code', {
                 templateUrl: 'app/buttonRequest/buttonRequest.tpl.html'
             })
             .when('/creating', {
                 templateUrl: 'app/creating/creating.tpl.html'
+            })
+            .when('/failure', {
+                templateUrl: 'app/failure/failure.tpl.html'
             })
             .when('/walletlist', {
                 templateUrl: 'app/walletlist/walletlist.tpl.html'
@@ -27,6 +33,9 @@ angular.module('kkWallet')
             })
             .when('/sending', {
                 templateUrl: 'app/sending/sending.tpl.html'
+            })
+            .when('/success', {
+                templateUrl: 'app/success/success.tpl.html'
             })
             .when('/receive', {
                 templateUrl: 'app/receive/receive.tpl.html'

@@ -1,0 +1,22 @@
+<div ng-controller="FailureController">
+    <header>
+        <a class="button-left header-button" id="settings">
+            <div class="icon-settings"></div>
+        </a>
+    </header>
+
+    <div id="content-wrapper">
+        <div class="content">
+            <h2>
+                <span class="cornflower-txt">Your action was unsuccessful.</span>
+            </h2>
+            <div class="failure-list" ng-repeat="failure in failures">
+                <div>{{failure.code}}: {{failure.message}}</div>
+            </div>
+            <a class="button" ng-click="ok()">OK</b></a>
+        </div>
+    </div>
+
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</div>

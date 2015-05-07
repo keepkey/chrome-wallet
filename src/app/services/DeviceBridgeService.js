@@ -59,12 +59,19 @@ angular.module('kkWallet')
                     }, options);
                     return sendMessage(message);
                 },
+                wipeDevice: function () {
+                    return sendMessage({messageType: 'Wipe'});
+
+                },
                 sendPin: function (options) {
                     var message = angular.extend({messageType: 'PinMatrixAck'}, options);
                     return sendMessage(message);
                 },
-                initialize: function() {
+                initialize: function () {
                     return sendMessage({messageType: 'Initialize'});
+                },
+                cancel: function() {
+                    return sendMessage({messageType: 'Cancel'});
                 }
             };
         }];
@@ -78,7 +85,7 @@ angular.module('kkWallet')
                         var location = locationTemplate;
                         for (var field in this.request.message) {
                             if (this.request.message.hasOwnProperty(field)) {
-                                location = location.replace(':' + field, this.request.message[field]);
+                                location = location.replace(':' + field, encodeURIComponent(this.request.message[field]));
                             }
                         }
                         navigationService.go(location);
@@ -88,7 +95,7 @@ angular.module('kkWallet')
             }
 
             deviceBridgeServiceProvider.when('connected', ['DeviceBridgeService',
-                function(deviceBridgeService){
+                function (deviceBridgeService) {
                     deviceBridgeService.initialize();
                 }
             ]);
@@ -96,20 +103,18 @@ angular.module('kkWallet')
             deviceBridgeServiceProvider.when('disconnected', navigateToLocation('/connect'));
             deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
             deviceBridgeServiceProvider.when('ButtonRequest', navigateToLocation('/buttonRequest/:code'));
-            deviceBridgeServiceProvider.when('Success', ['NavigationService', '$rootScope',
-                function (navigationService, $rootScope) {
-                    if (this.request.message.message === "Device wiped") {
-                        navigationService.go('/initialize');
-                        $rootScope.$digest();
-                    } else {
-                        console.log('Unhandled success message:', this.request.message.message);
-                    }
+            deviceBridgeServiceProvider.when('Success', navigateToLocation('/success'));
+            deviceBridgeServiceProvider.when('Failure', ['$injector', '$timeout', 'FailureMessageService',
+                function ($injector, $timeout, failureMessageService) {
+                    failureMessageService.add(this.request.message);
+                    $injector.invoke(navigateToLocation('/failure'), this);
                 }
             ]);
-            deviceBridgeServiceProvider.when('Features', ['NavigationService', '$rootScope',
-                function (navigationService, $rootScope) {
-                    if (this.request.message.initialized) {
-                        navigationService.go('/wallet');
+            deviceBridgeServiceProvider.when('Features', ['NavigationService', 'DeviceFeatureService', '$rootScope',
+                function (navigationService, deviceFeatureService, $rootScope) {
+                    deviceFeatureService.set(this.request.message);
+                    if (deviceFeatureService.features.initialized) {
+                        navigationService.go('/initialized');
                     } else {
                         navigationService.go('/initialize');
                     }

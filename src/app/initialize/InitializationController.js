@@ -1,8 +1,12 @@
 angular.module('kkWallet')
-    .controller('InitializationController', ['$scope', 'InitializationDataService',
-        function InitializationController($scope, initializationDataService) {
+    .controller('InitializationController', ['$scope', 'InitializationDataService', 'DeviceFeatureService', 'DeviceBridgeService',
+        function InitializationController($scope, initializationDataService, deviceFeatureService, deviceBridgeService) {
             $scope.initializationData = initializationDataService;
             $scope.displayPin = '';
+
+            if (deviceFeatureService.features.initialized) {
+                deviceBridgeService.wipeDevice();
+            }
 
             $scope.appendToPin = function(digit) {
                 $scope.initializationData.pin = '' + $scope.initializationData.pin + digit;

@@ -1,12 +1,18 @@
-<header>
-  <a class="button-left header-button" id="settings"><div class="icon-settings"></div></a>
-</header>
+<div ng-controller="InitializationController">
+    <header>
+        <a class="button-left header-button" id="settings">
+            <div class="icon-settings"></div>
+        </a>
+    </header>
 
-<div id="content-wrapper">
-  <div class="content" id="initialize">
-      <h2><span class="cornflower-txt">Your <b>KeepKey</b> needs to be initialized.</span>
-      During initialization, your private keys are generated and encrypted on the KeepKey. You can
-      also choose a label to differentiate between your devices.</h2>
-      <a class="button" ng-click="go('/label', 'slideLeft')">Initialize <b>KeepKey</b></a>
-  </div>
+    <div id="content-wrapper">
+        <div class="content">
+            <h2><span class="cornflower-txt">Your <b>KeepKey</b> needs to be initialized.</span>
+                During initialization, your private keys are generated and encrypted on the KeepKey. You can
+                also choose a label to differentiate between your devices.</h2>
+            <a class="button" ng-click="go('/label', 'slideLeft')">Initialize <b>KeepKey</b></a>
+        </div>
+    </div>
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
 </div>

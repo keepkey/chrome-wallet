@@ -1,1 +1,2 @@
-angular.module('kkWallet', ['ngRoute', 'ngAnimate']);
+angular.module('kkWallet', ['ngRoute', 'ngAnimate'])
+    .constant('VERSION', '{{VERSION}}');

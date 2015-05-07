@@ -1,0 +1,9 @@
+<div ng-controller="FooterController">
+    Connected:
+    <span class="data">
+        <span ng-show="device.initialized" ng-bind="device.label"></span>
+        <span ng-show="!device.initialized">Uninitialized</span>
+    </span>
+    Software: <span class="data">v{{version}}</span>
+    Firmware: <span class="data">v{{device.major_version}}.{{device.minor_version}}.{{device.patch_version}}</span>
+</div>

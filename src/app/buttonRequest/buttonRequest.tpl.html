@@ -1,9 +1,5 @@
 <div ng-controller="ButtonRequestController">
-    <header>
-        <a class="button-left header-button" id="back" ng-click="go('/passphrase', 'slideRight')">
-            <div class="icon-back"></div>
-        </a>
-    </header>
+    <header></header>
 
     <div id="content-wrapper" ng-switch="buttonRequestType">
         <div class="content" ng-switch-when="ButtonRequest_ConfirmWord">
@@ -24,4 +20,6 @@
         </div>
         <div class="content" ng-switch-default>Unknown button request</div>
     </div>
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
 </div>
