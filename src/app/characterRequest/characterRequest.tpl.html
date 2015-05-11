@@ -1,0 +1,20 @@
+<div ng-controller="CharacterRequestController" tabindex="0" focus ng-keydown="onKeyPress($event)">
+    <header>
+        <a class="button-left header-button" id="back" ng-click="go('/initialize', 'slideRight')">
+            <div class="icon-back"></div>
+        </a>
+    </header>
+
+    <div class="wallet-function">
+        <div class="wallet-function-heading">
+            <h2><span class="cornflower-txt"><b>Enter the private key</b></span> For Your KeepKey</h2>
+        </div>
+        <div class="word-list">
+            <div ng-repeat="pattern in wordPatterns track by $index">
+                <span>{{$index + 1}}: {{pattern}}</span>
+            </div>
+        </div>
+    </div>
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</div>

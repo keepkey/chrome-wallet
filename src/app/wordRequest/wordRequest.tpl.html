@@ -1,4 +1,4 @@
-<div ng-controller="ResetController">
+<div ng-controller="WordRequestController">
     <header>
         <a class="button-left header-button" id="back" ng-click="go('/initialize', 'slideRight')">
             <div class="icon-back"></div>
@@ -7,7 +7,7 @@
 
     <div class="wallet-function">
         <div class="wallet-function-heading">
-            <h2><span class="cornflower-txt"><b>Choose a Label</b></span> For Your KeepKey</h2>
+            <h2><span class="cornflower-txt"><b>Enter the word requested by your</b></span>KeepKey</h2>
         </div>
 
         <form name="form" novalidate>
@@ -20,13 +20,13 @@
                 <input
                         name="deviceLabel"
                         type="text"
-                        placeholder="Name your KeepKey"
-                        ng-model="resetRecoverData.label"
+                        placeholder="Requested word"
+                        ng-model="word"
                         required
                         focus>
             </div>
 
-            <button class="button" type="submit" ng-click="nextAction()">Set Label</button>
+            <button class="button" type="submit" ng-click="send()">Send</button>
         </form>
     </div>
 

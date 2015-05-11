@@ -16,6 +16,9 @@ angular.module('kkWallet')
             .when('/buttonRequest/:code', {
                 templateUrl: 'app/buttonRequest/buttonRequest.tpl.html'
             })
+            .when('/characterRequest/:word_pos/:character_pos', {
+                templateUrl: 'app/characterRequest/characterRequest.tpl.html'
+            })
             .when('/creating', {
                 templateUrl: 'app/creating/creating.tpl.html'
             })
@@ -27,6 +30,9 @@ angular.module('kkWallet')
             })
             .when('/wallet', {
                 templateUrl: 'app/wallet/wallet.tpl.html'
+            })
+            .when('/wordRequest', {
+                templateUrl: 'app/wordRequest/wordRequest.tpl.html'
             })
             .when('/send', {
                 templateUrl: 'app/send/send.tpl.html'
@@ -46,7 +52,7 @@ angular.module('kkWallet')
             .when('/passphrase', {
                 templateUrl: 'app/passphrase/passphrase.tpl.html'
             })
-            .when('/label', {
+            .when('/label/:nextAction', {
                 templateUrl: 'app/label/label.tpl.html'
             })
             .when('/syncing', {

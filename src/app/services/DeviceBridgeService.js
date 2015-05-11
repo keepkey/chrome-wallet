@@ -13,6 +13,7 @@ angular.module('kkWallet')
 
         this.$get = ['$q', 'chrome', 'environmentConfig', '$injector', function ($q, chrome, environmentConfig, $injector) {
             function sendMessage(message) {
+                console.log('message sent to proxy:', message);
                 return $q(function (resolve) {
                     chrome.runtime.sendMessage(environmentConfig.keepkeyProxy.applicationId, message, resolve);
                 });
@@ -72,6 +73,23 @@ angular.module('kkWallet')
                 },
                 cancel: function() {
                     return sendMessage({messageType: 'Cancel'});
+                },
+                recoverDevice: function(options) {
+                    var message = angular.extend({messageType: 'RecoveryDevice'}, options);
+                    return sendMessage(message);
+                },
+                acknowledgeWord: function(word) {
+                    var message = {messageType: 'WordAck', word: word};
+                    return sendMessage(message);
+                },
+                characterAck: function(character, deleteChar, done) {
+                    var message = {
+                        messageType: 'CharacterAck',
+                        character: character,
+                        delete: deleteChar,
+                        done: done
+                    };
+                    return sendMessage(message);
                 }
             };
         }];
@@ -103,6 +121,8 @@ angular.module('kkWallet')
             deviceBridgeServiceProvider.when('disconnected', navigateToLocation('/connect'));
             deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
             deviceBridgeServiceProvider.when('ButtonRequest', navigateToLocation('/buttonRequest/:code'));
+            deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
+            deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
             deviceBridgeServiceProvider.when('Success', navigateToLocation('/success'));
             deviceBridgeServiceProvider.when('Failure', ['$injector', '$timeout', 'FailureMessageService',
                 function ($injector, $timeout, failureMessageService) {

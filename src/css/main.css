@@ -702,3 +702,9 @@ div.error label {
 .form-input-container .ng-touched.ng-invalid {
     border-color: #d26464;
 }
+
+.word-list {
+    -webkit-column-count: 3;
+    font-family: "Andale Mono", monospace;
+    font-size: 12px;
+}
