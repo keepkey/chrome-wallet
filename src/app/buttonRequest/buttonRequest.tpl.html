@@ -1,25 +1,29 @@
-<div ng-controller="ButtonRequestController">
+<section id="button-request" ng-controller="ButtonRequestController">
     <header></header>
 
-    <div id="content-wrapper" ng-switch="buttonRequestType">
-        <div class="content" ng-switch-when="ButtonRequest_ConfirmWord">
-            <h2>
-                <span class="cornflower-txt"><b>Almost Done!</b></span><br>
-                Write down your recovery sentence displayed on your KeepKey. This sentence serves as your device's
-                backup. Save it in a safe and secure place.
+    <div class="content" ng-class="buttonRequestType">
+        <div class="header-text">
+            <h2 ng-switch="buttonRequestType">
+                <p ng-switch-when="ButtonRequest_ConfirmWord">
+                    <span class="cornflower-txt"><b>Almost Done!</b></span><br>
+                    Write down your recovery sentence displayed on your KeepKey. This sentence serves as your device's
+                    backup. Save it in a safe and secure place.
+                </p>
+
+                <p ng-switch-when="ButtonRequest_WipeDevice">
+                    <span class="cornflower-txt"><b>Device Wipe Requested</b></span><br>
+                    Your KeepKey is about to be wiped. Please acknowledge that this is what you want to do by pushing
+                    and
+                    holding the button on your device. ALL DATA ON THE DEVICE WILL BE DESTROYED.
+                </p>
+
+                <p ng-switch-default>
+                    Unknown button request
+                </p>
             </h2>
-            <a class="button" ng-click="onCancel()">Cancel</a>
         </div>
-        <div class="content" ng-switch-when="ButtonRequest_WipeDevice">
-            <h2>
-                <span class="cornflower-txt"><b>Device Wipe Requested</b></span><br>
-                Your KeepKey is about to be wiped. Please acknowledge that this is what you want to do by pushing and
-                holding the button. ALL DATA ON THE DEVICE WILL BE DESTROYED.
-            </h2>
-            <a class="button" ng-click="onCancel()">Cancel</a>
-        </div>
-        <div class="content" ng-switch-default>Unknown button request</div>
+        <a class="button" ng-click="onCancel()">Cancel</a>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
-</div>
+</section>

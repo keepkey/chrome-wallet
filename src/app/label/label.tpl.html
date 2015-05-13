@@ -1,14 +1,10 @@
-<div ng-controller="ResetController">
+<section id="label" ng-controller="ResetController">
     <header>
-        <a class="button-left header-button" id="back" ng-click="go('/initialize', 'slideRight')">
-            <div class="icon-back"></div>
-        </a>
+        <back-button class="button-left header-button" destination="'/initialize'"></back-button>
     </header>
 
-    <div class="wallet-function">
-        <div class="wallet-function-heading">
-            <h2><span class="cornflower-txt"><b>Choose a Label</b></span> For Your KeepKey</h2>
-        </div>
+    <div class="content">
+        <h2><span class="cornflower-txt"><b>Choose a Label</b></span> For Your KeepKey</h2>
 
         <form name="form" novalidate>
 
@@ -31,4 +27,4 @@
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
-</div>
+</section>

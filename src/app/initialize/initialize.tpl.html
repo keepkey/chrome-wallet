@@ -1,21 +1,17 @@
-<div ng-controller="InitializationController">
+<section id="initialize" ng-controller="InitializationController">
     <header>
-        <a class="button-left header-button" id="settings">
-            <div class="icon-settings"></div>
-        </a>
+        <settings-button class="button-left header-button"></settings-button>
     </header>
 
-    <div id="content-wrapper">
-        <div class="content">
-            <h2><span class="cornflower-txt">Your <b>KeepKey</b> needs to be initialized.</span>
-                During initialization, your private keys are generated and encrypted on the KeepKey. You can
-                also choose a label to differentiate between your devices.</h2>
-            <div class="button-bar">
-                <a class="button" ng-click="go('/label/initialize', 'slideLeft')">Initialize <b>KeepKey</b></a>
-                <a class="button" ng-click="go('/label/recover', 'slideLeft')">Recover <b>KeepKey</b></a>
-            </div>
+    <div class="content">
+        <h2><span class="cornflower-txt">Your <b>KeepKey</b> needs to be initialized.</span>
+            During initialization, your private keys are generated and encrypted on the KeepKey. You can
+            also choose a label to differentiate between your devices.</h2>
+        <div class="button-bar">
+            <a class="button" ng-click="go('/label/initialize', 'slideLeft')">Initialize <b>KeepKey</b></a>
+            <a class="button" ng-click="go('/label/recover', 'slideLeft')">Recover <b>KeepKey</b></a>
         </div>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
-</div>
+</section>

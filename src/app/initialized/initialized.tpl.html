@@ -1,18 +1,14 @@
-<div>
+<section id="initialized">
     <header>
-        <a class="button-left header-button" id="settings">
-            <div class="icon-settings"></div>
-        </a>
+        <settings-button class="button-left header-button"></settings-button>
     </header>
 
-    <div id="content-wrapper">
-        <div class="content">
-            <h2>
-                <span class="cornflower-txt">Your <b>KeepKey</b> is initialized.</span>
-            </h2>
-            <a class="button" ng-click="go('/initialize', 'slideLeft')">Wipe and Re-initialize</a>
-        </div>
+    <div class="content">
+        <h2>
+            <span class="cornflower-txt">Your <b>KeepKey</b> is initialized.</span>
+        </h2>
+        <a class="button" ng-click="go('/initialize', 'slideLeft')">Wipe and Re-initialize</a>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
-</div>
+</section>

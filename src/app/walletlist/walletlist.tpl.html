@@ -1,36 +1,46 @@
-<header>
-  <a class="button-left header-button" id="settings" ng-click="keepkey()"><div class="icon-settings"></div></a>
-  <div class="button-right header-button" id="refresh"><div class="icon-refresh"></div></div>
-</header>
+<section id="wallet-list">
+    <header>
+        <settings-button class="button-left header-button"></settings-button>
+        <div class="button-right header-button" id="refresh">
+            <div class="icon icon-refresh"></div>
+        </div>
+    </header>
 
-<div class="wallets">
-  <div class="wallet online" ng-click="go('/wallet', 'slideLeft')">
-      <div class="connection-light">
-      </div>
-      <div class="details">
-        <h2 class="val">23.01 <span>mbtc</span></h2>
-        <h3 class="currency-val">($15,504)</h3>
-      </div>
-      <!-- <div class="go-side notification"> -->
-      <div class="go-side">
-        <div class="go-btn"><div class="icon-forward"></div></div>
-        <!-- <div class="notice">Pay 43.5 mtbc</div> -->
-      </div>
-  </div>
-  <div class="wallet online" ng-click="go('/wallet', 'slideLeft')">
-    <div class="connection-light">
+    <div class="content">
+        <div class="wallet online" ng-click="go('/wallet', 'slideLeft')">
+            <div class="connection-light">
+            </div>
+            <div class="details">
+                <h2 class="val">23.01 <span>mbtc</span></h2>
+
+                <h3 class="currency-val">($15,504)</h3>
+            </div>
+            <!-- <div class="go-side notification"> -->
+            <div class="go-side">
+                <div class="go-btn">
+                    <div class="icon-forward"></div>
+                </div>
+                <!-- <div class="notice">Pay 43.5 mtbc</div> -->
+            </div>
+        </div>
+        <div class="wallet online" ng-click="go('/wallet', 'slideLeft')">
+            <div class="connection-light">
+            </div>
+            <div class="details">
+                <h2 class="val">19.405 <span>mbtc</span></h2>
+
+                <h3 class="currency-val">($12,321)</h3>
+            </div>
+            <!-- <div class="go-side notification"> -->
+            <div class="go-side">
+                <div class="go-btn">
+                    <div class="icon-forward"></div>
+                </div>
+                <!-- <div class="notice">Pay 43.5 mtbc</div> -->
+            </div>
+        </div>
     </div>
-    <div class="details">
-      <h2 class="val">19.405 <span>mbtc</span></h2>
-      <h3 class="currency-val">($12,321)</h3>
-    </div>
-    <!-- <div class="go-side notification"> -->
-    <div class="go-side">
-      <div class="go-btn"><div class="icon-forward"></div></div>
-      <!-- <div class="notice">Pay 43.5 mtbc</div> -->
-    </div>
-  </div>
-</div>
 
 
-<footer ng-include="'app/footer/footer.tpl.html'"></footer>
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</section>

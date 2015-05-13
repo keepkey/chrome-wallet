@@ -1,24 +1,32 @@
-<header>
-  <a class="button-left header-button" id="back" ng-click="go('/walletlist', 'slideRight')"><div class="icon-back"></div></a>
-  <div class="button-right header-button" id="refresh"><div class="icon-refresh"></div></div>
-</header>
+<section id="wallet">
+    <header>
+        <back-button class="button-left header-button" destination="'/walletlist'"></back-button>
 
-<div class="wallet online">
-  <div class="connection-light">
-  </div>
-  <div class="details">
-    <h2 class="val">23.01 <span>mbtc</span></h2>
-    <h3 class="currency-val">($15,504)</h3>
-  </div>
-</div>
+        <div class="button-right header-button" id="refresh">
+            <div class="icon icon-refresh"></div>
+        </div>
+    </header>
 
-<div class="wallet-menu">
-  <ul>
-    <!-- <li><a class="button notification" href="#">Pay 43.6 mbtc</a></li> -->
-    <li><a class="button" ng-click="go('/send', 'slideLeft')">Send Money</a></li>
-    <li><a class="button" ng-click="go('/receive', 'slideLeft')">Receive Money</a></li>
-    <li><a class="button">Transaction History</a></li>
-  </ul>
-</div>
+    <div class="content">
+        <div class="wallet online">
+            <div class="connection-light">
+            </div>
+            <div class="details">
+                <h2 class="val">23.01 <span>mbtc</span></h2>
 
-<footer ng-include="'app/footer/footer.tpl.html'"></footer>
+                <h3 class="currency-val">($15,504)</h3>
+            </div>
+        </div>
+
+        <div class="wallet-menu">
+            <ul>
+                <!-- <li><a class="button notification" href="#">Pay 43.6 mbtc</a></li> -->
+                <li><a class="button" ng-click="go('/send', 'slideLeft')">Send Money</a></li>
+                <li><a class="button" ng-click="go('/receive', 'slideLeft')">Receive Money</a></li>
+                <li><a class="button">Transaction History</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</section>

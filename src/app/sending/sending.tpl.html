@@ -1,17 +1,23 @@
-<header>
-  <a class="button-left header-button" id="back" ng-click="go('/send', 'slideRight')"><div class="icon-back"></div></a>
-</header>
+<section id="sending">
+    <header>
+        <back-button class="button-left header-button" destination="'/send'"></back-button>
+    </header>
 
-<div id="content-wrapper">
-  <div class="content" id="initializing">
-    <h2><span class="cornflower-txt"><b>Signing Transaction</b></span><br>
-    follow prompts on KeepKey...</h2>
-    <div id="loader">
-      <div></div><div></div><div></div><div></div><div></div><div class="second-top"></div><div class="top"></div>
+    <div class="content">
+        <h2><span class="cornflower-txt"><b>Signing Transaction</b></span><br>
+            follow prompts on KeepKey...</h2>
+
+        <div id="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div class="second-top"></div>
+            <div class="top"></div>
+        </div>
+        <a class="button" ng-click="go('/wallet', 'slideRight')">Cancel</a>
     </div>
-    <a class="button" ng-click="go('/wallet', 'slideRight')">Cancel</a>
-  </div>
-</div>
 
-
-<footer ng-include="'app/footer/footer.tpl.html'"></footer>
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</section>

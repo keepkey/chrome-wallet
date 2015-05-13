@@ -1,6 +1,6 @@
 {
   "name": "keepkey-wallet-chrome",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "The KeepKey Wallet extension adds bitcoin wallet functionality to Chrome using the KeepKey device for private key generation, private key storage, and transaction signing.",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
     "gulp-json-editor": "^2.2.1",
     "gulp-jsonminify": "^1.0.0",
     "gulp-karma": "0.0.4",
+    "gulp-less": "^3.0.3",
     "gulp-minify-css": "^1.1.0",
     "gulp-minify-html": "^1.0.2",
     "gulp-mocha": "^2.0.1",

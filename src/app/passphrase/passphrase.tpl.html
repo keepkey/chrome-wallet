@@ -1,27 +1,27 @@
-<header>
-  <a class="button-left header-button" id="back" ng-click="go('/pin', 'slideRight')"><div class="icon-back"></div></a>
-</header>
+<section id="passphrase">
+    <header>
+        <back-button class="button-left header-button" destination="'/pin'"></back-button>
+    </header>
 
-<div class="wallet-function">
-  <div class="wallet-function-heading">
-    <h2><span class="cornflower-txt"><b>Choose Passphrase</b></span> For Your KeepKey</h2>
-  </div>
+    <div class="content">
+        <h2><span class="cornflower-txt"><b>Choose Passphrase</b></span> For Your KeepKey</h2>
 
-  <form>
+        <form>
 
-    <div>
-      <label>Passphrase</label>
-      <input type="passphrase">
+            <div>
+                <label>Passphrase</label>
+                <input type="passphrase">
+            </div>
+
+            <div class="error">
+                <label>Re-Enter Passphrase</label>
+                <span>Sample Error</span>
+                <input type="passhrase">
+            </div>
+
+            <a class="button" ng-click="go('/initializing', 'slideLeft')">Choose Passphrase</a>
+        </form>
     </div>
 
-    <div class="error">
-      <label>Re-Enter Passphrase</label>
-      <span>Sample Error</span>
-      <input type="passhrase">
-    </div>
-
-    <a class="button" ng-click="go('/initializing', 'slideLeft')">Choose Passphrase</a>
-  </form>
-</div>
-
-<footer ng-include="'app/footer/footer.tpl.html'"></footer>
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</section>

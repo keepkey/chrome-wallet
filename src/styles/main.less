@@ -1,0 +1,351 @@
+@body-height: 280px;
+@body-width: 300px;
+
+@header-height: 50px;
+@header-padding: 1px;
+
+@footer-height: 20px;
+
+@content-padding: 5px;
+@content-height: @body-height - @header-height - @footer-height;
+@content-width: @body-width - 2 * @content-padding;
+
+@button-bar-width: @content-width;
+@button-bar-margin: 10px;
+@button-bar-button-width: (@button-bar-width - 3 * @button-bar-margin) / 2;
+
+@button-background-color: #9FAE00;
+@button-hover-background-color: #7A8500;
+
+@header-button-background-color: #6d6e71;
+@header-button-hover-background-color: #404041;
+
+@interior-border-color: #ECECED;
+@interior-border-width: 1px;
+
+@header-footer-background-color: #FDFDFD;
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: "untitled-font-4";
+  src: url("../assets/fonts/untitled-font-4.eot");
+  src: url("../assets/fonts/untitled-font-4.eot?#iefix") format("embedded-opentype"),
+  url("../assets/fonts/untitled-font-4.woff") format("woff"),
+  url("../assets/fonts/untitled-font-4.ttf") format("truetype"),
+  url("../assets/fonts/untitled-font-4.svg#untitled-font-4") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+b {
+  font-weight: 700;
+}
+
+body {
+  cursor: default;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  width: @body-width;
+  height: @body-height;
+  margin: 0;
+  box-sizing: border-box;
+  [ng-class="pageAnimationClass"] {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+section {
+  height: 100%;
+  width: 100%;
+}
+
+header {
+  height: @header-height;
+  border-bottom: @interior-border-width solid @interior-border-color;
+  background-color: @header-footer-background-color;
+  position: relative;
+  padding: @header-padding;
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+footer {
+  height: @footer-height;
+  background-color: @header-footer-background-color;
+  border-top: @interior-border-width solid @interior-border-color;
+  font-size: 9px;
+  padding: 0 2px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+form {
+  padding: 0 20px;
+  label {
+    color: #999;
+    font-style: italic;
+    display: block;
+    float: left;
+  }
+  input {
+    width: 100%;
+    height: 25px;
+    border: 1px solid #EBEBEC;
+    display: block;
+    margin-top: 5px;
+  }
+  .invalid {
+    float: right;
+    color: #d26464;
+    font-style: italic;
+  }
+  .ng-touched.ng-invalid {
+    border-color: #d26464;
+  }
+
+}
+
+.content {
+  padding: @content-padding;
+  height: @content-height;
+  box-sizing: border-box;
+  overflow: hidden;
+  h2 {
+    font-size: 12px;
+    font-weight: 200;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    text-align: center;
+    color: #999999;
+    .cornflower-txt {
+      color: #000;
+      font-weight: 200;
+    }
+  }
+}
+
+.button {
+  display: block;
+  text-align: center;
+  padding: 5px;
+  border-radius: 200px;
+  border-style: none;
+  margin: 0 auto;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 150px;
+  background-color: @button-background-color;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.2s all ease-in;
+  line-height: 20px;
+  box-sizing: border-box;
+  &:hover {
+    background-color: @button-hover-background-color;
+  }
+  &:active {
+    opacity: 0.2;
+  }
+}
+
+.header-button {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  border-radius: 200px;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 30px;
+  transition: all 0.1s ease-in;
+  background-color: @header-button-background-color;
+  &:hover {
+    background-color: @header-button-hover-background-color;
+  }
+  &:active {
+    opacity: 0.6;
+  }
+  &.settings-button {
+    &:hover {
+      -webkit-transform: rotate(-120deg);
+    }
+    &:active {
+      -webkit-transform: rotate(-360deg);
+    }
+  }
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  text-align: center;
+  font-size: 22px;
+  margin: 6px 0 0 4px;
+
+  &:before {
+    font-family: "untitled-font-4" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    //speak: none;
+    line-height: 1;
+  }
+
+  &.icon-forward:before {
+    content: "a";
+  }
+  &.icon-settings:before {
+    content: "b";
+  }
+  &.icon-refresh:before {
+    content: "c";
+  }
+  &.icon-back:before {
+    content: "d";
+  }
+  &.icon-create:before {
+    content: "+";
+  }
+
+  &.icon-back {
+    margin-left: 3px;
+  }
+
+  &.icon-create {
+    margin-right: -7px;
+    margin-left: 5px;
+  }
+}
+
+.button-bar {
+  width: @button-bar-width;
+  margin: @button-bar-margin 0;
+  padding-left: @button-bar-margin;
+  .button {
+    display: inline-block;
+    float: left;
+    width: @button-bar-button-width;
+    margin-right: @button-bar-margin;
+  }
+}
+
+@pin-button-width: 30px;
+@pin-button-line-height: @pin-button-width - 10px;
+@pin-pad-padding: 3px;
+@pin-pad-width: (3 * @pin-button-width) + (2 * @pin-pad-padding) + 1px;
+
+.pin-pad {
+  width: @pin-pad-width;
+  margin: 0 auto;
+  font-family: 'Open Sans', sans-serif;
+  line-height: @pin-button-line-height;
+  .button {
+    border-radius: 0px;
+    display: inline-block;
+    width: @pin-button-width;
+    margin-top: @pin-pad-padding;
+    padding: @pin-pad-padding;
+    background-color: #96979b;
+    &:hover {
+      background-color: #6d6e71;
+    }
+
+  }
+  .pin-view {
+    height: 20px;
+    width: @pin-pad-width;
+    margin-top: 10px;
+    text-align: center;
+    border: inset thin;
+  }
+}
+
+.word-list {
+  -webkit-column-count: 3;
+  width: 200px;
+  margin: 0 auto;
+  .mnemonic {
+    display: inline-block;
+    width: 20px;
+    font-family: "Andale Mono", monospace;
+    font-size: 12px;
+  }
+  .mnemonic-index {
+    color: #999999;
+    display: inline-block;
+    width: 15px;
+    text-align: right;
+  }
+}
+
+/* no device */
+#device {
+  margin: 20px auto;
+  width: 82px;
+  height: 53px;
+  background: url('../assets/img/device.png') 0 0 no-repeat;
+
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    background: url('../assets/img/device-highres.png') 0 0 no-repeat;
+    background-size: 82px 53px;
+  }
+}
+
+#connect {
+  .content {
+    padding-top: 35px;
+  }
+}
+
+#label {
+  .content {
+    padding-top: 10px;
+    h2 {
+      padding-bottom: 10px;
+      border-bottom: 1px solid @interior-border-color;
+    }
+  }
+  .form-input-container {
+    padding-top: 20px;
+    padding-bottom: 35px;
+  }
+}
+
+#initialize .content {
+  padding-top: 20px;
+}
+
+#pin {
+  .button {
+    margin-top: 8px;
+  }
+  .pin-pad .button {
+    margin-top: 3px;
+  }
+}
+
+#button-request {
+  .ButtonRequest_ConfirmWord h2 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .ButtonRequest_WipeDevice h2 {
+    margin-bottom: 25px;
+  }
+}
+
+#initialized h2 {
+  margin-top: 60px;
+  margin-bottom: 65px;
+}
+

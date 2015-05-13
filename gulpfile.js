@@ -1,4 +1,5 @@
 // Requires
+var path = require('path');
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -12,6 +13,7 @@ var replace = require('gulp-replace');
 var minifyHTML = require('gulp-minify-html');
 var zip = require('gulp-zip');
 var jsonminify = require('gulp-jsonminify');
+var less = require('gulp-less');
 var minifyCss = require('gulp-minify-css');
 var args = require('yargs').argv;
 var yaml = require('gulp-yaml');
@@ -20,7 +22,6 @@ var ngConstant = require('gulp-ng-constant');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
 var manifest = require('./manifest');
-
 // Settings
 var vendorJavascriptFiles = [
     'vendor/angular/angular.min.js',
@@ -39,8 +40,18 @@ gulp.task('clean', function (cb) {
     del(['dist', 'generatedJs', '*.zip'], cb);
 });
 
-gulp.task('build', ['vendorScriptsProduction', 'appScriptsProduction', 'backgroundScript', 'cssProduction', 'assetsProduction',
-    'htmlProduction', 'manifestProduction', 'buildConfig', 'zip']);
+gulp.task('build', [
+    'vendorScriptsProduction',
+    'appScriptsProduction',
+    'backgroundScript',
+    'cssProduction',
+    'less',
+    'assetsProduction',
+    'htmlProduction',
+    'manifestProduction',
+    'buildConfig',
+    'zip'
+]);
 
 gulp.task('buildConfig', function () {
     var envConfig = require('./config/' + (args.environment || 'local') + '.json');
@@ -103,10 +114,19 @@ gulp.task('assetsProduction', function () {
         .pipe(gulp.dest('dist/assets'));
 });
 
-gulp.task('cssProduction', function () {
-    return gulp.src(['vendor/angular/angular-csp.css', 'src/css/**/*'])
+gulp.task('less', function () {
+    return gulp.src('src/styles/**/*.less')
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
         .pipe(minifyCss())
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest('dist/styles'));
+});
+
+gulp.task('cssProduction', function () {
+    return gulp.src(['vendor/angular/angular-csp.css', 'src/styles/**/*.css'])
+        .pipe(minifyCss())
+        .pipe(gulp.dest('dist/styles'));
 });
 
 gulp.task('manifestProduction', function () {
