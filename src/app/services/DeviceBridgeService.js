@@ -90,6 +90,16 @@ angular.module('kkWallet')
                         done: done
                     };
                     return sendMessage(message);
+                },
+                updateFirmware: function() {
+                    return sendMessage({
+                        messageType: 'FirmwareUpload'
+                    });
+                },
+                eraseFirmware: function() {
+                    return sendMessage({
+                        messageType: 'FirmwareErase'
+                    });
                 }
             };
         }];
@@ -123,7 +133,7 @@ angular.module('kkWallet')
             deviceBridgeServiceProvider.when('ButtonRequest', navigateToLocation('/buttonRequest/:code'));
             deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
             deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
-            deviceBridgeServiceProvider.when('Success', navigateToLocation('/success'));
+            deviceBridgeServiceProvider.when('Success', navigateToLocation('/success/:message'));
             deviceBridgeServiceProvider.when('Failure', ['$injector', '$timeout', 'FailureMessageService',
                 function ($injector, $timeout, failureMessageService) {
                     failureMessageService.add(this.request.message);
@@ -133,12 +143,22 @@ angular.module('kkWallet')
             deviceBridgeServiceProvider.when('Features', ['NavigationService', 'DeviceFeatureService', '$rootScope',
                 function (navigationService, deviceFeatureService, $rootScope) {
                     deviceFeatureService.set(this.request.message);
-                    if (deviceFeatureService.features.initialized) {
+                    if (deviceFeatureService.features.bootloader_mode) {
+                        navigationService.go('/bootloader');
+                    }
+                    else if (deviceFeatureService.features.initialized) {
                         navigationService.go('/initialized');
-                    } else {
+                    }
+                    else {
                         navigationService.go('/initialize');
                     }
                     $rootScope.$digest();
+                }
+            ]);
+
+            deviceBridgeServiceProvider.when('ImageHashCode', ['ProxyInfoService',
+                function(proxyInfoService) {
+                    proxyInfoService.set(this.request.message);
                 }
             ]);
 

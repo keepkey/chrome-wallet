@@ -4,22 +4,39 @@
     <div class="content" ng-class="buttonRequestType">
         <div class="header-text">
             <h2 ng-switch="buttonRequestType">
-                <p ng-switch-when="ButtonRequest_ConfirmWord">
+                <div ng-switch-when="ButtonRequest_ConfirmWord">
                     <span class="cornflower-txt"><b>Almost Done!</b></span><br>
                     Write down your recovery sentence displayed on your KeepKey. This sentence serves as your device's
                     backup. Save it in a safe and secure place.
-                </p>
+                </div>
 
-                <p ng-switch-when="ButtonRequest_WipeDevice">
+                <div ng-switch-when="ButtonRequest_WipeDevice">
                     <span class="cornflower-txt"><b>Device Wipe Requested</b></span><br>
                     Your KeepKey is about to be wiped. Please acknowledge that this is what you want to do by pushing
-                    and
-                    holding the button on your device. ALL DATA ON THE DEVICE WILL BE DESTROYED.
-                </p>
+                    and holding the button on your device. ALL DATA ON THE DEVICE WILL BE DESTROYED.
+                </div>
 
-                <p ng-switch-default>
+                <div ng-switch-when="ButtonRequest_FirmwareCheck">
+                    <span class="cornflower-txt"><b>Firmware Uploaded</b></span><br>
+
+                    <div>
+                        Confirm that the correct firmware was uploaded to you KeepKey. The firmware fingerprint shown on
+                        the
+                        device should be:
+                    </div>
+                    <div ng-repeat="chunk in firmwareFingerprint">
+                        {{chunk}}<br/>
+                    </div>
+                </div>
+
+                <div ng-switch-when="ButtonRequest_FirmwareErase">
+                    <span class="cornflower-txt"><b>Firmware Erase</b></span><br>
+                    Confirm that you want to erase the firmware on your KeepKey.
+                </div>
+
+                <div ng-switch-default>
                     Unknown button request
-                </p>
+                </div>
             </h2>
         </div>
         <a class="button" ng-click="onCancel()">Cancel</a>

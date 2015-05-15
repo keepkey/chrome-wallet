@@ -10,9 +10,6 @@ angular.module('kkWallet')
             controller: ['$scope', 'NavigationService',
                 function ($scope, navigationService) {
                     $scope.go = navigationService.go;
-                    if (!$scope.destination) {
-                        $scope.destination = '/initialize';
-                    }
                     if(!$scope.animation) {
                         $scope.animation = 'slideRight';
                     }

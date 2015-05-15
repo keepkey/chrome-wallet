@@ -7,6 +7,9 @@ angular.module('kkWallet')
                     return false;
                 }
                 deviceBridgeService.acknowledgeWord($scope.word);
+                $scope.word = '';
+
+                return false;
             };
         }
     ]);

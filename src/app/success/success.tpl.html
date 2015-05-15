@@ -1,12 +1,14 @@
-<section id="sucess">
+<section id="success" ng-controller="SuccessController">
     <header>
         <settings-button class="button-left header-button"></settings-button>
     </header>
 
     <div class="content">
         <h2>
-            <span class="cornflower-txt">Your action was successfully acknowleged by your <b>KeepKey</b>.</span>
+            <span class="cornflower-txt">Success!</span>
         </h2>
+        <div>Your action was acknowleged by your <b>KeepKey</b>.</div>
+        <div>{{message}}</div>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
