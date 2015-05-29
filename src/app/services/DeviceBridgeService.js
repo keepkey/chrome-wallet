@@ -93,12 +93,7 @@ angular.module('kkWallet')
                 },
                 updateFirmware: function() {
                     return sendMessage({
-                        messageType: 'FirmwareUpload'
-                    });
-                },
-                eraseFirmware: function() {
-                    return sendMessage({
-                        messageType: 'FirmwareErase'
+                        messageType: 'FirmwareUpdate'
                     });
                 }
             };
@@ -107,13 +102,17 @@ angular.module('kkWallet')
     .config(['DeviceBridgeServiceProvider',
         function (deviceBridgeServiceProvider) {
 
+            function removeSpaces(str) {
+                return str ? str.replace(/\s+/g, '') : str;
+            }
+
             function navigateToLocation(locationTemplate) {
                 return ['NavigationService', '$rootScope',
                     function (navigationService, $rootScope) {
                         var location = locationTemplate;
                         for (var field in this.request.message) {
                             if (this.request.message.hasOwnProperty(field)) {
-                                location = location.replace(':' + field, encodeURIComponent(this.request.message[field]));
+                                location = location.replace(':' + field, encodeURIComponent(removeSpaces(this.request.message[field])));
                             }
                         }
                         navigationService.go(location);

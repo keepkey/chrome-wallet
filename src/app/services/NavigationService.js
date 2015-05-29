@@ -28,12 +28,6 @@ angular.module('kkWallet')
             .when('/failure', {
                 templateUrl: 'app/failure/failure.tpl.html'
             })
-            .when('/wait/eraseFirmware', {
-                templateUrl: 'app/wait/eraseFirmware.tpl.html'
-            })
-            .when('/wait/updateFirmware', {
-                templateUrl: 'app/wait/updateFirmware.tpl.html'
-            })
             .when('/walletlist', {
                 templateUrl: 'app/walletlist/walletlist.tpl.html'
             })
@@ -48,6 +42,12 @@ angular.module('kkWallet')
             })
             .when('/sending', {
                 templateUrl: 'app/sending/sending.tpl.html'
+            })
+            .when('/success/FirmwareErased', {
+                templateUrl: 'app/success/firmwareErased.tpl.html'
+            })
+            .when('/success/Uploadcomplete', {
+                templateUrl: 'app/success/uploadComplete.tpl.html'
             })
             .when('/success/:message', {
                 templateUrl: 'app/success/success.tpl.html'
