@@ -71,18 +71,18 @@ angular.module('kkWallet')
                 initialize: function () {
                     return sendMessage({messageType: 'Initialize'});
                 },
-                cancel: function() {
+                cancel: function () {
                     return sendMessage({messageType: 'Cancel'});
                 },
-                recoverDevice: function(options) {
+                recoverDevice: function (options) {
                     var message = angular.extend({messageType: 'RecoveryDevice'}, options);
                     return sendMessage(message);
                 },
-                acknowledgeWord: function(word) {
+                acknowledgeWord: function (word) {
                     var message = {messageType: 'WordAck', word: word};
                     return sendMessage(message);
                 },
-                characterAck: function(character, deleteChar, done) {
+                characterAck: function (character, deleteChar, done) {
                     var message = {
                         messageType: 'CharacterAck',
                         character: character,
@@ -91,7 +91,7 @@ angular.module('kkWallet')
                     };
                     return sendMessage(message);
                 },
-                updateFirmware: function() {
+                updateFirmware: function () {
                     return sendMessage({
                         messageType: 'FirmwareUpdate'
                     });
@@ -103,7 +103,7 @@ angular.module('kkWallet')
         function (deviceBridgeServiceProvider) {
 
             function removeSpaces(str) {
-                return str ? str.replace(/\s+/g, '') : str;
+                return (typeof str === "string") ? str.replace(/\s+/g, '') : str;
             }
 
             function navigateToLocation(locationTemplate) {
@@ -156,7 +156,7 @@ angular.module('kkWallet')
             ]);
 
             deviceBridgeServiceProvider.when('ImageHashCode', ['ProxyInfoService',
-                function(proxyInfoService) {
+                function (proxyInfoService) {
                     proxyInfoService.set(this.request.message);
                 }
             ]);

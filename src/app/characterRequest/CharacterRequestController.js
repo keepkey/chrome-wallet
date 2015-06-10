@@ -1,34 +1,49 @@
 angular.module('kkWallet')
     .controller('CharacterRequestController', ['$scope', '$routeParams', 'RecoveryCipherModel',
-        function ResetController($scope, $routeParams, recoveryCipherModel) {
-            var WORD_LENGTH = 4;
+        function CharacterRequestController($scope, $routeParams, recoveryCipherModel) {
+            const WORD_LENGTH = 4;
+
+            $scope.wordCount = 12;
+            $scope.wordLength = WORD_LENGTH;
+
+            $scope.getEmptyArray = function(num) {
+                return new Array(num);
+            }
 
             $scope.model = recoveryCipherModel.getModel();
             $scope.model.currentWord = parseInt($routeParams.word_pos);
             $scope.model.currentCharacterPosition = parseInt($routeParams.character_pos);
 
-            $scope.wordPatterns = [];
-            $scope.$watch('$routeParams', function() {
-                console.log('param change');
-                $scope.wordPatterns.length = 0;
+            $scope.getCharAtCurrentPosition = function (wordIndex, positionIndex) {
+                if ((wordIndex < $scope.model.currentWord) ||
+                    (wordIndex === $scope.model.currentWord &&
+                    positionIndex < $scope.model.currentCharacterPosition)) {
+                    return '*';
+                }
+                else if (wordIndex === $scope.model.currentWord &&
+                    positionIndex === $scope.model.currentCharacterPosition) {
+                    return '|';
+                } else {
+                    return '-';
+                }
+            };
 
+            $scope.isCursorPosition = function(wordIndex, characterIndex) {
+                return wordIndex === $scope.model.currentWord &&
+                    characterIndex === $scope.model.currentCharacterPosition;
+            };
+
+            $scope.wordCompleted = function (wordIndex) {
+                return wordIndex < $scope.model.currentWord;
+            };
+
+            $scope.wordPatterns = [];
+            $scope.$watch('$routeParams', function () {
                 $scope.model.currentWord = parseInt($routeParams.word_pos);
                 $scope.model.currentCharacterPosition = parseInt($routeParams.character_pos);
-
-                for (var i=0, iMax=12; i<iMax; i++) {
-                    if (i < $scope.model.currentWord) {
-                        $scope.wordPatterns.push('****');
-                    } else if (i === $scope.model.currentWord ) {
-                        var pattern = new Array($scope.model.currentCharacterPosition + 1).join('*') +
-                            new Array(WORD_LENGTH - $scope.model.currentCharacterPosition + 1).join('_');
-                        $scope.wordPatterns.push(pattern);
-                    } else {
-                        $scope.wordPatterns.push('____');
-                    }
-                }
             });
 
-            $scope.onKeyPress = function(ev) {
+            $scope.onKeyPress = function (ev) {
                 var keyCode = ev.keyCode;
 
                 if (keyCode === 13) {
@@ -58,10 +73,10 @@ angular.module('kkWallet')
                 sendCharacter: function (character) {
                     deviceBridgeService.characterAck(character);
                 },
-                sendEnter: function() {
+                sendEnter: function () {
                     deviceBridgeService.characterAck('', false, true);
                 },
-                sendBackspace: function() {
+                sendBackspace: function () {
                     deviceBridgeService.characterAck('', true, false);
                 }
             };

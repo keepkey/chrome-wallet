@@ -272,19 +272,23 @@ form {
 
 .word-list {
   -webkit-column-count: 3;
-  width: 200px;
+  width: 270px;
   margin: 0 auto;
-  .mnemonic {
+  .word-index {
     display: inline-block;
-    width: 20px;
+    width: 17px;
+    text-align: right;
+  }
+  .word-representation {
     font-family: "Andale Mono", monospace;
     font-size: 12px;
   }
-  .mnemonic-index {
-    color: #999999;
+  .checkmark-container {
+    color: green;
     display: inline-block;
-    width: 15px;
-    text-align: right;
+    width: 10px;
+    font-size: 13px;
+    margin-right: 2px;
   }
 }
 
@@ -349,3 +353,17 @@ form {
   margin-bottom: 65px;
 }
 
+.blink {
+  animation: blink 1s steps(5, start) infinite;
+  -webkit-animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}

@@ -92,6 +92,38 @@ describe('DeviceBridgeService', function () {
             }));
         });
 
+        describe('on connected message', function() {
+            var senderResponseStub;
+            var mockSender;
+
+            beforeEach(function() {
+                senderResponseStub = stub();
+                mockSender = {
+                    id: 'testProxyId'
+                };
+                stub($rootScope, '$digest');
+            });
+
+            afterEach(function() {
+                assert.notCalled(senderResponseStub);
+            });
+
+            it('sends the initialize() request to the device proxy', function () {
+                var initializeSpy = sinon.spy(service, 'initialize');
+
+                var mockMessage = {
+                    messageType: 'connected'
+                };
+
+                messageListener(mockMessage, mockSender, senderResponseStub);
+
+                assert.calledOnce(initializeSpy);
+                assert.calledWith(initializeSpy);
+
+                initializeSpy.restore();
+            });
+        });
+
         describe('messages that route to another page', function () {
             var senderResponseStub;
             var mockSender;
@@ -110,16 +142,6 @@ describe('DeviceBridgeService', function () {
                 assert.calledOnce($rootScope.$digest);
 
                 $rootScope.$digest.restore();
-            });
-
-            it('navigates to "/initialize" when a "connected" message is received', function () {
-                var mockMessage = {
-                    messageType: 'connected'
-                };
-
-                messageListener(mockMessage, mockSender, senderResponseStub);
-
-                assert.calledWith(mockNavigationService.go, '/initialize');
             });
 
             it('navigates to "/connect" when a "disconnected" message is received', function () {

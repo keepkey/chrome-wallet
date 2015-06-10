@@ -1,13 +1,28 @@
-<section id="character-request" ng-controller="CharacterRequestController" tabindex="0" focus ng-keydown="onKeyPress($event)">
+<section id="character-request" ng-controller="CharacterRequestController"
+         tabindex="0" focus ng-keydown="onKeyPress($event)">
     <header>
-        <back-button class="button-left header-button" destination="'/initialize'"></back-button>
+        <back-button class="button-left header-button"
+                     destination="'/initialize'">
+        </back-button>
+
     </header>
 
     <div class="content">
-        <h2><span class="cornflower-txt"><b>Enter the private key</b></span> For Your KeepKey</h2>
+        <h2>
+            <span class="cornflower-txt">
+                <b>Enter the private key</b>
+            </span> For Your KeepKey
+        </h2>
         <div class="word-list">
-            <div ng-repeat="pattern in wordPatterns track by $index">
-                <span class="mnemonic-index">{{$index + 1}}:</span> <span class="mnemonic">{{pattern}}</span>
+            <div ng-repeat="wordIndex in getEmptyArray(wordCount) track by $index">
+                <span class="checkmark-container">
+                    <span ng-show="wordCompleted($index)" class="fa fa-check"></span>
+                </span>
+                <span class="word-index">{{$index + 1}}.</span>
+                <span class="word-representation" ng-class="{blink: isCursorPosition($parent.$index, $index)}"
+                      ng-repeat="characterIndex in getEmptyArray(wordLength) track by $index">
+                    {{getCharAtCurrentPosition($parent.$index, $index)}}
+                </span>
             </div>
         </div>
     </div>

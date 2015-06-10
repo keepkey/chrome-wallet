@@ -12,12 +12,9 @@ describe('ConnectController', function () {
         $controller = _$controller_;
         $q = _$q_;
 
-        mockNav = {
-            go: stub()
-        }
-
         mockDeviceBridgeService = {
-            isDeviceReady: stub().returns($q.when({result: true}))
+            isDeviceReady: stub().returns($q.when({result: true})),
+            initialize: stub()
         };
 
         controller = $controller('ConnectController', {
@@ -32,9 +29,8 @@ describe('ConnectController', function () {
         assert.calledOnce(mockDeviceBridgeService.isDeviceReady);
     });
 
-    it('when the device is ready, route to initialize', function () {
+    it('when the device is ready, call the initialize function', function () {
         $rootScope.$apply();
-        assert.calledOnce(mockNav.go);
-        assert.calledWith(mockNav.go, '/initialize');
+        assert.calledOnce(mockDeviceBridgeService.initialize);
     });
 });
