@@ -117,6 +117,7 @@ form {
   height: @content-height;
   box-sizing: border-box;
   overflow: hidden;
+  position: relative;
   h2 {
     font-size: 12px;
     font-weight: 200;
@@ -152,6 +153,16 @@ form {
   }
   &:active {
     opacity: 0.2;
+  }
+}
+
+.cancel-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 10px;
+  &:hover {
+    text-decoration: underline;
   }
 }
 

@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-    .run(['$q', 'environmentConfig', 'chrome',
-        function ($q, environmentConfig, chrome) {
+    .run(['$q', 'environmentConfig', 'chrome', 'DeviceBridgeService',
+        function ($q, environmentConfig, chrome, deviceBridgeService) {
             function getExtensionList() {
                 return $q(function (resolve) {
                     chrome.management.getAll(function (extensions) {
@@ -34,6 +34,10 @@ angular.module('kkWallet')
                 });
             }
 
+            var background = chrome.extension.getBackgroundPage();
+            addEventListener("unload", function (event) {
+                deviceBridgeService.cancel();
+            });
             getExtensionList()
                 .then(proxyApplicationInstalled)
                 .catch(function loadProxyDownloadPage() {

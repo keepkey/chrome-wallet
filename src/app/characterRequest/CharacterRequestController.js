@@ -8,7 +8,7 @@ angular.module('kkWallet')
 
             $scope.getEmptyArray = function(num) {
                 return new Array(num);
-            }
+            };
 
             $scope.model = recoveryCipherModel.getModel();
             $scope.model.currentWord = parseInt($routeParams.word_pos);
