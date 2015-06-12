@@ -112,12 +112,166 @@ form {
 
 }
 
+// Constants measured from the device in mm.
+@measured-screen-width: 92;
+@measured-screen-height: 37;
+@measured-width-border: 9;
+@measured-height-border: 11;
+@screen-ratio: @measured-screen-height / @measured-screen-width;
+@screen-width: @content-width;
+@screen-height: @screen-width * @screen-ratio;
+@screen-border-width: @measured-width-border / @measured-screen-width * @screen-width;
+@screen-content-width: @screen-width - (2 * @screen-border-width);
+@screen-content-height: @screen-height - (2 * @screen-border-width);
+
+@animation-ball-size: 10px;
+@animation-ball-count: 5;
+@animation-width: @screen-content-width / 2;
+@animation-duration: 3s;
+
+.balls-animation-container {
+  top: (@screen-content-height - @animation-ball-size) / 2;
+  left: (@screen-content-width - @animation-width) / 2;
+  position: relative;
+  width: @animation-width;
+  height: @animation-ball-size;
+
+  .ball-animation-container {
+    width: @animation-width - (@animation-ball-count * @animation-ball-size);
+    position: absolute;
+    &.ball_1 {
+      left: 0 * @animation-ball-size;
+      .ball {
+        -webkit-animation: following-ball-1 @animation-duration infinite normal;
+      }
+    }
+    &.ball_2 {
+      left: 1 * @animation-ball-size;
+      .ball {
+        -webkit-animation: following-ball-2 @animation-duration infinite normal;
+      }
+    }
+    &.ball_3 {
+      left: 2 * @animation-ball-size;
+      .ball {
+        -webkit-animation: following-ball-3 @animation-duration infinite normal;
+      }
+    }
+    &.ball_4 {
+      left: 3 * @animation-ball-size;
+      .ball {
+        -webkit-animation: following-ball-4 @animation-duration infinite normal;
+      }
+    }
+    &.ball_5 {
+      left: 4 * @animation-ball-size;
+      .ball {
+        -webkit-animation: following-ball-5 @animation-duration infinite normal;
+      }
+    }
+    .ball {
+      background-color: lightgrey;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: @animation-ball-size;
+      height: @animation-ball-size;
+    }
+  }
+  @-webkit-keyframes following-ball-1 {
+    20%, 75% {
+      left: 0px;
+    }
+    45%, 50% {
+      left: @animation-width - @animation-ball-size;
+    }
+  }
+  @-webkit-keyframes following-ball-2 {
+    15%, 80% {
+      left: 0px;
+    }
+    40%, 55% {
+      left: @animation-width - @animation-ball-size;
+    }
+  }
+  @-webkit-keyframes following-ball-3 {
+    10%, 85% {
+      left: 0px;
+    }
+    35%, 60% {
+      left: @animation-width - @animation-ball-size;
+    }
+  }
+  @-webkit-keyframes following-ball-4 {
+    5%, 90% {
+      left: 0px;
+    }
+    30%, 65% {
+      left: @animation-width - @animation-ball-size;
+    }
+  }
+  @-webkit-keyframes following-ball-5 {
+    0%, 95% {
+      left: 0px;
+    }
+    25%, 70% {
+      left: @animation-width - @animation-ball-size;
+    }
+  }
+
+}
+
 .content {
   padding: @content-padding;
   height: @content-height;
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
+  .confirmation-instructions {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .device-screen {
+    background-color: black;
+    height: @screen-content-height;
+    padding: @screen-border-width;
+    position: relative;
+    color: #ccc;
+    &.centered {
+      text-align: center;
+    }
+    .button-press-icon {
+      position: relative;
+      font-size: 23px;
+      float: right;
+      div {
+        color: #000;
+        position: absolute;
+        left: 3.3px;
+        top: 5px;
+      }
+    }
+    .plug-icon {
+      float: right;
+      font-size: 23px;
+    }
+    .giant-icon {
+      font-size: 40px;
+    }
+    h2 {
+      line-height: 15px;
+      font-size: 11px;
+      text-align: left;
+      color: #d3d3d3;
+      .cornflower-txt {
+        text-transform: uppercase;
+        color: inherit;
+        font-weight: 700;
+        line-height: 17px;
+        font-size: 12px;
+      }
+    }
+  }
   h2 {
     font-size: 12px;
     font-weight: 200;
@@ -350,10 +504,6 @@ form {
 }
 
 #button-request {
-  .ButtonRequest_ConfirmWord h2 {
-    margin-top: 25px;
-    margin-bottom: 25px;
-  }
   .ButtonRequest_WipeDevice h2 {
     margin-bottom: 25px;
   }
@@ -368,11 +518,13 @@ form {
   animation: blink 1s steps(5, start) infinite;
   -webkit-animation: blink 1s steps(5, start) infinite;
 }
+
 @keyframes blink {
   to {
     visibility: hidden;
   }
 }
+
 @-webkit-keyframes blink {
   to {
     visibility: hidden;
