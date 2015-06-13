@@ -1,0 +1,21 @@
+<section id="button-request" ng-controller="ButtonRequestController">
+    <header>
+        <back-button class="button-left header-button" action="onCancel()"></back-button>
+    </header>
+
+    <div class="content" ng-class="buttonRequestType">
+        <div class="device-screen">
+            <div class="button-press-icon fa fa-circle"><div class="fa fa-sort-up"></div></div>
+            <h2>
+                <div>
+                    <span class="cornflower-txt"><b>Recovery Sentence</b></span><br>
+                    The words displayed on your KeepKey are your recovery key. Write it down and keep it in a safe and secure place.
+                </div>
+            </h2>
+        </div>
+        <div class="confirmation-instructions">Please confirm this action by pressing and holding the button on the top of your KeepKey</div>
+        <a class="cancel-button" ng-click="onCancel()">Cancel</a>
+    </div>
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</section>

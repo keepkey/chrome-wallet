@@ -3,30 +3,16 @@
 
     <div class="content" ng-class="buttonRequestType">
         <div class="device-screen">
-            <div class="button-press-icon fa fa-circle"><div class="fa fa-sort-up"></div></div>
-            <h2 ng-switch="buttonRequestType">
-                <div ng-switch-when="ButtonRequest_ConfirmWord">
-                    <span class="cornflower-txt"><b>Recovery Sentence</b></span><br>
-                    The words displayed on your KeepKey are your recovery key. Write it down and keep it in a safe and secure place.
-                </div>
-
-                <div ng-switch-when="ButtonRequest_WipeDevice">
-                    <span class="cornflower-txt"><b>Wipe Device</b></span><br>
-                    Do you want to erase your private keys and settings?
-                </div>
-
-                <div ng-switch-when="ButtonRequest_FirmwareErase">
-                    <span class="cornflower-txt"><b>Verify Backup</b></span><br>
-                    Do you have your recovery sentence in
-                    case your private keys are erased?
-                </div>
-
-                <div ng-switch-default>
-                    Unknown button request
-                </div>
+            <div class="button-press-icon fa fa-circle">
+                <div class="fa fa-sort-up"></div>
+            </div>
+            <h2>
+                Unknown button request type: {{buttonRequestType}}
             </h2>
         </div>
-        <div class="confirmation-instructions">Please confirm this action by pressing and holding the button on the top of your KeepKey</div>
+        <div class="confirmation-instructions">Please confirm this action by pressing and holding the button on the top
+            of your KeepKey
+        </div>
         <a class="cancel-button" ng-click="onCancel()">Cancel</a>
     </div>
 

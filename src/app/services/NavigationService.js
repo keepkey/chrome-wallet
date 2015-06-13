@@ -16,6 +16,15 @@ angular.module('kkWallet')
             .when('/bootloader', {
                 templateUrl: 'app/bootloader/bootloader.tpl.html'
             })
+            .when('/buttonRequest/ButtonRequest_ConfirmWord', {
+                templateUrl: 'app/buttonRequest/confirmWord.tpl.html'
+            })
+            .when('/buttonRequest/ButtonRequest_WipeDevice', {
+                templateUrl: 'app/buttonRequest/wipeDevice.tpl.html'
+            })
+            .when('/buttonRequest/ButtonRequest_FirmwareErase', {
+                templateUrl: 'app/buttonRequest/firmwareErase.tpl.html'
+            })
             .when('/buttonRequest/:code', {
                 templateUrl: 'app/buttonRequest/buttonRequest.tpl.html'
             })
@@ -73,22 +82,29 @@ angular.module('kkWallet')
     }])
     .factory('NavigationService', ['$location', '$rootScope',
         function ($location, $rootScope) {
+            var nextTransition;
             return {
                 go: function (path, pageAnimationClass) {
-
-                    console.log('navigating to %s', path);
 
                     if (path === $location.path()) {
                         return;
                     }
 
-                    if (typeof(pageAnimationClass) === 'undefined') { // Use a default, your choice
-                        $rootScope.pageAnimationClass = '';
-                    } else { // Use the specified animation
+                    if (typeof(pageAnimationClass) !== 'undefined') {
                         $rootScope.pageAnimationClass = pageAnimationClass;
                     }
-
+                    else if (typeof(nextTransition) !== 'undefined') {
+                        $rootScope.pageAnimationClass = nextTransition;
+                    }
+                    else {
+                        $rootScope.pageAnimationClass = '';
+                    }
+                    console.log('navigating to %s with "%s" transition', path, $rootScope.pageAnimationClass);
+                    nextTransition = undefined;
                     $location.path(path);
+                },
+                setNextTransition: function(pageAnimationClass) {
+                    nextTransition = pageAnimationClass;
                 }
             };
         }

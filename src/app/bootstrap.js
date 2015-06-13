@@ -45,5 +45,12 @@ angular.module('kkWallet')
                     chrome.tabs.create({url: keepKeyProxyUrl});
                 });
         }
+    ])
+    .run(['$rootScope', 'DeviceBridgeService',
+        function ($rootScope, deviceBridgeService) {
+            $rootScope.onCancel = function () {
+                deviceBridgeService.cancel();
+            };
+        }
     ]);
 

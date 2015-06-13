@@ -1,11 +1,14 @@
 angular.module('kkWallet')
-    .controller('ResetController', ['$scope', '$routeParams', 'ResetRecoverRequestModel', 'DeviceBridgeService',
-        function ResetController($scope, $routeParams, resetRecoverRequestModel, deviceBridgeService) {
+    .controller('ResetController', ['$scope', '$routeParams', 'ResetRecoverRequestModel', 'DeviceBridgeService', 'NavigationService',
+        function ResetController($scope, $routeParams, resetRecoverRequestModel, deviceBridgeService, navigationService) {
             $scope.resetRecoverData = resetRecoverRequestModel;
             $scope.nextAction = function() {
                 if (!$scope.form.$valid) {
                     return false;
                 }
+
+                navigationService.setNextTransition('slideLeft');
+
                 if ($routeParams.nextAction === 'initialize') {
                     deviceBridgeService.resetDevice($scope.resetRecoverData);
                 } else if ($routeParams.nextAction === 'recover') {

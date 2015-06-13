@@ -1,9 +1,11 @@
 angular.module('kkWallet')
-    .controller('PinController', ['$scope', '$routeParams', 'PinModel', 'DeviceBridgeService',
-        function PinController($scope, $routeParams, PinModel, DeviceBridgeService) {
+    .controller('PinController', ['$scope', '$routeParams', 'PinModel', 'DeviceBridgeService', 'NavigationService',
+        function PinController($scope, $routeParams, pinModel, deviceBridgeService, navigationService) {
             $scope.displayPin = '';
-            $scope.pinData = PinModel;
+            $scope.pinData = pinModel;
             $scope.requestType = $routeParams.type;
+            
+            navigationService.setNextTransition('slideLeft');
 
             $scope.appendToPin = function(position) {
                 $scope.pinData.pin = '' + $scope.pinData.pin + position;
@@ -13,7 +15,7 @@ angular.module('kkWallet')
                 $scope.displayPin = new Array($scope.pinData.pin.length + 1).join('*');
             });
             $scope.sendPinToDevice = function() {
-                DeviceBridgeService.sendPin($scope.pinData);
+                deviceBridgeService.sendPin($scope.pinData);
                 $scope.pinData.clear();
             };
         }

@@ -4,13 +4,13 @@
     </header>
 
     <div class="content">
-        <h2>
-            <span class="cornflower-txt">Your action was unsuccessful.</span>
-        </h2>
-        <div class="failure-list" ng-repeat="failure in failures">
-            <div>{{failure.code}}: {{failure.message}}</div>
+        <div class="alert-icon">
+            <span class="fa fa-exclamation-triangle"></span>
         </div>
-        <a class="button" ng-click="ok()">OK</b></a>
+        <div class="failure-list ng-scope" ng-repeat="failure in failures">
+            <div>{{failure.message}}</div>
+        </div>
+        <a class="button" ng-click="ok()">OK</a></div>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
