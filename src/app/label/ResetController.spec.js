@@ -3,7 +3,7 @@
 //require('ConnectController.js');
 
 describe('InitializationController', function () {
-    var $rootScope, $controller, $q, controller,  mockInitializationDataService, scope;
+    var $rootScope, $controller, controller,  mockInitializationDataService, scope;
 
     beforeEach(module('kkWallet'));
 

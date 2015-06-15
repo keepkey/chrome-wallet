@@ -4,7 +4,8 @@ angular.module('kkWallet')
             $scope.displayPin = '';
             $scope.pinData = pinModel;
             $scope.requestType = $routeParams.type;
-            
+            $scope.previousRoute = navigationService.getPreviousRoute();
+
             navigationService.setNextTransition('slideLeft');
 
             $scope.appendToPin = function(position) {

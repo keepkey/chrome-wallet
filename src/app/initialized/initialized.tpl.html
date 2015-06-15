@@ -1,4 +1,4 @@
-<section id="initialized">
+<section id="initialized" ng-controller="InitializedController">
     <header>
         <settings-button class="button-left header-button"></settings-button>
     </header>
@@ -7,7 +7,7 @@
         <h2>
             <span class="cornflower-txt">Your <b>KeepKey</b> is initialized.</span>
         </h2>
-        <a class="button" ng-click="go('/initialize', 'slideLeft')">Wipe and Re-initialize</a>
+        <a class="button" ng-click="wipeDevice()">Wipe and Re-initialize</a>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>

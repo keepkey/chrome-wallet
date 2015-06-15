@@ -46,9 +46,11 @@ angular.module('kkWallet')
                 });
         }
     ])
-    .run(['$rootScope', 'DeviceBridgeService',
-        function ($rootScope, deviceBridgeService) {
+    .run(['$rootScope', 'DeviceBridgeService', 'NavigationService',
+        function ($rootScope, deviceBridgeService, navigationService) {
             $rootScope.onCancel = function () {
+                navigationService.setNextDestination(navigationService.getPreviousRoute());
+                navigationService.setNextTransition('slideRight');
                 deviceBridgeService.cancel();
             };
         }
