@@ -19,15 +19,15 @@ angular.module('kkWallet')
                 .when('/bootloader', {
                     templateUrl: 'app/bootloader/bootloader.tpl.html'
                 })
-                .when('/buttonRequest/ButtonRequest_ConfirmWord', {
+                .when('/buttonRequest/button_request_confirm_word', {
                     templateUrl: 'app/buttonRequest/confirmWord.tpl.html',
                     goable: false
                 })
-                .when('/buttonRequest/ButtonRequest_WipeDevice', {
+                .when('/buttonRequest/button_request_wipe_device', {
                     templateUrl: 'app/buttonRequest/wipeDevice.tpl.html',
                     goable: false
                 })
-                .when('/buttonRequest/ButtonRequest_FirmwareErase', {
+                .when('/buttonRequest/button_request_firmware_erase', {
                     templateUrl: 'app/buttonRequest/firmwareErase.tpl.html',
                     goable: false
                 })
@@ -61,11 +61,11 @@ angular.module('kkWallet')
                 .when('/sending', {
                     templateUrl: 'app/sending/sending.tpl.html'
                 })
-                .when('/success/FirmwareErased', {
+                .when('/success/firmware_erased', {
                     templateUrl: 'app/success/firmwareErased.tpl.html',
                     goable: false
                 })
-                .when('/success/Uploadcomplete', {
+                .when('/success/upload_complete', {
                     templateUrl: 'app/success/uploadComplete.tpl.html',
                     goable: false
                 })

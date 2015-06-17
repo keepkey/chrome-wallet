@@ -26,7 +26,8 @@ var manifest = require('./manifest');
 var vendorJavascriptFiles = [
     'vendor/angular/angular.min.js',
     'vendor/angular-animate/angular-animate.min.js',
-    'vendor/angular-route/angular-route.min.js'
+    'vendor/angular-route/angular-route.min.js',
+    'vendor/lodash/lodash.min.js'
 ];
 var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
 
