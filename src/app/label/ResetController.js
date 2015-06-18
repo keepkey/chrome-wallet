@@ -26,6 +26,7 @@ angular.module('kkWallet')
             password_protection: false,
             word_count: 12,
             language: 'english',
-            enforce_wordlist: false
+            enforce_wordlist: true,
+            use_character_cipher: true
         };
     });

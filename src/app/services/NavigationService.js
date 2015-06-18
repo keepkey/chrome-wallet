@@ -80,6 +80,14 @@ angular.module('kkWallet')
                 .when('/receive', {
                     templateUrl: 'app/receive/receive.tpl.html'
                 })
+                .when('/pin/pin_matrix_request_type_new_first', {
+                    templateUrl: 'app/pin/newPin.tpl.html',
+                    goable: false
+                })
+                .when('/pin/pin_matrix_request_type_new_second', {
+                    templateUrl: 'app/pin/confirmPin.tpl.html',
+                    goable: false
+                })
                 .when('/pin/:type', {
                     templateUrl: 'app/pin/pin.tpl.html',
                     goable: false

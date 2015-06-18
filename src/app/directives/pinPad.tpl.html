@@ -1,0 +1,23 @@
+<div>
+    <div class="pin-pad">
+        <div class="pin-row">
+            <a class="button pin" ng-click="appendToPin(7)">*</a>
+            <a class="button pin" ng-click="appendToPin(8)">*</a>
+            <a class="button pin" ng-click="appendToPin(9)">*</a>
+        </div>
+        <div class="pin-row">
+            <a class="button pin" ng-click="appendToPin(4)">*</a>
+            <a class="button pin" ng-click="appendToPin(5)">*</a>
+            <a class="button pin" ng-click="appendToPin(6)">*</a>
+        </div>
+        <div class="pin-row">
+            <a class="button pin" ng-click="appendToPin(1)">*</a>
+            <a class="button pin" ng-click="appendToPin(2)">*</a>
+            <a class="button pin" ng-click="appendToPin(3)">*</a>
+        </div>
+        <div class="pin-view" ng-bind="displayPin"></div>
+    </div>
+    <a class="button" ng-click="sendPin()">
+        <span ng-bind="buttonText"></span>
+    </a>
+</div>

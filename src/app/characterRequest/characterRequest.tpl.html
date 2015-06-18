@@ -1,5 +1,5 @@
 <section id="character-request" ng-controller="CharacterRequestController"
-         tabindex="0" focus ng-keydown="onKeyPress($event)">
+         tabindex="0" focus ng-keydown="onKeyPress($event)" ng-class="{disabled: sendInProgress}">
     <header>
         <back-button class="button-left header-button"
                      action="onCancel()">
