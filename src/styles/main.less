@@ -126,8 +126,9 @@ form {
 
 @animation-ball-size: 10px;
 @animation-ball-count: 5;
-@animation-width: @screen-content-width / 2;
+@animation-width: @screen-content-width * .6;
 @animation-duration: 3s;
+@ball-animation-container-width: @animation-width - ((@animation-ball-count - 1) * @animation-ball-size);
 
 .balls-animation-container {
   top: (@screen-content-height - @animation-ball-size) / 2;
@@ -137,7 +138,7 @@ form {
   height: @animation-ball-size;
 
   .ball-animation-container {
-    width: @animation-width - (@animation-ball-count * @animation-ball-size);
+    width: @ball-animation-container-width;
     position: absolute;
     &.ball_1 {
       left: 0 * @animation-ball-size;
@@ -183,7 +184,7 @@ form {
       left: 0px;
     }
     45%, 50% {
-      left: @animation-width - @animation-ball-size;
+      left: @ball-animation-container-width - @animation-ball-size;
     }
   }
   @-webkit-keyframes following-ball-2 {
@@ -191,7 +192,7 @@ form {
       left: 0px;
     }
     40%, 55% {
-      left: @animation-width - @animation-ball-size;
+      left: @ball-animation-container-width - @animation-ball-size;
     }
   }
   @-webkit-keyframes following-ball-3 {
@@ -199,7 +200,7 @@ form {
       left: 0px;
     }
     35%, 60% {
-      left: @animation-width - @animation-ball-size;
+      left: @ball-animation-container-width - @animation-ball-size;
     }
   }
   @-webkit-keyframes following-ball-4 {
@@ -207,7 +208,7 @@ form {
       left: 0px;
     }
     30%, 65% {
-      left: @animation-width - @animation-ball-size;
+      left: @ball-animation-container-width - @animation-ball-size;
     }
   }
   @-webkit-keyframes following-ball-5 {
@@ -215,10 +216,30 @@ form {
       left: 0px;
     }
     25%, 70% {
-      left: @animation-width - @animation-ball-size;
+      left: @ball-animation-container-width - @animation-ball-size;
     }
   }
 
+}
+
+#bootloader .content .device-screen>div {
+  margin: 21px 0;
+  font-weight: 700;
+}
+
+#firmware-erase-cancelled {
+  @firmware-erase-content-height: 152px;
+  @firmware-erase-content-ns-margin: (@content-height - @firmware-erase-content-height)/2;
+  .plug-icon {
+    font-size: 30px;
+    margin: 25px;
+  }
+  .content {
+    text-align: center;
+    margin: @firmware-erase-content-ns-margin 0;
+    height: @firmware-erase-content-height;
+    font-size: 16px;
+  }
 }
 
 .content {

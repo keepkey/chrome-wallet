@@ -134,10 +134,11 @@ angular.module('kkWallet')
             deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
             deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
             deviceBridgeServiceProvider.when('Success', navigateToLocation('/success/:message'));
-            deviceBridgeServiceProvider.when('Failure', ['$injector', '$timeout', 'FailureMessageService',
-                function ($injector, $timeout, failureMessageService) {
+            deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
+                function ($injector, failureMessageService, navigationService) {
                     failureMessageService.add(this.request.message);
-                    $injector.invoke(navigateToLocation('/failure'), this);
+                    navigationService.setNextDestination();
+                    $injector.invoke(navigateToLocation('/failure/:message'), this);
                 }
             ]);
             deviceBridgeServiceProvider.when('Features', ['NavigationService', 'DeviceFeatureService', '$rootScope',

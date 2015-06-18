@@ -42,7 +42,11 @@ angular.module('kkWallet')
                 .when('/creating', {
                     templateUrl: 'app/creating/creating.tpl.html'
                 })
-                .when('/failure', {
+                .when('/failure/firmware_erase_cancelled', {
+                    templateUrl: 'app/failure/firmwareEraseCancelled.tpl.html',
+                    goable: false
+                })
+                .when('/failure/:message', {
                     templateUrl: 'app/failure/failure.tpl.html',
                     goable: false
                 })
