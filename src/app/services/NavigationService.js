@@ -46,6 +46,10 @@ angular.module('kkWallet')
                     templateUrl: 'app/failure/firmwareEraseCancelled.tpl.html',
                     goable: false
                 })
+                .when('/failure/pin_change_failed', {
+                    templateUrl: 'app/failure/pinConfirmationFailed.tpl.html',
+                    goable: false
+                })
                 .when('/failure/:message', {
                     templateUrl: 'app/failure/failure.tpl.html',
                     goable: false
