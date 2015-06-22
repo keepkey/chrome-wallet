@@ -45,9 +45,7 @@ b {
 
 body {
   cursor: default;
-  font-family: 'Raleway', sans-serif;
   font-size: 12px;
-  line-height: 20px;
   width: @body-width;
   height: @body-height;
   margin: 0;
@@ -63,6 +61,16 @@ body {
 section {
   height: 100%;
   width: 100%;
+  position: relative;
+  .overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    opacity: 0.6;
+  }
 }
 
 header {
@@ -112,6 +120,13 @@ form {
 
 }
 
+// Bootstrap Overrides
+body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  line-height: inherit;
+  font-family: 'Raleway', sans-serif;
+  line-height: 20px;
+}
+
 // Constants measured from the device in mm.
 @measured-screen-width: 92;
 @measured-screen-height: 37;
@@ -121,8 +136,8 @@ form {
 @screen-width: @content-width;
 @screen-height: @screen-width * @screen-ratio;
 @screen-border-width: @measured-width-border / @measured-screen-width * @screen-width;
-@screen-content-width: @screen-width - (2 * @screen-border-width);
-@screen-content-height: @screen-height - (2 * @screen-border-width);
+@screen-content-width: @screen-width;
+@screen-content-height: @screen-height;
 
 @animation-ball-size: 10px;
 @animation-ball-count: 5;
@@ -131,8 +146,8 @@ form {
 @ball-animation-container-width: @animation-width - ((@animation-ball-count - 1) * @animation-ball-size);
 
 .balls-animation-container {
-  top: (@screen-content-height - @animation-ball-size) / 2;
-  left: (@screen-content-width - @animation-width) / 2;
+  top: ((@screen-content-height - 2 * @screen-border-width) - @animation-ball-size) / 2;
+  left: ((@screen-content-width  - 2 * @screen-border-width) - @animation-width) / 2;
   position: relative;
   width: @animation-width;
   height: @animation-ball-size;
@@ -222,7 +237,7 @@ form {
 
 }
 
-#bootloader .content .device-screen>div {
+#bootloader .content .device-screen > div {
   margin: 21px 0;
   font-weight: 700;
 }
@@ -262,11 +277,66 @@ form {
   color: darkgray;
 }
 
+.active-keys {
+  margin: 0 15px 10px 15px;
+  .key {
+    float: left;
+    margin: 0 5px 5px 0;
+    width: 60px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .disabled {
+    color: #ccc;
+    background-color: inherit;
+  }
+  .error {
+    color: #f00;
+    border-color: #f00;
+    background-color: #FFE1E1;
+  }
+  .active {
+    font-weight: 700;
+  }
+}
+
+.tooltip.key-help {
+  left: 10px !important;
+  .tooltip-inner {
+    max-width: 280px;
+    width: 280px !important;
+  }
+  &.letters {
+    .tooltip-arrow {
+      left: 41px;
+    }
+  }
+  &.space {
+    .tooltip-arrow {
+      left: 105px;
+    }
+  }
+  &.enter {
+    .tooltip-arrow {
+      left: 171px;
+    }
+  }
+  &.delete {
+    .tooltip-arrow {
+      left: 235px;
+    }
+  }
+}
+
 .content {
   padding: @content-padding;
   height: @content-height;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: auto;
   position: relative;
   .confirmation-instructions {
     text-align: center;
@@ -339,7 +409,7 @@ form {
   }
 }
 
-.button {
+.button, a.button {
   display: block;
   text-align: center;
   padding: 5px;
@@ -488,10 +558,16 @@ form {
   }
 }
 
+@word-list-width: 270px;
+
 .word-list {
-  -webkit-column-count: 3;
-  width: 270px;
+  width: @word-list-width;
   margin: 0 auto;
+  .column {
+    float: left;
+    margin: 0 auto;
+    width: @word-list-width / 3;
+  }
   .word-index {
     display: inline-block;
     width: 17px;

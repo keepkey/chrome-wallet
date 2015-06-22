@@ -8,6 +8,8 @@ module.exports = function(config) {
             'vendor/angular/angular.js',
             'vendor/angular-route/angular-route.js',
             'vendor/angular-animate/angular-animate.js',
+            'vendor/angular-bootstrap/ui-bootstrap.min.js',
+            'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'vendor/angular-mocks/angular-mocks.js',
             'src/testharness/beforeeach.js',
             'src/app/main.js',

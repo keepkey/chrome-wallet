@@ -1,10 +1,20 @@
 angular.module('kkWallet')
-    .controller('CharacterRequestController', ['$scope', '$routeParams', 'RecoveryCipherModel',
-        function CharacterRequestController($scope, $routeParams, recoveryCipherModel) {
+    .controller('CharacterRequestController', ['$scope', '$routeParams', '$timeout', 'RecoveryCipherModel',
+        function CharacterRequestController($scope, $routeParams, $timeout, recoveryCipherModel) {
             const WORD_LENGTH = 4;
 
             $scope.getEmptyArray = function (num) {
                 return new Array(num);
+            };
+            $scope.getColumnArray = function(num, columnIndex) {
+                var selectedIndexes = [];
+                var columnMax = Math.ceil(num / 3);
+                var columnStart = columnIndex * columnMax;
+                var columnEnd = Math.min(num, columnStart + columnMax - 1);
+                for (var i = columnStart; i <= columnEnd; i++) {
+                    selectedIndexes.push(i);
+                }
+                return selectedIndexes;
             };
 
             $scope.model = recoveryCipherModel.getModel();
@@ -47,6 +57,49 @@ angular.module('kkWallet')
                 $scope.model.currentCharacterPosition = parseInt($routeParams.character_pos);
             });
 
+            $scope.spaceBarClasses = {
+                error: false,
+                disabled: $scope.model.currentCharacterPosition < 3 || $scope.model.currentWord === 23,
+                active: false
+            };
+
+            $scope.letterClasses = {
+                error: false,
+                disabled: $scope.model.currentCharacterPosition >= WORD_LENGTH,
+                active: false
+            };
+
+            $scope.backspaceClasses = {
+                active: false,
+                error: false,
+                disabled: $scope.model.currentWord === 0 && $scope.model.currentCharacterPosition === 0
+            };
+
+            $scope.enterClasses = {
+                active: false,
+                error: false,
+                disabled: [11, 17, 23].indexOf($scope.model.currentWord) === -1 ||
+                    $scope.model.currentCharacterPosition < 3
+            };
+
+            function setTemporarily(keyClasses, property) {
+                keyClasses[property] = true;
+                $timeout(function () {
+                    keyClasses[property] = false;
+                }, 200);
+            }
+
+            function keyFeedback(keyClasses, sendMessageFunction) {
+                if (!keyClasses.disabled) {
+                    $scope.sendInProgress = true;
+                    keyClasses.active = true;
+                    setTemporarily(keyClasses, 'active');
+                    sendMessageFunction();
+                } else {
+                    setTemporarily(keyClasses, 'error');
+                }
+            }
+
             $scope.onKeyPress = function (ev) {
                 ev.preventDefault();
 
@@ -56,32 +109,24 @@ angular.module('kkWallet')
 
                 var keyCode = ev.keyCode;
                 if (keyCode === 13) {
-                    if ([11, 17, 23].indexOf($scope.model.currentWord) !== -1 &&
-                        $scope.model.currentCharacterPosition >= 3) {
-                        $scope.sendInProgress = true;
+                    keyFeedback($scope.enterClasses, function () {
                         recoveryCipherModel.sendEnter();
-                    }
+                    });
                 }
                 else if (keyCode === 8) {
-                    if ($scope.model.currentWord !== 0 ||
-                        $scope.model.currentCharacterPosition !== 0)
-                    {
-                        $scope.sendInProgress = true;
+                    keyFeedback($scope.backspaceClasses, function () {
                         recoveryCipherModel.sendBackspace();
-                    }
+                    });
                 }
                 else if (keyCode === 32) {
-                    if ($scope.model.currentCharacterPosition >= 3 && $scope.model.currentWord !== 23) {
-                        $scope.sendInProgress = true;
+                    keyFeedback($scope.spaceBarClasses, function () {
                         recoveryCipherModel.sendCharacter(' ');
-                    }
+                    });
                 }
                 else if (keyCode >= 65 && keyCode <= 90) {
-                    if ($scope.model.currentCharacterPosition < WORD_LENGTH) {
-                        $scope.sendInProgress = true;
-                        var char = String.fromCharCode(keyCode).toLowerCase();
-                        recoveryCipherModel.sendCharacter(char);
-                    }
+                    keyFeedback($scope.letterClasses, function () {
+                        recoveryCipherModel.sendCharacter(String.fromCharCode(keyCode).toLowerCase());
+                    });
                 }
             };
         }

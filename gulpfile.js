@@ -27,6 +27,8 @@ var vendorJavascriptFiles = [
     'vendor/angular/angular.min.js',
     'vendor/angular-animate/angular-animate.min.js',
     'vendor/angular-route/angular-route.min.js',
+    'vendor/angular-bootstrap/ui-bootstrap.min.js',
+    'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'vendor/lodash/lodash.min.js'
 ];
 var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
@@ -125,7 +127,10 @@ gulp.task('less', function () {
 });
 
 gulp.task('cssProduction', function () {
-    return gulp.src(['vendor/angular/angular-csp.css', 'src/styles/**/*.css'])
+    return gulp.src([
+        'vendor/angular/angular-csp.css',
+        'vendor/bootstrap-bower/css/bootstrap.min.css',
+        'src/styles/**/*.css'])
         .pipe(minifyCss())
         .pipe(gulp.dest('dist/styles'));
 });

@@ -96,10 +96,21 @@ angular.module('kkWallet')
                         messageType: 'FirmwareUpdate'
                     });
                 },
-                getBip44Wallet: function() {
-                    return sendMessage({
-
-                    });
+                getAddress: function(options) {
+                    var message = angular.extend({}, {
+                        messageType: 'GetAddress',
+                        addressN: [0],
+                        coinName: "Bitcoin",
+                        showDisplay: false
+                    }, options);
+                    return sendMessage(message);
+                },
+                getPublicKey: function(options) {
+                    var message = angular.extend({}, {
+                        messageType: 'GetPublicKey',
+                        addressN: [0]
+                    }, options);
+                    return sendMessage(message);
                 }
             };
         }];

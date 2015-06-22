@@ -1,5 +1,5 @@
 <section id="character-request" ng-controller="CharacterRequestController"
-         tabindex="0" focus ng-keydown="onKeyPress($event)" ng-class="{disabled: sendInProgress}">
+         tabindex="0" focus ng-keydown="onKeyPress($event)">
     <header>
         <back-button class="button-left header-button"
                      action="onCancel()">
@@ -12,19 +12,56 @@
                 <b>Enter the private key</b>
             </span> For Your KeepKey
         </h2>
-        <div class="word-list">
-            <div ng-repeat="wordIndex in getEmptyArray(wordCount) track by $index">
-                <span class="checkmark-container">
-                    <span ng-show="wordCompleted($index)" class="fa fa-check"></span>
-                </span>
-                <span class="word-index">{{$index + 1}}.</span>
-                <span class="word-representation" ng-class="{blink: isCursorPosition($parent.$index, $index)}"
-                      ng-repeat="characterIndex in getEmptyArray(wordLength) track by $index">
-                    {{getCharAtCurrentPosition($parent.$index, $index)}}
-                </span>
+
+        <div class="active-keys clearfix">
+            <div class="key letter" ng-class="letterClasses"
+                 tooltip-template="'app/characterRequest/letterTooltip.tpl.html'"
+                 tooltip-placement="bottom"
+                 tooltip-append-to-body="true"
+                 tooltip-class="key-help letters">
+                A - Z
+            </div>
+            <div class="key space-bar" ng-class="spaceBarClasses"
+                 tooltip-template="'app/characterRequest/spaceTooltip.tpl.html'"
+                 tooltip-placement="bottom"
+                 tooltip-append-to-body="true"
+                 tooltip-class="key-help space">
+                Space
+            </div>
+            <div class="key end-of-key" ng-class="enterClasses"
+                tooltip-template="'app/characterRequest/enterTooltip.tpl.html'"
+                tooltip-placement="bottom"
+                tooltip-append-to-body="true"
+                tooltip-class="key-help enter">
+                Enter
+            </div>
+            <div class="key backspace" ng-class="backspaceClasses"
+                tooltip-template="'app/characterRequest/deleteTooltip.tpl.html'"
+                tooltip-placement="bottom"
+                tooltip-append-to-body="true"
+                tooltip-class="key-help delete">
+                Delete
+            </div>
+        </div>
+
+        <div class="word-list clearfix">
+            <!-- This would be better with -webkit-column-* styling, but it doesn't work correctly. -->
+            <div class="column" ng-repeat="columnIndex in [0, 1, 2] track by columnIndex">
+                <div ng-repeat="wordIndex in getColumnArray(wordCount, columnIndex) track by $index">
+                    <span class="checkmark-container">
+                        <span ng-show="wordCompleted(wordIndex)" class="fa fa-check"></span>
+                    </span>
+                    <span class="word-index">{{wordIndex + 1}}.</span>
+                    <span class="word-representation"
+                          ng-class="{blink: isCursorPosition(wordIndex, $index)}"
+                          ng-repeat="characterIndex in getEmptyArray(wordLength) track by $index">
+                        {{getCharAtCurrentPosition(wordIndex, $index)}}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+    <div class="overlay" ng-show="sendInProgress"></div>
 </section>
