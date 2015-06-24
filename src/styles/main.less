@@ -242,6 +242,49 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
+.wallet-list {
+  width: 100%;
+  line-height: 20px;
+  position: relative;
+  .btn {
+    height: 40px;
+    .currency-icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 100%;
+      line-height: 36px;
+      font-size: 20px;
+    }
+    .wallet-name {
+      position: absolute;
+      top: 0;
+      left: 36px;
+    }
+
+    .wallet-address {
+      position: absolute;
+      bottom: 0;
+      left: 36px;
+      font-size: 50%;
+      height: 33%;
+
+    }
+    .editable-wrap {
+      margin-left: -70px;
+      margin-top: -7px;
+    }
+    .wallet-balance {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      font-size: 20px;
+      line-height: 36px;
+    }
+  }
+}
+
 #firmware-erase-cancelled {
   @firmware-erase-content-height: 152px;
   @firmware-erase-content-ns-margin: (@content-height - @firmware-erase-content-height)/2;
@@ -433,7 +476,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.cancel-button {
+.text-link-button {
   position: absolute;
   bottom: 5px;
   right: 5px;

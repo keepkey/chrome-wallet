@@ -10,6 +10,8 @@ module.exports = function(config) {
             'vendor/angular-animate/angular-animate.js',
             'vendor/angular-bootstrap/ui-bootstrap.min.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
+            'vendor/angular-chrome-storage/localwrapper.js',
+            'vendor/angular-xeditable/dist/js/xeditable.js',
             'vendor/angular-mocks/angular-mocks.js',
             'src/testharness/beforeeach.js',
             'src/app/main.js',

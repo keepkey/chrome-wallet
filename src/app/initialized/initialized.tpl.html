@@ -4,12 +4,17 @@
     </header>
 
     <div class="content">
-        <h2>
-            <span class="cornflower-txt">Your <b>KeepKey</b> is initialized.</span>
-        </h2>
+        <div class="wallet-list btn-group-vertical" role="group">
+            <div type="button" class="clearfix btn btn-default" ng-repeat="wallet in wallets track by wallet.id">
+                <span class="currency-icon fa fa-btc"></span>
+                <span class="wallet-name" editable-text="wallet.name" buttons="no" blur="submit">{{wallet.name}}</span>
+                <span class="wallet-address" ng-bind="wallet.hdNode"></span>
+                <span class="wallet-balance" ng-bind="wallet.balance"></span>
+            </div>
+        </div>
         <!--<a href="https://multibit.org/" target="_blank">Download Multibit Wallet</a>-->
         <!--<a href="https://electrum.org/#home" target="_blank">Download Electrum Wallet</a>-->
-        <a class="button" ng-click="wipeDevice()">Wipe and Re-initialize</a>
+        <a class="text-link-button" ng-click="wipeDevice()">Wipe and Re-initialize</a>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
