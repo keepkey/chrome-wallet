@@ -111,6 +111,11 @@ angular.module('kkWallet')
                         addressN: [0]
                     }, options);
                     return sendMessage(message);
+                },
+                getWalletNodes: function() {
+                    return sendMessage({
+                        messageType: 'GetWalletNodes'
+                    });
                 }
             };
         }];
@@ -177,6 +182,12 @@ angular.module('kkWallet')
             deviceBridgeServiceProvider.when('ping', function () {
                 // Do nothing
             });
+
+            deviceBridgeServiceProvider.when('WalletNodes', ['WalletNodeService',
+                function(walletNodeService) {
+                    walletNodeService.updateWalletNodes(this.request.message);
+                }
+            ]);
 
             deviceBridgeServiceProvider.when('unknownSender', function () {
                 this.sendResponse({

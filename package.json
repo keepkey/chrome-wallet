@@ -12,7 +12,9 @@
   },
   "author": "KeepKey, LLC",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "bitcore": "^0.12.10"
+  },
   "devDependencies": {
     "bower-main": "^0.2.14",
     "chai": "^2.3.0",

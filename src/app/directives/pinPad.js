@@ -6,8 +6,8 @@ angular.module('kkWallet')
             scope: {
                 buttonText: '@'
             },
-            controller: ['$scope', 'DeviceBridgeService',
-                function ($scope, deviceBridgeService) {
+            controller: ['$scope', 'DeviceBridgeService', 'NavigationService',
+                function ($scope, deviceBridgeService, navigationService) {
                     $scope.pin = '';
                     $scope.displayPin = '';
                     $scope.appendToPin = function (position) {
@@ -16,6 +16,7 @@ angular.module('kkWallet')
                     $scope.sendPin = function() {
                         deviceBridgeService.sendPin({pin: $scope.pin});
                         $scope.pin = '';
+                        navigationService.goToPrevious();
                     };
                     $scope.$watch('pin', function() {
                         $scope.displayPin = new Array($scope.pin.length + 1).join('*');

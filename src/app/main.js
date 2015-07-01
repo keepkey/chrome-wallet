@@ -2,6 +2,6 @@ angular.module('kkWallet', [
     'ngRoute',
     'ngAnimate',
     'ui.bootstrap',
-    'angular-chrome-storage',
+    'indexedDB',
     'xeditable'])
     .constant('VERSION', '{{VERSION}}');

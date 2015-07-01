@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var merge2 = require('merge2');
-var bowerMain = require('bower-main');
 var bump = require('gulp-bump');
 var templateCache = require('gulp-angular-templatecache');
 var del = require('del');
@@ -16,12 +15,11 @@ var jsonminify = require('gulp-jsonminify');
 var less = require('gulp-less');
 var minifyCss = require('gulp-minify-css');
 var args = require('yargs').argv;
-var yaml = require('gulp-yaml');
-var rename = require('gulp-rename');
 var ngConstant = require('gulp-ng-constant');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
 var manifest = require('./manifest');
+
 // Settings
 var vendorJavascriptFiles = [
     'vendor/angular/angular.min.js',
@@ -30,16 +28,14 @@ var vendorJavascriptFiles = [
     'vendor/angular-bootstrap/ui-bootstrap.min.js',
     'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'vendor/lodash/lodash.min.js',
-    'vendor/angular-chrome-storage/localwrapper.js',
-    'vendor/angular-xeditable/dist/js/xeditable.js'
+    'vendor/angular-indexed-db/angular-indexed-db.min.js',
+    'vendor/angular-xeditable/dist/js/xeditable.min.js'
 ];
 var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
 
 
 // Default task
-gulp.task('default', function () {
-    // place code for your default task here
-});
+gulp.task('default', ['test', 'build', 'watch']);
 
 gulp.task('clean', function (cb) {
     del(['dist', 'generatedJs', '*.zip'], cb);

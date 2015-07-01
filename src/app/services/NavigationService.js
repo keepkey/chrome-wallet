@@ -130,36 +130,41 @@ angular.module('kkWallet')
                 return result.goable;
             }
 
+            function go(path, pageAnimationClass) {
+
+                if (nextDestination) {
+                    path = nextDestination;
+                    nextDestination = undefined;
+                }
+
+                if (path === $location.path()) {
+                    return;
+                }
+
+                // Keep track of the last 'goable' path
+                if (isGoable($location.path())) {
+                    previousRoute = $location.path();
+                }
+
+                if (typeof(pageAnimationClass) !== 'undefined') {
+                    $rootScope.pageAnimationClass = pageAnimationClass;
+                }
+                else if (typeof(nextTransition) !== 'undefined') {
+                    $rootScope.pageAnimationClass = nextTransition;
+                }
+                else {
+                    $rootScope.pageAnimationClass = '';
+                }
+                console.log('navigating from %s to %s with "%s" transition', previousRoute, path, $rootScope.pageAnimationClass);
+                nextTransition = undefined;
+
+                $location.path(path);
+            }
+
             return {
-                go: function (path, pageAnimationClass) {
-
-                    if (nextDestination) {
-                        path = nextDestination;
-                        nextDestination = undefined;
-                    }
-
-                    if (path === $location.path()) {
-                        return;
-                    }
-
-                    // Keep track of the last 'goable' path
-                    if (isGoable($location.path())) {
-                        previousRoute = $location.path();
-                    }
-
-                    if (typeof(pageAnimationClass) !== 'undefined') {
-                        $rootScope.pageAnimationClass = pageAnimationClass;
-                    }
-                    else if (typeof(nextTransition) !== 'undefined') {
-                        $rootScope.pageAnimationClass = nextTransition;
-                    }
-                    else {
-                        $rootScope.pageAnimationClass = '';
-                    }
-                    console.log('navigating from %s to %s with "%s" transition', previousRoute, path, $rootScope.pageAnimationClass);
-                    nextTransition = undefined;
-
-                    $location.path(path);
+                go: go,
+                goToPrevious: function() {
+                    go(previousRoute);
                 },
                 setNextTransition: function (pageAnimationClass) {
                     nextTransition = pageAnimationClass;
@@ -169,6 +174,9 @@ angular.module('kkWallet')
                 },
                 getPreviousRoute: function () {
                     return previousRoute;
+                },
+                getCurrentRoute: function() {
+                    return $location.path();
                 }
             };
         }
