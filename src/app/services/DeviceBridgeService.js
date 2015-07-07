@@ -116,6 +116,11 @@ angular.module('kkWallet')
                     return sendMessage({
                         messageType: 'GetWalletNodes'
                     });
+                },
+                getTransactions: function() {
+                    return sendMessage({
+                        messageType: 'GetTransactions'
+                    });
                 }
             };
         }];
@@ -186,6 +191,12 @@ angular.module('kkWallet')
             deviceBridgeServiceProvider.when('WalletNodes', ['WalletNodeService',
                 function(walletNodeService) {
                     walletNodeService.updateWalletNodes(this.request.message);
+                }
+            ]);
+
+            deviceBridgeServiceProvider.when('Transactions', ['TransactionService',
+                function(transactionService) {
+                    transactionService.updateTransactions(this.request.message);
                 }
             ]);
 

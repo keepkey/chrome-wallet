@@ -17,6 +17,7 @@ angular.module('kkWallet')
                         });
                     }
                 )
+                $rootScope.$digest();
             }
 
             deviceBridgeService.getWalletNodes();
