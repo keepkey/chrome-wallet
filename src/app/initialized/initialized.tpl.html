@@ -5,11 +5,20 @@
 
     <div class="content">
         <div class="wallet-list btn-group-vertical" role="group">
-            <div type="button" class="clearfix btn btn-default" ng-repeat="wallet in wallets track by wallet.id">
+            <div class="clearfix btn btn-default"
+                 type="button"
+                 ng-repeat="wallet in wallets track by wallet.id">
                 <span class="currency-icon fa fa-btc"></span>
-                <span class="wallet-name" editable-text="wallet.name" buttons="no" blur="submit">{{wallet.name}}</span>
+                <span class="wallet-name"
+                      editable-text="wallet.name"
+                      buttons="no"
+                      blur="submit">{{wallet.name}}</span>
                 <span class="wallet-address" ng-bind="wallet.addresses[0][0].address"></span>
-                <span class="wallet-balance" ng-bind="balances[wallet.hdNode]"></span>
+                <span class="wallet-balance" ng-bind="getBalance(wallet.hdNode)"></span>
+                <span class="wallet-confirmations fa"
+                      ng-class="getConfirmationClasses(wallet.hdNode)"
+                      tooltip="{{getConfirmationTooltip(wallet.hdNode)}}"
+                      tooltip-placement="left"></span>
             </div>
         </div>
         <!--<a href="https://multibit.org/" target="_blank">Download Multibit Wallet</a>-->
