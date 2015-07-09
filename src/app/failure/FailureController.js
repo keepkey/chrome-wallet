@@ -5,7 +5,9 @@ angular.module('kkWallet')
 
             $scope.ok = function() {
                 deviceBridgeService.initialize();
-                failureMessageService.clear();
+                $timeout(function() {
+                    failureMessageService.clear();
+                }, 2000);
             };
         }
     ]);

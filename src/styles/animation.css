@@ -6,19 +6,19 @@
     transition-property: opacity;
 }
 
-.ng-enter {
+.cross-fade.ng-enter {
     opacity: 0;
 }
 
-.ng-enter.ng-enter-active {
+.cross-fade.ng-enter.ng-enter-active {
     opacity: 1;
 }
 
-.ng-leave {
+.cross-fade.ng-leave {
     opacity: 1;
 }
 
-.ng-leave.ng-leave-active {
+.cross-fade.ng-leave.ng-leave-active {
     opacity: 0;
 }
 
@@ -33,6 +33,10 @@
     left:100%;
 }
 
+.slideLeft.ng-leave {
+    left:0;
+}
+
 .slideLeft.ng-enter.ng-enter-active {
     left:0;
 }
@@ -43,6 +47,10 @@
 
 .slideRight.ng-enter {
     left:-100%;
+}
+
+.slideRight.ng-leave {
+    left:0;
 }
 
 .slideRight.ng-enter.ng-enter-active {

@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="styles/xeditable.css">
 </head>
 <body ng-app="kkWallet" ng-csp ng-strict-di>
-
-<div class="view" ng-view ng-class="pageAnimationClass"></div>
-
+<div id="mask">
+    <div id="frame-container">
+        <div class="view" ng-view ng-class="pageAnimationClass"></div>
+    </div>
+</div>
 <!-- <script src="vendor-scripts.min.js"></script> -->
 <!-- <script src="main.js"></script> -->
 <script src="../vendor/angular/angular.js"></script>

@@ -153,10 +153,12 @@ angular.module('kkWallet')
                     $rootScope.pageAnimationClass = nextTransition;
                 }
                 else {
-                    $rootScope.pageAnimationClass = '';
+                    $rootScope.pageAnimationClass = 'cross-fade';
                 }
                 console.log('navigating from %s to %s with "%s" transition', previousRoute, path, $rootScope.pageAnimationClass);
                 nextTransition = undefined;
+
+                $rootScope.$digest();
 
                 $location.path(path);
             }

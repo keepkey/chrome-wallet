@@ -50,17 +50,28 @@ body {
   height: @body-height;
   margin: 0;
   box-sizing: border-box;
-  [ng-class="pageAnimationClass"] {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
+}
+
+#mask {
+  height: @body-height;
+  width: @body-width;
+  overflow: hidden;
+}
+
+#frame-container {
+  height: @body-height;
+  width: 2*@body-width;
+}
+
+[ng-class="pageAnimationClass"] {
+  position: absolute;
+  height: @body-height;
+  width: @body-width;
 }
 
 section {
-  height: 100%;
-  width: 100%;
+  height: @body-height;
+  width: @body-width;
   position: relative;
   .overlay {
     width: 100%;
@@ -533,6 +544,8 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   background-color: @header-button-background-color;
   &:hover {
     background-color: @header-button-hover-background-color;
+    color: #fff;
+    text-decoration: none;
   }
   &:active {
     opacity: 0.6;
