@@ -1,8 +1,8 @@
 /* global _ */
 
 angular.module('kkWallet')
-    .factory('WalletNodeService', ['$rootScope', 'DeviceBridgeService',
-        function DeviceFeatureService($rootScope, deviceBridgeService) {
+    .factory('WalletNodeService', ['$rootScope', 'DeviceBridgeService', 'TransactionService',
+        function DeviceFeatureService($rootScope, deviceBridgeService, transactionService) {
             var nodes = [];
 
             function updateWalletNodes(newNodes) {
@@ -20,11 +20,19 @@ angular.module('kkWallet')
                 $rootScope.$digest();
             }
 
+            function firstUnusedAddress(addressArray) {
+                var unusedAddressNode = _.find(addressArray, function(it) {
+                    return !transactionService.addressBalances[it.address];
+                });
+                return unusedAddressNode.address;
+            }
+
             deviceBridgeService.getWalletNodes();
 
             return {
                 wallets: nodes,
-                updateWalletNodes: updateWalletNodes
+                updateWalletNodes: updateWalletNodes,
+                firstUnusedAddress: firstUnusedAddress
             };
         }
     ])

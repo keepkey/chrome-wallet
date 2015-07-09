@@ -46,6 +46,10 @@ angular.module('kkWallet')
                 return classes.join(' ');
             };
 
+            $scope.walletAddress = function(node) {
+                return walletNodeService.firstUnusedAddress(node.addresses[0]);
+            }
+
             $scope.wipeDevice = function() {
                 navigationService.setNextTransition('slideLeft');
                 deviceBridgeService.wipeDevice();

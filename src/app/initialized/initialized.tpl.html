@@ -13,7 +13,7 @@
                       editable-text="wallet.name"
                       buttons="no"
                       blur="submit">{{wallet.name}}</span>
-                <span class="wallet-address" ng-bind="wallet.addresses[0][0].address"></span>
+                <span class="wallet-address" ng-bind="walletAddress(wallet)"></span>
                 <span class="wallet-balance" ng-bind="getBalance(wallet.hdNode)"></span>
                 <span class="wallet-confirmations fa"
                       ng-class="getConfirmationClasses(wallet.hdNode)"

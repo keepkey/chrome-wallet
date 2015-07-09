@@ -4,31 +4,45 @@ angular.module('kkWallet')
         function($rootScope, deviceBridgeService) {
             var transactions = [];
             var walletBalances = {};
+            var addressBalances = {};
 
-            function updateTransactions(newTransactions) {
-                angular.copy(newTransactions, transactions);
+            function getTransactionBalances(groupingFn) {
                 var newBalances = {};
 
-                var transactionsByWallet = _.groupBy(transactions, function(it) {
-                    return it.nodePath.split('/').slice(0, 4).join('/');
-                });
+                var groupedTransactions = _.groupBy(transactions, groupingFn);
 
-                _.each(transactionsByWallet, function(transactions, key) {
-                    var total = _.reduce(transactions, function(total, transaction) {
+                _.each(groupedTransactions, function (transactions, key) {
+                    var total = _.reduce(transactions, function (total, transaction) {
                         return total + transaction.amount;
                     }, 0);
 
-                    var leastConfirmed = _.reduce(transactions, function(least, transaction){
+                    var leastConfirmed = _.reduce(transactions, function (least, transaction) {
                         return Math.min(least, transaction.confirmations);
                     }, 999999);
 
                     newBalances[key] = {
                         balance: total,
-                        confirmations: leastConfirmed
+                        confirmations: leastConfirmed,
+                        count: transactions.length
                     };
                 });
+                return newBalances
+            }
 
-                angular.copy(newBalances, walletBalances);
+            function groupByWallet(it) {
+                return it.nodePath.split('/').slice(0, 4).join('/');
+            }
+
+            function groupByAddress(it) {
+                return it.address;
+            }
+
+            function updateTransactions(newTransactions) {
+                angular.copy(newTransactions, transactions);
+
+                angular.copy(getTransactionBalances(groupByWallet), walletBalances);
+                angular.copy(getTransactionBalances(groupByAddress), addressBalances);
+
                 $rootScope.$digest();
             }
 
@@ -37,7 +51,8 @@ angular.module('kkWallet')
             return {
                 transactions: transactions,
                 updateTransactions: updateTransactions,
-                walletBalances: walletBalances
+                walletBalances: walletBalances,
+                addressBalances: addressBalances
             };
         }
 ]);
