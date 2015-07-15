@@ -81,6 +81,11 @@ section {
     left: 0;
     background-color: #FFF;
     opacity: 0.6;
+    .fa-spin {
+      font-size: 50px;
+      color: @button-background-color;
+      padding: 113px 123px;
+    }
   }
 }
 
@@ -289,15 +294,25 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     .wallet-balance {
       position: absolute;
       top: 0;
-      right: 18px;
+      right: 21px;
       font-size: 20px;
       line-height: 36px;
     }
     .wallet-confirmations {
       position: absolute;
-      right: 2px;
-      top: 12px;
-      font-size: 14px;    }
+      right: 3px;
+      bottom: 3px;
+      font-size: 14px;
+    }
+    .wallet-send {
+      position: absolute;
+      right: 3px;
+      top: 3px;
+      font-size: 14px;
+      &:hover {
+        color: #999;
+      }
+    }
   }
 }
 

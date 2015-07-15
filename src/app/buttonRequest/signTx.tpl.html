@@ -1,0 +1,22 @@
+<section id="button-request" ng-controller="SignTxController">
+    <header>
+        <back-button class="button-left header-button" action="onCancel()"></back-button>
+    </header>
+
+    <div class="content" ng-class="buttonRequestType">
+        <div class="device-screen">
+            <div class="button-press-icon fa fa-circle"><div class="fa fa-sort-up"></div></div>
+            <h2>
+                <div>
+                    <span class="cornflower-txt"><b>Transaction Summary</b></span><br>
+                    Total of {{amount}} BTC leaving your wallet,<br>
+                    including a fee of {{fee}} BTC.
+                </div>
+            </h2>
+        </div>
+        <div class="confirmation-instructions">Your KeepKey will send the transaction when you confirm it by pressing and holding the button</div>
+        <a class="text-link-button" ng-click="onCancel()">Cancel</a>
+    </div>
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</section>

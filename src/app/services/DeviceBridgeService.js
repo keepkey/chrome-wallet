@@ -96,7 +96,7 @@ angular.module('kkWallet')
                         messageType: 'FirmwareUpdate'
                     });
                 },
-                getAddress: function(options) {
+                getAddress: function (options) {
                     var message = angular.extend({}, {
                         messageType: 'GetAddress',
                         addressN: [0],
@@ -105,22 +105,29 @@ angular.module('kkWallet')
                     }, options);
                     return sendMessage(message);
                 },
-                getPublicKey: function(options) {
+                getPublicKey: function (options) {
                     var message = angular.extend({}, {
                         messageType: 'GetPublicKey',
                         addressN: [0]
                     }, options);
                     return sendMessage(message);
                 },
-                getWalletNodes: function() {
+                getWalletNodes: function () {
                     return sendMessage({
                         messageType: 'GetWalletNodes'
                     });
                 },
-                getTransactions: function() {
+                getTransactions: function () {
                     return sendMessage({
                         messageType: 'GetTransactions'
                     });
+                },
+                requestTransactionSignature: function (transactionRequest) {
+                    var message = angular.extend({}, {
+                        messageType: 'RequestTransactionSignature'
+                    }, transactionRequest);
+                    message.amount *= 100000000;
+                    return sendMessage(message);
                 }
             };
         }];
@@ -162,6 +169,15 @@ angular.module('kkWallet')
                     $injector.invoke(navigateToLocation('/failure/:message'), this);
                 }
             ]);
+            deviceBridgeServiceProvider.when('TxRequest', ['NavigationService', 'TransactionService', '$rootScope',
+                function (navigationService, transactionService, $rootScope) {
+                    if (this.request.message.request_type === 'TXFINISHED') {
+                        angular.copy({}, transactionService.transactionInProgress);
+                        navigationService.go('/initialized');
+                        $rootScope.$digest();
+                    }
+                }
+            ]);
             deviceBridgeServiceProvider.when('Features', ['NavigationService', 'DeviceFeatureService', '$rootScope',
                 function (navigationService, deviceFeatureService, $rootScope) {
                     deviceFeatureService.set(this.request.message);
@@ -189,13 +205,13 @@ angular.module('kkWallet')
             });
 
             deviceBridgeServiceProvider.when('WalletNodes', ['WalletNodeService',
-                function(walletNodeService) {
+                function (walletNodeService) {
                     walletNodeService.updateWalletNodes(this.request.message);
                 }
             ]);
 
             deviceBridgeServiceProvider.when('Transactions', ['TransactionService',
-                function(transactionService) {
+                function (transactionService) {
                     transactionService.updateTransactions(this.request.message);
                 }
             ]);

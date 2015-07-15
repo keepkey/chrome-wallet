@@ -1,0 +1,45 @@
+<section id="initialized" ng-controller="BuildTransactionController">
+    <header>
+        <back-button class="button-left header-button" destination="'/initialized'"></back-button>
+    </header>
+
+    <div class="content">
+        <h3>Send Bitcoins</h3>
+        <form name="transaction">
+            <div class="form-input-container">
+                <label>From:</label>
+                <input
+                        type="text"
+                        name="source"
+                        placeholder="Enter the source wallet"
+                        ng-model="userInput.sourceName"
+                        required
+                        focus>
+            </div>
+            <div class="form-input-container">
+                <label>To:</label>
+                <input
+                        type="text"
+                        name="dest-address"
+                        placeholder="Enter the recipient address"
+                        ng-model="userInput.address"
+                        required
+                        focus>
+            </div>
+            <div class="form-input-container">
+                <label>Amount:</label>
+                <input
+                        type="number"
+                        name="amount"
+                        placeholder="Amount to send"
+                        ng-model="userInput.amount"
+                        required
+                        focus>
+            </div>
+            <button class="button" ng-click="buildTransaction()">Sign</button>
+        </form>
+    </div>
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+    <div class="overlay" ng-show="transactionInProgress"><span class="fa fa-circle-o-notch fa-spin"></span></div>
+</section>

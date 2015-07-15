@@ -1,0 +1,21 @@
+<section id="button-request" ng-controller="SignTxController">
+    <header>
+        <back-button class="button-left header-button" action="onCancel()"></back-button>
+    </header>
+
+    <div class="content" ng-class="buttonRequestType">
+        <div class="device-screen">
+            <div class="button-press-icon fa fa-circle"><div class="fa fa-sort-up"></div></div>
+            <h2>
+                <div>
+                    Send <span ng-bind="amount"></span> BTC to<br>
+                    <span ng-bind="destination"></span>
+                </div>
+            </h2>
+        </div>
+        <div class="confirmation-instructions">Please confirm that you want to send bitcoins by pressing and holding the button on the top of your KeepKey</div>
+        <a class="text-link-button" ng-click="onCancel()">Cancel</a>
+    </div>
+
+    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+</section>

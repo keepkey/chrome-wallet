@@ -31,6 +31,14 @@ angular.module('kkWallet')
                     templateUrl: 'app/buttonRequest/firmwareErase.tpl.html',
                     goable: false
                 })
+                .when('/buttonRequest/button_request_confirm_output', {
+                    templateUrl: 'app/buttonRequest/confirmOutput.tpl.html',
+                    goable: false
+                })
+                .when('/buttonRequest/button_request_sign_tx', {
+                    templateUrl: 'app/buttonRequest/signTx.tpl.html',
+                    goable: false
+                })
                 .when('/buttonRequest/:code', {
                     templateUrl: 'app/buttonRequest/buttonRequest.tpl.html',
                     goable: false
@@ -69,8 +77,8 @@ angular.module('kkWallet')
                 .when('/sending', {
                     templateUrl: 'app/sending/sending.tpl.html'
                 })
-                .when('/success/firmware_erased', {
-                    templateUrl: 'app/success/firmwareErased.tpl.html',
+                .when('/success/bouncies', {
+                    templateUrl: 'app/success/bouncies.tpl.html',
                     goable: false
                 })
                 .when('/success/upload_complete', {
@@ -107,12 +115,16 @@ angular.module('kkWallet')
                 .when('/syncing', {
                     templateUrl: 'app/syncing/syncing.tpl.html'
                 })
+                .when('/buildTransaction/:wallet', {
+                    templateUrl: 'app/buildTransaction/buildTransaction.tpl.html',
+                    goable: true
+                })
                 .otherwise({
                     redirectTo: '/'
                 });
         }])
-    .factory('NavigationService', ['$location', '$rootScope', '$route',
-        function ($location, $rootScope, $route) {
+    .factory('NavigationService', ['$location', '$rootScope', '$route', '$timeout',
+        function ($location, $rootScope, $route, $timeout) {
             var nextTransition, nextDestination, previousRoute = [];
 
             function isGoable(path) {
@@ -158,9 +170,10 @@ angular.module('kkWallet')
                 console.log('navigating from %s to %s with "%s" transition', previousRoute, path, $rootScope.pageAnimationClass);
                 nextTransition = undefined;
 
-                $rootScope.$digest();
-
-                $location.path(path);
+                $timeout(function() {
+                    $rootScope.$digest();
+                    $location.path(path);
+                });
             }
 
             return {

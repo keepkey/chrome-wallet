@@ -11,6 +11,8 @@
                 <span class="currency-icon fa fa-btc"></span>
                 <span class="wallet-name"
                       editable-text="wallet.name"
+                      onshow="false"
+                      e-required
                       buttons="no"
                       blur="submit">{{wallet.name}}</span>
                 <span class="wallet-address" ng-bind="walletAddress(wallet)"></span>
@@ -19,6 +21,8 @@
                       ng-class="getConfirmationClasses(wallet.hdNode)"
                       tooltip="{{getConfirmationTooltip(wallet.hdNode)}}"
                       tooltip-placement="left"></span>
+                <span class="wallet-send fa fa-cloud-upload"
+                      ng-click="go('/buildTransaction/' + wallet.id, 'slideLeft')"></span>
             </div>
         </div>
         <!--<a href="https://multibit.org/" target="_blank">Download Multibit Wallet</a>-->

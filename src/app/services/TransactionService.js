@@ -5,8 +5,9 @@ angular.module('kkWallet')
             var transactions = [];
             var walletBalances = {};
             var addressBalances = {};
+            var transactionInProgress = {};
 
-            function getTransactionBalances(groupingFn) {
+            function getTransactionStats(groupingFn) {
                 var newBalances = {};
 
                 var groupedTransactions = _.groupBy(transactions, groupingFn);
@@ -23,6 +24,7 @@ angular.module('kkWallet')
                     newBalances[key] = {
                         balance: total,
                         confirmations: leastConfirmed,
+                        transactions: transactions,
                         count: transactions.length
                     };
                 });
@@ -40,8 +42,8 @@ angular.module('kkWallet')
             function updateTransactions(newTransactions) {
                 angular.copy(newTransactions, transactions);
 
-                angular.copy(getTransactionBalances(groupByWallet), walletBalances);
-                angular.copy(getTransactionBalances(groupByAddress), addressBalances);
+                angular.copy(getTransactionStats(groupByWallet), walletBalances);
+                angular.copy(getTransactionStats(groupByAddress), addressBalances);
 
                 $rootScope.$digest();
             }
@@ -52,7 +54,8 @@ angular.module('kkWallet')
                 transactions: transactions,
                 updateTransactions: updateTransactions,
                 walletBalances: walletBalances,
-                addressBalances: addressBalances
+                addressBalances: addressBalances,
+                transactionInProgress: transactionInProgress
             };
         }
 ]);
