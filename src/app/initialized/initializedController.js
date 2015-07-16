@@ -54,5 +54,9 @@ angular.module('kkWallet')
                 navigationService.setNextTransition('slideLeft');
                 deviceBridgeService.wipeDevice();
             };
+
+            $scope.refresh = function() {
+                deviceBridgeService.getTransactions(true);
+            };
         }
     ]);

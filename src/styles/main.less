@@ -567,7 +567,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   width: 30px;
   border-radius: 200px;
   top: 10px;
-  left: 10px;
   cursor: pointer;
   color: #fff;
   font-size: 30px;
@@ -587,6 +586,19 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     }
     &:active {
       -webkit-transform: rotate(-360deg);
+    }
+  }
+  &.refresh-button:hover {
+    -webkit-transform: rotate(180deg);
+  }
+  &.left {
+    left: 10px;
+  }
+  &.right {
+    right: 10px;
+    font-size: 22px;
+    .fa {
+      margin: 4px 6px;
     }
   }
 }

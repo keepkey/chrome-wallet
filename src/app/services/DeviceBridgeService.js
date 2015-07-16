@@ -117,9 +117,10 @@ angular.module('kkWallet')
                         messageType: 'GetWalletNodes'
                     });
                 },
-                getTransactions: function () {
+                getTransactions: function (reload) {
                     return sendMessage({
-                        messageType: 'GetTransactions'
+                        messageType: 'GetTransactions',
+                        reload: reload
                     });
                 },
                 requestTransactionSignature: function (transactionRequest) {
