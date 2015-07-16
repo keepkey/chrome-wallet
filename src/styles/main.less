@@ -344,6 +344,22 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   transform: rotate(360deg);
 }
 
+#build-transaction {
+  [name="dest-address"] {
+    font-size: 11px;
+  }
+  [name="amount"] {
+    text-align: right;
+  }
+  .from-label {
+    color: #999;
+    font-style: italic;
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: 700;
+    padding-right: 5px;
+  }
+}
 #firmware-erase-cancelled {
   @firmware-erase-content-height: 152px;
   @firmware-erase-content-ns-margin: (@content-height - @firmware-erase-content-height)/2;
