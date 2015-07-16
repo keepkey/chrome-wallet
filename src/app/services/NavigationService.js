@@ -79,6 +79,10 @@ angular.module('kkWallet')
                 })
                 .when('/success/bouncies', {
                     templateUrl: 'app/success/bouncies.tpl.html',
+                    goable: true
+                })
+                .when('/success/firmware_erased', {
+                    templateUrl: 'app/success/bouncies.tpl.html',
                     goable: false
                 })
                 .when('/success/upload_complete', {
