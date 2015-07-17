@@ -54,5 +54,10 @@ angular.module('kkWallet')
                 deviceBridgeService.cancel();
             };
         }
+    ])
+    .run(['DeviceBridgeService',
+        function(deviceBridgeService) {
+            deviceBridgeService.getTransactions(true);
+        }
     ]);
 
