@@ -9,12 +9,20 @@
             <h2>
                 <div>
                     <span class="cornflower-txt"><b>Transaction Summary</b></span><br>
-                    Total of {{amount}} BTC leaving your wallet,<br>
-                    including a fee of {{fee}} BTC.
+                    Total of
+                    <span ng-bind="amount" obscure="fa-circle"></span>
+                    BTC leaving your wallet,<br>
+                    including a fee of
+                    <span ng-bind="fee" obscure="fa-circle"></span>
+                    BTC.
                 </div>
             </h2>
         </div>
-        <div class="confirmation-instructions">Your KeepKey will send the transaction when you confirm it by pressing and holding the button</div>
+        <div class="confirmation-instructions">
+            Confirm that you want to send this transaction by pressing the button
+            on Your KeepKey. This is your last chance to cancel the transaction.
+        </div>
+
         <a class="text-link-button" ng-click="onCancel()">Cancel</a>
     </div>
 

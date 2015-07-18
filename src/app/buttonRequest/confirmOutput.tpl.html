@@ -8,12 +8,15 @@
             <div class="button-press-icon fa fa-circle"><div class="fa fa-sort-up"></div></div>
             <h2>
                 <div>
-                    Send <span ng-bind="amount"></span> BTC to<br>
-                    <span ng-bind="destination"></span>
+                    Send <span ng-bind="amount" obscure="fa-circle"></span> BTC to<br>
+                    <span ng-bind="destination" obscure="fa-circle"></span>
                 </div>
             </h2>
         </div>
-        <div class="confirmation-instructions">Please confirm that you want to send bitcoins by pressing and holding the button on the top of your KeepKey</div>
+        <div class="confirmation-instructions">
+            Confirm the address and amount shown on the screen of your KeepKey are correct
+            by pressing and holding the button
+        </div>
         <a class="text-link-button" ng-click="onCancel()">Cancel</a>
     </div>
 
