@@ -33,12 +33,13 @@ describe('DeviceBridgeService', function () {
                 assert.calledWith(chrome.runtime.sendMessage,
                     this.mockEnvironmentConfig.keepkeyProxy.applicationId,
                     {messageType: "deviceReady"},
+                    {},
                     sinon.match.func
                 );
                 done();
             });
 
-            chrome.runtime.sendMessage.callArgWith(2, true);
+            chrome.runtime.sendMessage.callArgWith(3, true);
 
             $rootScope.$apply();
         });
