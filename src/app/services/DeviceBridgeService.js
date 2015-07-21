@@ -11,127 +11,131 @@ angular.module('kkWallet')
             incomingMessages[name] = callback;
         };
 
-        this.$get = ['$q', 'chrome', 'environmentConfig', '$injector', function ($q, chrome, environmentConfig, $injector) {
-            function sendMessage(message) {
-                console.log('message sent to proxy:', message);
-                return $q(function (resolve) {
-                    chrome.runtime.sendMessage(environmentConfig.keepkeyProxy.applicationId, message, resolve);
-                });
-            }
-
-            function respondToMessages(request, sender, sendResponse) {
-                console.log("External message:", request);
-
-                var messageArguments = {
-                    request: request,
-                    sender: sender,
-                    sendResponse: sendResponse
-                };
-
-
-                if (sender.id !== environmentConfig.keepkeyProxy.applicationId) {
-                    $injector.invoke(incomingMessages.unknownSender, messageArguments);
-                    return;
+        this.$get = ['$rootScope', '$q', 'chrome', 'environmentConfig', '$injector',
+            function ($rootScope, $q, chrome, environmentConfig, $injector) {
+                function sendMessage(message) {
+                    console.log('message sent to proxy:', message);
+                    return $q(function (resolve) {
+                        chrome.runtime.sendMessage(environmentConfig.keepkeyProxy.applicationId, message, {}, resolve);
+                    });
                 }
 
-                var messageHandler = incomingMessages[request.messageType];
+                function respondToMessages(request, sender, sendResponse) {
+                    console.log("External message:", request);
 
-                if (!messageHandler) {
-                    $injector.invoke(incomingMessages.unknownMessageType, messageArguments);
-                    return;
-                }
-
-                $injector.invoke(messageHandler, messageArguments);
-            }
-
-            return {
-                startListener: function startListener() {
-                    chrome.runtime.onMessageExternal.addListener(respondToMessages);
-                },
-                stopListener: function stopListener() {
-                    chrome.runtime.onMessageExternal.removeListener(respondToMessages);
-                },
-                isDeviceReady: function () {
-                    return sendMessage({messageType: 'deviceReady'});
-                },
-                resetDevice: function (options) {
-                    var message = angular.extend({
-                        messageType: 'reset'
-                    }, options);
-                    return sendMessage(message);
-                },
-                wipeDevice: function () {
-                    return sendMessage({messageType: 'Wipe'});
-
-                },
-                sendPin: function (options) {
-                    var message = angular.extend({messageType: 'PinMatrixAck'}, options);
-                    return sendMessage(message);
-                },
-                initialize: function () {
-                    return sendMessage({messageType: 'Initialize'});
-                },
-                cancel: function () {
-                    return sendMessage({messageType: 'Cancel'});
-                },
-                recoverDevice: function (options) {
-                    var message = angular.extend({messageType: 'RecoveryDevice'}, options);
-                    return sendMessage(message);
-                },
-                acknowledgeWord: function (word) {
-                    var message = {messageType: 'WordAck', word: word};
-                    return sendMessage(message);
-                },
-                characterAck: function (character, deleteChar, done) {
-                    var message = {
-                        messageType: 'CharacterAck',
-                        character: character,
-                        delete: deleteChar,
-                        done: done
+                    var messageArguments = {
+                        request: request,
+                        sender: sender,
+                        sendResponse: sendResponse
                     };
-                    return sendMessage(message);
-                },
-                updateFirmware: function () {
-                    return sendMessage({
-                        messageType: 'FirmwareUpdate'
-                    });
-                },
-                getAddress: function (options) {
-                    var message = angular.extend({}, {
-                        messageType: 'GetAddress',
-                        addressN: [0],
-                        coinName: "Bitcoin",
-                        showDisplay: false
-                    }, options);
-                    return sendMessage(message);
-                },
-                getPublicKey: function (options) {
-                    var message = angular.extend({}, {
-                        messageType: 'GetPublicKey',
-                        addressN: [0]
-                    }, options);
-                    return sendMessage(message);
-                },
-                getWalletNodes: function () {
-                    return sendMessage({
-                        messageType: 'GetWalletNodes'
-                    });
-                },
-                getTransactions: function (reload) {
-                    return sendMessage({
-                        messageType: 'GetTransactions',
-                        reload: reload
-                    });
-                },
-                requestTransactionSignature: function (transactionRequest) {
-                    var message = angular.extend({}, {
-                        messageType: 'RequestTransactionSignature'
-                    }, transactionRequest);
-                    message.amount *= 100000000;
-                    return sendMessage(message);
+
+
+                    if (sender.id !== environmentConfig.keepkeyProxy.applicationId) {
+                        $injector.invoke(incomingMessages.unknownSender, messageArguments);
+                        return;
+                    }
+
+                    $rootScope.$broadcast(request.messageType, request.message);
+
+                    var messageHandler = incomingMessages[request.messageType];
+
+                    if (!messageHandler) {
+                        $injector.invoke(incomingMessages.unknownMessageType, messageArguments);
+                        return;
+                    }
+
+                    $injector.invoke(messageHandler, messageArguments);
                 }
-            };
-        }];
+
+                return {
+                    startListener: function startListener() {
+                        chrome.runtime.onMessageExternal.addListener(respondToMessages);
+                    },
+                    stopListener: function stopListener() {
+                        chrome.runtime.onMessageExternal.removeListener(respondToMessages);
+                    },
+                    isDeviceReady: function () {
+                        return sendMessage({messageType: 'deviceReady'});
+                    },
+                    resetDevice: function (options) {
+                        var message = angular.extend({
+                            messageType: 'reset'
+                        }, options);
+                        return sendMessage(message);
+                    },
+                    wipeDevice: function () {
+                        return sendMessage({messageType: 'Wipe'});
+
+                    },
+                    sendPin: function (options) {
+                        var message = angular.extend({messageType: 'PinMatrixAck'}, options);
+                        return sendMessage(message);
+                    },
+                    initialize: function () {
+                        return sendMessage({messageType: 'Initialize'});
+                    },
+                    cancel: function () {
+                        return sendMessage({messageType: 'Cancel'});
+                    },
+                    recoverDevice: function (options) {
+                        var message = angular.extend({messageType: 'RecoveryDevice'}, options);
+                        return sendMessage(message);
+                    },
+                    acknowledgeWord: function (word) {
+                        var message = {messageType: 'WordAck', word: word};
+                        return sendMessage(message);
+                    },
+                    characterAck: function (character, deleteChar, done) {
+                        var message = {
+                            messageType: 'CharacterAck',
+                            character: character,
+                            delete: deleteChar,
+                            done: done
+                        };
+                        return sendMessage(message);
+                    },
+                    updateFirmware: function () {
+                        return sendMessage({
+                            messageType: 'FirmwareUpdate'
+                        });
+                    },
+                    getAddress: function (options) {
+                        var message = angular.extend({}, {
+                            messageType: 'GetAddress',
+                            addressN: [0],
+                            coinName: "Bitcoin",
+                            showDisplay: false
+                        }, options);
+                        return sendMessage(message);
+                    },
+                    getPublicKey: function (options) {
+                        var message = angular.extend({}, {
+                            messageType: 'GetPublicKey',
+                            addressN: [0]
+                        }, options);
+                        return sendMessage(message);
+                    },
+                    getWalletNodes: function () {
+                        return sendMessage({
+                            messageType: 'GetWalletNodes'
+                        });
+                    },
+                    getTransactions: function (reload) {
+                        return sendMessage({
+                            messageType: 'GetTransactions',
+                            reload: reload
+                        });
+                    },
+                    requestTransactionSignature: function (transactionRequest) {
+                        var message = angular.extend({}, {
+                            messageType: 'RequestTransactionSignature'
+                        }, transactionRequest);
+                        message.amount *= 100000000;
+                        return sendMessage(message);
+                    }
+                };
+            }
+        ];
     })
     .config(['DeviceBridgeServiceProvider',
         function (deviceBridgeServiceProvider) {
@@ -159,12 +163,20 @@ angular.module('kkWallet')
 
             deviceBridgeServiceProvider.when('disconnected', navigateToLocation('/connect'));
             deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
-            deviceBridgeServiceProvider.when('ButtonRequest', navigateToLocation('/buttonRequest/:code'));
+            deviceBridgeServiceProvider.when('ButtonRequest', ['$injector',
+                function ($injector) {
+                    if (this.request.message.code !== 'ButtonRequest_Address') {
+                        $injector.invoke(navigateToLocation('/buttonRequest/:code'), this);
+                    }
+                }]);
             deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
             deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
             deviceBridgeServiceProvider.when('Success', navigateToLocation('/success/:message'));
             deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
                 function ($injector, failureMessageService, navigationService) {
+                    if (this.request.message.message === "Show address cancelled") {
+                        return;
+                    }
                     failureMessageService.add(this.request.message);
                     navigationService.setNextDestination();
                     $injector.invoke(navigateToLocation('/failure/:message'), this);

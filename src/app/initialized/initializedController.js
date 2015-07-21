@@ -58,5 +58,10 @@ angular.module('kkWallet')
             $scope.refresh = function() {
                 deviceBridgeService.getTransactions(true);
             };
+
+            $scope.goReceive = function(address, walletId) {
+                $scope.go(['/receive', walletId, address].join('/'), 'slideLeft');
+            };
+
         }
     ]);

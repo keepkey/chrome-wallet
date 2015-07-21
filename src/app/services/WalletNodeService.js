@@ -27,12 +27,35 @@ angular.module('kkWallet')
                 return unusedAddressNode.address;
             }
 
+            function getAddressNode(walletId, address) {
+                var wallet = nodes[walletId];
+                var addresses = _.flatten(wallet.addresses, true);
+                var addressNode = _.find(addresses, {address: address});
+
+                var addressNodeString = [wallet.hdNode, addressNode.path].join('/');
+                var addressNodes = addressNodeString.split('/');
+                if (addressNodes[0] === 'm') {
+                    addressNodes.shift();
+                }
+                return _.reduce(addressNodes, function(result, it) {
+                    var num = parseInt(it);
+
+                    if (_.endsWith(it, "'")) {
+                        num = (num | 0x80000000) >>> 0;
+                    }
+
+                    result.push(num);
+                    return result;
+                }, []);
+            }
+
             deviceBridgeService.getWalletNodes();
 
             return {
                 wallets: nodes,
                 updateWalletNodes: updateWalletNodes,
-                firstUnusedAddress: firstUnusedAddress
+                firstUnusedAddress: firstUnusedAddress,
+                getAddressNode: getAddressNode
             };
         }
     ])

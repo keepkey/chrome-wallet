@@ -13,6 +13,8 @@ module.exports = function(config) {
             'vendor/angular-indexed-db/angular-indexed-db.js',
             'vendor/angular-xeditable/dist/js/xeditable.js',
             'vendor/angular-mocks/angular-mocks.js',
+            'vendor/qrcode-generator/js/qrcode.js',
+            'vendor/angular-qrcode/angular-qrcode.js',
             'src/testharness/beforeeach.js',
             'src/app/main.js',
             'src/app/**/*.js',

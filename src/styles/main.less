@@ -43,35 +43,37 @@ b {
   font-weight: 700;
 }
 
+html {
+  width: @body-width;
+  height: @body-height;
+}
+
+body, #mask, [ng-class="pageAnimationClass"], section {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   cursor: default;
   font-size: 12px;
-  width: @body-width;
-  height: @body-height;
   margin: 0;
   box-sizing: border-box;
 }
 
 #mask {
-  height: @body-height;
-  width: @body-width;
   overflow: hidden;
 }
 
 #frame-container {
-  height: @body-height;
-  width: 2*@body-width;
+  height: 100%;
+  width: 200%;
 }
 
 [ng-class="pageAnimationClass"] {
   position: absolute;
-  height: @body-height;
-  width: @body-width;
 }
 
 section {
-  height: @body-height;
-  width: @body-width;
   position: relative;
   .overlay {
     width: 100%;
@@ -93,11 +95,14 @@ header {
   height: @header-height;
   border-bottom: @interior-border-width solid @interior-border-color;
   background-color: @header-footer-background-color;
-  position: relative;
   padding: @header-padding;
   margin: 0;
   overflow: hidden;
   box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
 }
 
 footer {
@@ -108,6 +113,10 @@ footer {
   padding: 0 2px;
   box-sizing: border-box;
   text-align: center;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
 }
 
 form {
@@ -452,10 +461,13 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
 .content {
   padding: @content-padding;
-  height: @content-height;
   box-sizing: border-box;
   overflow: auto;
-  position: relative;
+  position: absolute;
+  top: @header-height;
+  bottom: @footer-height;
+  left: 0;
+  width: 100%;
   .confirmation-instructions {
     text-align: center;
     margin-top: 20px;
@@ -778,6 +790,26 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 #initialized h2 {
   margin-top: 60px;
   margin-bottom: 65px;
+}
+
+#receive {
+  .content {
+    text-align: center;
+  }
+  .security-text {
+    width: 140px;
+    float: right;
+    line-height: 13px;
+    font-size: 11px;
+    padding-right: 5px;
+  }
+  .qrcode {
+    float: left;
+    padding-left: 5px;
+  }
+  .bitcoin-receive-link {
+    padding: 20px 0;
+  }
 }
 
 .blink {

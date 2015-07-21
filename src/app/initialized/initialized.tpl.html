@@ -18,7 +18,9 @@
                       e-required
                       buttons="no"
                       blur="submit">{{wallet.name}}</span>
-                <span class="wallet-address" ng-bind="walletAddress(wallet)"></span>
+                <a ng-click="goReceive(walletAddress(wallet), wallet.id)">
+                    <span class="wallet-address" ng-bind="walletAddress(wallet)"></span>
+                </a>
                 <span class="wallet-balance" ng-bind="getBalance(wallet.hdNode)"></span>
                 <span class="wallet-confirmations fa"
                       ng-class="getConfirmationClasses(wallet.hdNode)"
@@ -28,8 +30,6 @@
                       ng-click="go('/buildTransaction/' + wallet.id, 'slideLeft')"></span>
             </div>
         </div>
-        <!--<a href="https://multibit.org/" target="_blank">Download Multibit Wallet</a>-->
-        <!--<a href="https://electrum.org/#home" target="_blank">Download Electrum Wallet</a>-->
         <a class="text-link-button" ng-click="wipeDevice()">Wipe and Re-initialize</a>
     </div>
 

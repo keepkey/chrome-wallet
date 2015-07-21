@@ -3,5 +3,13 @@ angular.module('kkWallet', [
     'ngAnimate',
     'ui.bootstrap',
     'indexedDB',
-    'xeditable'])
-    .constant('VERSION', '{{VERSION}}');
+    'xeditable',
+    'monospaced.qrcode'])
+
+    .constant('VERSION', '{{VERSION}}')
+    .config( ['$compileProvider',
+        function( $compileProvider )
+        {
+            $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|chrome-extension|bitcoin):/);
+        }
+    ]);
