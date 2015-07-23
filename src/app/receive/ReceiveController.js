@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-    .controller('ReceiveController', ['$rootScope', '$scope', '$routeParams', 'DeviceBridgeService', 'WalletNodeService',
-        function ReceiveController($rootScope, $scope, $routeParams, deviceBridgeService, walletNodeService) {
+    .controller('ReceiveController', ['$rootScope', '$scope', '$routeParams', '$location', 'DeviceBridgeService', 'WalletNodeService',
+        function ReceiveController($rootScope, $scope, $routeParams, $location, deviceBridgeService, walletNodeService) {
             var deviceReadyPromise = new Promise(function(resolve) {
                 $rootScope.$on('ButtonRequest', function(ev, message) {
                     if (message.code === 'ButtonRequest_Address') {
@@ -20,7 +20,7 @@ angular.module('kkWallet')
             };
 
             $scope.$on("$destroy", function() {
-                if (deviceReadyPromise) {
+                if (deviceReadyPromise && $location.path() !== '/pin/pin_matrix_request_type_current') {
                     deviceReadyPromise.then(function() {
                         deviceBridgeService.cancel();
                     });
