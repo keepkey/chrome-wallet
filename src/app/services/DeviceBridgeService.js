@@ -35,6 +35,8 @@ angular.module('kkWallet')
                         return;
                     }
 
+                    //TODO Since messages are broadcast, rethink whether a dispatcher is the
+                    // right thing to do.
                     $rootScope.$broadcast(request.messageType, request.message);
 
                     var messageHandler = incomingMessages[request.messageType];

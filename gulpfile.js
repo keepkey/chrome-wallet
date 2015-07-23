@@ -28,7 +28,6 @@ var vendorJavascriptFiles = [
     'vendor/angular-bootstrap/ui-bootstrap.min.js',
     'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'vendor/lodash/lodash.min.js',
-    'vendor/angular-indexed-db/angular-indexed-db.min.js',
     'vendor/angular-xeditable/dist/js/xeditable.min.js',
     'vendor/qrcode-generator/js/qrcode.js',
     'vendor/angular-qrcode/angular-qrcode.js'

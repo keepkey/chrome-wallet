@@ -20,7 +20,6 @@ angular.module('kkWallet')
             };
 
             $scope.$on("$destroy", function() {
-                console.log(arguments);
                 if (deviceReadyPromise) {
                     deviceReadyPromise.then(function() {
                         deviceBridgeService.cancel();

@@ -10,7 +10,6 @@ module.exports = function(config) {
             'vendor/angular-animate/angular-animate.js',
             'vendor/angular-bootstrap/ui-bootstrap.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
-            'vendor/angular-indexed-db/angular-indexed-db.js',
             'vendor/angular-xeditable/dist/js/xeditable.js',
             'vendor/angular-mocks/angular-mocks.js',
             'vendor/qrcode-generator/js/qrcode.js',

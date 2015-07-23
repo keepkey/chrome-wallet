@@ -8,7 +8,11 @@
             <h2><span class="cornflower-txt"><b>Receive</b></span> Bitcoins</h2>
         </div>
         <div class="clearfix">
-            <qrcode class="qrcode" data="{{address}}" size="120"></qrcode>
+            <qrcode class="qrcode"
+                    data="{{getBitcoinLink(address)}}"
+                    href="{{getBitcoinLink(address)}}"
+                    size="120"
+                    target="_blank"></qrcode>
             <div class="security-text">
                 For extra security, confirm that the address listed here is the same one
                 shown on the screen of your KeepKey. Your KeepKey will never show an address
