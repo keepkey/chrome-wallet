@@ -14,9 +14,9 @@ angular.module('kkWallet')
                         $scope.pin = '' + $scope.pin + position;
                     };
                     $scope.sendPin = function() {
+                        navigationService.setNextTransition('slideLeft');
                         deviceBridgeService.sendPin({pin: $scope.pin});
                         $scope.pin = '';
-                        navigationService.goToPrevious();
                     };
                     $scope.$watch('pin', function() {
                         $scope.displayPin = new Array($scope.pin.length + 1).join('*');
