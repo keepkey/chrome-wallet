@@ -9,22 +9,24 @@
         <form name="form" novalidate>
 
             <div class="form-input-container">
-                <label>Label</label>
-                <div class="invalid" ng-show="form.$submitted || form.deviceLabel.$touched">
-                    <div ng-show="form.deviceLabel.$error.required">Required</div>
+                <div class="content-form-inner">
+                    <div class="content-inner-centering">
+                        <label>Label</label>
+                        <div class="invalid" ng-show="form.$submitted || form.deviceLabel.$touched">
+                            <div ng-show="form.deviceLabel.$error.required">Required</div>
+                        </div>
+                        <input
+                                name="deviceLabel"
+                                type="text"
+                                placeholder="Name your KeepKey"
+                                ng-model="resetRecoverData.label"
+                                required
+                                focus>
+                    </div>
                 </div>
-                <input
-                        name="deviceLabel"
-                        type="text"
-                        placeholder="Name your KeepKey"
-                        ng-model="resetRecoverData.label"
-                        required
-                        focus>
             </div>
 
             <button class="button" type="submit" ng-click="nextAction()">Set Label</button>
         </form>
     </div>
-
-    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
 </section>
