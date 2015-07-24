@@ -4,6 +4,8 @@
 @header-height: 48px;
 @header-padding: 1px;
 
+@form-header-height: 30px;
+
 @button-bar: 60px;
 @button-height: 30px;
 
@@ -55,6 +57,15 @@ body {
   font-size: 12px;
   margin: 0;
   box-sizing: border-box;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #mask {
@@ -451,10 +462,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   left: 0;
   width: 100%;
-  .confirmation-instructions {
-    text-align: center;
-    margin-top: 20px;
-  }
   .device-screen {
     background-color: black;
     height: @screen-content-height;
@@ -526,10 +533,35 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   height: @content-height - @button-bar - @button-height;
 }
 
+.content-no-button-inner {
+  height: @content-height;
+}
+
+.content-form-inner {
+  height: @content-height - @button-bar - @button-height - @form-header-height;
+}
+
+.content-confirming-inner {
+  height: @content-height / 2.5;
+}
+
 .content-inner-centering {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.device-image(@url) {
+  background: url(@url) center bottom no-repeat;
+  background-size: 340px auto;
+}
+
+#confirm-word {
+  .device-image('../assets/img/confirm-word-background.png');
+}
+
+#wipe-device {
+  .device-image('../assets/img/wipe-device-background.png');
 }
 
 .button, a.button {
@@ -553,6 +585,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   transition: 0.2s all ease-in;
   line-height: 20px;
   box-sizing: border-box;
+  outline: none;
   &.pin {
     position: static;
   }
@@ -576,6 +609,12 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   &:hover {
     color: #7A8500;
     text-decoration: underline;
+  }
+  &.cancel {
+    color: #d26464;
+    &:hover {
+      color: #a25050;
+    }
   }
 }
 
@@ -682,6 +721,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', sans-serif;
   line-height: @pin-button-line-height;
   .button {
+    font-size: 14px;
     border-radius: 0px;
     display: inline-block;
     width: @pin-button-width;
@@ -691,14 +731,17 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     &:hover {
       background-color: #6d6e71;
     }
-
+    &:active {
+      opacity: 1;
+    }
   }
   .pin-view {
+    font-size: 14px;
     height: 20px;
     width: @pin-pad-width;
     margin-top: 10px;
     text-align: center;
-    border: inset thin;
+    border: none;
   }
 }
 
@@ -743,32 +786,14 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#connect {
-  .content {
-    padding-top: 35px;
-  }
-}
-
-#label {
+#label, #pin {
   .content {
     padding-top: 10px;
     h2 {
+      height: @form-header-height;
       padding-bottom: 10px;
       border-bottom: 1px solid @interior-border-color;
     }
-  }
-  .form-input-container {
-    padding-top: 20px;
-    padding-bottom: 35px;
-  }
-}
-
-#pin {
-  .button {
-    margin-top: 8px;
-  }
-  .pin-pad .button {
-    margin-top: 3px;
   }
 }
 
