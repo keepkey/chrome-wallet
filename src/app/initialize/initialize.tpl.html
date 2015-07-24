@@ -4,14 +4,15 @@
     </header>
 
     <div class="content">
-        <h2><span class="cornflower-txt">Your <b>KeepKey</b> needs to be initialized.</span>
-            During initialization, your private keys are generated and encrypted on the KeepKey. You can
-            also choose a label to differentiate between your devices.</h2>
-        <div class="button-bar">
-            <a class="button" ng-click="go('/label/initialize', 'slideLeft')">Initialize <b>KeepKey</b></a>
-            <a class="button" ng-click="go('/label/recover', 'slideLeft')">Recover <b>KeepKey</b></a>
+        <div class="content-inner">
+            <div class="content-inner-centering">
+                <h2><span class="cornflower-txt">Your <b>KeepKey</b> needs to be initialized.</span>
+                    Before you can use this KeepKey, it must be initialized.  During initialization, your private keys are generated.</h2>
+            </div>
         </div>
-    </div>
 
-    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+        <a class="button" ng-click="go('/label/initialize', 'slideLeft')">Initialize <b>KeepKey</b></a>
+
+        <a class="text-link-button" ng-click="go('/label/recover', 'slideLeft')">or Recover <b>KeepKey</b></a>
+    </div>
 </section>
