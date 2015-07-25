@@ -3,16 +3,16 @@ angular.module('kkWallet')
         function InitializedController($scope, deviceBridgeService, navigationService, walletNodeService, transactionService) {
             $scope.wallets = walletNodeService.wallets;
             $scope.balances = transactionService.walletBalances;
-            $scope.getBalance = function(node) {
-                if (node && $scope.balances && $scope.balances[node] && $scope.balances[node].balance) {
-                    return $scope.balances[node].balance / 100000000;
+            $scope.getBalance = function(nodePath) {
+                if (nodePath && $scope.balances && $scope.balances[nodePath] && $scope.balances[nodePath].balance) {
+                    return $scope.balances[nodePath].balance / 100000000;
                 } else {
                     return '---';
                 }
             };
-            $scope.getConfirmationTooltip = function(node) {
-                if (node && $scope.balances && $scope.balances[node]) {
-                    var confirmations = $scope.balances[node].confirmations;
+            $scope.getConfirmationTooltip = function(nodePath) {
+                if (nodePath && $scope.balances && $scope.balances[nodePath]) {
+                    var confirmations = $scope.balances[nodePath].confirmations;
 
                     var pluralized = 'confirmation' + ((confirmations === 1) ? '' : 's');
                     var quantity = (confirmations >= 10) ? 'More than 10' : '' + confirmations;
@@ -20,10 +20,10 @@ angular.module('kkWallet')
                 }
             };
 
-            $scope.getConfirmationClasses = function(node) {
+            $scope.getConfirmationClasses = function(nodePath) {
                 var classes = [];
-                if (node && $scope.balances && $scope.balances[node]) {
-                    var confirmations = $scope.balances[node].confirmations;
+                if (nodePath && $scope.balances && $scope.balances[nodePath]) {
+                    var confirmations = $scope.balances[nodePath].confirmations;
                     if (confirmations < 6) {
                         classes.push('fa-circle-o-notch');
 
@@ -46,8 +46,16 @@ angular.module('kkWallet')
                 return classes.join(' ');
             };
 
-            $scope.walletAddress = function(node) {
-                return walletNodeService.firstUnusedAddress(node.addresses[0]);
+            $scope.walletAddress = function(walletId) {
+                var walletNode = $scope.wallets &&
+                  $scope.wallets.length &&
+                  $scope.wallets[walletId];
+
+                if (walletNode &&
+                  walletNode.addresses &&
+                  walletNode.addresses.length) {
+                    return walletNodeService.firstUnusedAddress(walletNode.addresses[0]);
+                }
             }
 
             $scope.wipeDevice = function() {

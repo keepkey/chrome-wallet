@@ -16,7 +16,8 @@ angular.module('kkWallet')
                             addressN: it.nodePath
                         });
                     }
-                )
+                );
+                angular.copy(newNodes, nodes);
                 $rootScope.$digest();
             }
 

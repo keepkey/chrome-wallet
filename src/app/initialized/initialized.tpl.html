@@ -18,8 +18,8 @@
                       e-required
                       buttons="no"
                       blur="submit">{{wallet.name}}</span>
-                <a ng-click="goReceive(walletAddress(wallet), wallet.id)">
-                    <span class="wallet-address" ng-bind="walletAddress(wallet)"></span>
+                <a ng-click="goReceive(walletAddress(wallet.id), wallet.id)">
+                    <span class="wallet-address" ng-bind="walletAddress(wallet.id)"></span>
                 </a>
                 <span class="wallet-balance" ng-bind="getBalance(wallet.hdNode)"></span>
                 <span class="wallet-confirmations fa"
