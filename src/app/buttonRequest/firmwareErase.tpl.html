@@ -1,19 +1,14 @@
 <section id="button-request" ng-controller="ButtonRequestController">
-    <header></header>
+    <header>
+    </header>
 
-    <div class="content" ng-class="buttonRequestType">
-        <div class="device-screen">
-            <div class="button-press-icon fa fa-circle"><div class="fa fa-sort-up"></div></div>
-            <h2>
-                <div>
-                    <span class="cornflower-txt"><b>Verify Backup</b></span><br>
-                    Do you have your recovery sentence in
-                    case your private keys are erased?
-                </div>
-            </h2>
+    <div id="update-firmware" class="content" ng-class="buttonRequestType">
+        <div class="content-confirming-inner">
+            <div class="content-inner-centering">
+                <h2><span class="cornflower-txt">On your <b>KeepKey</b>, confirm you have
+                    access to the backup of your recovery sentence.</span></h2>
+            </div>
         </div>
-        <div class="confirmation-instructions">Please confirm this action by pressing and holding the button on the top of your KeepKey</div>
-        <a class="text-link-button" ng-click="onCancel()">Cancel</a>
+        <a class="text-link-button cancel" ng-click="onCancel()">Cancel</a>
     </div>
-    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
 </section>

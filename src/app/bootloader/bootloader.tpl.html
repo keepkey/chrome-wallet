@@ -1,13 +1,18 @@
 <section id="bootloader" ng-controller="BootloaderController">
     <header>
+        <settings-button class="button-left header-button"></settings-button>
     </header>
 
     <div class="content">
-        <div class="device-screen centered">
-            <div>Firmware Update Mode</div>
+        <div class="content-inner">
+            <div class="content-inner-centering">
+                <h2><span class="cornflower-txt"><b>KeepKey</b> firmware update.</span>
+                    Updating your firmware may result in your private keys being erased.  
+                    It is important that you have access to your recovery sentence
+                    before continuing.</h2>
+            </div>
         </div>
+
         <a class="button" ng-click="updateFirmware()">Update Firmware</a>
     </div>
-
-    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
 </section>
