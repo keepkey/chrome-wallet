@@ -131,8 +131,8 @@ angular.module('kkWallet')
             };
         }
     ])
-    .factory('RecoveryCipherModel', ['DeviceBridgeService',
-        function RecoveryCipherModel(deviceBridgeService) {
+    .factory('RecoveryCipherModel', ['DeviceBridgeService', 'NavigationService',
+        function RecoveryCipherModel(deviceBridgeService, navigationService) {
             var model = {
                 currentCharacterPosition: 0,
                 currentWord: 0
@@ -143,12 +143,15 @@ angular.module('kkWallet')
                     return model;
                 },
                 sendCharacter: function (character) {
+                    navigationService.setNextTransition('noAnimation');
                     deviceBridgeService.characterAck(character);
                 },
                 sendEnter: function () {
+                    navigationService.setNextTransition('slideLeft');
                     deviceBridgeService.characterAck('', false, true);
                 },
                 sendBackspace: function () {
+                    navigationService.setNextTransition('noAnimation');
                     deviceBridgeService.characterAck('', true, false);
                 }
             };

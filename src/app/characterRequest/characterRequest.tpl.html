@@ -9,8 +9,8 @@
     <div class="content">
         <h2>
             <span class="cornflower-txt">
-                <b>Enter the private key</b>
-            </span> For Your KeepKey
+                <b>Enter the recovery sentence</b>
+            </span> for the KeepKey you want to restore.
         </h2>
 
         <div class="active-keys clearfix">
@@ -53,7 +53,6 @@
                     </span>
                     <span class="word-index">{{wordIndex + 1}}.</span>
                     <span class="word-representation"
-                          ng-class="{blink: isCursorPosition(wordIndex, $index)}"
                           ng-repeat="characterIndex in getEmptyArray(wordLength) track by $index">
                         {{getCharAtCurrentPosition(wordIndex, $index)}}
                     </span>

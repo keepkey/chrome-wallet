@@ -6,6 +6,11 @@
     transition-property: opacity;
 }
 
+.noAnimation.ng-enter, .noAnimation.ng-leave {
+    transition-duration: 0s;
+    transition-property: all;
+}
+
 .cross-fade.ng-enter {
     opacity: 0;
 }
