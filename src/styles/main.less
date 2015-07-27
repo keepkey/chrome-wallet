@@ -77,6 +77,7 @@ body {
 }
 
 section {
+  outline: none;
   position: relative;
   .overlay {
     width: 100%;
@@ -296,13 +297,13 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 .active-keys {
-  margin: 0 15px 10px 15px;
+  margin: 15px 15px 5px 15px;
   .key {
     float: left;
     margin: 0 5px 5px 0;
     width: 60px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     text-align: center;
     background: #fff;
     border: 1px solid #ccc;
@@ -612,7 +613,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 @pin-button-width: 30px;
-@pin-button-line-height: @pin-button-width - 10px;
+@pin-button-line-height: @pin-button-width - 7px;
 @pin-pad-padding: 3px;
 @pin-pad-width: (3 * @pin-button-width) + (2 * @pin-pad-padding) + 1px;
 
@@ -620,8 +621,8 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   width: @pin-pad-width;
   margin: 0 auto;
   font-family: 'Open Sans', sans-serif;
-  line-height: @pin-button-line-height;
   .button {
+    line-height: @pin-button-line-height;
     font-size: 14px;
     border-radius: 0px;
     display: inline-block;
@@ -687,11 +688,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#label, #pin {
+#label, #pin, #character-request {
   .content {
     padding-top: 10px;
     h2 {
-      height: @form-header-height;
       padding-bottom: 10px;
       border-bottom: 1px solid @interior-border-color;
     }
@@ -726,23 +726,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
   .bitcoin-receive-link {
     padding: 20px 0;
-  }
-}
-
-.blink {
-  animation: blink 1s steps(5, start) infinite;
-  -webkit-animation: blink 1s steps(5, start) infinite;
-}
-
-@keyframes blink {
-  to {
-    visibility: hidden;
-  }
-}
-
-@-webkit-keyframes blink {
-  to {
-    visibility: hidden;
   }
 }
 
