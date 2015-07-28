@@ -10,7 +10,7 @@ angular.module('kkWallet')
             });
 
             $scope.address = $routeParams.address;
-            $scope.walletId = $routeParams.walletId;
+            $scope.walletId = parseInt($routeParams.walletId, 10);
             $scope.getBitcoinLink = function (address) {
                 return [
                     'bitcoin:',
