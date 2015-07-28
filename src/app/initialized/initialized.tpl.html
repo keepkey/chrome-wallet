@@ -1,13 +1,11 @@
 <section id="initialized" ng-controller="InitializedController">
     <header>
-        <settings-button class="left header-button"></settings-button>
-        <a class="refresh-button right header-button" ng-click="refresh()">
-            <span class="fa fa-refresh"></span>
-        </a>
+        <settings-button class="button-left header-button"></settings-button>
+        <a class="button-right header-button refresh-button" ng-click="refresh()"><div class="icon icon-refresh"></div></a>
     </header>
 
-    <div class="content">
-        <div class="wallet-list btn-group-vertical" role="group">
+      <div class="content">
+<!--    <div class="wallet-list btn-group-vertical" role="group">
             <div class="clearfix btn btn-default"
                  type="button"
                  ng-repeat="wallet in wallets track by wallet.id">
@@ -29,9 +27,21 @@
                 <span class="wallet-send fa fa-cloud-upload"
                       ng-click="go('/buildTransaction/' + wallet.id, 'slideLeft')"></span>
             </div>
-        </div>
+        </div> -->
         <a class="text-link-button" ng-click="wipeDevice()">Wipe Device</a>
     </div>
 
-    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+    <div class="wallets">
+      <div class="wallet online" ng-repeat="wallet in wallets track by wallet.id">
+          <div class="connection-light">
+          </div>
+          <div class="details">
+            <h2 class="val"><span ng-bind="getBalance(wallet.hdNode)"></span> <span class="wallet-currency"> btc</span></h2>
+            <h3 class="wallet-name">{{wallet.name}} <a class="wallet-link-qr" ng-click="goReceive(walletAddress(wallet.id), wallet.id)">QR</a></h3>
+          </div>
+          <div class="go-side">
+            <div class="go-btn"><a class="wallet-link-send" ng-click="go('/buildTransaction/' + wallet.id, 'slideLeft')"><div class="icon icon-forward"></div></a></div>
+          </div>
+      </div>
+    </div>
 </section>
