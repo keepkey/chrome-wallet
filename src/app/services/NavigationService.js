@@ -78,11 +78,11 @@ angular.module('kkWallet')
                     templateUrl: 'app/sending/sending.tpl.html'
                 })
                 .when('/success/bouncies', {
-                    templateUrl: 'app/success/bouncies.tpl.html',
+                    templateUrl: 'app/success/buildingTransaction.tpl.html',
                     goable: true
                 })
                 .when('/success/firmware_erased', {
-                    templateUrl: 'app/success/bouncies.tpl.html',
+                    templateUrl: 'app/success/updatingFirmware.tpl.html',
                     goable: false
                 })
                 .when('/success/upload_complete', {
