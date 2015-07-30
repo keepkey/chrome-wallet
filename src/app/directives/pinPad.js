@@ -4,7 +4,8 @@ angular.module('kkWallet')
             restrict: 'E',
             replace: true,
             scope: {
-                buttonText: '@'
+                buttonText: '@',
+                returnToPreviousRoute: '@returnToPreviousRoute'
             },
             controller: ['$scope', 'DeviceBridgeService', 'NavigationService',
                 function ($scope, deviceBridgeService, navigationService) {
@@ -17,6 +18,9 @@ angular.module('kkWallet')
                         navigationService.setNextTransition('slideLeft');
                         deviceBridgeService.sendPin({pin: $scope.pin});
                         $scope.pin = '';
+                        if ($scope.returnToPreviousRoute) {
+                            navigationService.goToPrevious('slideRight');
+                        }
                     };
                     $scope.$watch('pin', function() {
                         $scope.displayPin = new Array($scope.pin.length + 1).join('*');

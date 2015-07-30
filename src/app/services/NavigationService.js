@@ -183,8 +183,8 @@ angular.module('kkWallet')
 
             return {
                 go: go,
-                goToPrevious: function() {
-                    go(previousRoute);
+                goToPrevious: function(pageAnimationClass) {
+                    go(previousRoute, pageAnimationClass);
                 },
                 setNextTransition: function (pageAnimationClass) {
                     nextTransition = pageAnimationClass;

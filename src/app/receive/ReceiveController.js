@@ -1,6 +1,7 @@
 angular.module('kkWallet')
-    .controller('ReceiveController', ['$rootScope', '$scope', '$routeParams', '$location', 'DeviceBridgeService', 'WalletNodeService',
-        function ReceiveController($rootScope, $scope, $routeParams, $location, deviceBridgeService, walletNodeService) {
+    .controller('ReceiveController', ['$rootScope', '$scope', '$routeParams', '$location', 'DeviceBridgeService', 'WalletNodeService', 'NavigationService',
+        function ReceiveController($rootScope, $scope, $routeParams, $location, deviceBridgeService, walletNodeService, navigationService) {
+            navigationService.setNextTransition('slideLeft');
             var deviceReadyPromise = new Promise(function(resolve) {
                 $rootScope.$on('ButtonRequest', function(ev, message) {
                     if (message.code === 'ButtonRequest_Address') {
