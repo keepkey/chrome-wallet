@@ -20,6 +20,8 @@ var mocha = require('gulp-mocha');
 var karma = require('karma').server;
 var manifest = require('./manifest');
 
+var environment = (args.environment || 'local');
+
 // Settings
 var vendorJavascriptFiles = [
     'vendor/angular/angular.min.js',
@@ -56,7 +58,7 @@ gulp.task('build', [
 ]);
 
 gulp.task('buildConfig', function () {
-    var envConfig = require('./config/' + (args.environment || 'local') + '.json');
+    var envConfig = require('./config/' + environment + '.json');
     return ngConstant({
         name: 'kkWallet',
         constants: {environmentConfig: envConfig},
@@ -90,7 +92,7 @@ gulp.task('htmlProduction', function () {
 gulp.task('zip', ['vendorScriptsProduction', 'appScriptsProduction', 'cssProduction', 'assetsProduction',
     'htmlProduction', 'manifestProduction', 'buildConfig'], function () {
     return gulp.src('dist/**/*')
-        .pipe(zip('keepkey-wallet-test.zip'))
+        .pipe(zip('keepkey-wallet-' + environment + '.zip'))
         .pipe(gulp.dest('.'));
 });
 
