@@ -138,7 +138,12 @@ gulp.task('cssProduction', function () {
 });
 
 gulp.task('manifestProduction', function () {
+
+    var environmentTag = (environment !== "prod") ?
+    ' (' + environment + ')' : '';
+
     return gulp.src('manifest.json')
+        .pipe(replace(/"name": "KeepKey Wallet.*"/g, '"name": "KeepKey Wallet' + environmentTag + '"'))
         .pipe(jeditor(function (json) {
             json.options_page = json.options_page.replace('src/', '');
             json.browser_action.default_icon = json.browser_action.default_icon.replace('src/', '');
