@@ -37,10 +37,15 @@
           </div>
           <div class="details">
             <h2 class="val"><span ng-bind="getBalance(wallet.hdNode)"></span> <span class="wallet-currency"> btc</span></h2>
-            <h3 class="wallet-name">{{wallet.name}} <a class="wallet-link-qr" ng-click="goReceive(walletAddress(wallet.id), wallet.id)">QR</a></h3>
+            <h3 class="wallet-name">
+                {{wallet.name}}
+                <a class="wallet-link-qr" ng-hide="!wallet.xpub" ng-click="goReceive(wallet)">QR</a>
+            </h3>
           </div>
           <div class="go-side">
-            <div class="go-btn"><a class="wallet-link-send" ng-click="go('/buildTransaction/' + wallet.id, 'slideLeft')"><div class="icon icon-forward"></div></a></div>
+            <div class="go-btn" ng-hide="!wallet.xpub">
+                <a class="wallet-link-send" ng-disabled="!wallet.xpub" ng-click="goBuildTransaction(wallet)"><div class="icon icon-forward"></div></a>
+            </div>
           </div>
       </div>
     </div>
