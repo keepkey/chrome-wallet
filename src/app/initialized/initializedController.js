@@ -1,6 +1,8 @@
 angular.module('kkWallet')
   .controller('InitializedController', ['$scope', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService',
     function InitializedController($scope, deviceBridgeService, navigationService, walletNodeService, transactionService) {
+      walletNodeService.reload();
+
       $scope.wallets = walletNodeService.wallets;
       $scope.balances = transactionService.walletBalances;
       $scope.getBalance = function (nodePath) {
@@ -67,9 +69,20 @@ angular.module('kkWallet')
         deviceBridgeService.getTransactions(true);
       };
 
-      $scope.goReceive = function (address, walletId) {
-        $scope.go(['/receive', walletId, address].join('/'), 'slideLeft');
+      $scope.goReceive = function (wallet) {
+        if (wallet.xpub) {
+          $scope.go(['/receive', wallet.id, $scope.walletAddress(wallet.id)].join('/'), 'slideLeft');
+        } else {
+          console.log('click ignored');
+        }
       };
 
+      $scope.goBuildTransaction = function(wallet) {
+        if (wallet.xpub) {
+          $scope.go('/buildTransaction/' + wallet.id, 'slideLeft');
+        } else {
+          console.log('click ignored');
+        }
+      };
     }
   ]);

@@ -5,19 +5,32 @@ angular.module('kkWallet')
     function DeviceFeatureService($rootScope, deviceBridgeService, transactionService) {
       var nodes = [];
 
-      function updateWalletNodes(newNodes) {
-        angular.extend(nodes, newNodes);
-        // Request public key for nodes where it is missing
-        var nodesMissingPublicKey = _.filter(nodes, function (it) {
-          return !it.xpub;
-        });
-        _.each(nodesMissingPublicKey, function (it) {
+      function getPublicKeysForNodes(nodes) {
+        _.each(nodes, function (it) {
+            delete it.chainCode;
+            delete it.publicKey;
+            delete it.xpub;
             deviceBridgeService.getPublicKey({
               addressN: it.nodePath
             });
           }
         );
+        $rootScope.$digest();
+      }
+
+      function updateWalletNodes(newNodes) {
+        var checkAllNodes = (nodes.length === 0);
+
         angular.copy(newNodes, nodes);
+
+        // Request public key for nodes where it is missing
+        if (checkAllNodes) {
+          getPublicKeysForNodes(nodes);
+        } else {
+          getPublicKeysForNodes(_.filter(nodes, function (it) {
+            return !it.xpub;
+          }));
+        }
         $rootScope.$digest();
       }
 
@@ -50,10 +63,23 @@ angular.module('kkWallet')
         }, []);
       }
 
+      function reloadWallets() {
+        deviceBridgeService.getWalletNodes();
+      }
+
+      function getWalletById(id) {
+        if (_.isString(id)) {
+          id = parseInt(id, 10);
+        }
+        return _.find(nodes, {id: id})
+      }
+
       deviceBridgeService.getWalletNodes();
 
       return {
         wallets: nodes,
+        reload: reloadWallets,
+        getWalletById: getWalletById,
         updateWalletNodes: updateWalletNodes,
         firstUnusedAddress: firstUnusedAddress,
         getAddressNode: getAddressNode
