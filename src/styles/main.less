@@ -585,6 +585,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   .device-image('../assets/img/update-firmware-background.png');
 }
 
+#confirm-fee {
+  .device-image('../assets/img/confirm-fee-background.png');
+}
+
 .button, a.button {
   height: @button-height;
   position: absolute;
@@ -615,6 +619,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
   &:active {
     opacity: 0.2;
+  }
+  &[disabled], &[disabled]:hover {
+    background-color: #eee;
+    color: #888;
   }
 }
 
@@ -899,4 +907,8 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   height: 150px;
   background: url('../assets/img/success.png') no-repeat;
   background-size: 150px auto;
+}
+
+.too-high {
+  color: red;
 }
