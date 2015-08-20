@@ -22,6 +22,15 @@ angular.module('kkWallet')
         }
       };
 
+      $scope.sendAllowed = function (wallet) {
+        return wallet &&
+          wallet.xpub &&
+          wallet.hdNode &&
+          $scope.balances &&
+          $scope.balances[wallet.hdNode] &&
+          $scope.balances[wallet.hdNode].balance;
+      };
+
       $scope.getConfirmationClasses = function (nodePath) {
         var classes = [];
         if (nodePath && $scope.balances && $scope.balances[nodePath]) {
@@ -77,7 +86,7 @@ angular.module('kkWallet')
         }
       };
 
-      $scope.goBuildTransaction = function(wallet) {
+      $scope.goBuildTransaction = function (wallet) {
         if (wallet.xpub) {
           $scope.go('/buildTransaction/' + wallet.id, 'slideLeft');
         } else {

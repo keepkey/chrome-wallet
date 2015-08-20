@@ -15,7 +15,9 @@ angular.module('kkWallet')
             });
           }
         );
-        $rootScope.$digest();
+        setTimeout(function () {
+          $rootScope.$digest();
+        });
       }
 
       function updateWalletNodes(newNodes) {
@@ -31,7 +33,9 @@ angular.module('kkWallet')
             return !it.xpub;
           }));
         }
-        $rootScope.$digest();
+        setTimeout(function () {
+          $rootScope.$digest();
+        });
       }
 
       function firstUnusedAddress(addressArray) {
