@@ -115,7 +115,7 @@ header {
 
 form {
   padding: 0 20px;
-  label {
+  label, .label {
     color: #999;
     font-style: italic;
     display: block;
@@ -909,6 +909,70 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   background-size: 150px auto;
 }
 
-.too-high {
-  color: red;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.form-input-container {
+  .field-composer {
+    position: relative;
+    input {
+      padding-right: 12px;
+    }
+  }
+  .inline-button {
+    position: absolute;
+    right: -17px;
+    top: 27px;
+    color: white;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.fee-level-btn {
+  margin: 0 5px;
+  .btn {
+    font-size: inherit;
+    font-family: inherit;
+    .fee-amount {
+      width: 54px;
+    }
+    &[disabled] {
+      background-color: #eee;
+      color: #888;
+    }
+  }
+  .btn-default, .btn-default.active, .btn-default:active, .btn-default:focus {
+    color: #C4D600;
+    background-color: #fff;
+    border-color: #C4D600;
+    &:hover {
+      color: #C4D600;
+      background-color: #EEE;
+      border-color: #C4D600;
+    }
+  }
+  .btn-primary, .btn-primary.active, .btn-primary:active, .btn-primary:focus {
+    color: #fff;
+    background-color: #C4D600;
+    border-color: #C4D600;
+    &:hover {
+      color: #fff;
+      background-color: darken(#C4D600, 10%);
+      border-color: #C4D600;
+    }
+  }
+}
+.sign-transaction-button {
+  bottom: 20px;
+}
+.label {
+  line-height: inherit;
+  padding: inherit;
+  font-size: inherit;
+  margin-bottom: 5px;
+  font-weight: 700;
 }

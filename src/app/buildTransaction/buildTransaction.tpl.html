@@ -25,24 +25,38 @@
                             focus>
                 </div>
                 <div class="form-input-container">
-                    <label>Amount:</label>
-                    <input
-                            type="number"
-                            name="amount"
-                            placeholder="Amount to send"
-                            ng-model="userInput.amount"
-                            required
-                            focus
-                            min="0"
-                            max="{{getMaxAmount()}}">
+                    <div class="label">Amount:</div>
+                    <div class="field-composer">
+                        <input
+                                type="number"
+                                name="amount"
+                                placeholder="Amount to send"
+                                ng-model="userInput.amount"
+                                required
+                                focus
+                                min="0"
+                                max="{{getMaxAmount()}}">
+                        <a class="inline-button" ng-click="setAmountToMax()">
+                            <span class="fa fa-arrow-up"></span>
+                        </a>
+                    </div>
                 </div>
                 <div class="form-input-container">
-                    <label>Estimated network fee:</label>
-                    <span ng-bind="estimatedFee.fee"></span>
-                    <select ng-model="userInput.feeLevel" ng-options="option for option in feeOptions"></select>
+                    <label>Transaction speed:</label>
+                    <div class="fee-level-btn btn-group" role="group">
+                        <button ng-repeat="feeLevelOption in feeOptions"
+                                type="button"
+                                ng-click="setFeeLevel(feeLevelOption)"
+                                ng-class="{'btn-primary': userInput.feeLevel === feeLevelOption, 'btn-default': userInput.feeLevel !== feeLevelOption }"
+                                class="btn"
+                                ng-disabled="estimatedFee.fee[feeLevelOption] === undefined">
+                            <div>{{feeLevelOption}}</div>
+                            <div class="fee-amount small"><span class="small">{{formatFee(feeLevelOption)}}</span></div>
+                        </button>
+                    </div>
                 </div>
                 <button
-                        class="button"
+                        class="button sign-transaction-button"
                         ng-click="buildTransaction()"
                         ng-disabled="signButtonDisabled()">
                     Sign
