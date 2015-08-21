@@ -1,7 +1,7 @@
 {
   "name": "KeepKey Wallet",
   "description": "Complete cryptocurrency integration with Chrome.",
-  "version": "0.0.28",
+  "version": "0.0.30",
   "manifest_version": 2,
   "options_page": "src/keepkey.html#options",
   "browser_action": {

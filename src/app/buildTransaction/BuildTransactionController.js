@@ -34,18 +34,51 @@ angular.module('kkWallet')
         return $scope.maxAmount.max / 100000000;
       };
 
+      $scope.setAmountToMax = function() {
+        $scope.userInput.amount = $scope.maxAmount.max / 100000000;
+      };
+
+      $scope.setFeeLevel = function(option) {
+        $scope.userInput.feeLevel = option;
+      };
+
+      $scope.formatFee = function(feeLevelOption) {
+        var fee = $scope.estimatedFee.fee && $scope.estimatedFee.fee[feeLevelOption];
+        if (_.isUndefined(fee)) {
+          return 'not available';
+        } else {
+          return fee / 100 + ' \u00B5btc';
+        }
+      };
+
       getMaximumTransactionAmount();
 
-      function computeFee() {
-        feeService.compute($scope.wallet.hdNode, $scope.userInput.amount, $scope.userInput.feeLevel);
+      function computeFees() {
+        feeService.compute($scope.wallet.hdNode, $scope.userInput.amount);
       }
 
       function getMaximumTransactionAmount() {
         feeService.getMaximumTransactionAmount($scope.wallet.hdNode, $scope.userInput.feeLevel);
       }
 
-      $scope.$watch('userInput.feeLevel', computeFee);
-      $scope.$watch('userInput.feeLevel', getMaximumTransactionAmount);
-      $scope.$watch('userInput.amount', computeFee);
+      function verifyFeeLevel() {
+        $scope.userInput.feeLevel = 'fast';
+        var translation = {
+          'fast': 'medium',
+          'medium': 'slow',
+          'slow': 'slow'
+        };
+
+        while (_.isUndefined($scope.estimatedFee.fee[$scope.userInput.feeLevel])) {
+          $scope.userInput.feeLevel = translation[$scope.userInput.feeLevel];
+          if ($scope.userInput.feeLevel === 'slow') {
+            break;
+          }
+        }
+      }
+
+      $scope.$watch('userInput.amount', computeFees);
+      $scope.$watch('estimatedFee', verifyFeeLevel, true);
+      $scope.$watch('estimatedFee', getMaximumTransactionAmount, true);
     }
   ]);
