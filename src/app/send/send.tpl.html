@@ -1,25 +1,71 @@
-<section id="send">
+<section id="build-transaction" ng-controller="SendController">
     <header>
-        <back-button class="button-left header-button" destination="'/wallet'"></back-button>
+        <back-button class="button-left header-button" destination="'/initialized'"></back-button>
     </header>
 
     <div class="content">
-        <h2><span class="cornflower-txt"><b>Send</b></span> Money</h2>
+        <div ng-show="walletTransactions.balance">
+            <h2><span class="cornflower-txt"><b>Send Bitcoins</b></span> from your KeepKey</h2>
 
-        <form>
-
-            <div>
-                <label>Send to</label>
-                <input type="text">
-            </div>
-
-            <div>
-                <label>Amount</label>
-                <input type="text">
-            </div>
-
-            <a class="button" ng-click="go('/sending', 'slideLeft')">Send</a>
-        </form>
+            <form name="transaction">
+                <div class="form-input-container">
+                    <div class="from-label">From:</div>
+                <span class="cornflower-txt">
+                    <b ng-bind="userInput.sourceName"></b>
+                </span>
+                </div>
+                <div class="form-input-container">
+                    <label>To:</label>
+                    <input
+                            type="text"
+                            name="dest-address"
+                            placeholder="Enter the recipient address"
+                            ng-model="userInput.address"
+                            required
+                            focus>
+                </div>
+                <div class="form-input-container">
+                    <div class="label">Amount:</div>
+                    <div class="field-composer">
+                        <input
+                                type="number"
+                                name="amount"
+                                placeholder="Amount to send"
+                                ng-model="userInput.amount"
+                                required
+                                focus
+                                min="0"
+                                max="{{getMaxAmount()}}">
+                        <a class="inline-button" ng-click="setAmountToMax()">
+                            <span class="fa fa-arrow-up"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="form-input-container">
+                    <label>Transaction speed:</label>
+                    <div class="fee-level-btn btn-group" role="group">
+                        <button ng-repeat="feeLevelOption in feeOptions"
+                                type="button"
+                                ng-click="setFeeLevel(feeLevelOption)"
+                                ng-class="{'btn-primary': userInput.feeLevel === feeLevelOption, 'btn-default': userInput.feeLevel !== feeLevelOption }"
+                                class="btn"
+                                ng-disabled="estimatedFee.fee[feeLevelOption] === undefined">
+                            <div>{{feeLevelOption}}</div>
+                            <div class="fee-amount small"><span class="small">{{formatFee(feeLevelOption)}}</span></div>
+                        </button>
+                    </div>
+                </div>
+                <button
+                        class="button sign-transaction-button"
+                        ng-click="buildTransaction()"
+                        ng-disabled="signButtonDisabled()">
+                    Sign
+                </button>
+            </form>
+        </div>
+        <div ng-hide="walletTransactions.balance">
+            Can't send when the wallet doesn't have a balance
+        </div>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>

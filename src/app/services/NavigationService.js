@@ -12,10 +12,6 @@ angular.module('kkWallet')
           templateUrl: 'app/initialize/initialize.tpl.html',
           goable: true
         })
-        .when('/initialized', {
-          templateUrl: 'app/initialized/initialized.tpl.html',
-          goable: true
-        })
         .when('/bootloader', {
           templateUrl: 'app/bootloader/bootloader.tpl.html'
         })
@@ -67,16 +63,23 @@ angular.module('kkWallet')
           goable: false
         })
         .when('/walletlist', {
-          templateUrl: 'app/walletlist/walletlist.tpl.html'
+          templateUrl: 'app/walletList/walletList.tpl.html',
+          goable: true
+        })
+        .when('/wallet/:wallet', {
+          templateUrl: 'app/wallet/wallet.tpl.html',
+          goable: true
         })
         .when('/wallet', {
-          templateUrl: 'app/wallet/wallet.tpl.html'
+          templateUrl: 'app/wallet/wallet.tpl.html',
+          goable: true
+        })
+        .when('/send/:wallet', {
+          templateUrl: 'app/send/send.tpl.html',
+          goable: true
         })
         .when('/wordRequest', {
           templateUrl: 'app/wordRequest/wordRequest.tpl.html'
-        })
-        .when('/send', {
-          templateUrl: 'app/send/send.tpl.html'
         })
         .when('/sending', {
           templateUrl: 'app/sending/sending.tpl.html'
@@ -123,10 +126,6 @@ angular.module('kkWallet')
         })
         .when('/syncing', {
           templateUrl: 'app/syncing/syncing.tpl.html'
-        })
-        .when('/buildTransaction/:wallet', {
-          templateUrl: 'app/buildTransaction/buildTransaction.tpl.html',
-          goable: true
         })
         .otherwise({
           redirectTo: '/'

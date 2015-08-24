@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-  .controller('InitializedController', ['$scope', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService',
-    function InitializedController($scope, deviceBridgeService, navigationService, walletNodeService, transactionService) {
+  .controller('WalletListController', ['$scope', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService',
+    function WalletListController($scope, deviceBridgeService, navigationService, walletNodeService, transactionService) {
       walletNodeService.reload();
 
       $scope.wallets = walletNodeService.wallets;
@@ -88,7 +88,7 @@ angular.module('kkWallet')
 
       $scope.goBuildTransaction = function (wallet) {
         if (wallet.xpub) {
-          $scope.go('/buildTransaction/' + wallet.id, 'slideLeft');
+          $scope.go('/send/' + wallet.id, 'slideLeft');
         } else {
           console.log('click ignored');
         }

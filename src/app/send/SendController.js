@@ -1,5 +1,5 @@
 angular.module('kkWallet')
-  .controller('BuildTransactionController', ['$scope', '$routeParams', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService',
+  .controller('SendController', ['$scope', '$routeParams', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService',
     function BuildTransactionController($scope, $routeParams, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService) {
       walletNodeService.reload();
 
@@ -10,7 +10,7 @@ angular.module('kkWallet')
 
       $scope.estimatedFee = feeService.estimatedFee;
       $scope.maxAmount = feeService.maxTransactionAmount;
-      $scope.signButtonDisabled = function() {
+      $scope.signButtonDisabled = function () {
         return !$scope.userInput.address || !$scope.userInput.amount;
       };
 
@@ -30,19 +30,19 @@ angular.module('kkWallet')
           $scope.go('/success/bouncies');
         }
       };
-      $scope.getMaxAmount = function() {
+      $scope.getMaxAmount = function () {
         return $scope.maxAmount.max / 100000000;
       };
 
-      $scope.setAmountToMax = function() {
+      $scope.setAmountToMax = function () {
         $scope.userInput.amount = $scope.maxAmount.max / 100000000;
       };
 
-      $scope.setFeeLevel = function(option) {
+      $scope.setFeeLevel = function (option) {
         $scope.userInput.feeLevel = option;
       };
 
-      $scope.formatFee = function(feeLevelOption) {
+      $scope.formatFee = function (feeLevelOption) {
         var fee = $scope.estimatedFee.fee && $scope.estimatedFee.fee[feeLevelOption];
         if (_.isUndefined(fee)) {
           return 'not available';
@@ -69,10 +69,12 @@ angular.module('kkWallet')
           'slow': 'slow'
         };
 
-        while (_.isUndefined($scope.estimatedFee.fee[$scope.userInput.feeLevel])) {
-          $scope.userInput.feeLevel = translation[$scope.userInput.feeLevel];
-          if ($scope.userInput.feeLevel === 'slow') {
-            break;
+        if ($scope.estimatedFee && $scope.estimatedFee.fee) {
+          while (_.isUndefined($scope.estimatedFee.fee[$scope.userInput.feeLevel])) {
+            $scope.userInput.feeLevel = translation[$scope.userInput.feeLevel];
+            if ($scope.userInput.feeLevel === 'slow') {
+              break;
+            }
           }
         }
       }
