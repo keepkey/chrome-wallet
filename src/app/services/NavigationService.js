@@ -63,7 +63,7 @@ angular.module('kkWallet')
           goable: false
         })
         .when('/walletlist', {
-          templateUrl: 'app/walletList/walletList.tpl.html',
+          templateUrl: 'app/walletlist/walletlist.tpl.html',
           goable: true
         })
         .when('/wallet/:wallet', {
