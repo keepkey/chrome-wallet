@@ -207,7 +207,7 @@ angular.module('kkWallet')
         function (navigationService, transactionService, $rootScope) {
           if (this.request.message.request_type === 'TXFINISHED') {
             angular.copy({}, transactionService.transactionInProgress);
-            navigationService.go('/walletlist');
+            navigationService.go('/wallet');
             $rootScope.$digest();
           }
         }
@@ -219,7 +219,7 @@ angular.module('kkWallet')
             navigationService.go('/bootloader');
           }
           else if (deviceFeatureService.features.initialized) {
-            navigationService.go('/walletlist');
+            navigationService.go('/wallet');
           }
           else {
             navigationService.go('/initialize');

@@ -12,6 +12,8 @@ angular.module('kkWallet')
         });
       });
 
+      $scope.backDestination = '/wallet/' + $routeParams.walletId;
+
       $scope.address = $routeParams.address;
       $scope.walletId = parseInt($routeParams.walletId, 10);
       $scope.getBitcoinLink = function (address) {

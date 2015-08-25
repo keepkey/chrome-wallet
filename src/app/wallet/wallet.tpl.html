@@ -1,4 +1,4 @@
-<section id="wallet" ng-controlle="WalletController">
+<section id="wallet" ng-controller="WalletController">
     <header>
         <settings-button class="button-left header-button"></settings-button>
         <a class="button-right header-button refresh-button" ng-click="refresh()">
@@ -7,20 +7,28 @@
     </header>
 
     <div class="content">
-        <div class="wallet">
-            <div class="connection-light">
-            </div>
+        <div class="wallet online">
             <div class="details">
-                <h2 class="val">23.01 <span>mbtc</span></h2>
+                <h2 class="val">
+                    <div class="connection-light"></div>
+                    <span ng-bind="balance()"></span>
+                    <span class="wallet-currency">{{btcFormatter.BITCOINS}}</span></h2>
+                </h2>
             </div>
         </div>
 
         <div class="wallet-menu">
             <ul>
-                <!-- <li><a class="button notification" href="#">Pay 43.6 mbtc</a></li> -->
-                <li><a class="button" ng-click="go('/send', 'slideLeft')">Send</a></li>
-                <li><a class="button" ng-click="go('/receive', 'slideLeft')">Receive</a></li>
-                <!--<li><a class="button">Transaction History</a></li>-->
+                <li>
+                    <button class="button detached-from-bottom" ng-click="send()" ng-disabled="!sendAllowed()">
+                        Send
+                    </button>
+                </li>
+                <li>
+                    <button class="button detached-from-bottom" ng-click="receive()">
+                        Receive
+                    </button>
+                </li>
             </ul>
         </div>
 

@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-  .controller('SendController', ['$scope', '$routeParams', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService',
-    function BuildTransactionController($scope, $routeParams, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService) {
+  .controller('SendController', ['$scope', '$routeParams', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService', 'FormatBitcoinService',
+    function BuildTransactionController($scope, $routeParams, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService, formatBitcoinService) {
       walletNodeService.reload();
 
       feeService.update();
@@ -47,9 +47,11 @@ angular.module('kkWallet')
         if (_.isUndefined(fee)) {
           return 'not available';
         } else {
-          return fee / 100 + ' \u00B5btc';
+          return [formatBitcoinService.toBits(fee), formatBitcoinService.BITS].join(' ');
         }
       };
+
+      $scope.backDestination = '/wallet/' + $routeParams.wallet;
 
       getMaximumTransactionAmount();
 

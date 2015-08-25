@@ -64,7 +64,7 @@ body {
 }
 
 .noselect {
-    -webkit-user-select: none;
+  -webkit-user-select: none;
 }
 
 #mask {
@@ -168,75 +168,79 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   top: @header-height;
   width: @wallet-list-width;
   margin: 0 @wallet-list-margin 0 @wallet-list-margin;
-  & .wallet {
+  .wallet {
     border-bottom: 1px solid #EBEBEC;
     height: @wallet-height;
     padding: 1px;
     transition: 0.3s all ease-in;
-    & .connection-light {
-      width: 9px;;
-      border-radius: 999px;
+    .connection-light {
       margin: 20px 10px 33px 0;
       float: left;
-      height: 9px;
     }
-    &.online .connection-light {
-      background-color: #C4D600;
-    }
-    &.offline .connection-light {
-      background-color: #cccccc;
-    }
-    & .details {
+    .details {
       float: left;
       height: @wallet-height;
     }
+    .go-side {
+      height: @wallet-height;
+      float: right;
+    }
+    &:hover {
+      opacity: 0.8;
+      h2.val {
+        color: #000;
+      }
+      h3.wallet-name {
+        color: #858585;
+      }
+    }
+  }
+  h3.wallet-name {
+    transition: all 0.2s ease-out;
   }
 }
 
-.wallet .go-side {
-  height: @wallet-height;
-  float: right;
+.wallet {
+  h2.val {
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 14px;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 1px;
+    color: #666666;
+    transition: all 0.2s ease-out;
+    .wallet-currency {
+      font-size: 11px;
+      margin-left: 0px;
+    }
+  }
+  .wallet-name {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    color: #bbbbbb;
+    font-size: 11px;
+    letter-spacing: 1.3px;
+    font-weight: 300;
+    margin-top: -4px;
+  }
 }
 
-.wallet h2.val {
-  font-family: 'Open Sans', sans-serif;
-  margin-top: 14px;
-  font-size: 26px;
-  font-weight: 300;
-  margin-bottom: 1px;
-  color: #666666;
-  transition: all 0.2s ease-out;
+#wallet .wallet {
+  margin: 50px 0 78px 0;
 }
 
-.wallet .val span.wallet-currency {
-  font-size: 11px;
-  margin-left: 0px;
+.connection-light {
+  display: inline-block;
+  margin: 0 5px 3px 0;
+  width: 9px;
+  border-radius: 999px;
+  height: 9px;
 }
-
-.wallet .wallet-name {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  color: #bbbbbb;
-  font-size: 11px;
-  letter-spacing: 1.3px;
-  font-weight: 300;
-  margin-top: -4px;
+.online .connection-light {
+  background-color: #C4D600;
 }
-
-.wallets .wallet:hover h2.val {
-  color:#000;
-}
-
-.wallet h3.wallet-name {
-  transition: all 0.2s ease-out;
-}
-
-.wallets .wallet:hover h3.wallet-name {
-  color:#858585;
-}
-
-.wallets .wallet:hover {
-  opacity: 0.8s;
+.offline .connection-light {
+  background-color: #cccccc;
 }
 
 .go-btn {
@@ -331,27 +335,35 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 .green {
   color: green;
 }
+
 .yellow {
   color: yellow;
 }
+
 .red {
   color: red;
 }
+
 .rotate60 {
   transform: rotate(60deg);
 }
+
 .rotate120 {
   transform: rotate(120deg);
 }
+
 .rotate180 {
   transform: rotate(180deg);
 }
+
 .rotate240 {
   transform: rotate(240deg);
 }
+
 .rotate300 {
   transform: rotate(300deg);
 }
+
 .rotate360 {
   transform: rotate(360deg);
 }
@@ -372,6 +384,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     padding-right: 5px;
   }
 }
+
 #firmware-erase-cancelled {
   @firmware-erase-content-height: 152px;
   @firmware-erase-content-ns-margin: (@content-height - @firmware-erase-content-height)/2;
@@ -591,10 +604,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
 .button, a.button {
   height: @button-height;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: @button-bar;
   display: block;
   text-align: center;
   padding: 5px;
@@ -611,6 +620,14 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   line-height: 20px;
   box-sizing: border-box;
   outline: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: @button-bar;
+  &.detached-from-bottom {
+    position: relative;
+    bottom: 0;
+  }
   &.pin {
     position: static;
   }
@@ -631,8 +648,8 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   position: absolute;
   bottom: 10px;
   right: 15px;
-  font-size:11px;
-  font-weight:500;
+  font-size: 11px;
+  font-weight: 500;
   transition: 0.2s all ease-out;
   transition: 0.2s all ease-in;
   &:hover {
@@ -675,10 +692,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     transition: 0.3s all ease-in;
     transition: 0.3s all ease-out;
     &.icon-refresh {
-      -webkit-transform-origin:64% 50%;
+      -webkit-transform-origin: 64% 50%;
     }
     &.icon-settings {
-      -webkit-transform-origin:62% 50%;
+      -webkit-transform-origin: 62% 50%;
     }
   }
   &.settings-button,
@@ -686,7 +703,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     &:hover div {
       -webkit-transform: rotate(-120deg);
       &.icon-refresh {
-        -webkit-transform-origin:64% 50% !important;
+        -webkit-transform-origin: 64% 50% !important;
       }
     }
     &:active div {
@@ -857,15 +874,17 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 @-webkit-keyframes play {
-  100% {top:62%}
+  100% {
+    top: 62%
+  }
 }
 
 #loader {
-  margin:0 auto;
-  margin-top:20px;
+  margin: 0 auto;
+  margin-top: 20px;
   opacity: 0.2;
-  height:60px;
-  width:60px;
+  height: 60px;
+  width: 60px;
   position: relative;
 }
 
@@ -880,26 +899,68 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 #loader div:after {
-  content:"";
-  display:block;
-  position:absolute;
+  content: "";
+  display: block;
+  position: absolute;
   background-color: inherit;
-  width:100%;
-  height:50%;
-  top:0;
+  width: 100%;
+  height: 50%;
+  top: 0;
 }
 
-#loader .second-top:after{height:80%;top:-40%;padding:1px;}
-#loader .top:after{display:none;}
-#loader div:nth-child(odd){background-color: #000;}
-#loader div:nth-child(even){background-color: #fff;}
-#loader div:nth-child(7){top:0;-webkit-animation-delay: 0.15s;}
-#loader div:nth-child(6){top:10%;-webkit-animation-delay: 0.2s;}
-#loader div:nth-child(5){top:25%;-webkit-animation-delay: 0.3s;}
-#loader div:nth-child(4){top:35%;-webkit-animation-delay: 0.4s;}
-#loader div:nth-child(3){top: 50%;-webkit-animation-delay: 0.5s;}
-#loader div:nth-child(2){top: 60%;-webkit-animation-delay: 0.6s;}
-#loader div:nth-child(1){top: 75%;-webkit-animation-delay: 0.45s;-webkit-animation-play-state:paused; }
+#loader .second-top:after {
+  height: 80%;
+  top: -40%;
+  padding: 1px;
+}
+
+#loader .top:after {
+  display: none;
+}
+
+#loader div:nth-child(odd) {
+  background-color: #000;
+}
+
+#loader div:nth-child(even) {
+  background-color: #fff;
+}
+
+#loader div:nth-child(7) {
+  top: 0;
+  -webkit-animation-delay: 0.15s;
+}
+
+#loader div:nth-child(6) {
+  top: 10%;
+  -webkit-animation-delay: 0.2s;
+}
+
+#loader div:nth-child(5) {
+  top: 25%;
+  -webkit-animation-delay: 0.3s;
+}
+
+#loader div:nth-child(4) {
+  top: 35%;
+  -webkit-animation-delay: 0.4s;
+}
+
+#loader div:nth-child(3) {
+  top: 50%;
+  -webkit-animation-delay: 0.5s;
+}
+
+#loader div:nth-child(2) {
+  top: 60%;
+  -webkit-animation-delay: 0.6s;
+}
+
+#loader div:nth-child(1) {
+  top: 75%;
+  -webkit-animation-delay: 0.45s;
+  -webkit-animation-play-state: paused;
+}
 
 .success {
   margin: 0 auto;
@@ -966,13 +1027,27 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+
 .sign-transaction-button {
   bottom: 20px;
 }
+
 .label {
   line-height: inherit;
   padding: inherit;
   font-size: inherit;
   margin-bottom: 5px;
   font-weight: 700;
+}
+
+#wallet {
+  .wallet-menu {
+    ul {
+      padding: 0;
+    }
+    li {
+      display: inline;
+      margin: 0 auto;
+    }
+  }
 }
