@@ -9,8 +9,8 @@
         </div>
         <div class="clearfix">
             <qrcode class="qrcode"
-                    data="{{getBitcoinLink(address)}}"
-                    href="{{getBitcoinLink(address)}}"
+                    data="{{getBitcoinLink()}}"
+                    href="{{getBitcoinLink()}}"
                     size="120"
                     error-correction-level="L"
                     target="_blank"></qrcode>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="bitcoin-receive-link">
-            <a target="_new" ng-href="{{getBitcoinLink(address)}}" ng-bind="address"></a>
+            <a target="_new" ng-href="{{getBitcoinLink()}}" ng-bind="address"></a>
         </div>
     </div>
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>

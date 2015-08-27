@@ -23,7 +23,14 @@ angular.module('kkWallet')
       function updateWalletNodes(newNodes) {
         var checkAllNodes = (nodes.length === 0);
 
-        angular.copy(newNodes, nodes);
+        _.each(newNodes, function(node) {
+          var index = getWalletIndexByHdNode(node.hdNode);
+          if (nodes[index]) {
+            angular.copy(node, nodes[index]);
+          } else {
+            nodes.push(node);
+          }
+        });
 
         // Request public key for nodes where it is missing
         if (checkAllNodes) {
@@ -38,11 +45,14 @@ angular.module('kkWallet')
         });
       }
 
-      function firstUnusedAddress(addressArray) {
-        var unusedAddressNode = _.find(addressArray, function (it) {
-          return !transactionService.addressBalances[it.address];
-        });
-        return unusedAddressNode.address;
+      function firstUnusedAddress(walletId) {
+        var wallet = getWalletById(walletId);
+        if (wallet && wallet.addresses && wallet.addresses.length) {
+          var unusedAddressNode = _.find(wallet.addresses[0], function (it) {
+            return !transactionService.addressBalances[it.address];
+          });
+          return unusedAddressNode.address;
+        }
       }
 
       function getAddressNode(walletId, address) {
@@ -67,8 +77,19 @@ angular.module('kkWallet')
         }, []);
       }
 
-      function reloadWallets() {
+      function reloadWallets(clearAddresses) {
+        _.each(nodes, function (it) {
+          delete it.chainCode;
+          delete it.publicKey;
+          delete it.xpub;
+          if (clearAddresses && it.addresses && it.addresses.length) {
+            it.addresses.length = 0;
+          }
+        });
         deviceBridgeService.getWalletNodes();
+        setTimeout(function () {
+          $rootScope.$digest();
+        });
       }
 
       function getWalletById(id) {
@@ -76,6 +97,20 @@ angular.module('kkWallet')
           id = parseInt(id, 10);
         }
         return _.find(nodes, {id: id})
+      }
+
+      function getWalletIndexByHdNode(hdNode) {
+        return _.findIndex(nodes, {hdNode: hdNode})
+      }
+
+      function getFirstWalletId() {
+        return _.reduce(nodes, function(result, wallet) {
+          return Math.min(result, wallet.id);
+        }, 9999999);
+      }
+
+      function clearData() {
+        nodes.length = 0;
       }
 
       deviceBridgeService.getWalletNodes();
@@ -86,7 +121,9 @@ angular.module('kkWallet')
         getWalletById: getWalletById,
         updateWalletNodes: updateWalletNodes,
         firstUnusedAddress: firstUnusedAddress,
-        getAddressNode: getAddressNode
+        getAddressNode: getAddressNode,
+        getFirstWalletId: getFirstWalletId,
+        clear: clearData
       };
     }
   ])

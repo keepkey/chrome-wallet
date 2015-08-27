@@ -100,7 +100,7 @@ angular.module('kkWallet')
           templateUrl: 'app/success/success.tpl.html',
           goable: false
         })
-        .when('/receive/:walletId/:address', {
+        .when('/receive/:walletId', {
           templateUrl: 'app/receive/receive.tpl.html',
           goable: true
         })

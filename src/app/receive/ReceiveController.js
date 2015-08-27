@@ -1,9 +1,8 @@
 angular.module('kkWallet')
   .controller('ReceiveController', ['$rootScope', '$scope', '$routeParams', '$location', 'DeviceBridgeService', 'WalletNodeService', 'NavigationService',
     function ReceiveController($rootScope, $scope, $routeParams, $location, deviceBridgeService, walletNodeService, navigationService) {
-      walletNodeService.reload();
-
       navigationService.setNextTransition('slideLeft');
+
       var deviceReadyPromise = new Promise(function (resolve) {
         $rootScope.$on('ButtonRequest', function (ev, message) {
           if (message.code === 'ButtonRequest_Address') {
@@ -14,12 +13,18 @@ angular.module('kkWallet')
 
       $scope.backDestination = '/wallet/' + $routeParams.walletId;
 
-      $scope.address = $routeParams.address;
       $scope.walletId = parseInt($routeParams.walletId, 10);
-      $scope.getBitcoinLink = function (address) {
+      $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+
+      $scope.address = '';
+      function getAddress() {
+        $scope.address =  walletNodeService.firstUnusedAddress($scope.walletId);
+      };
+
+      $scope.getBitcoinLink = function () {
         return [
           'bitcoin:',
-          address,
+          $scope.address,
           '?label=KeepKey%20Wallet',
           '&message=Secure%20Bitcoins%20with%20your%20KeepKey%20wallet'].join('');
       };
@@ -33,15 +38,18 @@ angular.module('kkWallet')
       });
 
       function displayAddressOnDevice() {
-        getAddressPromise = deviceBridgeService.getAddress({
-          messageType: 'GetAddress',
-          addressN: walletNodeService.getAddressNode(
-            $scope.walletId, $scope.address),
-          coinName: "Bitcoin",
-          showDisplay: true
-        });
+        if ($scope.address) {
+          deviceBridgeService.getAddress({
+            messageType: 'GetAddress',
+            addressN: walletNodeService.getAddressNode(
+              $scope.walletId, $scope.address),
+            coinName: "Bitcoin",
+            showDisplay: true
+          });
+        }
       }
 
-      displayAddressOnDevice();
+      $scope.$watch('wallet', getAddress, true);
+      $scope.$watch('address', displayAddressOnDevice);
     }
   ]);

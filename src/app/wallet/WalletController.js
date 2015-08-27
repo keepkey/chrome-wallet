@@ -1,9 +1,9 @@
 angular.module('kkWallet')
   .controller('WalletController', ['$scope', '$routeParams', 'WalletNodeService', 'TransactionService', 'NavigationService', 'DeviceBridgeService', 'FormatBitcoinService',
     function WalletController($scope, $routeParams, walletNodeService, transactionService, navigationService, deviceBridgeService, formatBitcoinService) {
-      var walletId = $routeParams.wallet || 0;
+      var walletId = $routeParams.wallet || walletNodeService.getFirstWalletId();
 
-      walletNodeService.reload();
+      walletNodeService.reload(true);
 
       $scope.btcFormatter = formatBitcoinService;
 
@@ -14,7 +14,7 @@ angular.module('kkWallet')
       };
 
       $scope.receive = function() {
-        $scope.go(['/receive', walletId, $scope.walletAddress()].join('/'), 'slideLeft');
+        $scope.go(['/receive', walletId].join('/'), 'slideLeft');
       };
 
       $scope.sendAllowed = function () {
@@ -25,12 +25,8 @@ angular.module('kkWallet')
           $scope.stats.balance;
       };
 
-      $scope.walletAddress = function () {
-        if ($scope.wallet &&
-          $scope.wallet.addresses &&
-          $scope.wallet.addresses.length) {
-          return walletNodeService.firstUnusedAddress($scope.wallet.addresses[0]);
-        }
+      $scope.receiveDisabled = function() {
+        return !($scope.wallet && $scope.wallet.xpub && $scope.wallet.hdNode);
       };
 
       $scope.balance = function() {
