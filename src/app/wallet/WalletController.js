@@ -1,7 +1,8 @@
 angular.module('kkWallet')
   .controller('WalletController', ['$scope', '$routeParams', 'WalletNodeService', 'TransactionService', 'NavigationService', 'DeviceBridgeService', 'FormatBitcoinService',
     function WalletController($scope, $routeParams, walletNodeService, transactionService, navigationService, deviceBridgeService, formatBitcoinService) {
-      var walletId = $routeParams.wallet || walletNodeService.getFirstWalletId();
+      var walletId = parseInt($routeParams.wallet, 10) || walletNodeService.getFirstWalletId();
+      $scope.walletId = walletId;
 
       walletNodeService.reload(true);
 

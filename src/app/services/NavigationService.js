@@ -127,6 +127,10 @@ angular.module('kkWallet')
         .when('/syncing', {
           templateUrl: 'app/syncing/syncing.tpl.html'
         })
+        .when('/passphrase', {
+          templateUrl: 'app/passphrase/passphrase.tpl.html',
+          goable: false
+        })
         .otherwise({
           redirectTo: '/'
         });

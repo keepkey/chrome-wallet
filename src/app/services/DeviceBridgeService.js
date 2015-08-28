@@ -14,7 +14,7 @@ angular.module('kkWallet')
     this.$get = ['$rootScope', '$q', 'chrome', 'environmentConfig', '$injector',
       function ($rootScope, $q, chrome, environmentConfig, $injector) {
         function sendMessage(message) {
-          console.log('message sent to proxy:', message);
+          console.log('message sent to proxy:', angular.copy(message));
           return $q(function (resolve) {
             chrome.runtime.sendMessage(environmentConfig.keepkeyProxy.applicationId, message, {}, resolve);
           });
@@ -181,8 +181,12 @@ angular.module('kkWallet')
           deviceBridgeService.initialize();
         }
       ]);
-
-      deviceBridgeServiceProvider.when('disconnected', navigateToLocation('/connect'));
+      deviceBridgeServiceProvider.when('disconnected', ['$injector', 'WalletNodeService',
+        function($injector, walletNodeService) {
+          walletNodeService.clear();
+          $injector.invoke(navigateToLocation('/connect'), this);
+        }
+      ]);
       deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
       deviceBridgeServiceProvider.when('ButtonRequest', ['$injector',
         function ($injector) {
@@ -193,6 +197,7 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
       deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
       deviceBridgeServiceProvider.when('Success', navigateToLocation('/success/:message'));
+      deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
       deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
         function ($injector, failureMessageService, navigationService) {
           if (this.request.message.message === "Show address cancelled") {
@@ -217,6 +222,9 @@ angular.module('kkWallet')
           deviceFeatureService.set(this.request.message);
           if (deviceFeatureService.features.bootloader_mode) {
             navigationService.go('/bootloader');
+          }
+          else if (deviceFeatureService.features.passphrase_protection) {
+            navigationService.go('/passphrase');
           }
           else if (deviceFeatureService.features.initialized) {
             navigationService.go('/wallet');

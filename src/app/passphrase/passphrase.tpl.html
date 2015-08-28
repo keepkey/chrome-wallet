@@ -1,26 +1,15 @@
 <section id="passphrase">
     <header>
-        <back-button class="button-left header-button" destination="'/pin'"></back-button>
+        <!--<back-button class="button-left header-button" destination="'/pin'"></back-button>-->
     </header>
 
     <div class="content">
-        <h2><span class="cornflower-txt"><b>Choose Passphrase</b></span> For Your KeepKey</h2>
+        <h2><span class="cornflower-txt"><b>Unsupported Configuration</b></span></h2>
 
-        <form>
-
-            <div>
-                <label>Passphrase</label>
-                <input type="passphrase">
-            </div>
-
-            <div class="error">
-                <label>Re-Enter Passphrase</label>
-                <span>Sample Error</span>
-                <input type="passhrase">
-            </div>
-
-            <a class="button" ng-click="go('/initializing', 'slideLeft')">Choose Passphrase</a>
-        </form>
+        <div>
+            The connected device has passphases enabled. Passphrases are not currently supported
+            by the KeepKey Chrome Wallet.
+        </div>
     </div>
 
     <footer ng-include="'app/footer/footer.tpl.html'"></footer>
