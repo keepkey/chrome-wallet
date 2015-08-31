@@ -32,7 +32,7 @@ angular.module('kkWallet')
         if ($scope.userInput.address && $scope.userInput.amount) {
           angular.copy($scope.userInput, transactionService.transactionInProgress);
           deviceBridgeService.requestTransactionSignature(transactionService.transactionInProgress);
-          $scope.go('/success/bouncies');
+          navigationService.setNextTransition('slideLeft');
         }
       };
       

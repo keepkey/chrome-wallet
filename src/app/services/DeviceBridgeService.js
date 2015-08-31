@@ -184,6 +184,15 @@ angular.module('kkWallet')
         ];
       }
 
+      function navigateToPreviousLocation() {
+        return ['NavigationService', '$rootScope',
+          function (navigationService, $rootScope) {
+            navigationService.goToPrevious('slideRight');
+            $rootScope.$digest();
+          }
+        ];
+      }
+
       deviceBridgeServiceProvider.when('connected', ['DeviceBridgeService',
         function (deviceBridgeService) {
           deviceBridgeService.initialize();
@@ -216,7 +225,17 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
       deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
         function ($injector, failureMessageService, navigationService) {
-          if (this.request.message.message === "Show address cancelled") {
+          const IGNORED_FAILURES = [
+            'Show address cancelled',
+            'Firmware erase cancelled',
+            'PIN Cancelled',
+            'Signing cancelled by user',
+            'Wipe cancelled',
+            'Reset cancelled',
+            'Recovery cancelled'
+          ];
+          if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
+            $injector.invoke(navigateToPreviousLocation(), this);
             return;
           }
           failureMessageService.add(this.request.message);
