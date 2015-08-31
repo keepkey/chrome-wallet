@@ -1,8 +1,8 @@
 angular.module('kkWallet')
   .controller('WalletController', ['$scope', '$routeParams', 'WalletNodeService', 'DeviceFeatureService', 'TransactionService', 'DeviceBridgeService', 'FormatBitcoinService',
     function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, transactionService, deviceBridgeService, formatBitcoinService) {
-      var walletId = parseInt($routeParams.wallet, 10) || walletNodeService.getFirstWalletId();
-      $scope.walletId = walletId;
+      $scope.walletStats = walletNodeService.walletStats;
+      $scope.walletId = parseInt($routeParams.wallet, 10);
 
       walletNodeService.reload(true);
 
@@ -10,30 +10,33 @@ angular.module('kkWallet')
 
       $scope.btcFormatter = formatBitcoinService;
 
-      $scope.walletBalances = transactionService.walletBalances;
-
-      $scope.send = function() {
-        $scope.go('/send/' + walletId, 'slideLeft');
+      $scope.send = function () {
+        $scope.go('/send/' + $scope.walletId, 'slideLeft');
       };
 
-      $scope.receive = function() {
-        $scope.go(['/receive', walletId].join('/'), 'slideLeft');
+      $scope.receive = function () {
+        $scope.go(['/receive', $scope.walletId].join('/'), 'slideLeft');
       };
 
       $scope.sendAllowed = function () {
         return $scope.wallet &&
-          $scope.wallet.xpub &&
+          $scope.wallet.wallet &&
+          $scope.wallet.wallet.xpub &&
           $scope.wallet.hdNode &&
-          $scope.stats &&
-          $scope.stats.balance;
+          $scope.wallet.final_balance;
       };
 
-      $scope.receiveDisabled = function() {
-        return !($scope.wallet && $scope.wallet.xpub && $scope.wallet.hdNode);
+      $scope.receiveDisabled = function () {
+        return !(
+          $scope.wallet &&
+          $scope.wallet.wallet &&
+          $scope.wallet.wallet.xpub &&
+          $scope.wallet.hdNode
+        );
       };
 
-      $scope.balance = function() {
-        var balance = $scope.stats && $scope.stats.balance;
+      $scope.balance = function () {
+        var balance = $scope.wallet && $scope.wallet.final_balance;
         if (balance) {
           return formatBitcoinService.toBitcoin(balance);
         } else {
@@ -42,21 +45,20 @@ angular.module('kkWallet')
       };
 
       $scope.refresh = function () {
-        deviceBridgeService.getTransactions(true);
+        deviceBridgeService.reloadBalances();
       };
 
-      $scope.wallet = walletNodeService.getWalletById(walletId);
-      getStats();
-
-      $scope.$watch('wallet', getStats, true);
-      $scope.$watch('walletBalances', getStats, true);
-
-      function getStats() {
-        if ($scope.wallet && $scope.wallet.hdNode && $scope.walletBalances) {
-          $scope.stats = $scope.walletBalances[$scope.wallet.hdNode];
-        } else {
-          $scope.stats = undefined;
-        }
+      if (_.isNumber($scope.walletId)) {
+        $scope.wallet = walletNodeService.getWalletById($scope.walletId);
       }
+
+      $scope.$watch('walletStats', function() {
+        if (!_.isNumber($scope.walletId) || _.isNaN($scope.walletId)) {
+          $scope.walletId = $scope.walletStats.firstWalletId;
+        }
+      }, true);
+      $scope.$watch('walletId', function() {
+        $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+      }, true);
     }
   ]);

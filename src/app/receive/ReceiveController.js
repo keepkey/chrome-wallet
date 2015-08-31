@@ -16,18 +16,11 @@ angular.module('kkWallet')
       $scope.walletId = parseInt($routeParams.walletId, 10);
       $scope.wallet = walletNodeService.getWalletById($scope.walletId);
 
-      $scope.address = '';
-      function getAddress() {
-        $scope.address =  walletNodeService.firstUnusedAddress($scope.walletId);
-      };
+      $scope.bitcoinLink = '';
 
-      $scope.getBitcoinLink = function () {
-        return [
-          'bitcoin:',
-          $scope.address,
-          '?label=KeepKey%20Wallet',
-          '&message=Secure%20Bitcoins%20with%20your%20KeepKey%20wallet'].join('');
-      };
+      function getAddress() {
+        walletNodeService.firstUnusedAddress($scope.walletId);
+      }
 
       $scope.$on("$destroy", function () {
         if (deviceReadyPromise && $location.path() !== '/pin/pin_matrix_request_type_current') {
@@ -38,11 +31,15 @@ angular.module('kkWallet')
       });
 
       function displayAddressOnDevice() {
-        if ($scope.address) {
+        if ($scope.firstUnusedAddress && $scope.firstUnusedAddress.address) {
+          var addressN = walletNodeService.pathToAddressN(
+            walletNodeService.joinPaths(
+              $scope.wallet.hdNode, $scope.firstUnusedAddress.path
+            ));
+
           deviceBridgeService.getAddress({
             messageType: 'GetAddress',
-            addressN: walletNodeService.getAddressNode(
-              $scope.walletId, $scope.address),
+            addressN: addressN,
             coinName: "Bitcoin",
             showDisplay: true
           });
@@ -50,6 +47,18 @@ angular.module('kkWallet')
       }
 
       $scope.$watch('wallet', getAddress, true);
-      $scope.$watch('address', displayAddressOnDevice);
+      $scope.$watch('wallet.wallet.chains[0].firstUnused', function(newVal) {
+        $scope.firstUnusedAddress = newVal;
+        if ($scope.firstUnusedAddress && $scope.firstUnusedAddress.address) {
+          $scope.bitcoinLink = [
+            'bitcoin:',
+            $scope.firstUnusedAddress.address,
+            '?label=KeepKey%20Wallet',
+            '&message=Secure%20Bitcoins%20with%20your%20KeepKey%20wallet'
+          ].join('');
+        }
+      }, true);
+
+      $scope.$watch('firstUnusedAddress.address', displayAddressOnDevice);
     }
   ]);

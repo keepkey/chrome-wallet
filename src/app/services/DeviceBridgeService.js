@@ -109,6 +109,12 @@ angular.module('kkWallet')
               messageType: 'FirmwareUpdate'
             });
           },
+          getUnusedExternalAddressNode: function(walletId) {
+            var message = angular.extend({}, {
+              messageType: 'GetUnusedExternalAddressNode'
+            });
+            return sendMessage(message);
+          },
           getAddress: function (options) {
             var message = angular.extend({}, {
               messageType: 'GetAddress',
@@ -130,10 +136,9 @@ angular.module('kkWallet')
               messageType: 'GetWalletNodes'
             });
           },
-          getTransactions: function (reload) {
+          reloadBalances: function() {
             return sendMessage({
-              messageType: 'GetTransactions',
-              reload: reload
+              messageType: 'ReloadBalances'
             });
           },
           requestTransactionSignature: function (transactionRequest) {
@@ -184,6 +189,15 @@ angular.module('kkWallet')
         ];
       }
 
+      function navigateToPreviousLocation() {
+        return ['NavigationService', '$rootScope',
+          function (navigationService, $rootScope) {
+            navigationService.goToPrevious('slideRight');
+            $rootScope.$digest();
+          }
+        ];
+      }
+
       deviceBridgeServiceProvider.when('connected', ['DeviceBridgeService',
         function (deviceBridgeService) {
           deviceBridgeService.initialize();
@@ -216,7 +230,17 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
       deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
         function ($injector, failureMessageService, navigationService) {
-          if (this.request.message.message === "Show address cancelled") {
+          const IGNORED_FAILURES = [
+            'Show address cancelled',
+            'Firmware erase cancelled',
+            'PIN Cancelled',
+            'Signing cancelled by user',
+            'Wipe cancelled',
+            'Reset cancelled',
+            'Recovery cancelled'
+          ];
+          if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
+            $injector.invoke(navigateToPreviousLocation(), this);
             return;
           }
           failureMessageService.add(this.request.message);
@@ -265,12 +289,6 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('WalletNodes', ['WalletNodeService',
         function (walletNodeService) {
           walletNodeService.updateWalletNodes(this.request.message);
-        }
-      ]);
-
-      deviceBridgeServiceProvider.when('Transactions', ['TransactionService',
-        function (transactionService) {
-          transactionService.updateTransactions(this.request.message);
         }
       ]);
 
