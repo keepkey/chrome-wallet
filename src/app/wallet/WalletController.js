@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-  .controller('WalletController', ['$scope', '$routeParams', 'WalletNodeService', 'DeviceFeatureService', 'TransactionService', 'NavigationService', 'DeviceBridgeService', 'FormatBitcoinService',
-    function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, transactionService, navigationService, deviceBridgeService, formatBitcoinService) {
+  .controller('WalletController', ['$scope', '$routeParams', 'WalletNodeService', 'DeviceFeatureService', 'TransactionService', 'DeviceBridgeService', 'FormatBitcoinService',
+    function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, transactionService, deviceBridgeService, formatBitcoinService) {
       var walletId = parseInt($routeParams.wallet, 10) || walletNodeService.getFirstWalletId();
       $scope.walletId = walletId;
 
@@ -43,11 +43,6 @@ angular.module('kkWallet')
 
       $scope.refresh = function () {
         deviceBridgeService.getTransactions(true);
-      };
-
-      $scope.wipeDevice = function () {
-        navigationService.setNextTransition('slideLeft');
-        deviceBridgeService.wipeDevice();
       };
 
       $scope.wallet = walletNodeService.getWalletById(walletId);
