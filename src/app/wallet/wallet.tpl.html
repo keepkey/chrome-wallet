@@ -17,16 +17,14 @@
             </div>
         </div>
 
-        <div class="wallet-menu">
+        <div class="menu">
           <ul>
             <li><button class="menu-item" ng-click="send()" ng-disabled="!sendAllowed()">Send Money</button></li>
             <li><button class="menu-item" ng-click="receive()" ng-disabled="receiveDisabled()">Receive Money</button></li>
+            <li><button class="menu-item" ng-click="go('/device', 'slideLeft')">Device Settings</button></li>
           </ul>
         </div>
-
-        <div class="device-label"><strong>{{device.label || 'KeepKey'}}</strong> connected</div>
-        <a class="text-link-button" ng-click="wipeDevice()">Wipe Device</a>
     </div>
 
-    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
+    <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected</div>
 </section>
