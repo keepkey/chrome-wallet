@@ -17,6 +17,8 @@
 @wallet-list-margin: 20px;
 @wallet-height: 63px;
 
+@status-bar-height: 40px;
+
 @button-background-color: #9FAE00;
 @button-hover-background-color: #7A8500;
 
@@ -201,37 +203,41 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 .wallet {
+  height: @wallet-height;
+  padding: 20px;
+  width: @wallet-list-width;
+  transition: 0.3s all ease-in;
+  .details {
+    float: left;
+  }
   h2.val {
     font-family: 'Open Sans', sans-serif;
-    margin-top: 14px;
+    margin-top: 14px 0 1px 0;
     font-size: 26px;
     font-weight: 300;
-    margin-bottom: 1px;
     color: #666666;
     transition: all 0.2s ease-out;
+    padding: 0;
+    text-align: none;
     .wallet-currency {
       font-size: 11px;
       margin-left: 0px;
     }
   }
-  .wallet-name {
+  h3.currency-val {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     color: #bbbbbb;
     font-size: 11px;
     letter-spacing: 1.3px;
     font-weight: 300;
-    margin-top: -4px;
+    margin: -2px 0 0 20px;
   }
-}
-
-#wallet .wallet {
-  margin: 50px 0 78px 0;
 }
 
 .connection-light {
   display: inline-block;
-  margin: 0 5px 3px 0;
+  margin: 0 10px 5px 0;
   width: 9px;
   border-radius: 999px;
   height: 9px;
@@ -624,10 +630,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: @button-bar;
-  &.detached-from-bottom {
-    position: relative;
-    bottom: 0;
-  }
   &.pin {
     position: static;
   }
@@ -837,13 +839,33 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#label, #pin, #character-request {
+#label, #pin, #character-request, #device-options {
   .content {
     padding-top: 10px;
     h2 {
       padding-bottom: 10px;
       border-bottom: 1px solid @interior-border-color;
     }
+  }
+}
+
+#label, #pin, #character-request, #device-settings {
+  .content {
+    padding-top: 10px;
+    h2 {
+      padding-bottom: 10px;
+      border-bottom: 1px solid @interior-border-color;
+    }
+  }
+}
+
+#device-settings {
+  .content {
+    padding: 10px 0 0 0;
+  }
+  .menu {
+    border-style: none;
+    height: @body-height - @header-height;
   }
 }
 
@@ -1041,13 +1063,80 @@ input::-webkit-inner-spin-button {
 }
 
 #wallet {
-  .wallet-menu {
-    ul {
-      padding: 0;
+  .content {
+    padding: 0;
+  }
+}
+
+.menu {
+  height: @body-height - @header-height - @wallet-height - @status-bar-height;
+  border-top: 1px solid #ECECED;
+  background-color: #FDFDFD;
+  position: relative;
+  padding: 1px;
+  margin: 0;
+  overflow: hidden;
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  .menu-item {
+    margin: 10px 10px 0 10px;
+    width: 270px;
+    height: 25px;
+    padding: 2px 2px 2px 2px;
+    color: #9FAE00;
+    text-decoration: none;
+    border: 1px solid #ECECED;
+    background-color: #ffffff;
+    border-radius: 63px;
+    transition: 0.2s all ease-in;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s all ease-in;
+    line-height: 20px;
+    box-sizing: border-box;
+    outline: none;
+    &[disabled], &[disabled]:hover {
+      color: #ECECED;
+      background-color: #ffffff;
+      cursor: auto;
+      border-color: #ECECED;
     }
-    li {
-      display: inline;
-      margin: 0 auto;
+    &:hover {
+      background-color: #9FAE00;
+      color: #fff;
+      border-color: #9FAE00;
     }
+    &:active {
+      opacity: 0.2;
+    }
+    &.offline {
+      color: #ECECED;
+    }
+    &.notification {
+      color: #d26464;
+      &:hover {
+        background-color: #d26464;
+        border: 1px solid #d26464;
+    }
+  }
+  }
+}
+
+.footer {
+  border-top: 1px solid #ECECED;
+  height: @status-bar-height;
+  width: @body-width;
+  padding: 10px 0 10px 15px; 
+  bottom: 0px;
+  color: #ccc;
+  position: absolute;
+  font-size: 11px;
+  font-weight: 500;
+  strong {
+    color: #999;
   }
 }

@@ -8,6 +8,10 @@ angular.module('kkWallet')
         .when('/connect', {
           templateUrl: 'app/connect/connect.tpl.html'
         })
+        .when('/device', {
+          templateUrl: 'app/device/device.tpl.html',
+          goable: true
+        })
         .when('/initialize', {
           templateUrl: 'app/initialize/initialize.tpl.html',
           goable: true

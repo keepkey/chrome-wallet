@@ -36,32 +36,40 @@
 
 .slideLeft.ng-enter {
     left:100%;
+    opacity: 0;
 }
 
 .slideLeft.ng-leave {
     left:0;
+    opacity: 1;
 }
 
 .slideLeft.ng-enter.ng-enter-active {
     left:0;
+    opacity: 1;
 }
 
 .slideLeft.ng-leave.ng-leave-active {
     left:-100%;
+    opacity: 0;
 }
 
 .slideRight.ng-enter {
     left:-100%;
+    opacity: 0;
 }
 
 .slideRight.ng-leave {
     left:0;
+    opacity: 1;
 }
 
 .slideRight.ng-enter.ng-enter-active {
     left:0;
+    opacity: 1;
 }
 
 .slideRight.ng-leave.ng-leave-active {
     left:100%;
+    opacity: 0;
 }
