@@ -5,62 +5,62 @@
 
     <div class="content">
         <div ng-show="walletTransactions.balance">
-            <h2><span class="cornflower-txt"><b>Send Bitcoins</b></span> from your KeepKey</h2>
+            <h2><span class="cornflower-txt"><b>Send Money</b></span> from your KeepKey</h2>
 
-            <form name="transaction">
-                <div class="form-input-container">
-                    <div class="from-label">From:</div>
-                <span class="cornflower-txt">
-                    <b ng-bind="userInput.sourceName"></b>
-                </span>
-                </div>
-                <div class="form-input-container">
-                    <label>To:</label>
-                    <input
-                            type="text"
-                            name="dest-address"
-                            placeholder="Enter the recipient address"
-                            ng-model="userInput.address"
-                            required
-                            focus>
-                </div>
-                <div class="form-input-container">
-                    <div class="label">Amount:</div>
-                    <div class="field-composer">
+            <form name="form" novalidate>
+
+            <div class="form-input-container">
+                <div class="content-form-inner">
+                    <div class="content-inner-centering">
+
+                        <label>Recipient Address:</label>
+                        <div class="invalid" ng-show="form.$submitted">
+                            <div ng-show="form.dest.$error.required">Required</div>
+                            <div ng-show="form.dest.$error.pattern">Invalid Address</div>
+                        </div>
+                        <input
+                                type="text"
+                                name="dest"
+                                ng-model="userInput.address"
+                                pattern="[13][a-km-zA-HJ-NP-Z1-9]{25,34}"
+                                required
+                                focus>
+
+                        <label>Amount: <span class="available-balance">({{getMaxAmount()}} {{btcFormatter.BITCOINS}})</span></label>
+                        <div class="invalid" ng-show="form.$submitted">
+                            <div ng-show="form.amount.$error.required">Required</div>
+                            <div ng-show="form.amount.$error.max">Not Enough Funds</div>
+                            <div ng-show="form.amount.$error.min">Too Low</div>
+                            <div ng-show="form.amount.$error.number">Invalid Amount</div>
+                        </div>
                         <input
                                 type="number"
                                 name="amount"
-                                placeholder="Amount to send"
                                 ng-model="userInput.amount"
                                 required
-                                focus
-                                min="0"
+                                min="0.00000001"
                                 max="{{getMaxAmount()}}">
-                        <a class="inline-button" ng-click="setAmountToMax()">
-                            <span class="fa fa-arrow-up"></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="form-input-container">
-                    <label>Transaction speed:</label>
-                    <div class="fee-level-btn btn-group" role="group">
-                        <button ng-repeat="feeLevelOption in feeOptions"
+
+                        <label>Transaction speed:</label>
+                        <div class="fee-level-btn btn-group" role="group">
+                            <button ng-repeat="feeLevelOption in feeOptions"
                                 type="button"
                                 ng-click="setFeeLevel(feeLevelOption)"
                                 ng-class="{'btn-primary': userInput.feeLevel === feeLevelOption, 'btn-default': userInput.feeLevel !== feeLevelOption }"
                                 class="btn"
-                                ng-disabled="estimatedFee.fee[feeLevelOption] === undefined">
-                            <div>{{feeLevelOption}}</div>
-                            <div class="fee-amount small"><span class="small">{{formatFee(feeLevelOption)}}</span></div>
-                        </button>
+                                ng-disabled="userInput.amount > 0 && estimatedFee.fee[feeLevelOption] === undefined">
+                                <div>{{feeDisplay[feeLevelOption]}}</div>
+                            </button>
+                        </div>
+
+                        <div class="fee-display" ng-show="getFee(userInput.feeLevel) > 0">
+                            <label>Fee:</label><span class="fee">{{formatFee(userInput.feeLevel)}}</span>
+                        </div>
                     </div>
                 </div>
-                <button
-                        class="button sign-transaction-button"
-                        ng-click="buildTransaction()"
-                        ng-disabled="signButtonDisabled()">
-                    Sign
-                </button>
+            </div>
+
+            <button class="button" type="submit" ng-click="buildTransaction()">Send</button>
             </form>
         </div>
         <div ng-hide="walletTransactions.balance">
