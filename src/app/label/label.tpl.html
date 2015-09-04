@@ -11,14 +11,14 @@
             <div class="form-input-container">
                 <div class="content-form-inner">
                     <div class="content-inner-centering">
+                        <div class="help">A label allows you to distinguish your KeepKey from others that you may own.</div>
                         <label>Label</label>
-                        <div class="invalid" ng-show="form.$submitted || form.deviceLabel.$touched">
+                        <div class="invalid" ng-show="form.$submitted">
                             <div ng-show="form.deviceLabel.$error.required">Required</div>
                         </div>
                         <input
                                 name="deviceLabel"
                                 type="text"
-                                placeholder="Name your KeepKey"
                                 ng-model="resetRecoverData.label"
                                 required
                                 focus>
