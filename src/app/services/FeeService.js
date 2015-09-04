@@ -34,7 +34,7 @@ angular.module('kkWallet')
             $rootScope.$digest();
           }, 0);
         },
-        feeOptions: ['fast', 'medium', 'slow'],
+        feeOptions: ['slow', 'medium', 'fast'],
         compute: deviceBridgeService.estimateFeeForTransaction,
         getMaximumTransactionAmount: deviceBridgeService.getMaximumTransactionAmount
       };
