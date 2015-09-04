@@ -5,14 +5,19 @@ angular.module('kkWallet')
 
       feeService.update();
 
+      $scope.btcFormatter = formatBitcoinService;
+
       $scope.fees = feeService.fees;
       $scope.feeOptions = feeService.feeOptions;
 
+      $scope.feeDisplay = {
+        'slow': '1-hour +',
+        'medium': '30-min',
+        'fast': '10-min'
+      };
+
       $scope.estimatedFee = feeService.estimatedFee;
       $scope.maxAmount = feeService.maxTransactionAmount;
-      $scope.signButtonDisabled = function () {
-        return !$scope.userInput.address || !$scope.userInput.amount;
-      };
 
       $scope.wallet = walletNodeService.getWalletById($routeParams.wallet);
       $scope.walletTransactions = transactionService.walletBalances[$scope.wallet.hdNode];
@@ -20,7 +25,7 @@ angular.module('kkWallet')
         sourceIndex: $routeParams.wallet,
         sourceName: $scope.wallet.name,
         address: '',
-        amount: 0.0,
+        amount: '',
         feeLevel: $scope.feeOptions[0]
       };
       $scope.buildTransaction = function () {
@@ -30,25 +35,27 @@ angular.module('kkWallet')
           $scope.go('/success/bouncies');
         }
       };
+      
       $scope.getMaxAmount = function () {
         return $scope.maxAmount.max / 100000000;
-      };
-
-      $scope.setAmountToMax = function () {
-        $scope.userInput.amount = $scope.maxAmount.max / 100000000;
       };
 
       $scope.setFeeLevel = function (option) {
         $scope.userInput.feeLevel = option;
       };
 
-      $scope.formatFee = function (feeLevelOption) {
+      $scope.getFee = function (feeLevelOption) {
         var fee = $scope.estimatedFee.fee && $scope.estimatedFee.fee[feeLevelOption];
+
         if (_.isUndefined(fee)) {
-          return 'not available';
-        } else {
-          return [formatBitcoinService.toBits(fee), formatBitcoinService.BITS].join(' ');
+          fee = 0.0;
         }
+
+        return fee;
+      }
+
+      $scope.formatFee = function (feeLevelOption) {
+        return [formatBitcoinService.toBitcoin($scope.getFee(feeLevelOption)), formatBitcoinService.BITCOINS].join(' ');
       };
 
       $scope.backDestination = '/wallet/' + $routeParams.wallet;
@@ -64,7 +71,7 @@ angular.module('kkWallet')
       }
 
       function verifyFeeLevel() {
-        $scope.userInput.feeLevel = 'fast';
+        $scope.userInput.feeLevel = 'slow';
         var translation = {
           'fast': 'medium',
           'medium': 'slow',
