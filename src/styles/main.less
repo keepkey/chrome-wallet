@@ -1,12 +1,12 @@
-@body-height: 340px;
-@body-width: 300px;
+@body-height: 380px;
+@body-width: 340px;
 
 @header-height: 48px;
 @header-padding: 1px;
 
 @form-header-height: 30px;
 
-@button-bar: 60px;
+@button-bar: 40px;
 @button-height: 30px;
 
 @content-padding: 5px;
@@ -18,6 +18,8 @@
 @wallet-height: 63px;
 
 @status-bar-height: 40px;
+
+@menu-item-width: @body-width - 20px;
 
 @button-background-color: #9FAE00;
 @button-hover-background-color: #7A8500;
@@ -117,25 +119,33 @@ header {
 
 form {
   padding: 0 20px;
-  label, .label {
+  label {
+    margin: 8px 0 0 0;
     color: #999;
     font-style: italic;
     display: block;
-    float: left;
   }
   input {
     width: 100%;
     height: 25px;
     border: 1px solid #EBEBEC;
     display: block;
-    margin-top: 5px;
+    margin: 2px 0 0 0;
+    padding: 4px;
+    &[type=number] {
+      font-family: 'Open Sans', sans-serif;
+    }
+    &::-webkit-input-placeholder {
+      color: #eeeeee;
+    }
   }
   .invalid {
+    margin-top: 8px;
     float: right;
     color: #d26464;
     font-style: italic;
   }
-  .ng-touched.ng-invalid {
+  &.ng-submitted .ng-invalid {
     border-color: #d26464;
   }
 
@@ -375,19 +385,25 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 #build-transaction {
-  [name="dest-address"] {
-    font-size: 11px;
+  form {
+    label {
+      float: left;
+    }
   }
-  [name="amount"] {
-    text-align: right;
+  .available-balance {
+    font-family: 'Open Sans', sans-serif;
+    color: #cccccc;
   }
-  .from-label {
-    color: #999;
-    font-style: italic;
-    display: inline-block;
-    margin-bottom: 5px;
-    font-weight: 700;
-    padding-right: 5px;
+  .fee-display {
+    transition: 0.2s all ease-in-out;
+    &.ng-hide {
+      opacity: 0;
+    }
+    .fee {
+      float: left;
+      margin: 8px 0 0 5px;
+      font-family: 'Open Sans', sans-serif;
+    }
   }
 }
 
@@ -427,7 +443,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 .active-keys {
-  margin: 15px 15px 5px 15px;
+  margin: 20px 32px 20px 32px;
   .key {
     float: left;
     margin: 0 5px 5px 0;
@@ -454,10 +470,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 .tooltip.key-help {
-  left: 10px !important;
+  left: 20px !important;
   .tooltip-inner {
     max-width: 280px;
-    width: 280px !important;
+    width: 320px !important;
   }
   &.letters {
     .tooltip-arrow {
@@ -566,7 +582,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 .content-form-inner {
-  height: @content-height - @button-bar - @button-height - @form-header-height;
+  height: @content-height - @button-bar - @button-height - @form-header-height - 60px;
 }
 
 .content-confirming-inner {
@@ -839,7 +855,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#label, #pin, #character-request, #device-options {
+#label, #pin, #character-request, #device-options, #build-transaction {
   .content {
     padding-top: 10px;
     h2 {
@@ -856,6 +872,15 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
       padding-bottom: 10px;
       border-bottom: 1px solid @interior-border-color;
     }
+  }
+}
+
+#initialize, #bootloader {
+  .content-inner {
+    height: @content-height - 40px;
+  }
+  a.button {
+    position: static;
   }
 }
 
@@ -998,12 +1023,6 @@ input::-webkit-inner-spin-button {
 }
 
 .form-input-container {
-  .field-composer {
-    position: relative;
-    input {
-      padding-right: 12px;
-    }
-  }
   .inline-button {
     position: absolute;
     right: -17px;
@@ -1017,49 +1036,39 @@ input::-webkit-inner-spin-button {
 
 .fee-level-btn {
   margin: 0 5px;
+  width: 100%;
   .btn {
+    width: 33%;
     font-size: inherit;
     font-family: inherit;
-    .fee-amount {
-      width: 54px;
-    }
+    transition: 0.2s all ease-in;
     &[disabled] {
-      background-color: #eee;
-      color: #888;
+      background-color: #ECECED;
+      color: #ffffff;
     }
   }
   .btn-default, .btn-default.active, .btn-default:active, .btn-default:focus {
-    color: #C4D600;
+    color: @button-background-color;
     background-color: #fff;
-    border-color: #C4D600;
+    border-color: #ECECED;
     &:hover {
-      color: #C4D600;
-      background-color: #EEE;
-      border-color: #C4D600;
+      color: #ffffff;
+      background-color: @button-background-color;
+      border-color: @button-background-color;
     }
   }
   .btn-primary, .btn-primary.active, .btn-primary:active, .btn-primary:focus {
-    color: #fff;
-    background-color: #C4D600;
-    border-color: #C4D600;
+    color: #ffffff;
+    background-color: @button-hover-background-color;
+    border-color: @button-hover-background-color;
     &:hover {
-      color: #fff;
-      background-color: darken(#C4D600, 10%);
-      border-color: #C4D600;
+      cursor: auto;
     }
   }
 }
 
 .sign-transaction-button {
   bottom: 20px;
-}
-
-.label {
-  line-height: inherit;
-  padding: inherit;
-  font-size: inherit;
-  margin-bottom: 5px;
-  font-weight: 700;
 }
 
 #wallet {
@@ -1082,7 +1091,7 @@ input::-webkit-inner-spin-button {
   }
   .menu-item {
     margin: 10px 10px 0 10px;
-    width: 270px;
+    width: @menu-item-width;
     height: 25px;
     padding: 2px 2px 2px 2px;
     color: #9FAE00;
@@ -1095,7 +1104,6 @@ input::-webkit-inner-spin-button {
     text-align: center;
     cursor: pointer;
     text-decoration: none;
-    transition: 0.2s all ease-in;
     line-height: 20px;
     box-sizing: border-box;
     outline: none;
@@ -1125,6 +1133,17 @@ input::-webkit-inner-spin-button {
   }
   }
 }
+
+.help {
+    font-size: 12px;
+    font-weight: 200;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0 30px 0 30px;
+    text-align: center;
+    color: #999999;
+  }
 
 .footer {
   border-top: 1px solid #ECECED;
