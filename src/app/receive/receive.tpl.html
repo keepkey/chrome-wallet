@@ -4,16 +4,9 @@
     </header>
 
     <div class="content">
-        <div class="wallet-function-heading">
-            <h2><span class="cornflower-txt"><b>Receive</b></span> Bitcoins</h2>
-        </div>
+<!--         <h2><span class="cornflower-txt"><b>Receive</b></span> Bitcoins</h2>
         <div class="clearfix">
-            <qrcode class="qrcode"
-                    data="{{getBitcoinLink()}}"
-                    href="{{getBitcoinLink()}}"
-                    size="120"
-                    error-correction-level="L"
-                    target="_blank"></qrcode>
+            
             <div class="security-text">
                 For extra security, confirm that the address listed here is the same one
                 shown on the screen of your KeepKey. Your KeepKey will never show an address
@@ -22,7 +15,23 @@
         </div>
         <div class="bitcoin-receive-link">
             <a target="_new" ng-href="{{getBitcoinLink()}}" ng-bind="address"></a>
+        </div> -->
+        <h2><span class="cornflower-txt"><b>Receive</b></span> Bitcoins</h2>
+        <div class="content-inner">
+            <div class="content-inner-centering">
+
+                <div class="help">Confirm the address below is the same one shown on your KeepKey before using it.</div>
+
+                <qrcode class="qrcode"
+                    data="{{getBitcoinLink()}}"
+                    size="160"
+                    error-correction-level="L"
+                    target="_blank"></qrcode>
+
+                <div class="bitcoin-receive-link">
+                    {{address}}
+                </div>
+            </div>
         </div>
     </div>
-    <footer ng-include="'app/footer/footer.tpl.html'"></footer>
 </section>
