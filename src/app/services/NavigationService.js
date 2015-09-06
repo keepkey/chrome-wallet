@@ -43,6 +43,10 @@ angular.module('kkWallet')
           templateUrl: 'app/buttonRequest/feeOverThreshhold.tpl.html',
           goable: false
         })
+        .when('/buttonRequest/button_request_protect_call', {
+          templateUrl: 'app/buttonRequest/protectCall.tpl.html',
+          goable: false
+        })
         .when('/buttonRequest/:code', {
           templateUrl: 'app/buttonRequest/buttonRequest.tpl.html',
           goable: false
