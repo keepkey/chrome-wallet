@@ -69,6 +69,10 @@ angular.module('kkWallet')
             return sendMessage({messageType: 'Wipe'});
 
           },
+          changePin: function (options) {
+            var message = angular.extend({messageType: 'ChangePin'}, options);
+            return sendMessage(message);
+          },
           sendPin: function (options) {
             var message = angular.extend({messageType: 'PinMatrixAck'}, options);
             return sendMessage(message);
