@@ -8,6 +8,11 @@ angular.module('kkWallet')
         deviceBridgeService.wipeDevice();
       };
 
+      $scope.changePin = function () {
+        navigationService.setNextTransition('slideLeft');
+        deviceBridgeService.changePin();
+      };
+
       $scope.device = deviceFeatureService.features;
     }
   ]);
