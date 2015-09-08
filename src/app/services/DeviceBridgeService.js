@@ -73,6 +73,10 @@ angular.module('kkWallet')
             var message = angular.extend({messageType: 'ChangePin'}, options);
             return sendMessage(message);
           },
+          applySettings: function (options) {
+            var message = angular.extend({messageType: 'ApplySettings'}, options);
+            return sendMessage(message);
+          },
           sendPin: function (options) {
             var message = angular.extend({messageType: 'PinMatrixAck'}, options);
             return sendMessage(message);
@@ -192,8 +196,16 @@ angular.module('kkWallet')
         }
       ]);
       deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
-      deviceBridgeServiceProvider.when('ButtonRequest', ['$injector',
-        function ($injector) {
+      deviceBridgeServiceProvider.when('ButtonRequest', ['$injector', 'NavigationService',
+        function ($injector, navigationService) {
+          if (this.request.message.code === 'ButtonRequest_ProtectCall') {
+            if(navigationService.getCurrentRoute() == '/label/settings') {
+              this.request.message.code += 'ChangeLabel';
+            } else {
+              this.request.message.code += 'ChangePin';
+            }
+          }
+
           if (this.request.message.code !== 'ButtonRequest_Address') {
             $injector.invoke(navigateToLocation('/buttonRequest/:code'), this);
           }
