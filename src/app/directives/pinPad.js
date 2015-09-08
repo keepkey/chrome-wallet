@@ -18,7 +18,7 @@ angular.module('kkWallet')
                         navigationService.setNextTransition('slideLeft');
                         deviceBridgeService.sendPin({pin: $scope.pin});
                         $scope.pin = '';
-                        if ($scope.returnToPreviousRoute) {
+                        if ($scope.returnToPreviousRoute === 'true') {
                             navigationService.goToPrevious('slideRight');
                         }
                     };
