@@ -8,6 +8,7 @@
 
         <div class="menu">
           <ul>
+            <li><button class="menu-item" ng-click="go('/label/settings', 'slideLeft')">Change Label</button></li>
             <li><button class="menu-item" ng-click="changePin()">{{device.pin_protection ? "Change PIN" : "Add PIN Protection"}}</button></li>
             <li><button class="menu-item" ng-click="wipeDevice()">Wipe Device</button></li>
           </ul>
