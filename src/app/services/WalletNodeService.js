@@ -49,35 +49,7 @@ angular.module('kkWallet')
       }
 
       function firstUnusedAddress(walletId) {
-        var wallet = getWalletById(walletId);
-        if (wallet && wallet.addresses && wallet.addresses.length) {
-          var unusedAddressNode = _.find(wallet.addresses[0], function (it) {
-            return !transactionService.addressBalances[it.address];
-          });
-          return unusedAddressNode.address;
-        }
-      }
-
-      function getAddressNode(walletId, address) {
-        var wallet = _.find(nodes, {id: walletId});
-        var addresses = _.flatten(wallet.addresses, true);
-        var addressNode = _.find(addresses, {address: address});
-
-        var addressNodeString = [wallet.hdNode, addressNode.path].join('/');
-        var addressNodes = addressNodeString.split('/');
-        if (addressNodes[0] === 'm') {
-          addressNodes.shift();
-        }
-        return _.reduce(addressNodes, function (result, it) {
-          var num = parseInt(it);
-
-          if (_.endsWith(it, "'")) {
-            num = (num | 0x80000000) >>> 0;
-          }
-
-          result.push(num);
-          return result;
-        }, []);
+        deviceBridgeService.getUnusedExternalAddressNode(walletId);
       }
 
       function reloadWallets(clearAddresses) {
@@ -120,6 +92,27 @@ angular.module('kkWallet')
         nodes.length = 0;
       }
 
+      function joinPaths() {
+        return 'm/' + _.map(arguments, function (path) {
+            return _.trim(path, 'm/');
+          }).join('/');
+      }
+
+      function pathToAddressN(path) {
+        var segments = path.split('/');
+        if (segments[0] === 'm') {
+          segments.shift();
+        }
+        return _.reduce(segments, function (result, it) {
+          var num = parseInt(it);
+          if (_.endsWith(it, "'")) {
+            num = (num | 0x80000000) >>> 0;
+          }
+          result.push(num);
+          return result;
+        }, []);
+      }
+
       deviceBridgeService.getWalletNodes();
 
       return {
@@ -129,7 +122,8 @@ angular.module('kkWallet')
         getWalletById: getWalletById,
         updateWalletNodes: updateWalletNodes,
         firstUnusedAddress: firstUnusedAddress,
-        getAddressNode: getAddressNode,
+        joinPaths: joinPaths,
+        pathToAddressN: pathToAddressN,
         clear: clearData
       };
     }

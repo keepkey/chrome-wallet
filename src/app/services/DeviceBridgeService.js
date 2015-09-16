@@ -109,6 +109,12 @@ angular.module('kkWallet')
               messageType: 'FirmwareUpdate'
             });
           },
+          getUnusedExternalAddressNode: function(walletId) {
+            var message = angular.extend({}, {
+              messageType: 'GetUnusedExternalAddressNode'
+            });
+            return sendMessage(message);
+          },
           getAddress: function (options) {
             var message = angular.extend({}, {
               messageType: 'GetAddress',
