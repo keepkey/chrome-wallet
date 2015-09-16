@@ -1,8 +1,8 @@
 angular.module('kkWallet')
   .controller('WalletController', ['$scope', '$routeParams', 'WalletNodeService', 'DeviceFeatureService', 'TransactionService', 'DeviceBridgeService', 'FormatBitcoinService',
     function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, transactionService, deviceBridgeService, formatBitcoinService) {
-      var walletId = parseInt($routeParams.wallet, 10) || walletNodeService.getFirstWalletId();
-      $scope.walletId = walletId;
+      $scope.walletStats = walletNodeService.walletStats;
+      $scope.walletId = parseInt($routeParams.wallet, 10);
 
       walletNodeService.reload(true);
 
@@ -13,11 +13,11 @@ angular.module('kkWallet')
       $scope.walletBalances = transactionService.walletBalances;
 
       $scope.send = function() {
-        $scope.go('/send/' + walletId, 'slideLeft');
+        $scope.go('/send/' + $scope.walletId, 'slideLeft');
       };
 
       $scope.receive = function() {
-        $scope.go(['/receive', walletId].join('/'), 'slideLeft');
+        $scope.go(['/receive', $scope.walletId].join('/'), 'slideLeft');
       };
 
       $scope.sendAllowed = function () {
@@ -45,11 +45,21 @@ angular.module('kkWallet')
         deviceBridgeService.getTransactions(true);
       };
 
-      $scope.wallet = walletNodeService.getWalletById(walletId);
-      getStats();
+      if (_.isNumber($scope.walletId)) {
+        $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+        getStats();
+      }
 
       $scope.$watch('wallet', getStats, true);
       $scope.$watch('walletBalances', getStats, true);
+      $scope.$watch('walletStats', function() {
+        if (!_.isNumber($scope.walletId) || _.isNaN($scope.walletId)) {
+          $scope.walletId = $scope.walletStats.firstWalletId;
+        }
+      }, true);
+      $scope.$watch('walletId', function() {
+        $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+      }, true);
 
       function getStats() {
         if ($scope.wallet && $scope.wallet.hdNode && $scope.walletBalances) {

@@ -4,6 +4,7 @@ angular.module('kkWallet')
   .factory('WalletNodeService', ['$rootScope', 'DeviceBridgeService', 'TransactionService',
     function DeviceFeatureService($rootScope, deviceBridgeService, transactionService) {
       var nodes = [];
+      var walletStats = {};
 
       function getPublicKeysForNodes(nodes) {
         _.each(nodes, function (it) {
@@ -31,6 +32,8 @@ angular.module('kkWallet')
             nodes.push(node);
           }
         });
+
+        setFirstWalletId();
 
         // Request public key for nodes where it is missing
         if (checkAllNodes) {
@@ -103,10 +106,14 @@ angular.module('kkWallet')
         return _.findIndex(nodes, {hdNode: hdNode})
       }
 
-      function getFirstWalletId() {
-        return _.reduce(nodes, function(result, wallet) {
+      function setFirstWalletId() {
+        const MAX_WALLET_ID = 9999999;
+        walletStats.firstWalletId =  _.reduce(nodes, function(result, wallet) {
           return Math.min(result, wallet.id);
-        }, 9999999);
+        }, MAX_WALLET_ID);
+        if (walletStats.firstWalletId === MAX_WALLET_ID) {
+          walletStats.firstWalletId = undefined;
+        }
       }
 
       function clearData() {
@@ -117,12 +124,12 @@ angular.module('kkWallet')
 
       return {
         wallets: nodes,
+        walletStats: walletStats,
         reload: reloadWallets,
         getWalletById: getWalletById,
         updateWalletNodes: updateWalletNodes,
         firstUnusedAddress: firstUnusedAddress,
         getAddressNode: getAddressNode,
-        getFirstWalletId: getFirstWalletId,
         clear: clearData
       };
     }
