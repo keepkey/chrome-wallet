@@ -75,7 +75,7 @@ angular.module('kkWallet')
       };
 
       $scope.refresh = function () {
-        deviceBridgeService.getTransactions(true);
+        deviceBridgeService.reloadBalances();
       };
 
       $scope.goReceive = function (wallet) {

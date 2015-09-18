@@ -40,7 +40,7 @@ angular.module('kkWallet')
           getPublicKeysForNodes(nodes);
         } else {
           getPublicKeysForNodes(_.filter(nodes, function (it) {
-            return !it.xpub;
+            return !(it.wallet && it.wallet.xpub);
           }));
         }
         setTimeout(function () {

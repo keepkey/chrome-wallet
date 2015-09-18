@@ -29,7 +29,7 @@ describe('DeviceBridgeService', function () {
         it('reports when the device is ready', function (done) {
             service.isDeviceReady().then(function (result) {
                 assert.isTrue(result);
-                assert.calledTwice(chrome.runtime.sendMessage);
+                assert.calledOnce(chrome.runtime.sendMessage);
                 assert.calledWith(chrome.runtime.sendMessage,
                     this.mockEnvironmentConfig.keepkeyProxy.applicationId,
                     {messageType: "deviceReady"},

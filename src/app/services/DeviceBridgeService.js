@@ -136,10 +136,9 @@ angular.module('kkWallet')
               messageType: 'GetWalletNodes'
             });
           },
-          getTransactions: function (reload) {
+          reloadBalances: function() {
             return sendMessage({
-              messageType: 'GetTransactions',
-              reload: reload
+              messageType: 'ReloadBalances'
             });
           },
           requestTransactionSignature: function (transactionRequest) {
@@ -290,12 +289,6 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('WalletNodes', ['WalletNodeService',
         function (walletNodeService) {
           walletNodeService.updateWalletNodes(this.request.message);
-        }
-      ]);
-
-      deviceBridgeServiceProvider.when('Transactions', ['TransactionService',
-        function (transactionService) {
-          transactionService.updateTransactions(this.request.message);
         }
       ]);
 
