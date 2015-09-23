@@ -98,7 +98,7 @@ angular.module('kkWallet')
         })
         .when('/success/bouncies', {
           templateUrl: 'app/success/buildingTransaction.tpl.html',
-          goable: true
+          goable: false
         })
         .when('/success/firmware_erased', {
           templateUrl: 'app/success/updatingFirmware.tpl.html',

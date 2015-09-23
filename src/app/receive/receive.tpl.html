@@ -1,6 +1,6 @@
 <section id="receive" ng-controller="ReceiveController">
     <header>
-        <back-button class="button-left header-button" destination="backDestination"></back-button>
+        <back-button class="button-left header-button" action="onCancel()"></back-button>
     </header>
 
     <div class="content">
@@ -23,13 +23,13 @@
                 <div class="help">Confirm the address below is the same one shown on your KeepKey before using it.</div>
 
                 <qrcode class="qrcode"
-                    data="{{getBitcoinLink()}}"
+                    data="{{bitcoinLink}}"
                     size="160"
                     error-correction-level="L"
                     target="_blank"></qrcode>
 
                 <div class="bitcoin-receive-link">
-                    {{address}}
+                    {{firstUnusedAddress.address}}
                 </div>
             </div>
         </div>

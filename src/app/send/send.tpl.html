@@ -4,7 +4,7 @@
     </header>
 
     <div class="content">
-        <div ng-show="walletTransactions.balance">
+        <div ng-show="wallet.final_balance">
             <h2><span class="cornflower-txt"><b>Send Money</b></span> from your KeepKey</h2>
 
             <form name="form" novalidate>
@@ -63,7 +63,7 @@
             <button class="button" type="submit" ng-click="buildTransaction()">Send</button>
             </form>
         </div>
-        <div ng-hide="walletTransactions.balance">
+        <div ng-hide="wallet.final_balance">
             Can't send when the wallet doesn't have a balance
         </div>
     </div>
