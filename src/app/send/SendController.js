@@ -20,7 +20,6 @@ angular.module('kkWallet')
       $scope.maxAmount = feeService.maxTransactionAmount;
 
       $scope.wallet = walletNodeService.getWalletById($routeParams.wallet);
-      $scope.walletTransactions = transactionService.walletBalances[$scope.wallet.hdNode];
       $scope.userInput = {
         sourceIndex: $routeParams.wallet,
         sourceName: $scope.wallet.name,
@@ -32,7 +31,7 @@ angular.module('kkWallet')
         if ($scope.userInput.address && $scope.userInput.amount) {
           angular.copy($scope.userInput, transactionService.transactionInProgress);
           deviceBridgeService.requestTransactionSignature(transactionService.transactionInProgress);
-          $scope.go('/success/bouncies');
+          navigationService.setNextTransition('slideLeft');
         }
       };
       
@@ -71,7 +70,6 @@ angular.module('kkWallet')
       }
 
       function verifyFeeLevel() {
-        $scope.userInput.feeLevel = 'slow';
         var translation = {
           'fast': 'medium',
           'medium': 'slow',
