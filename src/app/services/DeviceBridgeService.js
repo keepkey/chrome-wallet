@@ -228,6 +228,7 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
       deviceBridgeServiceProvider.when('Success', navigateToLocation('/success/:message'));
       deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
+      deviceBridgeServiceProvider.when('Address', navigateToPreviousLocation());
       deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
         function ($injector, failureMessageService, navigationService) {
           const IGNORED_FAILURES = [
