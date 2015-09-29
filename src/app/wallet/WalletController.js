@@ -54,7 +54,7 @@ angular.module('kkWallet')
 
       $scope.$watch('walletStats', function() {
         if (!_.isNumber($scope.walletId) || _.isNaN($scope.walletId)) {
-          $scope.walletId = $scope.walletStats.firstWalletId;
+          $scope.go('/wallet/' +  $scope.walletStats.firstWalletId) ;
         }
       }, true);
       $scope.$watch('walletId', function() {

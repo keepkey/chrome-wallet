@@ -24,7 +24,7 @@ angular.module('kkWallet')
       function updateWalletNodes(newNodes) {
         var checkAllNodes = (nodes.length === 0);
 
-        _.each(newNodes, function(node) {
+        _.each(newNodes, function (node) {
           var index = getWalletIndexByHdNode(node.hdNode);
           if (nodes[index]) {
             angular.copy(node, nodes[index]);
@@ -71,7 +71,19 @@ angular.module('kkWallet')
         if (_.isString(id)) {
           id = parseInt(id, 10);
         }
-        return _.find(nodes, {id: id})
+        if (_.isNaN(id)) {
+          node = undefined;
+        } else {
+          var node = _.find(nodes, {id: id});
+          if (!node) {
+            node = {
+              id: id,
+              hdNode: ['m', "44'", "0'", id + "'"].join('/')
+            };
+            nodes.push(node);
+          }
+        }
+        return node;
       }
 
       function getWalletIndexByHdNode(hdNode) {
@@ -80,7 +92,7 @@ angular.module('kkWallet')
 
       function setFirstWalletId() {
         const MAX_WALLET_ID = 9999999;
-        walletStats.firstWalletId =  _.reduce(nodes, function(result, wallet) {
+        walletStats.firstWalletId = _.reduce(nodes, function (result, wallet) {
           return Math.min(result, wallet.id);
         }, MAX_WALLET_ID);
         if (walletStats.firstWalletId === MAX_WALLET_ID) {

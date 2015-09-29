@@ -179,7 +179,7 @@ angular.module('kkWallet')
 
         // Keep track of the last 'goable' path
         if (isGoable($location.path())) {
-          previousRoute = $location.path();
+          previousRoute.push($location.path());
         }
 
         if (typeof(pageAnimationClass) !== 'undefined') {
@@ -203,7 +203,7 @@ angular.module('kkWallet')
       return {
         go: go,
         goToPrevious: function (pageAnimationClass) {
-          go(previousRoute, pageAnimationClass);
+          go(previousRoute.pop(), pageAnimationClass);
         },
         setNextTransition: function (pageAnimationClass) {
           nextTransition = pageAnimationClass;
@@ -212,7 +212,7 @@ angular.module('kkWallet')
           nextDestination = destination;
         },
         getPreviousRoute: function () {
-          return previousRoute;
+          return _.last(previousRoute);
         },
         getCurrentRoute: function () {
           return $location.path();
