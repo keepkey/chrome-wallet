@@ -5,19 +5,24 @@
 
     <div class="content">
         <h2><span class="cornflower-txt"><b>Receive</b></span> Bitcoins</h2>
+
         <div class="content-inner">
             <div class="content-inner-centering">
 
                 <div class="help">Confirm the address below is the same one shown on your KeepKey before using it.</div>
 
                 <qrcode class="qrcode"
-                    data="{{bitcoinLink}}"
-                    size="160"
-                    error-correction-level="L"
-                    target="_blank"></qrcode>
+                        data="{{bitcoinLink}}"
+                        size="160"
+                        error-correction-level="L"
+                        target="_blank"></qrcode>
 
-                <div class="bitcoin-receive-link">
-                    {{firstUnusedAddress.address}}
+                <div>
+                    <span class="bitcoin-receive-link">
+                        {{firstUnusedAddress.address}}
+                    </span>
+                    <button class="copy-to-clipboard-button fa fa-clipboard"
+                            data-clipboard-text="{{firstUnusedAddress.address}}"></button>
                 </div>
             </div>
         </div>

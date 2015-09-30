@@ -3,6 +3,8 @@ angular.module('kkWallet')
     function ReceiveController($rootScope, $scope, $routeParams, $location, deviceBridgeService, walletNodeService, navigationService) {
       navigationService.setNextTransition('slideLeft');
 
+      new Clipboard('.copy-to-clipboard-button');
+
       var deviceReadyPromise = new Promise(function (resolve) {
         $rootScope.$on('ButtonRequest', function (ev, message) {
           if (message.code === 'ButtonRequest_Address') {

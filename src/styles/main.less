@@ -253,9 +253,11 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   border-radius: 999px;
   height: 9px;
 }
+
 .online .connection-light {
   background-color: #C4D600;
 }
+
 .offline .connection-light {
   background-color: #cccccc;
 }
@@ -1135,27 +1137,27 @@ input::-webkit-inner-spin-button {
       &:hover {
         background-color: #d26464;
         border: 1px solid #d26464;
+      }
     }
-  }
   }
 }
 
 .help {
-    font-size: 12px;
-    font-weight: 200;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 0 30px 0 30px;
-    text-align: center;
-    color: #999999;
-  }
+  font-size: 12px;
+  font-weight: 200;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0 30px 0 30px;
+  text-align: center;
+  color: #999999;
+}
 
 .footer {
   border-top: 1px solid #ECECED;
   height: @status-bar-height;
   width: @body-width;
-  padding: 10px 0 10px 15px; 
+  padding: 10px 0 10px 15px;
   bottom: 0px;
   color: #ccc;
   position: absolute;
@@ -1165,3 +1167,23 @@ input::-webkit-inner-spin-button {
     color: #999;
   }
 }
+
+.copy-to-clipboard-button {
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  border-style: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  color: #000;
+  &:active {
+    color: #888
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
