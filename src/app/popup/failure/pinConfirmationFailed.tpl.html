@@ -1,0 +1,18 @@
+<section id="pin-confirmation-failed" ng-controller="FailureController" ng-hide="hidden">
+    <header>
+        <!--<settings-button class="button-left header-button"></settings-button>-->
+    </header>
+
+    <div class="content">
+        <div class="alert-icon">
+            <span class="fa fa-exclamation-triangle"></span>
+        </div>
+        <div class="failure-list ng-scope">
+            <div>PIN Confirmation Failed</div>
+        </div>
+        <div class="message">PINs don't match.</div>
+        <a class="button" ng-click="ok()">Start Over</a></div>
+    </div>
+
+    <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>
+</section>

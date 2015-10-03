@@ -12,15 +12,11 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/xeditable.css">
 </head>
-<body ng-app="kkWallet" ng-csp ng-strict-di>
-<div id="mask">
-    <div id="frame-container">
-        <div class="view" ng-view ng-class="pageAnimationClass"></div>
-    </div>
-</div>
+<body ng-app="kkTransactions" ng-csp ng-strict-di>
+<section ng-view></section>
 <!-- <script src="vendor-scripts.min.js"></script> -->
 <!-- <script src="common.js"></script> -->
-<!-- <script src="popup.js"></script> -->
+<!-- <script src="transactions.js"></script> -->
 <script src="../vendor/angular/angular.js"></script>
 <script src="../vendor/angular-route/angular-route.js"></script>
 <script src="../vendor/angular-animate/angular-animate.js"></script>
@@ -29,8 +25,8 @@
 <script src="../vendor/angular-indexed-db/angular-indexed-db.js"></script>
 <script src="../vendor/angular-xeditable/dist/js/xeditable.js"></script>
 
-<script src="app/common/common.js"></script>
-<script src="app/popup/popup.js"></script>
+<script src="app/common.js"></script>
+<script src="app/transactions.js"></script>
 
 </body>
 </html>

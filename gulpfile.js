@@ -47,7 +47,9 @@ gulp.task('clean', function (cb) {
 
 gulp.task('build', [
   'vendorScriptsProduction',
-  'appScriptsProduction',
+  'appCommonScripts',
+  'appPopupScripts',
+  'appTransactionScripts',
   'backgroundScript',
   'cssProduction',
   'less',
@@ -61,7 +63,7 @@ gulp.task('build', [
 gulp.task('buildConfig', function () {
   var envConfig = require('./config/' + environment + '.json');
   return ngConstant({
-    name: 'kkWallet',
+    name: 'kkCommon',
     constants: {environmentConfig: envConfig},
     stream: true,
     deps: false
@@ -90,29 +92,59 @@ gulp.task('htmlProduction', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('zip', ['vendorScriptsProduction', 'appScriptsProduction', 'cssProduction', 'assetsProduction',
+gulp.task('zip', ['vendorScriptsProduction', 'appCommonScripts', 'appPopupScripts', 'appTransactionScripts', 'cssProduction', 'assetsProduction',
   'htmlProduction', 'manifestProduction', 'buildConfig'], function () {
   return gulp.src('dist/**/*')
     .pipe(zip('keepkey-wallet-' + environment + '.zip'))
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('appScriptsProduction', ['buildConfig'], function () {
-  return merge2(
-    gulp.src(['src/app/main.js', 'src/app/**/*.js', '!src/app/**/*.spec.js', 'generatedJs/constants.js'])
-      .pipe(replace("{{VERSION}}", manifest.version))
-      .pipe(concat('tmpsrc.min.js')),
-    //.pipe(uglify()),
-    gulp.src('src/app/**/*.tpl.html')
-      .pipe(minifyHTML())
-      .pipe(templateCache({
-        root: 'app/',
-        module: 'kkWallet'
-      }))
-  )
-    .pipe(concat('main.js'))
+function appScriptBuilder(moduleName, angularModuleName, extraFiles) {
+  var sources = [
+    ['src', 'app', moduleName, moduleName + '.js'].join('/'),
+    ['src', 'app', moduleName, '**/*.js'].join('/'),
+    '!' + ['src', 'app', moduleName, '**/*.spec.js'].join('/')
+  ];
+
+  if (typeof extraFiles !== 'function') {
+    Array.prototype.push.apply(sources, extraFiles);
+  }
+
+  var tempMinifiedFile = moduleName + '.tmpsrc.min.js';
+  var templateSourceFiles = 'src/app/' + moduleName + '/**/*.tpl.html';
+  var templateRootPath = 'app/' + moduleName;
+  var outputFileName = moduleName + '.js';
+
+  var jsScriptStream = gulp.src(sources)
+    .pipe(replace("{{VERSION}}", manifest.version))
+    .pipe(concat(tempMinifiedFile));
+  //.pipe(uglify());
+
+  var templateStream = gulp.src(templateSourceFiles)
+    .pipe(minifyHTML())
+    .pipe(templateCache({
+      root: templateRootPath,
+      module: angularModuleName
+    }));
+
+  return merge2(jsScriptStream, templateStream)
+    .pipe(concat(outputFileName))
     .pipe(gulp.dest('dist'));
-});
+}
+
+gulp.task('appCommonScripts', ['buildConfig'],
+  appScriptBuilder.bind(this, 'common', 'kkCommon', [
+    'generatedJs/constants.js'
+  ])
+);
+
+gulp.task('appPopupScripts', ['buildConfig'],
+  appScriptBuilder.bind(this, 'popup', 'kkWallet')
+);
+
+gulp.task('appTransactionScripts', ['buildConfig'],
+  appScriptBuilder.bind(this, 'transactions', 'kkTransactions')
+);
 
 gulp.task('assetsProduction', function () {
   return gulp.src('src/assets/**/*')

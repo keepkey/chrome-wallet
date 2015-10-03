@@ -1,0 +1,17 @@
+<section id="failure" ng-controller="FailureController">
+    <header>
+        <!--<settings-button class="button-left header-button"></settings-button>-->
+    </header>
+
+    <div class="content">
+        <div class="alert-icon">
+            <span class="fa fa-exclamation-triangle"></span>
+        </div>
+        <div class="failure-list ng-scope" ng-repeat="failure in failures">
+            <div>{{failure.message}}</div>
+        </div>
+        <a class="button" ng-click="ok()">OK</a></div>
+    </div>
+
+    <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>
+</section>

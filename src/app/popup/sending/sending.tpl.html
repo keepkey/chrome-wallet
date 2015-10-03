@@ -1,0 +1,23 @@
+<section id="sending">
+    <header>
+        <back-button class="button-left header-button" destination="'/send'"></back-button>
+    </header>
+
+    <div class="content">
+        <h2><span class="cornflower-txt"><b>Signing Transaction</b></span><br>
+            follow prompts on KeepKey...</h2>
+
+        <div id="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div class="second-top"></div>
+            <div class="top"></div>
+        </div>
+        <a class="button" ng-click="go('/wallet', 'slideRight')">Cancel</a>
+    </div>
+
+    <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>
+</section>

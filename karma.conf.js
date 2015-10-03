@@ -16,9 +16,12 @@ module.exports = function (config) {
       'vendor/angular-qrcode/angular-qrcode.js',
       'vendor/clipboard/dist/clipboard.min.js',
       'src/testharness/beforeeach.js',
-      'src/app/main.js',
-      'src/app/**/*.js',
-      'src/app/**/*.spec.js'
+      'src/app/common/common.js',
+      'src/app/common/**/*.js',
+      'src/app/common/**/*.spec.js',
+      'src/app/popup/popup.js',
+      'src/app/popup/**/*.js',
+      'src/app/popup/**/*.spec.js'
     ]
   });
 };

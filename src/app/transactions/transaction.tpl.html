@@ -1,0 +1,24 @@
+<div ng-controller="TransactionListController">
+    <table>
+        <thead>
+        <tr>
+            <td>Date</td>
+            <td>Time</td>
+            <td>Address</td>
+            <td>Sent</td>
+            <td>Received</td>
+            <td>Balance</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="transaction in transactionList">
+            <td>{{transaction.timestamp | date:'shortDate' }}</td>
+            <td>{{transaction.timestamp | date:'mediumTime'}}</td>
+            <td ng-bind="transaction.address"></td>
+            <td>{{transaction.sent / 100000000| number:8}}</td>
+            <td>{{transaction.received / 100000000 | number:8}}</td>
+            <td>{{transaction.balance / 100000000 | number:8}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

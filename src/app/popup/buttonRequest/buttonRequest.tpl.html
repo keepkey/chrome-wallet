@@ -1,0 +1,20 @@
+<section id="button-request" ng-controller="ButtonRequestController">
+    <header></header>
+
+    <div class="content" ng-class="buttonRequestType">
+        <div class="device-screen">
+            <div class="button-press-icon fa fa-circle">
+                <div class="fa fa-sort-up"></div>
+            </div>
+            <h2>
+                Unknown button request type: {{buttonRequestType}}
+            </h2>
+        </div>
+        <div class="confirmation-instructions">Please confirm this action by pressing and holding the button on the top
+            of your KeepKey
+        </div>
+        <a class="text-link-button" ng-click="onCancel()">Cancel</a>
+    </div>
+
+    <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>
+</section>
