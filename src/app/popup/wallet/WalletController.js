@@ -37,7 +37,20 @@ angular.module('kkWallet')
       };
 
       $scope.balance = function () {
-        var balance = $scope.wallet && $scope.wallet.final_balance;
+        var balance = $scope.wallet && $scope.wallet.highConfidenceBalance;
+        if (balance) {
+          return formatBitcoinService.toBitcoin(balance);
+        } else {
+          return '0.0';
+        }
+      };
+
+      $scope.hasPendingBalance = function() {
+        return !!($scope.wallet && $scope.wallet.lowConfidenceBalance);
+      }
+
+      $scope.pendingBalance = function () {
+        var balance = $scope.wallet && $scope.wallet.lowConfidenceBalance;
         if (balance) {
           return formatBitcoinService.toBitcoin(balance);
         } else {

@@ -15,8 +15,13 @@
                         <span class="fa fa-refresh fa-spin"></span>
                     </span>
                     <span ng-hide="receiveDisabled()" ng-bind="balance()"></span>
-                    <span class="wallet-currency">{{btcFormatter.BITCOINS}}</span></h2>
+                    <span class="wallet-currency">{{btcFormatter.BITCOINS}}</span>
                 </h2>
+                <div class="unconfirmed-balance" ng-show="hasPendingBalance()">
+                    <span>Pending:</span>
+                    <span ng-bind="pendingBalance()"></span>
+                    <span class="wallet-currency">{{btcFormatter.BITCOINS}}</span>
+                </div>
             </div>
         </div>
 
