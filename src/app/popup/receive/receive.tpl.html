@@ -11,7 +11,11 @@
 
                 <div class="help">Confirm the address below is the same one shown on your KeepKey before using it.</div>
 
-                <qrcode class="qrcode"
+                <div class="spinner" ng-hide="firstUnusedAddress.address">
+                    <span class="fa fa-refresh fa-spin"></span>
+                </div>
+                <qrcode ng-show="firstUnusedAddress.address"
+                        class="qrcode"
                         data="{{bitcoinLink}}"
                         size="160"
                         error-correction-level="L"
