@@ -136,6 +136,12 @@ angular.module('kkCommon')
               messageType: 'GetWalletNodes'
             });
           },
+          getTransactionHistory: function(walletId) {
+            return sendMessage({
+              messageType: 'GetTransactionHistory',
+              walletId: walletId
+            })
+          },
           reloadBalances: function() {
             return sendMessage({
               messageType: 'ReloadBalances'

@@ -2,6 +2,8 @@
     <table>
         <thead>
         <tr>
+            <td>block height</td>
+            <td>transaction id</td>
             <td>Date</td>
             <td>Time</td>
             <td>Address</td>
@@ -11,9 +13,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="transaction in transactionList">
-            <td>{{transaction.timestamp | date:'shortDate' }}</td>
-            <td>{{transaction.timestamp | date:'mediumTime'}}</td>
+        <tr ng-repeat="transaction in wallet.txs">
+            <td>{{transaction.block_height}}</td>
+            <td>{{transaction.hash}}</td>
+            <td>{{transaction.received | date:'shortDate' }}</td>
+            <td>{{transaction.received | date:'mediumTime'}}</td>
             <td ng-bind="transaction.address"></td>
             <td>{{transaction.sent / 100000000| number:8}}</td>
             <td>{{transaction.received / 100000000 | number:8}}</td>
