@@ -9,11 +9,19 @@
     <link rel="stylesheet" href="styles/animation.css">
     <link rel="stylesheet" href="styles/angular-csp.css">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/xeditable.css">
+    <link rel="stylesheet" href="styles/keepkey.css">
 </head>
 <body ng-app="kkTransactions" ng-csp ng-strict-di>
-<section ng-view></section>
+
+<uib-tabset class="main-tabs" vertical="true" type="pills">
+    <uib-tab heading="Transactions">
+        <section ng-view></section>
+        <!--transactions go here-->
+    </uib-tab>
+    <uib-tab heading="Options">Options will go here</uib-tab>
+</uib-tabset>
+
 <!-- <script src="vendor-scripts.min.js"></script> -->
 <!-- <script src="common.js"></script> -->
 <!-- <script src="transactions.js"></script> -->

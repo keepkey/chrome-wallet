@@ -1,6 +1,7 @@
 angular.module('kkTransactions', [
   'ngRoute',
-  'kkCommon'
+  'kkCommon',
+  'ui.bootstrap'
 ])
   .constant('VERSION', '{{VERSION}}')
   .config( ['$compileProvider',
