@@ -2,26 +2,26 @@
     <table>
         <thead>
         <tr>
-            <td>block height</td>
-            <td>transaction id</td>
             <td>Date</td>
             <td>Time</td>
             <td>Address</td>
-            <td>Sent</td>
             <td>Received</td>
+            <td>Sent</td>
+            <td>Fee</td>
             <td>Balance</td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="transaction in wallet.txs">
-            <td>{{transaction.block_height}}</td>
-            <td>{{transaction.hash}}</td>
-            <td>{{transaction.received | date:'shortDate' }}</td>
-            <td>{{transaction.received | date:'mediumTime'}}</td>
-            <td ng-bind="transaction.address"></td>
-            <td>{{transaction.sent / 100000000| number:8}}</td>
-            <td>{{transaction.received / 100000000 | number:8}}</td>
-            <td>{{transaction.balance / 100000000 | number:8}}</td>
+        <tr ng-repeat="transaction in wallet.txHist">
+            <td>{{transaction.date | date:'shortDate' }}</td>
+            <td>{{transaction.date | date:'mediumTime'}}</td>
+            <td><div ng-repeat="address in transaction.addresses track by $index">{{address}}</div></td>
+            <td><span ng-show="transaction.amountReceived">{{transaction.amountReceived / 100000000 | number:8}}</span></td>
+            <td><span ng-show="transaction.amountSent">{{transaction.amountSent / 100000000| number:8}}</span></td>
+            <td><span ng-show="transaction.fee">{{transaction.fee / 100000000| number:8}}</span></td>
+            <td><span>{{transaction.balance / 100000000| number:8}}</span></td>
+            <td><a href="{{transaction.link}}">details</a><span ng-show="transaction.pending">(pending)</span></td>
         </tr>
         </tbody>
     </table>
