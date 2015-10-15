@@ -1,10 +1,113 @@
-.main-tabs {
-  .nav {
-    width: 120px;
-    float: left;
-  }
-  .tab-content {
-    margin-left: 10px;
-    float: left;
+@nav-width: 120px;
+@gutter-width: 15px;
+@tab-content-padding: 10px;
+@header-title-height: 26px;
+@header-title-margin: 21px;
+@header-legend-height: 33px;
+@font-color: #303942;
+@link-color: #9FAE00;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: @font-color;
+  cursor: default;
+  margin: 0;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, body, h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+}
+
+a {
+  color: @link-color;
+  text-decoration: none;
+  &:focus, &:hover {
+    color: @link-color;
+    text-decoration: underline;
   }
 }
+
+.nav-pills > li {
+  a {
+    font-size: 16px;
+  }
+  &.active > a, &.active > a:focus, &.active > a:hover {
+    color: @font-color;
+    background-color: #fff;
+    cursor: default;
+  }
+  &.active > a:hover {
+    background-color: #eee;
+  }
+}
+
+.logo {
+  width: 97px;
+  height: 78px;
+  background: url(https://cdn.keepkey.com/wp-content/themes/keepkey/img/logo-grey.png);
+  background-size: 97px 78px;
+}
+
+.upper-left-logo {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+}
+
+.main-tabs {
+  width: 100%;
+  .nav {
+    display: none;
+    width: @nav-width;
+    margin-top: 45px;
+    position: fixed;
+  }
+  .tab-content {
+    margin-left: @nav-width;
+    padding-left: @tab-content-padding;
+  }
+}
+
+.transaction-list {
+  header {
+    position: fixed;
+    background-color: rgba(255, 255, 255, .92);
+    z-index: 2;
+    top: 0;
+    right: @gutter-width;
+    left: @nav-width + @tab-content-padding + @gutter-width;
+    table {
+      margin-bottom: 0px;
+      height: @header-legend-height;
+    }
+  }
+  h1 {
+    margin: 0;
+    -webkit-margin-before: @header-title-margin;
+    height: @header-title-height;
+    font-size: 25px;
+  }
+  table {
+    min-width: 890px;
+    .date {
+      width: 7%
+    }
+    .time {
+      width: 9.6%
+    }
+    .address {
+      width: 31.3%;
+    }
+    .amount {
+      width: 11.6%;
+    }
+    .link {
+      width: 5.7%;
+    }
+  }
+  section {
+    margin-top: @header-title-height + @header-title-margin + @header-legend-height;
+  }
+}
+

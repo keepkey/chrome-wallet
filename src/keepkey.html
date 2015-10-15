@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="styles/xeditable.css">
     <link rel="stylesheet" href="styles/keepkey.css">
 </head>
-<body ng-app="kkTransactions" ng-csp ng-strict-di>
+<body ng-app="kkTransactions" ng-csp ng-strict-di class="container-fluid">
+<div class="logo upper-left-logo"></div>
 
-<uib-tabset class="main-tabs" vertical="true" type="pills">
+<uib-tabset class="main-tabs col-xs-12" vertical="true" type="pills">
     <uib-tab heading="Transactions">
         <section ng-view></section>
-        <!--transactions go here-->
     </uib-tab>
-    <uib-tab heading="Options">Options will go here</uib-tab>
+    <!--<uib-tab heading="Options">Options will go here</uib-tab>-->
 </uib-tabset>
 
 <!-- <script src="vendor-scripts.min.js"></script> -->
