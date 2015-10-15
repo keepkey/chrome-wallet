@@ -1,24 +1,42 @@
-<div ng-controller="TransactionListController">
-    <table>
-        <thead>
-        <tr>
-            <td>Date</td>
-            <td>Time</td>
-            <td>Address</td>
-            <td>Sent</td>
-            <td>Received</td>
-            <td>Balance</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="transaction in transactionList">
-            <td>{{transaction.timestamp | date:'shortDate' }}</td>
-            <td>{{transaction.timestamp | date:'mediumTime'}}</td>
-            <td ng-bind="transaction.address"></td>
-            <td>{{transaction.sent / 100000000| number:8}}</td>
-            <td>{{transaction.received / 100000000 | number:8}}</td>
-            <td>{{transaction.balance / 100000000 | number:8}}</td>
-        </tr>
-        </tbody>
-    </table>
+<div class="transaction-list" ng-controller="TransactionListController">
+    <header>
+        <div class="logo upper-left-logo"></div>
+        <h1>Transactions</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <td class="date">Date</td>
+                <td class="time">Time</td>
+                <td class="address">Address</td>
+                <td class="amount">Received</td>
+                <td class="amount">Sent</td>
+                <td class="amount">Fee</td>
+                <td class="amount">Balance</td>
+                <td class="link"></td>
+            </tr>
+            </thead>
+        </table>
+    </header>
+    <section>
+        <table class="table">
+            <tbody>
+            <tr ng-repeat="transaction in wallet.txHist">
+                <td class="date">{{transaction.date | date:'shortDate' }}</td>
+                <td class="time">{{transaction.date | date:'mediumTime'}}</td>
+                <td class="address">
+                    <div ng-repeat="address in transaction.addresses track by $index">{{address}}</div>
+                </td>
+                <td class="amount">
+                    <span ng-show="transaction.amountReceived">{{transaction.amountReceived / 100000000 | number:8}}</span>
+                </td>
+                <td class="amount"><span ng-show="transaction.amountSent">{{transaction.amountSent / 100000000| number:8}}</span>
+                </td>
+                <td class="amount"><span ng-show="transaction.fee">{{transaction.fee / 100000000| number:8}}</span></td>
+                <td class="amount"><span>{{transaction.balance / 100000000| number:8}}</span></td>
+                <td class="link"><a href="{{transaction.link}}" target="_blank">details</a><span
+                        ng-show="transaction.pending">(pending)</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
 </div>

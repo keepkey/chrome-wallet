@@ -1,8 +1,8 @@
 /* global _ */
 
-angular.module('kkWallet')
-  .factory('WalletNodeService', ['$rootScope', 'DeviceBridgeService', 'TransactionService',
-    function WalletNodeService($rootScope, deviceBridgeService, transactionService) {
+angular.module('kkCommon')
+  .factory('WalletNodeService', ['$rootScope', 'DeviceBridgeService',
+    function WalletNodeService($rootScope, deviceBridgeService) {
       var nodes = [];
       var walletStats = {};
 
@@ -120,6 +120,8 @@ angular.module('kkWallet')
         }, []);
       }
 
+      var getTransactionHistory = deviceBridgeService.getTransactionHistory;
+
       deviceBridgeService.getWalletNodes();
 
       return {
@@ -131,7 +133,8 @@ angular.module('kkWallet')
         firstUnusedAddress: firstUnusedAddress,
         joinPaths: joinPaths,
         pathToAddressN: pathToAddressN,
-        clear: clearData
+        clear: clearData,
+        getTransactionHistory: getTransactionHistory
       };
     }
   ])

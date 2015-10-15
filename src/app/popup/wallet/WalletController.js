@@ -64,7 +64,7 @@ angular.module('kkWallet')
 
       $scope.showTransactions = function() {
         chrome.tabs.create({
-          url: '/transactions.html'
+          url: '/keepkey.html#/' + $scope.walletId
         });
       }
 

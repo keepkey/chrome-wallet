@@ -2,7 +2,7 @@
 window.assert = angular.extend({}, chai.assert, sinon.assert);
 window.stub = sinon.stub;
 
-beforeEach(module('kkWallet', function ($provide) {
+beforeEach(module('kkCommon', function ($provide) {
     this.mockEnvironmentConfig = {
         keepkeyProxy: {
             applicationId: "testProxyId"
