@@ -8,10 +8,7 @@
                 <td class="date">Date</td>
                 <td class="time">Time</td>
                 <td class="address">Address</td>
-                <td class="amount">Received</td>
-                <td class="amount">Sent</td>
-                <td class="amount">Fee</td>
-                <td class="amount">Balance</td>
+                <td class="amount">Amount</td>
                 <td class="link"></td>
             </tr>
             </thead>
@@ -27,12 +24,9 @@
                     <div ng-repeat="address in transaction.addresses track by $index">{{address}}</div>
                 </td>
                 <td class="amount">
-                    <span ng-show="transaction.amountReceived">{{transaction.amountReceived / 100000000 | number:8}}</span>
+                    <span class="received" ng-show="transaction.amountReceived">+ {{transaction.amountReceived / 100000000 | number:8}}</span>
+                    <span class="sent" ng-show="transaction.amountSent">- {{transaction.amountSent / 100000000| number:8}}</span>
                 </td>
-                <td class="amount"><span ng-show="transaction.amountSent">{{transaction.amountSent / 100000000| number:8}}</span>
-                </td>
-                <td class="amount"><span ng-show="transaction.fee">{{transaction.fee / 100000000| number:8}}</span></td>
-                <td class="amount"><span>{{transaction.balance / 100000000| number:8}}</span></td>
                 <td class="link"><a href="{{transaction.link}}" target="_blank">details</a><span
                         ng-show="transaction.pending">(pending)</span></td>
             </tr>
