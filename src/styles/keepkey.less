@@ -21,10 +21,11 @@ body {
 
 a {
   color: @link-color;
-  text-decoration: none;
+  text-decoration: underline;
+  transition: 0.2s all ease-out;
+  transition: 0.2s all ease-in;
   &:focus, &:hover {
-    color: @link-color;
-    text-decoration: underline;
+    color: #7A8500;;
   }
 }
 
@@ -86,10 +87,10 @@ a {
     margin: 0;
     -webkit-margin-before: @header-title-margin;
     height: @header-title-height;
-    font-size: 25px;
+    font-size: 1.5em;
   }
   table {
-    min-width: 890px;
+    width: 740px;
     .date {
       width: 7%
     }
@@ -101,9 +102,14 @@ a {
     }
     .amount {
       width: 11.6%;
+      text-align: right;
+      .received {
+        color: #C3D40F;
+      }
     }
     .link {
-      width: 5.7%;
+      width: 10%;
+      text-align: right;
     }
   }
   section {
