@@ -17,7 +17,7 @@
     <section>
         <table class="table">
             <tbody>
-            <tr ng-repeat="transaction in wallet.txHist">
+            <tr ng-repeat="transaction in wallet.txHist" ng-show="transaction.amountReceived || transaction.amountSent">
                 <td class="date">{{transaction.date | date:'shortDate' }}</td>
                 <td class="time">{{transaction.date | date:'mediumTime'}}</td>
                 <td class="address">
