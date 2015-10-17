@@ -1,15 +1,15 @@
 angular.module('kkTransactions')
   .config(['DeviceBridgeServiceProvider',
     function (deviceBridgeServiceProvider) {
-      deviceBridgeServiceProvider.when('connected', ['DeviceBridgeService',
-        function (deviceBridgeService) {
+      deviceBridgeServiceProvider.when('connected', ['DeviceBridgeService', 'NavigationService',
+        function (deviceBridgeService, navigationService) {
           deviceBridgeService.initialize();
+          navigationService.go('/0');
         }
       ]);
-      deviceBridgeServiceProvider.when('disconnected', ['$injector', 'WalletNodeService',
-        function ($injector, walletNodeService) {
+      deviceBridgeServiceProvider.when('disconnected', ['WalletNodeService',
+        function (walletNodeService) {
           walletNodeService.clear();
-          $injector.invoke(navigateToLocation('/connect'), this);
         }
       ]);
 

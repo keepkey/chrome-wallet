@@ -22,8 +22,6 @@ angular.module('kkCommon')
       }
 
       function updateWalletNodes(newNodes) {
-        var checkAllNodes = (nodes.length === 0);
-
         _.each(newNodes, function (node) {
           var index = getWalletIndexByHdNode(node.hdNode);
           if (nodes[index]) {
@@ -35,14 +33,9 @@ angular.module('kkCommon')
 
         setFirstWalletId();
 
-        // Request public key for nodes where it is missing
-        if (checkAllNodes) {
-          getPublicKeysForNodes(nodes);
-        } else {
-          getPublicKeysForNodes(_.filter(nodes, function (it) {
-            return !(it.wallet && it.wallet.xpub);
-          }));
-        }
+        getPublicKeysForNodes(_.filter(nodes, function (it) {
+          return !(it.wallet && it.wallet.xpub);
+        }));
         setTimeout(function () {
           $rootScope.$digest();
         });
@@ -97,6 +90,7 @@ angular.module('kkCommon')
 
       function clearData() {
         nodes.length = 0;
+        $rootScope.$digest();
       }
 
       function joinPaths() {

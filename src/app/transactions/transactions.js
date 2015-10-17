@@ -18,6 +18,9 @@ angular.module('kkTransactions', [
 
       $scope.$watch('wallets', function() {
         $scope.wallet = walletNodeService.getWalletById($routeParams.walletId);
+        if ($scope.wallet) {
+          walletNodeService.getTransactionHistory($routeParams.walletId);
+        }
       }, true);
     }
   ]);

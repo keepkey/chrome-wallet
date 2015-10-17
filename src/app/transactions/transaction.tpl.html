@@ -9,6 +9,7 @@
                 <td class="time">Time</td>
                 <td class="address">Address</td>
                 <td class="amount">Amount</td>
+                <td class="amount">Network Fee</td>
                 <td class="link"></td>
             </tr>
             </thead>
@@ -17,15 +18,24 @@
     <section>
         <table class="table">
             <tbody>
-            <tr ng-repeat="transaction in wallet.txHist" ng-show="transaction.amountReceived || transaction.amountSent">
+            <tr ng-repeat="transaction in wallet.txHist">
                 <td class="date">{{transaction.date | date:'shortDate' }}</td>
                 <td class="time">{{transaction.date | date:'mediumTime'}}</td>
                 <td class="address">
-                    <div ng-repeat="address in transaction.addresses track by $index">{{address}}</div>
+                    <div ng-repeat="address in transaction.addresses track by $index">
+                        {{address}}
+                    </div>
                 </td>
                 <td class="amount">
-                    <span class="received" ng-show="transaction.amountReceived">+ {{transaction.amountReceived / 100000000 | number:8}}</span>
-                    <span class="sent" ng-show="transaction.amountSent">- {{transaction.amountSent / 100000000| number:8}}</span>
+                    <div class="received" ng-show="transaction.amountReceived">
+                        + {{transaction.amountReceived / 100000000 | number:8}}
+                    </div>
+                    <div class="sent" ng-show="transaction.amountSent">
+                        - {{transaction.amountSent / 100000000| number:8}}
+                    </div>
+                </td>
+                <td class="amount">
+                    <div ng-show="transaction.fee">- {{transaction.fee / 100000000| number:8}}</div>
                 </td>
                 <td class="link"><a href="{{transaction.link}}" target="_blank">details</a><span
                         ng-show="transaction.pending">(pending)</span></td>
