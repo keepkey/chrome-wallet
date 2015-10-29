@@ -48,19 +48,21 @@ angular.module('kkWallet')
         }
       }
 
-      $scope.$watch('wallet', getAddress, true);
-      $scope.$watch('wallet.wallet.chains[0].firstUnused', function(newVal) {
-        $scope.firstUnusedAddress = newVal;
+      function setBitcoinLink() {
         if ($scope.firstUnusedAddress && $scope.firstUnusedAddress.address) {
-          $scope.bitcoinLink = [
-            'bitcoin:',
-            $scope.firstUnusedAddress.address,
-            '?label=KeepKey%20Wallet',
-            '&message=Secure%20Bitcoins%20with%20your%20KeepKey%20wallet'
-          ].join('');
+          $scope.bitcoinLink = $scope.firstUnusedAddress.address;
+        } else {
+          $scope.bitcoinLink = '';
         }
-      }, true);
+      }
 
+      $scope.$watch('wallet', getAddress, true);
+
+      $scope.$watch('wallet.wallet.chains[0].firstUnused', function (newVal) {
+        $scope.firstUnusedAddress = newVal;
+        setBitcoinLink();
+      }, true);
       $scope.$watch('firstUnusedAddress.address', displayAddressOnDevice);
     }
-  ]);
+  ])
+;
