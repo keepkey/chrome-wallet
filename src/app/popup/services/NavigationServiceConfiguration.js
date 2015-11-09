@@ -143,6 +143,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/passphrase/passphrase.tpl.html',
           goable: false
         })
+        .when('/support', {
+          templateUrl: 'app/popup/support/support.tpl.html',
+          goable: true
+        })
         .otherwise({
           redirectTo: '/'
         });

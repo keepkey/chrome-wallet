@@ -1,0 +1,47 @@
+<section id="support" ng-controller="SupportController">
+    <header>
+        <back-button class="button-left header-button"
+                     destination="backDestination"></back-button>
+    </header>
+
+    <div class="content">
+        <h2><span class="cornflower-txt"><b>Support</b></span> For Your KeepKey
+        </h2>
+
+        <div class="menu">
+            <ul>
+                <li>
+                    <button class="menu-item" ng-click="launchSupportTab()">
+                        Web
+                    </button>
+                </li>
+                <li>
+                    <button class="menu-item" ng-click="openEmail()">Email
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="menu-annotation">Telephone: <a href="tel:18554638550">+1-855-463-8550</a></div>
+        <div class="support-info panel panel-default">
+            <div class="panel-body">
+                <h4>Device Details</h4>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Privacy Warning</div>
+                    <div class="panel-body">
+                        Sharing these details with KeepKey support may reveal
+                        your transaction history and other data about your
+                        bitcoin usage. Sharing this information does not reveal
+                        your private key.
+                    </div>
+                </div>
+                <div ng-repeat="(key, value) in device">
+                    <span>{{key}}</span>: {{value}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        KeepKey Firmware <span class="data">v{{device.major_version}}.{{device.minor_version}}.{{device.patch_version}}</span>
+    </div>
+</section>
