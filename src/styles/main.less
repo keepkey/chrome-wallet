@@ -179,12 +179,11 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 .wallets {
   position: absolute;
   top: @header-height;
-  width: @wallet-list-width;
-  margin: 0 @wallet-list-margin 0 @wallet-list-margin;
+  width: 100%;
   .wallet {
     border-bottom: 1px solid #EBEBEC;
     height: @wallet-height;
-    padding: 1px;
+    padding: 1px @wallet-list-margin;
     transition: 0.3s all ease-in;
     .connection-light {
       margin: 20px 10px 33px 0;
