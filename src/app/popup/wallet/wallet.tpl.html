@@ -1,48 +1,50 @@
 <section id="wallet" ng-controller="WalletController">
     <header>
-        <back-button class="button-left header-button" destination="'walletlist'"></back-button>
-        <a class="button-right header-button refresh-button" ng-click="refresh()">
+        <back-button class="button-left header-button"
+                     destination="'walletlist'"></back-button>
+        <a class="button-right header-button refresh-button"
+           ng-click="refresh()">
             <div class="icon icon-refresh"></div>
         </a>
     </header>
 
     <div class="content">
         <div class="wallet online">
-            <div class="details">
-                <h2 class="val">
-                    <div class="connection-light"></div>
-                    <span ng-show="receiveDisabled()">
-                        <span class="fa fa-refresh fa-spin"></span>
-                    </span>
-                    <span ng-hide="receiveDisabled()" ng-bind="balance()"></span>
-                    <span class="wallet-currency">{{btcFormatter.BITCOINS}}</span>
-                </h2>
-                <div class="unconfirmed-balance" ng-show="hasPendingBalance()">
-                    <span>Pending:</span>
-                    <span ng-bind="pendingBalance()"></span>
-                    <span class="wallet-currency">{{btcFormatter.BITCOINS}}</span>
-                </div>
-            </div>
+            <wallet-balance
+                    class="details"
+                    balance="wallet.highConfidenceBalance"
+                    pending="wallet.lowConfidenceBalance"
+                    loading="receiveDisabled()">
+            </wallet-balance>
         </div>
 
         <div class="menu">
             <ul>
                 <li>
-                    <button class="menu-item" ng-click="send()" ng-disabled="!sendAllowed()">Send Money</button>
-                </li>
-                <li>
-                    <button class="menu-item" ng-click="receive()" ng-disabled="receiveDisabled()">Receive Money
+                    <button class="menu-item" ng-click="send()"
+                            ng-disabled="!sendAllowed()">Send Money
                     </button>
                 </li>
                 <li>
-                    <button class="menu-item" ng-click="showTransactions()">Transactions</button>
+                    <button class="menu-item" ng-click="receive()"
+                            ng-disabled="receiveDisabled()">Receive Money
+                    </button>
                 </li>
                 <li>
-                    <button class="menu-item" ng-click="go('/device', 'slideLeft')">Device Settings</button>
+                    <button class="menu-item" ng-click="showTransactions()">
+                        Transactions
+                    </button>
+                </li>
+                <li>
+                    <button class="menu-item"
+                            ng-click="go('/device', 'slideLeft')">Device
+                        Settings
+                    </button>
                 </li>
             </ul>
         </div>
     </div>
 
-    <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected</div>
+    <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected
+    </div>
 </section>

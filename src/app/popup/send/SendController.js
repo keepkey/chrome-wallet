@@ -1,11 +1,9 @@
 angular.module('kkWallet')
-  .controller('SendController', ['$scope', '$routeParams', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService', 'FormatBitcoinService',
-    function SendController($scope, $routeParams, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService, formatBitcoinService) {
+  .controller('SendController', ['$scope', '$routeParams', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService',
+    function SendController($scope, $routeParams, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService) {
       walletNodeService.reload();
 
       feeService.update();
-
-      $scope.btcFormatter = formatBitcoinService;
 
       $scope.fees = feeService.fees;
       $scope.feeOptions = feeService.feeOptions;
@@ -52,10 +50,6 @@ angular.module('kkWallet')
 
         return fee;
       }
-
-      $scope.formatFee = function (feeLevelOption) {
-        return [formatBitcoinService.toBitcoin($scope.getFee(feeLevelOption)), formatBitcoinService.BITCOINS].join(' ');
-      };
 
       $scope.backDestination = '/wallet/' + $routeParams.wallet;
 

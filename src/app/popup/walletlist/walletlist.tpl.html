@@ -8,15 +8,13 @@
 
     <div class="wallets">
         <div class="wallet online" ng-repeat="wallet in wallets track by wallet.id">
-            <div class="connection-light">
-            </div>
             <div class="details">
-                <h2 class="val"><span ng-bind="getBalance(wallet.hdNode)"></span> <span
-                        class="wallet-currency"> btc</span></h2>
-
-                <h3 class="wallet-name">
-                    {{wallet.name}}
-                </h3>
+                <wallet-balance
+                        balance="wallet.highConfidenceBalance"
+                        pending="wallet.lowConfidenceBalance"
+                        loading="!wallet.wallet.xpub || !wallet.hdNode">
+                </wallet-balance>
+                <h3 class="wallet-name" ng-bind="wallet.hdNode"></h3>
             </div>
             <div class="go-side">
                 <div class="go-btn">

@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="fee-display" ng-show="getFee(userInput.feeLevel) > 0">
-                            <label>Fee:</label><span class="fee">{{formatFee(userInput.feeLevel)}}</span>
+                            <label>Fee:</label><bitcoin-amount class="fee" amount="getFee(userInput.feeLevel)"></bitcoin-amount>
                         </div>
                     </div>
                 </div>

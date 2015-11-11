@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-  .controller('WalletController', ['$scope', '$routeParams', 'WalletNodeService', 'DeviceFeatureService', 'TransactionService', 'DeviceBridgeService', 'FormatBitcoinService',
-    function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, transactionService, deviceBridgeService, formatBitcoinService) {
+  .controller('WalletController', ['$scope', '$routeParams', 'WalletNodeService', 'DeviceFeatureService', 'TransactionService', 'DeviceBridgeService',
+    function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, transactionService, deviceBridgeService) {
       $scope.walletList = walletNodeService.wallets;
       $scope.walletStats = walletNodeService.walletStats;
       $scope.walletId = parseInt($routeParams.wallet, 10);
@@ -8,8 +8,6 @@ angular.module('kkWallet')
       walletNodeService.reload(true);
 
       $scope.device = deviceFeatureService.features;
-
-      $scope.btcFormatter = formatBitcoinService;
 
       $scope.send = function () {
         $scope.go('/send/' + $scope.walletId, 'slideLeft');
@@ -34,28 +32,6 @@ angular.module('kkWallet')
           $scope.wallet.wallet.xpub &&
           $scope.wallet.hdNode
         );
-      };
-
-      $scope.balance = function () {
-        var balance = $scope.wallet && $scope.wallet.highConfidenceBalance;
-        if (balance) {
-          return formatBitcoinService.toBitcoin(balance);
-        } else {
-          return '0.0';
-        }
-      };
-
-      $scope.hasPendingBalance = function() {
-        return !!($scope.wallet && $scope.wallet.lowConfidenceBalance);
-      }
-
-      $scope.pendingBalance = function () {
-        var balance = $scope.wallet && $scope.wallet.lowConfidenceBalance;
-        if (balance) {
-          return formatBitcoinService.toBitcoin(balance);
-        } else {
-          return '0.0';
-        }
       };
 
       $scope.refresh = function () {

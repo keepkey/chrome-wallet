@@ -1,5 +1,5 @@
 angular.module('kkWallet')
-    .directive('pinPad', function backButton() {
+    .directive('pinPad', function pinPad() {
         return {
             restrict: 'E',
             replace: true,
@@ -30,5 +30,4 @@ angular.module('kkWallet')
             templateUrl: 'app/popup/directives/pinPad.tpl.html'
 
         };
-    })
-;
+    });
