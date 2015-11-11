@@ -9,6 +9,10 @@ angular.module('kkWallet')
         deviceBridgeService.reloadBalances();
       };
 
+      $scope.addAccount = function() {
+        console.log('add wallet clicked');
+      };
+
       $scope.goWallet = function(wallet) {
         $scope.go('/wallet/' + wallet.id, 'slideLeft');
       }

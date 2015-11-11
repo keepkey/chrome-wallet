@@ -30,6 +30,23 @@
             </div>
         </div>
     </div>
+    <div class="menu">
+        <ul>
+            <li>
+                <button class="menu-item" ng-click="addAccount()">
+                    Add an Account
+                </button>
+            </li>
+            <li>
+                <button class="menu-item"
+                        ng-click="go('/device', 'slideLeft')">Device
+                    Settings
+                </button>
+            </li>
+        </ul>
+    </div>
+
+
     <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected
     </div>
 </section>

@@ -42,7 +42,10 @@ angular.module('kkWallet')
         chrome.tabs.create({
           url: '/keepkey.html#/' + $scope.walletId
         });
-      }
+      };
+      $scope.accountSettings = function() {
+        console.log('Account settings clicked');
+      };
 
       if (_.isNumber($scope.walletId)) {
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);

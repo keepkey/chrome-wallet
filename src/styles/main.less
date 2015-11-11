@@ -1134,10 +1134,15 @@ a {
 }
 
 #wallet-list {
+  .menu {
+    position: absolute;
+    bottom: @status-bar-height;
+  }
   .wallets {
     position: absolute;
     top: @header-height;
     width: 100%;
+    overflow-x: scroll;
     .wallet {
       border-bottom: 1px solid #EBEBEC;
       height: @wallet-height;
