@@ -1,11 +1,10 @@
-<div>
-    <div class="connection-light"></div>
-    <h2 class="val">
+<div class="wallet-balance">
+    <div class="balance">
         <span ng-show="loading">
             <span class="fa fa-refresh fa-spin"></span>
         </span>
         <bitcoin-amount ng-hide="loading" amount="balance"></bitcoin-amount>
-    </h2>
+    </div>
     <div class="unconfirmed-balance" ng-show="pending">
         <span>Pending:&nbsp;</span>
         <bitcoin-amount amount="pending"></bitcoin-amount>

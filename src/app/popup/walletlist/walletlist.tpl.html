@@ -1,21 +1,16 @@
-<section id="initialized" ng-controller="WalletListController">
+<section id="wallet-list" ng-controller="WalletListController">
     <header>
         <!--<settings-button class="button-left header-button"></settings-button>-->
-        <a class="button-right header-button refresh-button" ng-click="refresh()">
+        <a class="button-right header-button refresh-button"
+           ng-click="refresh()">
             <div class="icon icon-refresh"></div>
         </a>
     </header>
 
     <div class="wallets">
-        <div class="wallet online" ng-repeat="wallet in wallets track by wallet.id">
-            <div class="details">
-                <wallet-balance
-                        balance="wallet.highConfidenceBalance"
-                        pending="wallet.lowConfidenceBalance"
-                        loading="!wallet.wallet.xpub || !wallet.hdNode">
-                </wallet-balance>
-                <h3 class="wallet-name" ng-bind="wallet.hdNode"></h3>
-            </div>
+        <div class="wallet online"
+             ng-repeat="wallet in wallets track by wallet.id">
+            <div class="connection-light"></div>
             <div class="go-side">
                 <div class="go-btn">
                     <a class="wallet-link" ng-click="goWallet(wallet)">
@@ -23,7 +18,18 @@
                     </a>
                 </div>
             </div>
+            <div class="details">
+                <div class="wallet-name" ng-bind="wallet.hdNode"></div>
+                <div>
+                    <wallet-balance
+                            balance="wallet.highConfidenceBalance"
+                            pending="wallet.lowConfidenceBalance"
+                            loading="!wallet.wallet.xpub || !wallet.hdNode">
+                    </wallet-balance>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected</div>
+    <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected
+    </div>
 </section>
