@@ -172,6 +172,13 @@ angular.module('kkCommon')
               walletNode: node,
               feeLevel: feeLevel
             });
+          },
+          addAccount: function(nodeVector, accountName) {
+            return sendMessage({
+              messageType: 'AddAccount',
+              nodeVector: nodeVector,
+              name: accountName
+            })
           }
         };
       }

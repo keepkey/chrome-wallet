@@ -6,22 +6,12 @@ angular.module('kkCommon')
       var nodes = [];
       var walletStats = {};
 
-      function getPublicKeysForNodes(nodes) {
-        _.each(nodes, function (it) {
-            delete it.chainCode;
-            delete it.publicKey;
-            delete it.xpub;
-            deviceBridgeService.getPublicKey({
-              addressN: it.nodePath
-            });
-          }
-        );
-        setTimeout(function () {
-          $rootScope.$digest();
-        });
-      }
-
       function updateWalletNodes(newNodes) {
+        if (newNodes.length === 0) {
+          // Bootstrap the first account
+          deviceBridgeService.addAccount('m/44\'/0\'/0\'', 'Main Account');
+          return;
+        }
         _.each(newNodes, function (node) {
           var index = getWalletIndexByHdNode(node.hdNode);
           if (nodes[index]) {
@@ -33,9 +23,6 @@ angular.module('kkCommon')
 
         setFirstWalletId();
 
-        getPublicKeysForNodes(_.filter(nodes, function (it) {
-          return !(it.wallet && it.wallet.xpub);
-        }));
         setTimeout(function () {
           $rootScope.$digest();
         });

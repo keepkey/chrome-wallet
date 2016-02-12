@@ -10,11 +10,23 @@ angular.module('kkWallet')
       };
 
       $scope.addAccount = function() {
-        console.log('add wallet clicked');
+        var newAccountNode = findNextAccountNode();
+        deviceBridgeService.addAccount(newAccountNode, 'Another Wallet');
       };
 
       $scope.goWallet = function(wallet) {
         $scope.go('/wallet/' + wallet.id, 'slideLeft');
+      }
+
+      function findNextAccountNode() {
+        var candidateAccount = 0;
+        while (_.find($scope.wallets, {
+          hdNode: "m/44'/0'/" + candidateAccount + "'"
+        })) {
+          candidateAccount++;
+        }
+
+        return "m/44'/0'/" + candidateAccount + "'";
       }
     }
   ]);
