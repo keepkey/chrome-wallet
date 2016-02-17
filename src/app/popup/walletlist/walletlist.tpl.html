@@ -8,8 +8,13 @@
     </header>
 
     <div class="wallets">
+        <div class="wallet online" ng-show="!loaded">
+            Please wait a moment while you accounts are loaded...
+        </div>
         <div class="wallet online"
-             ng-repeat="wallet in wallets track by wallet.id">
+             ng-repeat="wallet in wallets track by wallet.id | orderBy: name"
+             ng-show="loaded"
+            >
             <div class="connection-light"></div>
             <div class="go-side">
                 <div class="go-btn">
@@ -19,12 +24,11 @@
                 </div>
             </div>
             <div class="details">
-                <div class="wallet-name" ng-bind="wallet.hdNode"></div>
+                <div class="wallet-name" ng-bind="wallet.name"></div>
                 <div>
                     <wallet-balance
                             balance="wallet.highConfidenceBalance"
-                            pending="wallet.lowConfidenceBalance"
-                            loading="!wallet.wallet.xpub || !wallet.hdNode">
+                            pending="wallet.lowConfidenceBalance">
                     </wallet-balance>
                 </div>
             </div>

@@ -4,6 +4,7 @@ angular.module('kkWallet')
       $scope.wallets = walletNodeService.wallets;
       $scope.balances = transactionService.walletBalances;
       $scope.device = deviceFeatureService.features;
+      $scope.loaded = !!$scope.wallets.length;
 
       $scope.refresh = function () {
         deviceBridgeService.reloadBalances();
@@ -18,10 +19,14 @@ angular.module('kkWallet')
         $scope.go('/wallet/' + wallet.id, 'slideLeft');
       }
 
+      $scope.$watch("wallets.length", function() {
+        $scope.loaded = !!$scope.wallets.length;
+      });
+
       function findNextAccountNode() {
         var candidateAccount = 0;
         while (_.find($scope.wallets, {
-          hdNode: "m/44'/0'/" + candidateAccount + "'"
+          nodePath: "m/44'/0'/" + candidateAccount + "'"
         })) {
           candidateAccount++;
         }

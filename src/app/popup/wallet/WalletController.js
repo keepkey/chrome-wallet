@@ -3,9 +3,10 @@ angular.module('kkWallet')
     function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, transactionService, deviceBridgeService) {
       $scope.walletList = walletNodeService.wallets;
       $scope.walletStats = walletNodeService.walletStats;
-      $scope.walletId = parseInt($routeParams.wallet, 10);
+      $scope.walletId = $routeParams.wallet;
 
-      walletNodeService.reload(true);
+      //walletNodeService.reload(true);
+      updateWallet();
 
       $scope.device = deviceFeatureService.features;
 
@@ -18,19 +19,17 @@ angular.module('kkWallet')
       };
 
       $scope.sendAllowed = function () {
-        return $scope.wallet &&
-          $scope.wallet.wallet &&
-          $scope.wallet.wallet.xpub &&
-          $scope.wallet.hdNode &&
-          $scope.wallet.final_balance;
+        return (
+          !!_.get($scope, 'wallet.wallet.xpub') &&
+          !!_.get($scope, 'wallet.nodePath') &&
+          !!_.get($scope, 'wallet.final_balance')
+        );
       };
 
       $scope.receiveDisabled = function () {
         return !(
-          $scope.wallet &&
-          $scope.wallet.wallet &&
-          $scope.wallet.wallet.xpub &&
-          $scope.wallet.hdNode
+          !!_.get($scope, 'wallet.wallet.xpub') &&
+          !!_.get($scope, 'wallet.nodePath')
         );
       };
 
@@ -38,28 +37,24 @@ angular.module('kkWallet')
         deviceBridgeService.reloadBalances();
       };
 
-      $scope.showTransactions = function() {
+      $scope.showTransactions = function () {
         chrome.tabs.create({
           url: '/keepkey.html#/' + $scope.walletId
         });
       };
-      $scope.accountSettings = function() {
+      $scope.accountSettings = function () {
         console.log('Account settings clicked');
       };
-
-      if (_.isNumber($scope.walletId)) {
-        $scope.wallet = walletNodeService.getWalletById($scope.walletId);
-      }
 
       function updateWallet() {
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);
       }
 
-      $scope.$watch('walletStats', function() {
-        if (!_.isNumber($scope.walletId) || _.isNaN($scope.walletId)) {
-          $scope.go('/wallet/' +  $scope.walletStats.firstWalletId) ;
-        }
-      }, true);
+      //$scope.$watch('walletStats', function() {
+      //  if (!_.isNumber($scope.walletId) || _.isNaN($scope.walletId)) {
+      //    $scope.go('/wallet/' +  $scope.walletStats.firstWalletId) ;
+      //  }
+      //}, true);
       $scope.$watch('walletId', updateWallet, true);
       $scope.$watch('walletList', updateWallet, true);
     }

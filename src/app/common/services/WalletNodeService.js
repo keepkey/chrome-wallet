@@ -13,9 +13,9 @@ angular.module('kkCommon')
           return;
         }
         _.each(newNodes, function (node) {
-          var index = getWalletIndexByHdNode(node.hdNode);
-          if (nodes[index]) {
-            angular.copy(node, nodes[index]);
+          var matchingNode = _.find(nodes, {id: node.id});
+          if (matchingNode) {
+            angular.copy(node, matchingNode);
           } else {
             nodes.push(node);
           }
@@ -48,23 +48,24 @@ angular.module('kkCommon')
       }
 
       function getWalletById(id) {
-        var node;
-
-        if (_.isString(id)) {
-          id = parseInt(id, 10);
-        }
-        if (_.isNaN(id)) {
-          node = undefined;
-        } else {
-          var hdNode = ['m', "44'", "0'", id + "'"].join('/');
-          node = _.find(nodes, {hdNode: hdNode});
-          if (!node) {
-            if (nodes.length > id) {
-              node = nodes[id];
-            }
-          }
-        }
-        return node;
+        //var node;
+        //
+        //  _.find(nodes, {id: id});
+        //if (_.isString(id)) {
+        //  id = parseInt(id, 10);
+        //}
+        //if (_.isNaN(id)) {
+        //  node = undefined;
+        //} else {
+        //  var hdNode = ['m', "44'", "0'", id + "'"].join('/');
+        //  node = _.find(nodes, {hdNode: hdNode});
+        //  if (!node) {
+        //    if (nodes.length > id) {
+        //      node = nodes[id];
+        //    }
+        //  }
+        //}
+        return _.find(nodes, {id: id});
       }
 
       function getWalletIndexByHdNode(hdNode) {
