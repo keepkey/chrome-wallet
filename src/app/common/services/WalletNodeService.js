@@ -69,7 +69,7 @@ angular.module('kkCommon')
       }
 
       function getWalletIndexByHdNode(hdNode) {
-        return _.findIndex(nodes, {hdNode: hdNode})
+        return _.findIndex(nodes, {nodePath: hdNode})
       }
 
       function setFirstWalletId() {

@@ -56,11 +56,11 @@ angular.module('kkWallet')
       getMaximumTransactionAmount();
 
       function computeFees() {
-        feeService.compute($scope.wallet.hdNode, $scope.userInput.amount);
+        feeService.compute($scope.wallet.nodePath, $scope.userInput.amount);
       }
 
       function getMaximumTransactionAmount() {
-        feeService.getMaximumTransactionAmount($scope.wallet.hdNode, $scope.userInput.feeLevel);
+        feeService.getMaximumTransactionAmount($scope.wallet.nodePath, $scope.userInput.feeLevel);
       }
 
       function verifyFeeLevel() {

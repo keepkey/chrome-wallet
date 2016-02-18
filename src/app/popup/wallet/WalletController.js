@@ -50,11 +50,6 @@ angular.module('kkWallet')
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);
       }
 
-      //$scope.$watch('walletStats', function() {
-      //  if (!_.isNumber($scope.walletId) || _.isNaN($scope.walletId)) {
-      //    $scope.go('/wallet/' +  $scope.walletStats.firstWalletId) ;
-      //  }
-      //}, true);
       $scope.$watch('walletId', updateWallet, true);
       $scope.$watch('walletList', updateWallet, true);
     }

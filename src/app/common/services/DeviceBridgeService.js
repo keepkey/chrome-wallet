@@ -109,9 +109,10 @@ angular.module('kkCommon')
               messageType: 'FirmwareUpdate'
             });
           },
-          getUnusedExternalAddressNode: function(walletId) {
+          getUnusedExternalAddressNode: function(accountId) {
             var message = angular.extend({}, {
-              messageType: 'GetUnusedExternalAddressNode'
+              messageType: 'GetUnusedExternalAddressNode',
+              account: accountId
             });
             return sendMessage(message);
           },

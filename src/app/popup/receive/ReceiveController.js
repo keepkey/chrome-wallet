@@ -13,12 +13,15 @@ angular.module('kkWallet')
         });
       });
 
-      $scope.backDestination = '/wallet/' + $routeParams.walletId;
-
-      $scope.walletId = parseInt($routeParams.walletId, 10);
+      $scope.walletId = $routeParams.walletId;
       $scope.wallet = walletNodeService.getWalletById($scope.walletId);
 
       $scope.bitcoinLink = '';
+
+      $scope.onCancel = function() {
+        $rootScope.onCancel();
+        navigationService.go();
+      }
 
       function getAddress() {
         walletNodeService.firstUnusedAddress($scope.walletId);
@@ -33,10 +36,10 @@ angular.module('kkWallet')
       });
 
       function displayAddressOnDevice() {
-        if ($scope.firstUnusedAddress && $scope.firstUnusedAddress.address) {
+        if (_.get($scope, 'firstUnusedAddress.address')) {
           var addressN = walletNodeService.pathToAddressN(
             walletNodeService.joinPaths(
-              $scope.wallet.hdNode, $scope.firstUnusedAddress.path
+              $scope.wallet.nodePath, $scope.firstUnusedAddress.path
             ));
 
           deviceBridgeService.getAddress({
