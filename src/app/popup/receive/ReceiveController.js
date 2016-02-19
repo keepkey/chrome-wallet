@@ -18,11 +18,6 @@ angular.module('kkWallet')
 
       $scope.bitcoinLink = '';
 
-      $scope.onCancel = function() {
-        $rootScope.onCancel();
-        navigationService.go();
-      }
-
       function getAddress() {
         walletNodeService.firstUnusedAddress($scope.walletId);
       }
