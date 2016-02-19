@@ -48,23 +48,6 @@ angular.module('kkCommon')
       }
 
       function getWalletById(id) {
-        //var node;
-        //
-        //  _.find(nodes, {id: id});
-        //if (_.isString(id)) {
-        //  id = parseInt(id, 10);
-        //}
-        //if (_.isNaN(id)) {
-        //  node = undefined;
-        //} else {
-        //  var hdNode = ['m', "44'", "0'", id + "'"].join('/');
-        //  node = _.find(nodes, {hdNode: hdNode});
-        //  if (!node) {
-        //    if (nodes.length > id) {
-        //      node = nodes[id];
-        //    }
-        //  }
-        //}
         return _.find(nodes, {id: id});
       }
 
@@ -104,8 +87,6 @@ angular.module('kkCommon')
 
       var getTransactionHistory = deviceBridgeService.getTransactionHistory;
 
-      deviceBridgeService.getWalletNodes();
-
       return {
         wallets: nodes,
         walletStats: walletStats,
@@ -116,7 +97,8 @@ angular.module('kkCommon')
         joinPaths: joinPaths,
         pathToAddressN: pathToAddressN,
         clear: clearData,
-        getTransactionHistory: getTransactionHistory
+        getTransactionHistory: getTransactionHistory,
+        loadAccounts: deviceBridgeService.getWalletNodes
       };
     }
   ])

@@ -10,6 +10,10 @@ angular.module('kkWallet')
         deviceBridgeService.reloadBalances();
       };
 
+      if (!$scope.wallets.length) {
+        walletNodeService.loadAccounts();
+      }
+
       $scope.addAccount = function() {
         var newAccountNode = findNextAccountNode();
         deviceBridgeService.addAccount(newAccountNode, 'Another Wallet');
