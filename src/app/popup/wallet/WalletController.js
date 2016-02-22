@@ -22,7 +22,7 @@ angular.module('kkWallet')
         return (
           !!_.get($scope, 'wallet.wallet.xpub') &&
           !!_.get($scope, 'wallet.nodePath') &&
-          !!_.get($scope, 'wallet.final_balance')
+          !!_.get($scope, 'wallet.highConfidenceBalance')
         );
       };
 

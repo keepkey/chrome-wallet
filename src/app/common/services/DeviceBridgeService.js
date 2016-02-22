@@ -160,18 +160,17 @@ angular.module('kkCommon')
               messageType: 'GetFees'
             });
           },
-          estimateFeeForTransaction: function (node, transactionAmount) {
+          estimateFeeForTransaction: function (accountId, transactionAmount) {
             return sendMessage({
               messageType: 'EstimateFeeForTransaction',
-              walletNode: node,
+              accountId: accountId,
               transactionAmount: transactionAmount * 100000000
             })
           },
-          getMaximumTransactionAmount: function (node, feeLevel) {
+          getMaximumTransactionAmount: function (nodeId) {
             return sendMessage({
               messageType: 'GetMaximumTransactionAmount',
-              walletNode: node,
-              feeLevel: feeLevel
+              accountId: nodeId
             });
           },
           addAccount: function(nodeVector, accountName) {

@@ -34,7 +34,11 @@ angular.module('kkWallet')
       };
       
       $scope.getMaxAmount = function () {
-        return $scope.maxAmount.max / 100000000;
+        if ($scope.maxAmount.max) {
+          return $scope.maxAmount.max / 100000000;
+        } else {
+          return 0;
+        }
       };
 
       $scope.setFeeLevel = function (option) {
@@ -56,11 +60,11 @@ angular.module('kkWallet')
       getMaximumTransactionAmount();
 
       function computeFees() {
-        feeService.compute($scope.wallet.nodePath, $scope.userInput.amount);
+        feeService.compute($scope.wallet.id, $scope.userInput.amount);
       }
 
       function getMaximumTransactionAmount() {
-        feeService.getMaximumTransactionAmount($scope.wallet.nodePath, $scope.userInput.feeLevel);
+        feeService.getMaximumTransactionAmount($scope.wallet.id);
       }
 
       function verifyFeeLevel() {
