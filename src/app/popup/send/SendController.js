@@ -27,7 +27,13 @@ angular.module('kkWallet')
       };
       $scope.buildTransaction = function () {
         if ($scope.userInput.address && $scope.userInput.amount) {
-          angular.copy($scope.userInput, transactionService.transactionInProgress);
+          transactionService.transactionInProgress = {
+            accountId: $scope.userInput.sourceIndex,
+            sendTo: $scope.userInput.address,
+            amount: $scope.userInput.amount,
+            feeLevel: $scope.userInput.feeLevel
+          };
+
           deviceBridgeService.requestTransactionSignature(transactionService.transactionInProgress);
           navigationService.setNextTransition('slideLeft');
         }
