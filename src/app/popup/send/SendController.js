@@ -63,14 +63,8 @@ angular.module('kkWallet')
 
       $scope.backDestination = '/wallet/' + $routeParams.wallet;
 
-      getMaximumTransactionAmount();
-
       function computeFees() {
         feeService.compute($scope.wallet.id, $scope.userInput.amount);
-      }
-
-      function getMaximumTransactionAmount() {
-        feeService.getMaximumTransactionAmount($scope.wallet.id);
       }
 
       function verifyFeeLevel() {
@@ -80,7 +74,7 @@ angular.module('kkWallet')
           'slow': 'slow'
         };
 
-        if ($scope.estimatedFee && $scope.estimatedFee.fee) {
+        if (_.get($scope, 'estimatedFee.fee')) {
           while (_.isUndefined($scope.estimatedFee.fee[$scope.userInput.feeLevel])) {
             $scope.userInput.feeLevel = translation[$scope.userInput.feeLevel];
             if ($scope.userInput.feeLevel === 'slow') {
@@ -90,8 +84,9 @@ angular.module('kkWallet')
         }
       }
 
+      feeService.getMaximumTransactionAmount($scope.wallet.id);
+
       $scope.$watch('userInput.amount', computeFees);
       $scope.$watch('estimatedFee', verifyFeeLevel, true);
-      $scope.$watch('estimatedFee', getMaximumTransactionAmount, true);
     }
   ]);
