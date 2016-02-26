@@ -43,7 +43,7 @@ angular.module('kkWallet')
         });
       };
       $scope.accountSettings = function () {
-        console.log('Account settings clicked');
+        $scope.go('/walletConfig/' + $scope.walletId, 'slideLeft');
       };
 
       function updateWallet() {

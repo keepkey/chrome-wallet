@@ -179,6 +179,19 @@ angular.module('kkCommon')
               nodeVector: nodeVector,
               name: accountName
             })
+          },
+          deleteAccount: function(walletId) {
+            return sendMessage({
+              messageType: 'DeleteAccount',
+              accountId: walletId
+            });
+          },
+          updateWalletName: function(walletId, walletName) {
+            return sendMessage({
+              messageType: 'ChangeWalletName',
+              accountId: walletId,
+              accountName: walletName
+            });
           }
         };
       }

@@ -1121,12 +1121,15 @@ input::-webkit-inner-spin-button {
     outline: none;
   }
 }
+
 .menu-annotation {
   text-align: center;
 }
+
 a {
   color: #9FAE00;
 }
+
 .support-info {
   height: 128px;
   overflow: scroll;
@@ -1141,6 +1144,7 @@ a {
   .wallets {
     position: absolute;
     top: @header-height;
+    bottom: 125px;
     width: 100%;
     overflow-x: scroll;
     .wallet {
@@ -1154,7 +1158,7 @@ a {
       }
       .wallet-balance {
         font-size: 12px;
-        >div {
+        > div {
           display: inline-block;
         }
         .balance {
@@ -1223,6 +1227,24 @@ a {
     margin: -4px 20px;
     .wallet-currency {
       display: none;
+    }
+  }
+}
+
+#wallet-config {
+  .account-form {
+    header {
+      font-size: 24px;
+      padding: 12px;
+    }
+    width: 100%;
+    margin: 50px 0 0;
+    padding: 0;
+    .label-column {
+      font-weight: 800;
+    }
+    .data-column {
+      overflow-wrap: break-word;
     }
   }
 }

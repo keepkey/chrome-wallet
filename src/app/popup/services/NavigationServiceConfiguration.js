@@ -147,6 +147,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/support/support.tpl.html',
           goable: true
         })
+        .when('/walletConfig/:walletId', {
+          templateUrl: 'app/popup/walletConfig/walletConfig.tpl.html',
+          goable: true
+        })
         .otherwise({
           redirectTo: '/'
         });
