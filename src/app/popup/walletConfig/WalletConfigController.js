@@ -4,7 +4,15 @@ angular.module('kkWallet')
       $scope.walletId = $routeParams.walletId;
 
       $scope.delete = function deleteWallet() {
-        deviceBridgeService.deleteAccount($scope.walletId);
+        deviceBridgeService.deleteAccount($scope.walletId)
+          .then(function(success) {
+            if (success) {
+              walletNodeService.removeAccount($scope.walletId);
+              $scope.go('/walletlist', 'slideRight');
+            } else {
+              console.error('delete account failed');
+            }
+          });
       }
 
       function updateWallet() {

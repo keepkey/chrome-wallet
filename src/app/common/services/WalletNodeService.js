@@ -85,6 +85,10 @@ angular.module('kkCommon')
         }, []);
       }
 
+      function removeAccount(accountId) {
+        _.remove(nodes, {id: accountId});
+      }
+
       var getTransactionHistory = deviceBridgeService.getTransactionHistory;
 
       return {
@@ -98,7 +102,8 @@ angular.module('kkCommon')
         pathToAddressN: pathToAddressN,
         clear: clearData,
         getTransactionHistory: getTransactionHistory,
-        loadAccounts: deviceBridgeService.getWalletNodes
+        loadAccounts: deviceBridgeService.getWalletNodes,
+        removeAccount: removeAccount
       };
     }
   ])
