@@ -54,7 +54,23 @@ angular.module('kkWallet')
         }]);
       deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
       deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
-      deviceBridgeServiceProvider.when('Success', navigateToLocation('/success/:message'));
+      deviceBridgeServiceProvider.when('Success', [ '$injector',
+        function($injector) {
+          var destination;
+          switch (this.request.message.message) {
+            case 'Settings applied':
+            case 'PIN changed':
+              destination = '/device';
+              break;
+            case 'Device recovered':
+              destination = '/walletList'
+              break;
+            default:
+              destination = '/success/:message';
+          }
+          $injector.invoke(navigateToLocation(destination), this);
+        }
+      ]);
       deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
       deviceBridgeServiceProvider.when('Address', navigateToPreviousLocation());
       deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
