@@ -99,18 +99,11 @@
                                     min="0.00000001"
                                     max="{{getMaxAmount()}}">
 
-                            <label>Transaction speed:</label>
-                            <div class="fee-level-btn btn-group" role="group">
-                                <button ng-repeat="feeLevelOption in feeOptions"
-                                        type="button"
-                                        ng-click="setFeeLevel(feeLevelOption)"
-                                        ng-class="{'btn-primary': userInput.feeLevel === feeLevelOption, 'btn-default': userInput.feeLevel !== feeLevelOption }"
-                                        class="btn"
-                                        ng-disabled="userInput.amount > 0 && estimatedFee.fee[feeLevelOption] === undefined">
-                                    <div>{{feeDisplay[feeLevelOption]}}</div>
-                                </button>
-                            </div>
-
+                            <fee-selector
+                                    estimated-fees="estimatedFee.fee"
+                                    selected="userInput.feeLevel"
+                                    active="userInput.amount > 0">
+                            </fee-selector>
                             <div class="fee-display"
                                  ng-show="getFee(userInput.feeLevel) > 0">
                                 <label>Fee:</label>
