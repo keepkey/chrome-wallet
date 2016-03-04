@@ -13,7 +13,7 @@ angular.module('kkWallet')
               console.error('delete account failed');
             }
           });
-      }
+      };
 
       function updateWallet() {
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);

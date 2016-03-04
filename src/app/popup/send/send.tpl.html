@@ -1,69 +1,132 @@
 <section id="build-transaction" ng-controller="SendController">
     <header>
-        <back-button class="button-left header-button" destination="backDestination"></back-button>
+        <back-button class="button-left header-button"
+                     destination="backDestination"></back-button>
     </header>
 
     <div class="content">
-        <div ng-show="wallet.highConfidenceBalance">
-            <h2><span class="cornflower-txt"><b>Send Money</b></span> from your KeepKey</h2>
+        <div ng-show="showForm">
+            <h2>
+                <ng-include src="titleTemplate"></ng-include>
+            </h2>
 
             <form name="form" novalidate>
 
-            <div class="form-input-container">
-                <div class="content-form-inner">
-                    <div class="content-inner-centering">
+                <div class="form-input-container">
+                    <div class="content-form-inner">
+                        <div class="content-inner-centering">
 
-                        <label>Recipient Address:</label>
-                        <div class="invalid" ng-show="form.$submitted">
-                            <div ng-show="form.dest.$error.required">Required</div>
-                            <div ng-show="form.dest.$error.pattern">Invalid Address</div>
-                        </div>
-                        <input
-                                type="text"
-                                name="dest"
-                                ng-model="userInput.address"
-                                pattern="[13][a-km-zA-HJ-NP-Z1-9]{25,34}"
-                                required
-                                focus>
+                            <div ng-show="showSourceField">
+                                <div>Send from:</div>
+                                <div class="btn-group" uib-dropdown
+                                     is-open="status.sourceDropdownIsOpen">
+                                    <button id="source-wallet-button" type="button"
+                                            class="btn btn-primary"
+                                            uib-dropdown-toggle
+                                            ng-disabled="disabled">
+                                        {{wallet.name}} <span
+                                            class="caret"></span>
+                                    </button>
+                                    <ul uib-dropdown-menu role="menu"
+                                        aria-labelledby="source-wallet-button">
+                                        <li ng-repeat="w in wallets"
+                                            role="menuitem">
+                                            <a href ng-click="selectWallet(w)">{{w.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                        <label>Amount: <span class="available-balance">({{getMaxAmount()}} {{btcFormatter.BITCOINS}})</span></label>
-                        <div class="invalid" ng-show="form.$submitted">
-                            <div ng-show="form.amount.$error.required">Required</div>
-                            <div ng-show="form.amount.$error.max">Not Enough Funds</div>
-                            <div ng-show="form.amount.$error.min">Too Low</div>
-                            <div ng-show="form.amount.$error.number">Invalid Amount</div>
-                        </div>
-                        <input
-                                type="number"
-                                name="amount"
-                                ng-model="userInput.amount"
-                                required
-                                min="0.00000001"
-                                max="{{getMaxAmount()}}">
+                                <div>Send to:</div>
+                                <div class="btn-group" uib-dropdown
+                                     is-open="status.status.destDropdownIsOpen">
+                                    <button id="dest-wallet-button" type="button"
+                                            class="btn btn-primary"
+                                            uib-dropdown-toggle
+                                            ng-disabled="disabled">
+                                        {{destWallet.name}} <span
+                                            class="caret"></span>
+                                    </button>
+                                    <ul uib-dropdown-menu role="menu"
+                                        aria-labelledby="dest-wallet-button">
+                                        <li ng-repeat="w in wallets"
+                                            role="menuitem">
+                                            <a href
+                                               ng-click="selectDestWallet(w)">{{w.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
 
-                        <label>Transaction speed:</label>
-                        <div class="fee-level-btn btn-group" role="group">
-                            <button ng-repeat="feeLevelOption in feeOptions"
-                                type="button"
-                                ng-click="setFeeLevel(feeLevelOption)"
-                                ng-class="{'btn-primary': userInput.feeLevel === feeLevelOption, 'btn-default': userInput.feeLevel !== feeLevelOption }"
-                                class="btn"
-                                ng-disabled="userInput.amount > 0 && estimatedFee.fee[feeLevelOption] === undefined">
-                                <div>{{feeDisplay[feeLevelOption]}}</div>
-                            </button>
-                        </div>
+                            <div ng-hide="showSourceField">
+                                <label>Recipient:</label>
+                                <div class="invalid" ng-show="form.$submitted">
+                                    <div ng-show="form.dest.$error.required">
+                                        Required
+                                    </div>
+                                    <div ng-show="form.dest.$error.pattern">
+                                        Invalid Address
+                                    </div>
+                                </div>
+                                <input
+                                        type="text"
+                                        name="dest"
+                                        ng-model="userInput.address"
+                                        pattern="[13][a-km-zA-HJ-NP-Z1-9]{25,34}"
+                                        required
+                                        focus>
+                            </div>
 
-                        <div class="fee-display" ng-show="getFee(userInput.feeLevel) > 0">
-                            <label>Fee:</label><bitcoin-amount class="fee" amount="getFee(userInput.feeLevel)"></bitcoin-amount>
+                            <label>Amount:</label>
+                            <div class="invalid" ng-show="form.$submitted">
+                                <div ng-show="form.amount.$error.required">
+                                    Required
+                                </div>
+                                <div ng-show="form.amount.$error.max">Not Enough
+                                    Funds
+                                </div>
+                                <div ng-show="form.amount.$error.min">Too Low
+                                </div>
+                                <div ng-show="form.amount.$error.number">Invalid
+                                    Amount
+                                </div>
+                            </div>
+                            <input
+                                    ng-keypress="fillMaxDetector($event)"
+                                    type="number"
+                                    name="amount"
+                                    ng-model="userInput.amount"
+                                    required
+                                    min="0.00000001"
+                                    max="{{getMaxAmount()}}">
+
+                            <label>Transaction speed:</label>
+                            <div class="fee-level-btn btn-group" role="group">
+                                <button ng-repeat="feeLevelOption in feeOptions"
+                                        type="button"
+                                        ng-click="setFeeLevel(feeLevelOption)"
+                                        ng-class="{'btn-primary': userInput.feeLevel === feeLevelOption, 'btn-default': userInput.feeLevel !== feeLevelOption }"
+                                        class="btn"
+                                        ng-disabled="userInput.amount > 0 && estimatedFee.fee[feeLevelOption] === undefined">
+                                    <div>{{feeDisplay[feeLevelOption]}}</div>
+                                </button>
+                            </div>
+
+                            <div class="fee-display"
+                                 ng-show="getFee(userInput.feeLevel) > 0">
+                                <label>Fee:</label>
+                                <bitcoin-amount class="fee"
+                                                amount="getFee(userInput.feeLevel)"></bitcoin-amount>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <button class="button" type="submit" ng-click="buildTransaction()">Send</button>
+                <button class="button" type="submit"
+                        ng-click="buildTransaction()">Send
+                </button>
             </form>
         </div>
-        <div ng-hide="wallet.highConfidenceBalance">
+        <div ng-hide="showForm">
             Can't send from an account with a high confidence balance of 0
         </div>
     </div>
