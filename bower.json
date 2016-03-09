@@ -17,16 +17,17 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4",
-    "angular-animate": "~1.4",
+    "angular": "~1.5",
+    "angular-animate": "~1.5",
     "angular-bootstrap": "~0.14",
-    "angular-qrcode": "https://github.com/keepkey/angular-qrcode.git#master",
+    "angular-qrcode": "https://github.com/keepkey/angular-qrcode.git",
     "angular-route": "~1.4",
     "angular-xeditable": "~0.1.9",
     "bootstrap-bower": "~3",
     "chrome-bootstrap": "~1.4.1",
     "clipboard": "~1.3.0",
-    "lodash": "~3.9.3"
+    "lodash": "~3.9.3",
+    "angular-messages": "^1.5.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.3"

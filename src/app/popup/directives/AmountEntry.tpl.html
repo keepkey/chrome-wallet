@@ -1,0 +1,34 @@
+<!--
+<amount-entry
+        amount="userInput.amount"
+        max-amount="maxAmount.max"
+        field-name="amount"
+        form="form">
+</amount-entry>
+-->
+
+<div class="amount-entry">
+    <label>Amount:</label>
+    <div class="invalid" ng-messages="field.$error" role="alert" ng-show="field.$touched">
+        <div ng-message="required">
+            Required
+        </div>
+        <div ng-message="max">
+            Not Enough Funds
+        </div>
+        <div ng-message="min">
+            Too Low
+        </div>
+        <div ng-message="number">
+            Invalid Amount
+        </div>
+    </div>
+    <input
+            ng-keypress="fillMaxDetector($event)"
+            type="number"
+            name="{{fieldName}}"
+            ng-model="amount"
+            required
+            min="0.00000001"
+            max="{{getMaxAmount()}}">
+</div>

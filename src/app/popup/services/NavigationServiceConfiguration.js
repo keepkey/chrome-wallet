@@ -51,6 +51,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/buttonRequest/protectCallChangeLabel.tpl.html',
           goable: false
         })
+        .when('/buttonRequest/button_request_confirm_transfer_to_account', {
+          templateUrl: 'app/popup/buttonRequest/confirmTransferToAccount.tpl.html',
+          goable: false
+        })
         .when('/buttonRequest/:code', {
           templateUrl: 'app/popup/buttonRequest/buttonRequest.tpl.html',
           goable: false
@@ -88,6 +92,10 @@ angular.module('kkWallet')
         })
         .when('/send/:wallet', {
           templateUrl: 'app/popup/send/send.tpl.html',
+          goable: true
+        })
+        .when('/transfer', {
+          templateUrl: 'app/popup/transfer/transfer.tpl.html',
           goable: true
         })
         .when('/wordRequest', {

@@ -17,8 +17,12 @@ angular.module('kkWallet')
                         $scope.actionFunction = function() {
                             navigationService.go($scope.destination, $scope.animation);
                         };
-                    } else {
+                    } else if ($scope.action) {
                         $scope.actionFunction = $scope.action;
+                    } else {
+                        $scope.actionFunction = function() {
+                            navigationService.goToPrevious($scope.animation);
+                        }
                     }
                 }
             ],

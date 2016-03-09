@@ -978,20 +978,15 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.fee-level-btn {
-  margin: 0 5px;
-  width: 100%;
-  .btn {
-    width: 33%;
-    font-size: inherit;
-    font-family: inherit;
-    transition: 0.2s all ease-in;
-    &[disabled] {
-      background-color: #ECECED;
-      color: #ffffff;
-    }
+.btn {
+  font-size: inherit;
+  font-family: inherit;
+  transition: 0.2s all ease-in;
+  &[disabled] {
+    background-color: #ECECED;
+    color: #ffffff;
   }
-  .btn-default, .btn-default.active, .btn-default:active, .btn-default:focus {
+  &.btn-default, &.btn-default.active, &.btn-default:active, &.btn-default:focus {
     color: @button-background-color;
     background-color: #fff;
     border-color: #ECECED;
@@ -1001,13 +996,21 @@ input::-webkit-inner-spin-button {
       border-color: @button-background-color;
     }
   }
-  .btn-primary, .btn-primary.active, .btn-primary:active, .btn-primary:focus {
+  &.btn-primary, &.btn-primary.active, &.btn-primary:active, &.btn-primary:focus {
     color: #ffffff;
     background-color: @button-hover-background-color;
     border-color: @button-hover-background-color;
     &:hover {
       cursor: auto;
     }
+  }
+}
+
+.fee-level-btn {
+  margin: 0 5px;
+  width: 100%;
+  .btn {
+    width: 33%;
   }
 }
 
@@ -1126,7 +1129,7 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
 
-a {
+a, a:hover {
   color: #9FAE00;
 }
 
@@ -1246,6 +1249,39 @@ a {
     .data-column {
       overflow-wrap: break-word;
     }
+  }
+}
+
+.wallet-selector-dropdown {
+  margin-top: 10px;
+  label {
+    margin: 0;
+    line-height: 23px;
+    width: 65px;
+    text-align: right;
+  }
+  .dropdown, button, ul {
+    width: 220px;
+    float: right;
+  }
+  .btn.btn-primary {
+    height: 23px;
+    padding: 0;
+    color: @button-background-color;
+    background-color: #fff;
+    border-color: #ECECED;
+    &:hover {
+      color: #ffffff;
+      background-color: @button-background-color;
+      border-color: @button-background-color;
+    }
+    .caret {
+      border-top-color: @button-background-color;
+    }
+  }
+  ul {
+    font-size: inherit;
+    font-family: inherit;
   }
 }
 

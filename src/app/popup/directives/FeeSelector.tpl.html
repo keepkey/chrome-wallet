@@ -3,8 +3,11 @@
     <div class="fee-level-btn btn-group" role="group">
         <button ng-repeat="feeLevelOption in feeOptions"
                 type="button"
-                ng-click="setFeeLevel(feeLevelOption)"
-                ng-class="{'btn-primary': selected === feeLevelOption, 'btn-default': selected !== feeLevelOption }"
+                ng-click="setSelected(feeLevelOption)"
+                ng-class="{
+                    'btn-primary': selected === feeLevelOption,
+                    'btn-default': selected !== feeLevelOption
+                }"
                 class="btn"
                 ng-disabled="active && estimatedFees[feeLevelOption] === undefined">
             <div>{{feeDisplay[feeLevelOption]}}</div>

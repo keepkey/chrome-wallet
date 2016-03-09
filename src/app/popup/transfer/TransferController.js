@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-  .controller('SendController', ['$scope', '$routeParams', '$interpolate', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService',
-    function SendController($scope, $routeParams, $interpolate, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService) {
+  .controller('TransferController', ['$scope', '$interpolate', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService',
+    function TransferController($scope, $interpolate, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService) {
       walletNodeService.reload();
 
       feeService.update();
@@ -8,22 +8,17 @@ angular.module('kkWallet')
       $scope.feeOptions = feeService.feeOptions;
       $scope.estimatedFee = feeService.estimatedFee;
       $scope.maxAmount = feeService.maxTransactionAmount;
-
-      $scope.wallet = walletNodeService.getWalletById($routeParams.wallet);
-      $scope.showForm = !!($scope.wallet.highConfidenceBalance);
-      $scope.titleTemplate = 'app/popup/send/sendTitle.tpl.html';
+      $scope.wallet = { name: 'Click to Select' };
+      $scope.destWallet = { name: 'Click to Select' };
+      $scope.wallets = walletNodeService.wallets;
 
       $scope.userInput = {
-        sourceIndex: $routeParams.wallet,
-        sourceName: $scope.wallet.name,
-        address: '',
         amount: '',
         feeLevel: $scope.feeOptions[0]
       };
       $scope.buildTransaction = function () {
         transactionService.transactionInProgress = {
           accountId: $scope.wallet.id,
-          sendTo: $scope.userInput.address,
           sendToAccount: _.get($scope.destWallet, 'id'),
           amount: $scope.userInput.amount,
           feeLevel: $scope.userInput.feeLevel
@@ -40,10 +35,6 @@ angular.module('kkWallet')
       $scope.getFee = function (feeLevelOption) {
         return _.get($scope, 'estimatedFee.fee.' + feeLevelOption) || 0;
       };
-
-      if ($scope.wallet.id) {
-        feeService.getMaximumTransactionAmount($scope.wallet.id);
-      }
 
       $scope.$watch('userInput.amount', function computeFees() {
         if ($scope.wallet.id) {

@@ -27,6 +27,7 @@ var vendorJavascriptFiles = [
   'vendor/angular/angular.min.js',
   'vendor/angular-animate/angular-animate.min.js',
   'vendor/angular-route/angular-route.min.js',
+  'vendor/angular-messages/angular-messages.min.js',
   'vendor/angular-bootstrap/ui-bootstrap.min.js',
   'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
   'vendor/lodash/lodash.min.js',

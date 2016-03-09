@@ -4,7 +4,8 @@ angular.module('kkWallet', [
   'ui.bootstrap',
   'xeditable',
   'monospaced.qrcode',
-  'kkCommon'
+  'kkCommon',
+  'ngMessages'
 ])
 
   .constant('VERSION', '{{VERSION}}')

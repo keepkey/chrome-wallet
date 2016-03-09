@@ -63,6 +63,7 @@ angular.module('kkWallet')
               destination = '/device';
               break;
             case 'Device recovered':
+            case 'Transaction sent':
               destination = '/walletList';
               break;
             default:
