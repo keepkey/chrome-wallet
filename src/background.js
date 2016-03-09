@@ -20,8 +20,8 @@ chrome.browserAction.onClicked.addListener(
       chrome.windows.create({
         type: 'popup',
         url: '/popup.html',
-        width: 342,
-        height: 390
+        width: 360,
+        height: 410
       }, function (w) {
         popupId = w.id;
       });

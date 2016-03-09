@@ -15,6 +15,7 @@ angular.module('kkWallet')
       }
 
       $scope.addAccount = function() {
+        $scope.loaded = false;
         var newAccountNode = findNextAccountNode();
         deviceBridgeService.addAccount(newAccountNode, 'Another Wallet');
       };

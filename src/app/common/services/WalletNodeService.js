@@ -13,6 +13,7 @@ angular.module('kkCommon')
           return;
         }
         _.each(newNodes, function (node) {
+          node.accountNumber = _.trim(_.last(node.nodePath.split('/')), "'");
           var matchingNode = _.find(nodes, {id: node.id});
           if (matchingNode) {
             angular.copy(node, matchingNode);

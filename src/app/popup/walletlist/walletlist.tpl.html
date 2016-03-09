@@ -1,62 +1,9 @@
 <section id="wallet-list" ng-controller="WalletListController">
-    <header>
-        <!--<settings-button class="button-left header-button"></settings-button>-->
-        <a class="button-right header-button refresh-button"
-           ng-click="refresh()">
-            <div class="icon icon-refresh"></div>
-        </a>
-    </header>
-
-    <div class="wallets">
-        <div class="wallet online" ng-show="!loaded">
-            Please wait a moment while you accounts are loaded...
-        </div>
-        <div class="wallet online"
-             ng-repeat="wallet in wallets track by wallet.id | orderBy: name"
-             ng-show="loaded"
-            >
-            <div class="connection-light"></div>
-            <div class="go-side">
-                <div class="go-btn">
-                    <a class="wallet-link" ng-click="goWallet(wallet)">
-                        <div class="icon icon-forward"></div>
-                    </a>
-                </div>
-            </div>
-            <div class="details">
-                <div class="wallet-name" ng-bind="wallet.name"></div>
-                <div>
-                    <wallet-balance
-                            balance="wallet.highConfidenceBalance"
-                            pending="wallet.lowConfidenceBalance">
-                    </wallet-balance>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="menu">
-        <ul>
-            <li>
-                <button class="menu-item"
-                        ng-click="go('/transfer', 'slideLeft')">
-                    Transfer Between Accounts
-                </button>
-            </li>
-            <li>
-                <button class="menu-item" ng-click="addAccount()">
-                    Add an Account
-                </button>
-            </li>
-            <li>
-                <button class="menu-item"
-                        ng-click="go('/device', 'slideLeft')">
-                    Device Settings
-                </button>
-            </li>
-        </ul>
-    </div>
-
-
+    <ng-include src="'app/popup/walletlist/header.tpl.html'"></ng-include>
+    <ng-include src="'app/popup/walletlist/wallets.tpl.html'"></ng-include>
+    <ng-include src="'app/popup/walletlist/menu.tpl.html'"></ng-include>
+    <ng-include ng-if="!loaded"
+                src="'app/popup/walletlist/loading.tpl.html'"></ng-include>
     <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected
     </div>
 </section>
