@@ -9,3 +9,28 @@ chrome.runtime.onMessageExternal.addListener(
         }
     }
 );
+
+var popupId;
+
+chrome.browserAction.onClicked.addListener(
+  function(tab) {
+    if (popupId) {
+      chrome.windows.update(popupId, { focused:true });
+    } else {
+      chrome.windows.create({
+        type: 'popup',
+        url: '/popup.html',
+        width: 342,
+        height: 390
+      }, function (w) {
+        popupId = w.id;
+      });
+    }
+  }
+);
+
+chrome.windows.onRemoved.addListener(function(id) {
+  if (popupId === id) {
+    popupId = undefined;
+  }
+});
