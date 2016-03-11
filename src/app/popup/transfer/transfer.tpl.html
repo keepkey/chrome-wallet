@@ -19,27 +19,30 @@
                                     label="Send from:"
                                     button-id="source-wallet-button"
                                     account-list="wallets"
-                                    selected="wallet">
+                                    selected="wallet"
+                                    disabled="preparingTransaction">
                             </wallet-selector-dropdown>
 
                             <wallet-selector-dropdown
                                     label="Send to:"
                                     button-id="dest-wallet-button"
                                     account-list="wallets"
-                                    selected="destWallet">
+                                    selected="destWallet"
+                                    disabled="preparingTransaction">
                             </wallet-selector-dropdown>
 
                             <amount-entry
                                     amount="userInput.amount"
                                     max-amount="maxAmount.max"
                                     field-name="amount"
-                                    form="form">
+                                    form="form"
+                                    disabled="preparingTransaction">
                             </amount-entry>
 
                             <fee-selector
                                     estimated-fees="estimatedFee.fee"
                                     selected="userInput.feeLevel"
-                                    active="userInput.amount > 0">
+                                    active="userInput.amount > 0 && !preparingTransaction">
                             </fee-selector>
 
                             <div class="fee-display"
@@ -53,9 +56,12 @@
                 </div>
 
                 <button class="button" type="submit"
-                        ng-click="buildTransaction()">Send
+                        ng-click="buildTransaction()"
+                        ng-disabled="preparingTransaction">Send
                 </button>
             </form>
         </div>
     </div>
+    <ng-include src="'app/popup/transfer/preparing.tpl.html'"
+                ng-if="preparingTransaction"></ng-include>
 </section>

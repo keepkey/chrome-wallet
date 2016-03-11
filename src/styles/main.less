@@ -1143,26 +1143,27 @@ a, a:hover {
   margin-top: 16px;
 }
 
+.in-progress-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .9;
+  font-size: 20px;
+  color: gray;
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+  .spinner {
+    font-size: 75px;
+    padding: 100px 0;
+  }
+}
+
 #wallet-list {
   position: relative;
-  .loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: .9;
-    font-size: 20px;
-    color: gray;
-    background-color: white;
-    text-align: center;
-    padding: 10px;
-    .spinner {
-      font-size: 75px;
-      padding: 100px 0;
-    }
-  }
   .menu {
     position: absolute;
     bottom: @status-bar-height;

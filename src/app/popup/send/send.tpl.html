@@ -17,20 +17,22 @@
                             <recipient-entry
                                     recipient="userInput.address"
                                     field-name="dest"
-                                    form="form">
+                                    form="form"
+                            disabled="preparingTransaction">
                             </recipient-entry>
 
                             <amount-entry
                                     amount="userInput.amount"
                                     max-amount="maxAmount.max"
                                     field-name="amount"
-                                    form="form">
+                                    form="form"
+                            disable="preparingTransaction">
                             </amount-entry>
 
                             <fee-selector
                                     estimated-fees="estimatedFee.fee"
                                     selected="userInput.feeLevel"
-                                    active="userInput.amount > 0">
+                                    active="!preparingTransaction && userInput.amount > 0">
                             </fee-selector>
 
                             <div class="fee-display"
@@ -44,6 +46,7 @@
                 </div>
 
                 <button class="button" type="submit"
+                        ng-disabled="preparingTransaction"
                         ng-click="buildTransaction()">Send
                 </button>
             </form>
@@ -51,5 +54,7 @@
         <div ng-hide="showForm">
             Can't send from an account with a high confidence balance of 0
         </div>
+        <ng-include src="'app/popup/send/preparing.tpl.html'"
+                    ng-if="preparingTransaction"></ng-include>
     </div>
 </section>

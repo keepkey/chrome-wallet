@@ -11,12 +11,14 @@ angular.module('kkWallet')
       $scope.wallet = { name: 'Click to Select' };
       $scope.destWallet = { name: 'Click to Select' };
       $scope.wallets = walletNodeService.wallets;
+      $scope.preparingTransaction = false;
 
       $scope.userInput = {
         amount: '',
         feeLevel: $scope.feeOptions[0]
       };
       $scope.buildTransaction = function () {
+        $scope.preparingTransaction = true;
         transactionService.transactionInProgress = {
           accountId: $scope.wallet.id,
           sendToAccount: _.get($scope.destWallet, 'id'),

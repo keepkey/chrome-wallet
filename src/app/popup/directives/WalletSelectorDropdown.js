@@ -7,7 +7,8 @@ angular.module('kkWallet')
         label: '@',
         buttonId: '@',
         accountList: '=',
-        selected: '='
+        selected: '=',
+        disabled: '='
       },
       controller: ['$scope', function($scope) {
         $scope.select = function(account) {

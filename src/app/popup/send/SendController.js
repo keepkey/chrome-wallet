@@ -11,7 +11,7 @@ angular.module('kkWallet')
 
       $scope.wallet = walletNodeService.getWalletById($routeParams.wallet);
       $scope.showForm = !!($scope.wallet.highConfidenceBalance);
-      $scope.titleTemplate = 'app/popup/send/sendTitle.tpl.html';
+      $scope.preparingTransaction = false;
 
       $scope.userInput = {
         sourceIndex: $routeParams.wallet,
@@ -21,6 +21,7 @@ angular.module('kkWallet')
         feeLevel: $scope.feeOptions[0]
       };
       $scope.buildTransaction = function () {
+        $scope.preparingTransaction = true;
         transactionService.transactionInProgress = {
           accountId: $scope.wallet.id,
           sendTo: $scope.userInput.address,

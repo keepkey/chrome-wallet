@@ -28,6 +28,7 @@
             type="number"
             name="{{fieldName}}"
             ng-model="amount"
+            ng-disabled="disabled"
             required
             min="0.00000001"
             max="{{getMaxAmount()}}">

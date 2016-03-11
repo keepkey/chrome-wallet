@@ -20,7 +20,7 @@
         </button>
         <ul uib-dropdown-menu role="menu"
             aria-labelledby="{{buttonId}}">
-            <li ng-repeat="account in accountList"
+            <li ng-repeat="account in accountList | orderBy : 'accountNumber' track by account.id"
                 role="menuitem">
                 <a href
                    ng-click="select(account)">{{account.name}}</a>

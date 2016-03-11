@@ -6,7 +6,8 @@ angular.module('kkWallet')
       scope: {
         recipient: '=',
         fieldName: '@',
-        form: '='
+        form: '=',
+        disabled: '='
       },
       link: function($scope) {
         $scope.field = _.get($scope.form, $scope.fieldName);
