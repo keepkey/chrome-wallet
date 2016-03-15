@@ -181,6 +181,7 @@ gulp.task('manifestProduction', function () {
     .pipe(jeditor(function (json) {
       json.options_page = json.options_page.replace('src/', '');
       json.browser_action.default_icon = json.browser_action.default_icon.replace('src/', '');
+      json.browser_action.default_popup = json.browser_action.default_popup.replace('src/', '');
       json.icons["16"] = json.icons["16"].replace('src/', '');
       json.icons["48"] = json.icons["48"].replace('src/', '');
       json.icons["128"] = json.icons["128"].replace('src/', '');
