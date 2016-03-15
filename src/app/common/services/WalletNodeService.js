@@ -29,6 +29,18 @@ angular.module('kkCommon')
         });
       }
 
+      function updateWalletHistory(historyNode) {
+        var node = _.find(nodes, {id: historyNode.id});
+        if (_.get(node, 'txHist')) {
+          angular.copy(historyNode.txHist, node.txHist);
+        } else if (node) {
+          node.txHist = historyNode.txHist;
+        } else {
+          nodes.push(historyNode);
+        }
+        $rootScope.$digest();
+      }
+
       function firstUnusedAddress(walletId) {
         deviceBridgeService.getUnusedExternalAddressNode(walletId);
       }
@@ -98,6 +110,7 @@ angular.module('kkCommon')
         reload: reloadWallets,
         getWalletById: getWalletById,
         updateWalletNodes: updateWalletNodes,
+        updateWalletHistory: updateWalletHistory,
         firstUnusedAddress: firstUnusedAddress,
         joinPaths: joinPaths,
         pathToAddressN: pathToAddressN,

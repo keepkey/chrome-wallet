@@ -14,13 +14,9 @@ angular.module('kkTransactions', [
     function TransactionListController($scope, $routeParams, walletNodeService) {
       walletNodeService.getTransactionHistory($routeParams.walletId);
       $scope.wallets = walletNodeService.wallets;
-      $scope.wallet = walletNodeService.getWalletById($routeParams.walletId);
 
-      $scope.$watch('wallets', function() {
+      $scope.$watch('wallets.length', function() {
         $scope.wallet = walletNodeService.getWalletById($routeParams.walletId);
-        if ($scope.wallet) {
-          walletNodeService.getTransactionHistory($routeParams.walletId);
-        }
-      }, true);
+      });
     }
   ]);
