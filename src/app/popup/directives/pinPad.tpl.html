@@ -18,7 +18,10 @@
                     <a class="button pin" ng-click="appendToPin(2)">•</a>
                     <a class="button pin" ng-click="appendToPin(3)">•</a>
                 </div>
-                <div class="pin-view" ng-bind="displayPin"></div>
+                <div class="pin-display-container">
+                    <div class="pin-view" ng-bind="displayPin"></div>
+                    <i class="fa fa-undo" ng-click="reset()"></i>
+                </div>
             </div>
         </div>
     </div>

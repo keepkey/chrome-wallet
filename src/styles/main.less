@@ -748,19 +748,32 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     padding: @pin-pad-padding;
     background-color: #96979b;
     &:hover {
+      color: white;
       background-color: #6d6e71;
     }
     &:active {
       opacity: 1;
     }
   }
-  .pin-view {
-    font-size: 14px;
-    height: 20px;
-    width: @pin-pad-width;
-    margin-top: 10px;
-    text-align: center;
-    border: none;
+  .pin-display-container {
+    position: relative;
+    .pin-view {
+      font-size: 14px;
+      height: 20px;
+      width: @pin-pad-width;
+      margin-top: 10px;
+      text-align: center;
+      border: none;
+    }
+    .fa-undo {
+      position: absolute;
+      top: 2px;
+      right: 0;
+      color: #96979b;
+      &:hover {
+        color: #6d6e71;
+      }
+    }
   }
 }
 

@@ -25,6 +25,9 @@ angular.module('kkWallet')
           $scope.$watch('pin', function() {
             $scope.displayPin = new Array($scope.pin.length + 1).join('*');
           });
+          $scope.reset = function() {
+            $scope.pin = '';
+          }
         }
       ],
       templateUrl: 'app/popup/directives/pinPad.tpl.html'
