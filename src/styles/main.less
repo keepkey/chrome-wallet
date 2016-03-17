@@ -765,7 +765,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
       text-align: center;
       border: none;
     }
-    .fa-undo {
+    .backspace {
       position: absolute;
       top: 2px;
       right: 0;
@@ -779,29 +779,40 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
 @word-list-width: 270px;
 
-.word-list {
-  width: @word-list-width;
-  margin: 0 auto;
-  .column {
-    float: left;
+#character-request {
+  .word-list {
+    width: @word-list-width;
     margin: 0 auto;
-    width: @word-list-width / 3;
+    .column {
+      float: left;
+      margin: 0 auto;
+      width: @word-list-width / 3;
+    }
+    .word-index {
+      display: inline-block;
+      width: 17px;
+      text-align: right;
+    }
+    .word-representation {
+      font-family: "Andale Mono", monospace;
+      font-size: 12px;
+    }
+    .checkmark-container {
+      color: green;
+      display: inline-block;
+      width: 10px;
+      font-size: 13px;
+      margin-right: 2px;
+    }
   }
-  .word-index {
-    display: inline-block;
-    width: 17px;
-    text-align: right;
+
+  .more-words-message {
+    text-align: center;
+    font-size: 8px;
   }
-  .word-representation {
-    font-family: "Andale Mono", monospace;
-    font-size: 12px;
-  }
-  .checkmark-container {
-    color: green;
-    display: inline-block;
-    width: 10px;
-    font-size: 13px;
-    margin-right: 2px;
+
+  button {
+    bottom: 20px;
   }
 }
 

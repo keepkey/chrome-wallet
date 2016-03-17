@@ -9,8 +9,8 @@
     <div class="content">
         <h2>
             <span class="cornflower-txt">
-                <b>Enter the recovery sentence</b>
-            </span> for the KeepKey you want to restore.
+                <b>Enter your recovery sentence</b>
+            </span>
         </h2>
 
         <div class="active-keys clearfix">
@@ -59,6 +59,11 @@
                 </div>
             </div>
         </div>
+        <div class="more-words-message" ng-show="moreWordsAvailable">Type a space to enter more words</div>
+        <button class="button" disabled="disabled" ng-disabled="enterClasses.disabled"
+                ng-click="send()">
+            Done
+        </button>
     </div>
 
     <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>

@@ -25,8 +25,10 @@ angular.module('kkWallet')
           $scope.$watch('pin', function() {
             $scope.displayPin = new Array($scope.pin.length + 1).join('*');
           });
-          $scope.reset = function() {
-            $scope.pin = '';
+          $scope.backspace = function() {
+            if ($scope.pin.length > 0) {
+              $scope.pin = $scope.pin.substr(0, $scope.pin.length - 1);
+            }
           }
         }
       ],

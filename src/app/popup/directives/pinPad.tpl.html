@@ -20,7 +20,9 @@
                 </div>
                 <div class="pin-display-container">
                     <div class="pin-view" ng-bind="displayPin"></div>
-                    <i class="fa fa-undo" ng-click="reset()"></i>
+                    <i class="backspace fa fa-arrow-left"
+                       ng-click="backspace()"
+                       ng-show="displayPin.length"></i>
                 </div>
             </div>
         </div>
