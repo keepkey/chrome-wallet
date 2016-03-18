@@ -1,7 +1,7 @@
 <section id="wallet" ng-controller="WalletController">
     <header>
-        <back-button class="button-left header-button"
-                     destination="'walletlist'"></back-button>
+        <back-button ng-hide="singleAccount"
+                     class="button-left header-button"></back-button>
         <a class="button-right header-button refresh-button"
            ng-click="refresh()">
             <div class="icon icon-refresh"></div>
@@ -17,6 +17,7 @@
                     pending="wallet.lowConfidenceBalance"
                     loading="receiveDisabled()">
             </wallet-balance>
+            <div class="account-number">Account #{{wallet.accountNumber}}</div>
         </div>
 
         <div class="menu">
@@ -36,6 +37,12 @@
                         Transactions
                     </button>
                 </li>
+                <li ng-show="singleAccount">
+                    <button class="menu-item"
+                            ng-click="go('/device', 'slideLeft')">
+                        Device Settings
+                    </button>
+                </li>
                 <li>
                     <button class="menu-item" ng-click="accountSettings()">
                         Account Settings
@@ -45,6 +52,14 @@
         </div>
     </div>
 
-    <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected
+    <div class="footer">
+        <div class="left">
+            <strong>{{device.label || 'KeepKey'}}</strong> connected
+        </div>
+        <div class="new-account-link right" ng-if="singleAccount"
+             ng-click="go('/addAccount', 'slideLeft')">
+            Add account
+        </div>
+        <div class="wallet-name right" ng-if="!singleAccount" ng-bind="wallet.name"></div>
     </div>
 </section>

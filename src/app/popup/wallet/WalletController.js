@@ -8,6 +8,8 @@ angular.module('kkWallet')
       //walletNodeService.reload(true);
       updateWallet();
 
+      $scope.singleAccount = $scope.walletList.length === 1;
+
       $scope.device = deviceFeatureService.features;
 
       $scope.send = function () {
@@ -48,6 +50,7 @@ angular.module('kkWallet')
 
       function updateWallet() {
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+        $scope.singleAccount = $scope.walletList.length === 1;
       }
 
       $scope.$watch('walletId', updateWallet, true);

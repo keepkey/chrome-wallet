@@ -159,6 +159,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/walletConfig/walletConfig.tpl.html',
           goable: true
         })
+        .when('/addAccount', {
+          templateUrl: 'app/popup/addAccount/addAccount.tpl.html',
+          goable: true
+        })
         .otherwise({
           redirectTo: '/'
         });
