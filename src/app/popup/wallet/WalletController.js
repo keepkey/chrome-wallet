@@ -8,6 +8,8 @@ angular.module('kkWallet')
       //walletNodeService.reload(true);
       updateWallet();
 
+      $scope.singleAccount = $scope.walletList.length === 1;
+
       $scope.device = deviceFeatureService.features;
 
       $scope.send = function () {
@@ -43,11 +45,24 @@ angular.module('kkWallet')
         });
       };
       $scope.accountSettings = function () {
-        $scope.go('/walletConfig/' + $scope.walletId, 'slideLeft');
+        $scope.go('/accountConfig/' + $scope.walletId, 'slideLeft');
+      };
+
+      $scope.delete = function deleteWallet() {
+        deviceBridgeService.deleteAccount($scope.walletId)
+          .then(function(success) {
+            if (success) {
+              walletNodeService.removeAccount($scope.walletId);
+              $scope.go('/walletlist', 'slideRight');
+            } else {
+              console.error('delete account failed');
+            }
+          });
       };
 
       function updateWallet() {
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+        $scope.singleAccount = $scope.walletList.length === 1;
       }
 
       $scope.$watch('walletId', updateWallet, true);

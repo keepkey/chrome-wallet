@@ -14,29 +14,16 @@ angular.module('kkWallet')
         walletNodeService.loadAccounts();
       }
 
-      $scope.addAccount = function() {
-        $scope.loaded = false;
-        var newAccountNode = findNextAccountNode();
-        deviceBridgeService.addAccount(newAccountNode, 'Another Wallet');
-      };
-
       $scope.goWallet = function(wallet) {
         $scope.go('/wallet/' + wallet.id, 'slideLeft');
-      }
+      };
 
       $scope.$watch("wallets.length", function() {
         $scope.loaded = !!$scope.wallets.length;
+        if ($scope.wallets.length == 1) {
+          $scope.go('/wallet/' + $scope.wallets[0].id);
+        }
       });
 
-      function findNextAccountNode() {
-        var candidateAccount = 0;
-        while (_.find($scope.wallets, {
-          nodePath: "m/44'/0'/" + candidateAccount + "'"
-        })) {
-          candidateAccount++;
-        }
-
-        return "m/44'/0'/" + candidateAccount + "'";
-      }
     }
   ]);

@@ -4,6 +4,13 @@
     <ng-include src="'app/popup/walletlist/menu.tpl.html'"></ng-include>
     <ng-include ng-if="!loaded"
                 src="'app/popup/walletlist/loading.tpl.html'"></ng-include>
-    <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected
+    <div class="footer">
+        <div class="left">
+            <strong>{{device.label || 'KeepKey'}}</strong> connected
+        </div>
+        <div class="new-account-link right"
+             ng-click="go('/accountConfig', 'slideLeft')">
+            Add account
+        </div>
     </div>
 </section>

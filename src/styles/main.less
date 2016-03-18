@@ -405,6 +405,12 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
+#add-account {
+  button {
+    bottom: inherit;
+  }
+}
+
 .tooltip.key-help {
   left: 20px !important;
   .tooltip-inner {
@@ -1123,13 +1129,26 @@ input::-webkit-inner-spin-button {
   border-top: 1px solid #ECECED;
   height: @status-bar-height;
   width: 100%;
-  padding: 10px 0 10px 15px;
+  padding: 10px 15px;
   bottom: 0px;
   color: #ccc;
   position: absolute;
   font-size: 11px;
   font-weight: 500;
   strong {
+    color: #999;
+  }
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+  .new-account-link:hover {
+    text-decoration: underline;
+    color: #999;
+  }
+  .wallet-name {
     color: #999;
   }
 }
@@ -1186,6 +1205,11 @@ a, a:hover {
   }
 }
 
+.account-number {
+  font-size: 8px;
+  float: right;
+}
+
 #wallet-list {
   position: relative;
   .menu {
@@ -1195,7 +1219,7 @@ a, a:hover {
   .wallets {
     position: absolute;
     top: @header-height;
-    bottom: 158px;
+    bottom: 88px;
     width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -1207,10 +1231,6 @@ a, a:hover {
       .details {
         height: @wallet-height;
         margin: 15px 34px 0 19px;
-      }
-      .account-number {
-        font-size: 8px;
-        float: right;
       }
       .wallet-balance {
         font-size: 12px;
