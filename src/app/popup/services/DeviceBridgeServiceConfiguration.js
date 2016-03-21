@@ -66,6 +66,8 @@ angular.module('kkWallet')
             case 'Transaction sent':
               destination = '/walletList';
               break;
+            case 'Account name updated':
+              destination = 
             default:
               destination = '/success/:message';
           }

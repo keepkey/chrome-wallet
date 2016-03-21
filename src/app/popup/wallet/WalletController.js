@@ -45,7 +45,19 @@ angular.module('kkWallet')
         });
       };
       $scope.accountSettings = function () {
-        $scope.go('/walletConfig/' + $scope.walletId, 'slideLeft');
+        $scope.go('/accountConfig/' + $scope.walletId, 'slideLeft');
+      };
+
+      $scope.delete = function deleteWallet() {
+        deviceBridgeService.deleteAccount($scope.walletId)
+          .then(function(success) {
+            if (success) {
+              walletNodeService.removeAccount($scope.walletId);
+              $scope.go('/walletlist', 'slideRight');
+            } else {
+              console.error('delete account failed');
+            }
+          });
       };
 
       function updateWallet() {

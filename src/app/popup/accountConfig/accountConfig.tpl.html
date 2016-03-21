@@ -1,12 +1,17 @@
-<section id="add-account" ng-controller="AddAccountController">
+<section id="add-account" ng-controller="AccountConfigController">
     <header>
         <back-button class="button-left header-button"></back-button>
     </header>
 
     <div class="content">
-        <h2><span class="cornflower-txt"><b>Add a new account</b></span> To Your
-            KeepKey</h2>
-
+        <h2 ng-hide="updating">
+            <span class="cornflower-txt"><b>Add a new account</b></span>
+            To Your KeepKey
+        </h2>
+        <h2 ng-show="updating">
+            <span class="cornflower-txt"><b>Update your account settings</b></span>
+            On Your KeepKey
+        </h2>
         <form name="form" novalidate>
             <div class="form-input-container">
                 <div class="content-form-inner">
@@ -30,17 +35,25 @@
                     </div>
                 </div>
             </div>
-            <button class="button"
+            <button ng-hide="updating"
+                    class="button"
                     type="submit"
                     ng-click="addAccount()"
                     ng-disabled="!form.$valid || creating">
                 Add Account
             </button>
+            <button ng-show="updating"
+                    class="button"
+                    type="submit"
+                    ng-click="updateAccountName()"
+                    ng-disabled="!form.$valid || creating">
+                Update Account
+            </button>
         </form>
     </div>
 
     <ng-include ng-if="creating"
-                src="'app/popup/addAccount/creating.tpl.html'"></ng-include>
+                src="'app/popup/accountConfig/creating.tpl.html'"></ng-include>
 
     <div class="footer">
         <div class="left">

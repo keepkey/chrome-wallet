@@ -2,10 +2,8 @@
     <header>
         <back-button ng-hide="singleAccount"
                      class="button-left header-button"></back-button>
-        <a class="button-right header-button refresh-button"
-           ng-click="refresh()">
-            <div class="icon icon-refresh"></div>
-        </a>
+        <settings-button ng-show="singleAccount"
+                         class="button-right header-button"></settings-button>
     </header>
 
     <div class="content">
@@ -17,7 +15,8 @@
                     pending="wallet.lowConfidenceBalance"
                     loading="receiveDisabled()">
             </wallet-balance>
-            <div class="account-number">Account #{{wallet.accountNumber}}</div>
+            <div class="account-number" ng-hide="singleAccount">
+                Account #{{wallet.accountNumber}}</div>
         </div>
 
         <div class="menu">
@@ -37,15 +36,14 @@
                         Transactions
                     </button>
                 </li>
-                <li ng-show="singleAccount">
-                    <button class="menu-item"
-                            ng-click="go('/device', 'slideLeft')">
-                        Device Settings
+                <li ng-hide="singleAccount">
+                    <button class="menu-item" ng-click="accountSettings()">
+                        Change Account Name
                     </button>
                 </li>
-                <li>
-                    <button class="menu-item" ng-click="accountSettings()">
-                        Account Settings
+                <li ng-hide="singleAccount">
+                    <button class="menu-item" ng-click="delete()">
+                        Delete Account
                     </button>
                 </li>
             </ul>
@@ -57,7 +55,7 @@
             <strong>{{device.label || 'KeepKey'}}</strong> connected
         </div>
         <div class="new-account-link right" ng-if="singleAccount"
-             ng-click="go('/addAccount', 'slideLeft')">
+             ng-click="go('/accountConfig', 'slideLeft')">
             Add account
         </div>
         <div class="wallet-name right" ng-if="!singleAccount" ng-bind="wallet.name"></div>
