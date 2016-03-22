@@ -4,13 +4,9 @@
     </header>
 
     <div class="content">
-        <h2 ng-hide="updating">
+        <h2>
             <span class="cornflower-txt"><b>Add a new account</b></span>
             To Your KeepKey
-        </h2>
-        <h2 ng-show="updating">
-            <span class="cornflower-txt"><b>Update your account settings</b></span>
-            On Your KeepKey
         </h2>
         <form name="form" novalidate>
             <div class="form-input-container">
@@ -35,25 +31,19 @@
                     </div>
                 </div>
             </div>
-            <button ng-hide="updating"
-                    class="button"
+            <button class="button"
                     type="submit"
                     ng-click="addAccount()"
                     ng-disabled="!form.$valid || creating">
                 Add Account
             </button>
-            <button ng-show="updating"
-                    class="button"
-                    type="submit"
-                    ng-click="updateAccountName()"
-                    ng-disabled="!form.$valid || creating">
-                Update Account
-            </button>
         </form>
     </div>
 
-    <ng-include ng-if="creating"
-                src="'app/popup/accountConfig/creating.tpl.html'"></ng-include>
+    <div ng-if="creating" class="loading in-progress-overlay">
+        <div class="spinner fa fa-refresh fa-spin"></div>
+        <div>Wait a moment while your new account is created...</div>
+    </div>
 
     <div class="footer">
         <div class="left">

@@ -67,11 +67,14 @@ angular.module('kkWallet')
               destination = '/walletList';
               break;
             case 'Account name updated':
-              destination = 
+              $injector.invoke(navigateToPreviousLocation(), this);
+              break;
             default:
               destination = '/success/:message';
           }
-          $injector.invoke(navigateToLocation(destination), this);
+          if (destination) {
+            $injector.invoke(navigateToLocation(destination), this);
+          }
         }
       ]);
       deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));

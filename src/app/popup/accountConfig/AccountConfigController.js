@@ -3,9 +3,7 @@ angular.module('kkWallet')
     function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, deviceBridgeService) {
       $scope.walletList = walletNodeService.wallets;
       $scope.walletName = '';
-      $scope.updating = false;
       if ($routeParams.accountId) {
-        $scope.updating = true;
         var wallet = _.find($scope.walletList, {
           id: $routeParams.accountId
         });
@@ -19,7 +17,6 @@ angular.module('kkWallet')
       var startingAccountListCount = $scope.walletList.length;
 
       $scope.addAccount = function () {
-        console.log('adding');
         if ($scope.form.$valid) {
           $scope.creating = true;
           var newAccountNode = findNextAccountNode();
@@ -28,7 +25,6 @@ angular.module('kkWallet')
       };
 
       $scope.updateAccountName = function () {
-        console.log("updating");
         if ($scope.form.$valid) {
           $scope.creating = true;
           deviceBridgeService.updateWalletName(
@@ -49,10 +45,7 @@ angular.module('kkWallet')
         })) {
           candidateAccount++;
         }
-
         return "m/44'/0'/" + candidateAccount + "'";
       }
-
-
     }
   ]);

@@ -156,11 +156,11 @@ angular.module('kkWallet')
           goable: true
         })
         .when('/accountConfig/:accountId', {
-          templateUrl: 'app/popup/accountConfig/accountConfig.tpl.html',
+          templateUrl: 'app/popup/accountConfig/updateAccount.tpl.html',
           goable: true
         })
         .when('/accountConfig', {
-          templateUrl: 'app/popup/accountConfig/accountConfig.tpl.html',
+          templateUrl: 'app/popup/accountConfig/addAccount.tpl.html',
           goable: true
         })
         .otherwise({

@@ -27,8 +27,9 @@ angular.module('kkCommon')
         if (isGoable($location.path())) {
           if (_.indexOf(previousRoute, path) !== -1) {
             while (previousRoute.length && previousRoute.pop() !== path);
+          } else {
+            previousRoute.push($location.path());
           }
-          previousRoute.push($location.path());
         }
 
         console.log('navigating from %s to %s with "%s" transition',
