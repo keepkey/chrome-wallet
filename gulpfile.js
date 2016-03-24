@@ -19,6 +19,8 @@ var ngConstant = require('gulp-ng-constant');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
 var manifest = require('./manifest');
+var wrap = require('gulp-wrap');
+var rename = require('gulp-rename');
 
 var environment = (args.environment || 'local');
 
@@ -79,8 +81,16 @@ gulp.task('vendorScriptsProduction', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('backgroundScript', function () {
-  return gulp.src(['src/background.js'])
+gulp.task('wrapJson', function() {
+  return gulp.src('config/' + environment + '.json')
+    .pipe(wrap('var config=<%= JSON.stringify(contents) %>;'))
+    .pipe(rename({suffix: '.json', extname: '.js'}))
+    .pipe(gulp.dest('generatedJs'));
+});
+
+gulp.task('backgroundScript', ['wrapJson'], function () {
+  return gulp.src(['generatedJs/' + environment + '.json.js', 'src/background.js'])
+    .pipe(concat('background.js'))
     .pipe(gulp.dest('dist'));
 });
 

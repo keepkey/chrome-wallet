@@ -23,4 +23,5 @@ angular.module('kkWallet', [
           });
         }
       });
+    chrome.runtime.connect();
   }]);

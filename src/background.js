@@ -1,11 +1,13 @@
 /* global chrome */
+
+// Note: The config object is added to this file at build time
+
 var popupId;
 var defaultPopup;
 
-chrome.browserAction.getPopup({}, function(popup) {
+chrome.browserAction.getPopup({}, function (popup) {
   var trimLength = window.location.origin.length;
   defaultPopup = popup.substr(trimLength);
-  console.log('default popup:', defaultPopup);
 });
 
 chrome.runtime.onMessageExternal.addListener(
@@ -39,6 +41,17 @@ chrome.runtime.onMessage.addListener(
     }
   }
 );
+
+chrome.runtime.onConnect.addListener(function (port) {
+  port.onDisconnect.addListener(function () {
+    console.log('connection closed');
+    chrome.runtime.sendMessage(
+      config.keepkeyProxy.applicationId,
+      {messageType: 'Cancel'}
+    );
+
+  });
+});
 
 chrome.browserAction.onClicked.addListener(function (tab) {
   chrome.windows.update(popupId, {focused: true});

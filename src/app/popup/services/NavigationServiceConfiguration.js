@@ -86,10 +86,6 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/wallet/wallet.tpl.html',
           goable: true
         })
-        // .when('/wallet', {
-        //   templateUrl: 'app/popup/wallet/wallet.tpl.html',
-        //   goable: true
-        // })
         .when('/send/:wallet', {
           templateUrl: 'app/popup/send/send.tpl.html',
           goable: true
