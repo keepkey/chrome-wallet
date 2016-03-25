@@ -23,13 +23,10 @@ angular.module('kkCommon')
           return;
         }
 
-        // Keep track of the last 'goable' path
-        if (isGoable($location.path())) {
-          if (_.indexOf(previousRoute, path) !== -1) {
-            while (previousRoute.length && previousRoute.pop() !== path);
-          } else {
-            previousRoute.push($location.path());
-          }
+        if (_.indexOf(previousRoute, path) !== -1) {
+          while (previousRoute.length && previousRoute.pop() !== path);
+        } else if (isGoable($location.path())) {
+          previousRoute.push($location.path());
         }
 
         console.log('navigating from %s to %s with "%s" transition',
@@ -55,7 +52,10 @@ angular.module('kkCommon')
       return {
         go: go,
         goToPrevious: function (pageAnimationClass) {
-          go(_.last(previousRoute), pageAnimationClass, true);
+          var destination = _.last(previousRoute);
+          if (destination) {
+            go(destination, pageAnimationClass, true);
+          }
         },
         setNextTransition: function (pageAnimationClass) {
           nextTransition = pageAnimationClass;
@@ -68,6 +68,15 @@ angular.module('kkCommon')
         },
         getCurrentRoute: function () {
           return $location.path();
+        },
+        dumpHistory: function() {
+          previousRoute.length = 0;
+        },
+        hasPreviousRoute: function() {
+          return !!_.last(previousRoute);
+        },
+        addHistory: function(route) {
+          previousRoute.push(route);
         }
       };
     }

@@ -12,6 +12,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/device/device.tpl.html',
           goable: true
         })
+        .when('/lifeboat', {
+          templateUrl: 'app/popup/device/lifeboat.tpl.html',
+          goable: true
+        })
         .when('/initialize', {
           templateUrl: 'app/popup/initialize/initialize.tpl.html',
           goable: true

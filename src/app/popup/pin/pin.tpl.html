@@ -1,6 +1,9 @@
 <section id="pin" ng-controller="PinController">
     <header>
-        <back-button class="button-left header-button" action="onCancel()"></back-button>
+        <back-button ng-hide="showDeviceConfigurationButton"
+                     class="button-left header-button" action="onCancel();"></back-button>
+        <settings-button ng-show="showDeviceConfigurationButton"
+                         class="button-left header-button" route="'/lifeboat'"></settings-button>
     </header>
 
     <div class="content">
