@@ -44,10 +44,11 @@ angular.module('kkWallet')
   ])
   .run(['$rootScope', 'DeviceBridgeService', 'NavigationService',
     function ($rootScope, deviceBridgeService, navigationService) {
-      $rootScope.onCancel = function (disableNavigation) {
-        if (!disableNavigation) {
-          navigationService.goToPrevious('slideRight');
-        }
+      $rootScope.goBack = function() {
+        navigationService.goToPrevious('slideRight');
+      };
+
+      $rootScope.cancelDeviceOperation = function () {
         deviceBridgeService.cancel();
       };
     }

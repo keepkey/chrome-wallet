@@ -1,6 +1,6 @@
 <section id="button-request" ng-controller="SignTxController">
     <header>
-        <back-button class="button-left header-button" action="onCancel(true)"></back-button>
+        <back-button class="button-left header-button" action="cancelDeviceOperation();"></back-button>
     </header>
 
     <div id="send-output" class="content" ng-class="buttonRequestType">
@@ -10,6 +10,6 @@
                 Carefully verify that the receiving address matches exactly payee's address.</h2>
             </div>
         </div>
-        <a class="text-link-button cancel" ng-click="onCancel(true)">Cancel</a>
+        <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
     </div>
 </section>

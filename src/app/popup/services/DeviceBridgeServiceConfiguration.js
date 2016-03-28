@@ -89,7 +89,8 @@ angular.module('kkWallet')
             'Wipe cancelled',
             'Reset cancelled',
             'Recovery cancelled',
-            'Apply settings cancelled'
+            'Apply settings cancelled',
+            'PIN change cancelled'
           ];
           if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
             $injector.invoke(navigateToPreviousLocation(), this);
