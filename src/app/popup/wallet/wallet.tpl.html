@@ -16,7 +16,8 @@
                     loading="receiveDisabled()">
             </wallet-balance>
             <div class="account-number" ng-hide="singleAccount">
-                Account #{{wallet.accountNumber}}</div>
+                Account #{{wallet.accountNumber}}
+            </div>
         </div>
 
         <div class="menu">
@@ -58,6 +59,7 @@
              ng-click="go('/accountConfig', 'slideLeft')">
             Add account
         </div>
-        <div class="wallet-name right" ng-if="!singleAccount" ng-bind="wallet.name"></div>
+        <div class="wallet-name right" ng-if="!singleAccount"
+             ng-bind="wallet.name"></div>
     </div>
 </section>

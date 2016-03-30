@@ -1,26 +1,21 @@
-<!--
-<recipient-entry
-        recipient="userInput.address"
-        field-name="dest"
-        form="form">
-</recipient-entry>
--->
 <div class="recipient-entry">
-    <label>Recipient:</label>
-    <div class="invalid" ng-messages="field.$error" ng-show="field.$touched">
-        <div ng-message="required">
-            Required
-        </div>
-        <div ng-message="pattern">
-            Invalid Address
-        </div>
-    </div>
-    <input
-            type="text"
-            name="{{fieldName}}"
-            ng-model="recipient"
-            pattern="[13][a-km-zA-HJ-NP-Z1-9]{25,34}"
-            ng-disabled="disabled"
-            required
-            focus>
+    <script type="text/ng-template" id="customTemplate.html">
+        <a>
+            <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+            (Account #{{match.model.accountNumber}})
+        </a>
+    </script>
+    <label>{{label}}</label>
+    <input type="text"
+           name="{{fieldName}}"
+           autocomplete="off"
+           ng-model="selected"
+           placeholder="{{placeholder}}"
+           uib-typeahead="account as account.name for account in accounts | filter:{name:$viewValue}"
+           typeahead-template-url="customTemplate.html"
+           class="form-control"
+           typeahead-show-hint="true"
+           typeahead-min-length="0"
+           ng-required focus>
+    <div class="destination-descriptor" ng-show="accountLabel">{{accountLabel}}</div>
 </div>

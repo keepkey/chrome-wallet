@@ -1,3 +1,13 @@
+@import "../../vendor/bootstrap/less/bootstrap.less";
+
+// Bootstrap overrides
+.form-control {
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  padding: 4px;
+}
+
 @body-height: 380px;
 @body-width: 340px;
 
@@ -321,10 +331,23 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 #build-transaction {
-  form {
-    label {
-      float: left;
+  .recipient-entry {
+    position: relative;
+    input {
+      margin: 0;
     }
+    label {
+      float: none;
+    }
+    .dropdown-menu {
+      width: 100%;
+    }
+  }
+  .destination-descriptor {
+    font-size: 8px;
+    position: absolute;
+    bottom: -3px;
+    right: 4px;
   }
   .available-balance {
     font-family: 'Open Sans', sans-serif;
@@ -1223,7 +1246,7 @@ a, a:hover {
   .wallets {
     position: absolute;
     top: @header-height;
-    bottom: 88px;
+    bottom: 40px;
     width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;

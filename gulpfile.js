@@ -174,7 +174,7 @@ gulp.task('less', function () {
 gulp.task('cssProduction', function () {
   return gulp.src([
     'vendor/angular/angular-csp.css',
-    'vendor/bootstrap-bower/css/bootstrap.min.css',
+    'vendor/angular-bootstrap/ui-bootstrap-csp.css',
     'vendor/angular-xeditable/dist/css/xeditable.css',
     'src/styles/**/*.css'])
     .pipe(minifyCss())

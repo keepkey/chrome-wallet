@@ -24,11 +24,16 @@ angular.module('kkWallet')
         $scope.preparingTransaction = true;
         transactionService.transactionInProgress = {
           accountId: $scope.wallet.id,
-          sendTo: $scope.userInput.address,
-          sendToAccount: _.get($scope.destWallet, 'id'),
           amount: $scope.userInput.amount,
           feeLevel: $scope.userInput.feeLevel
         };
+
+        var destinationAccount = _.get($scope.userInput, 'address.id');
+        if (destinationAccount) {
+          transactionService.transactionInProgress.sendToAccount = destinationAccount;
+        } else {
+          transactionService.transactionInProgress.sendTo = $scope.userInput.address;
+        }
 
         deviceBridgeService.requestTransactionSignature(transactionService.transactionInProgress);
         navigationService.setNextTransition('slideLeft');
