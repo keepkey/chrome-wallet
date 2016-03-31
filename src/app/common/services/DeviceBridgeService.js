@@ -192,6 +192,12 @@ angular.module('kkCommon')
               accountId: walletId,
               accountName: walletName
             });
+          },
+          sendPassphrase: function(passphrase) {
+            return sendMessage({
+              messageType: 'Passphrase',
+              passphrase: passphrase
+            });
           }
         };
       }

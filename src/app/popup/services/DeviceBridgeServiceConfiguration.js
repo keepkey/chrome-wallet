@@ -67,6 +67,7 @@ angular.module('kkWallet')
               destination = '/walletList';
               break;
             case 'Account name updated':
+            case 'Passphrase accepted':
               $injector.invoke(navigateToPreviousLocation(), this);
               break;
             default:
@@ -116,9 +117,9 @@ angular.module('kkWallet')
           if (deviceFeatureService.features.bootloader_mode) {
             navigationService.go('/bootloader');
           }
-          else if (deviceFeatureService.features.passphrase_protection) {
-            navigationService.go('/passphrase');
-          }
+          // else if (deviceFeatureService.features.passphrase_protection) {
+          //   navigationService.go('/passphrase');
+          // }
           else if (deviceFeatureService.features.initialized) {
             navigationService.go('/walletlist');
           }
