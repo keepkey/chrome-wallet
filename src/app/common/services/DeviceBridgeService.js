@@ -155,11 +155,6 @@ angular.module('kkCommon')
             message.amount *= 100000000;
             return sendMessage(message);
           },
-          getFees: function () {
-            return sendMessage({
-              messageType: 'GetFees'
-            });
-          },
           estimateFeeForTransaction: function (accountId, transactionAmount) {
             return sendMessage({
               messageType: 'EstimateFeeForTransaction',

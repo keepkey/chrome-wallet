@@ -146,12 +146,6 @@ angular.module('kkWallet')
         }
       ]);
 
-      deviceBridgeServiceProvider.when('Fees', ['FeeService',
-        function (feeService) {
-          feeService.set(this.request.message);
-        }
-      ]);
-
       deviceBridgeServiceProvider.when('EstimatedTransactionFee', ['FeeService',
         function (feeService) {
           feeService.setEstimate(this.request.message);

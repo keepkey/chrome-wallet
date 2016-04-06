@@ -6,10 +6,6 @@ angular.module('kkWallet')
       $scope.device = deviceFeatureService.features;
       $scope.loaded = !!$scope.wallets.length;
 
-      $scope.refresh = function () {
-        deviceBridgeService.reloadBalances();
-      };
-
       if (!$scope.wallets.length) {
         walletNodeService.loadAccounts();
       }

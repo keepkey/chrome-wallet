@@ -6,15 +6,33 @@
     <div class="content">
         <h2><span class="cornflower-txt"><b>Enter the Passphrase</b> for your KeepKey</span></h2>
 
-        <form name="password-form" novalidate>
+        <form name="passphraseForm" novalidate>
             <label for="passphrase">Passphrase:</label>
             <input name="passphrase"
                    type="password"
                    autocomplete="off"
                    focus
                    ng-model="userInput.passphrase">
+
+            <label for="confirmPassphrase">Confirm passphrase:</label>
+            <input name="confirmPassphrase"
+                   id="confirmPassphrase"
+                   type="password"
+                   ng-model="userInput.confirmPassphrase"
+                   compare-to="userInput.passphrase"
+                   autocomplete="off"/>
+
+            <div class="invalid"
+                 ng-messages="passphraseForm.confirmPassphrase.$error"
+                 ng-show="passphraseForm.confirmPassphrase.$touched">
+                <div ng-message="compareTo">
+                    Passphrases don't match
+                </div>
+            </div>
+
             <button class="button"
                     type="submit"
+                    ng-disabled="passphraseForm.$invalid"
                     ng-click="sendPassphrase()">
                 Send Passphrase
             </button>

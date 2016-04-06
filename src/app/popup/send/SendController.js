@@ -3,8 +3,6 @@ angular.module('kkWallet')
     function SendController($scope, $routeParams, $interpolate, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService) {
       walletNodeService.reload();
 
-      feeService.update();
-
       $scope.feeOptions = feeService.feeOptions;
       $scope.estimatedFee = feeService.estimatedFee;
       $scope.maxAmount = feeService.maxTransactionAmount;
