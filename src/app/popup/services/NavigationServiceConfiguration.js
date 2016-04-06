@@ -1,6 +1,7 @@
 angular.module('kkWallet')
   .config(['$routeProvider',
     function ($routeProvider) {
+      $routeProvider.caseInsensitiveMatch = true;
       $routeProvider
         .when('/', {
           templateUrl: 'app/popup/connect/connect.tpl.html'
