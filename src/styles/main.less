@@ -601,6 +601,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   .device-image('../assets/img/update-mode-background.png');
 }
 
+#transfer-output {
+  .device-image('../assets/img/transfer-background.png');
+}
+
 .button, a.button {
   height: @button-height;
   display: block;
@@ -1262,6 +1266,9 @@ a, a:hover {
       .wallet-balance {
         font-size: 12px;
         float: left;
+        &.has-pending-balance {
+          font-size: 85%;
+        }
         > div {
           display: inline-block;
         }
