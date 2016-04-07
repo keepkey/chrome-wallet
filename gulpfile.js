@@ -36,7 +36,8 @@ var vendorJavascriptFiles = [
   'vendor/angular-xeditable/dist/js/xeditable.min.js',
   'vendor/qrcode-generator/js/qrcode.js',
   'vendor/angular-qrcode/angular-qrcode.js',
-  'vendor/clipboard/dist/clipboard.min.js'
+  'vendor/clipboard/dist/clipboard.min.js',
+  'vendor/compare-versions/index.js'
 ];
 var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
 

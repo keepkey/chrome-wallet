@@ -24,8 +24,15 @@
         <div class="menu">
             <ul>
                 <li>
+                    <button class="menu-item notification"
+                            ng-click="go('/update-firmware', 'slideLeft')"
+                            ng-show="device.firmwareUpdateAvailable">
+                        Firmware Update Available</button>
+                </li>
+                <li>
                     <button class="menu-item" ng-click="send()"
-                            ng-disabled="!sendAllowed()">Send Money
+                            ng-disabled="!sendAllowed()">
+                        Send Money
                     </button>
                 </li>
                 <li>

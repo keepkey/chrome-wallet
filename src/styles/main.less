@@ -60,15 +60,10 @@ b {
   font-weight: 700;
 }
 
-html {
+html, body, #mask, [ng-class="pageAnimationClass"], section {
   width: @body-width;
   height: @body-height;
   overflow: hidden;
-}
-
-body, #mask, [ng-class="pageAnimationClass"], section {
-  width: 100%;
-  height: 100%;
 }
 
 body {
@@ -600,6 +595,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
 #change-label {
   .device-image('../assets/img/change-label-background.png');
+}
+
+#firmware-available {
+  .device-image('../assets/img/update-mode-background.png');
 }
 
 .button, a.button {
@@ -1136,6 +1135,7 @@ input::-webkit-inner-spin-button {
       &:hover {
         background-color: #d26464;
         border: 1px solid #d26464;
+        color: white;
       }
     }
   }
@@ -1385,4 +1385,3 @@ a, a:hover {
     font-family: inherit;
   }
 }
-
