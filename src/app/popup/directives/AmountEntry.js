@@ -12,6 +12,8 @@ angular.module('kkWallet')
       },
       controller: ['$scope', 'FeeService',
         function ($scope, feeService) {
+          $scope.dust = 546;
+          
           $scope.fillMaxDetector = function(ev) {
             if (ev.charCode === 33) {
               $scope.amount = $scope.getMaxAmount();
@@ -22,8 +24,10 @@ angular.module('kkWallet')
 
           $scope.getMaxAmount = function () {
             if ($scope.maxAmount) {
+              $scope.maxIsDust = $scope.maxAmount < $scope.dust;
               return $scope.maxAmount / 100000000;
             } else {
+              $scope.maxIsDust = true;
               return 21000000;
             }
           };

@@ -23,13 +23,16 @@
             Invalid Amount
         </div>
     </div>
+    <div class="invalid" ng-show="maxIsDust">
+        Balance too low. Unable to send.
+    </div>
     <input
             ng-keypress="fillMaxDetector($event)"
             type="number"
             name="{{fieldName}}"
             ng-model="amount"
-            ng-disabled="disabled"
+            ng-disabled="disabled || maxIsDust"
             required
-            min="0.00000001"
+            min="{{dust / 100000000}}"
             max="{{getMaxAmount()}}">
 </div>
