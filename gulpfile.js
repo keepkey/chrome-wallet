@@ -13,7 +13,7 @@ var minifyHTML = require('gulp-minify-html');
 var zip = require('gulp-zip');
 var jsonminify = require('gulp-jsonminify');
 var less = require('gulp-less');
-var minifyCss = require('gulp-minify-css');
+var cleanCss = require('gulp-clean-css');
 var args = require('yargs').argv;
 var ngConstant = require('gulp-ng-constant');
 var mocha = require('gulp-mocha');
@@ -168,7 +168,7 @@ gulp.task('less', function () {
     .pipe(less({
       paths: [path.join(__dirname, 'less', 'includes')]
     }))
-    .pipe(minifyCss())
+    .pipe(cleanCss())
     .pipe(gulp.dest('dist/styles'));
 });
 
@@ -178,7 +178,7 @@ gulp.task('cssProduction', function () {
     'vendor/angular-bootstrap/ui-bootstrap-csp.css',
     'vendor/angular-xeditable/dist/css/xeditable.css',
     'src/styles/**/*.css'])
-    .pipe(minifyCss())
+    .pipe(cleanCss())
     .pipe(gulp.dest('dist/styles'));
 });
 
