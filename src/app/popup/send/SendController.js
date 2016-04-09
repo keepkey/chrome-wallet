@@ -1,6 +1,10 @@
 angular.module('kkWallet')
-  .controller('SendController', ['$scope', '$routeParams', '$interpolate', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService', 'FeeService',
-    function SendController($scope, $routeParams, $interpolate, deviceBridgeService, navigationService, walletNodeService, transactionService, feeService) {
+  .controller('SendController', ['$scope', '$routeParams',
+    'DeviceBridgeService', 'NavigationService', 'WalletNodeService',
+    'TransactionService', 'FeeService', 'environmentConfig',
+     function SendController($scope, $routeParams, deviceBridgeService, 
+                            navigationService, walletNodeService,
+                            transactionService, feeService, environmentConfig) {
       walletNodeService.reload();
 
       $scope.feeOptions = feeService.feeOptions;
@@ -11,6 +15,8 @@ angular.module('kkWallet')
       $scope.showForm = !!($scope.wallet.highConfidenceBalance);
       $scope.preparingTransaction = false;
 
+      $scope.feeSelectorEnabled = environmentConfig.showFeeSelector;
+      
       $scope.userInput = {
         sourceIndex: $routeParams.wallet,
         sourceName: $scope.wallet.name,

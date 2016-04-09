@@ -1,0 +1,10 @@
+{
+  "environment": "rc",
+  "showFeeSelector": false,
+  "keepkeyProxy": {
+    "applicationId": "ndpjhnboalogfiafbknodggihfiedibo"
+  },
+  "keepkeyWallet": {
+    "applicationId": "ooebcblfhoolggpbpkmjpieidkmengcl"
+  }
+}

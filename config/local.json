@@ -1,5 +1,6 @@
 {
   "environment": "local",
+  "showFeeSelector": false,
   "keepkeyProxy": {
     "applicationId": "illdklnbgkpeiobihacoghodohcmpfil"
   },

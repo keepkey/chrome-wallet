@@ -5,10 +5,12 @@
 
     <div class="content">
         <div ng-show="showForm">
-            <h2>
-                <span class="cornflower-txt">
-                    <b>Send Money</b></span> from your KeepKey
-            </h2>
+            <account-balance
+                    account="wallet"
+                    loading="false"
+                    name-display="name">
+            </account-balance>
+
 
             <form name="form" novalidate>
                 <div class="form-input-container">
@@ -18,7 +20,7 @@
                                     recipient="userInput.address"
                                     field-name="dest"
                                     form="form"
-                                    label="Destination:"
+                                    label="Send money to:"
                                     current-account="wallet.id"
                                     disabled="preparingTransaction">
                             </recipient-entry>
@@ -32,6 +34,7 @@
                             </amount-entry>
 
                             <fee-selector
+                                    ng-if="feeSelectorEnabled"
                                     estimated-fees="estimatedFee.fee"
                                     selected="userInput.feeLevel"
                                     active="!preparingTransaction && userInput.amount > 0">

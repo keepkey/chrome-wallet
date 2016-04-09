@@ -1,5 +1,6 @@
 {
   "environment": "recover",
+  "showFeeSelector": false,
   "keepkeyProxy": {
     "applicationId": "laniobkjpngeaccbcgligaeoddjinaoi"
   },

@@ -1,5 +1,6 @@
 {
   "environment": "test",
+  "showFeeSelector": false,
   "keepkeyProxy": {
     "applicationId": "gcnmkijgadcpohmhonkpoocdclcamakj"
   },

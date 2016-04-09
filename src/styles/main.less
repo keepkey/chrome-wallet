@@ -326,6 +326,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 #build-transaction {
+  form {
+    border-top: 1px solid #ECECED;
+    background-color: #FDFDFD;
+  }
   .recipient-entry {
     position: relative;
     input {
@@ -343,10 +347,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     position: absolute;
     bottom: -3px;
     right: 4px;
-  }
-  .available-balance {
-    font-family: 'Open Sans', sans-serif;
-    color: #cccccc;
   }
   .fee-display {
     transition: 0.2s all ease-in-out;
@@ -458,7 +458,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 .content {
-  padding: @content-padding;
+  // padding: @content-padding; FIXME This broke some stuff
   box-sizing: border-box;
   overflow: auto;
   position: absolute;
@@ -541,8 +541,12 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   height: @content-height;
 }
 
-.content-form-inner {
+.content-pin-inner {
   height: @content-height - @button-bar - @button-height - @form-header-height - 60px;
+}
+
+.content-form-inner {
+  height: @content-height - @button-bar - @button-height - @wallet-height - 60px;
 }
 
 .content-confirming-inner {
@@ -861,7 +865,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#label, #pin, #character-request, #device-options, #build-transaction, #receive {
+#label, #pin, #character-request, #device-options, #receive {
   .content {
     padding-top: 10px;
     h2 {
@@ -1309,19 +1313,19 @@ a, a:hover {
   }
 }
 
-#wallet {
-  width: 100%;
-  transition: 0.3s all ease-in;
-  .wallet {
-    height: @wallet-height;
-    padding: 20px;
+.account-balance-component {
+  height: @wallet-height;
+  padding: 20px;
+  position: relative;
+  .account-number {
+    font-size: 8px;
+    position: absolute;
+    right: 8px;
+    bottom: 0;
   }
   .connection-light {
     float: left;
     margin-top: 9px;
-  }
-  .details {
-    padding: 2px 19px 0 0;
   }
   .balance {
     font-size: 26px;
@@ -1339,6 +1343,14 @@ a, a:hover {
     .wallet-currency {
       display: none;
     }
+  }
+}
+
+#wallet {
+  width: 100%;
+  transition: 0.3s all ease-in;
+  .details {
+    padding: 2px 19px 0 0;
   }
 }
 

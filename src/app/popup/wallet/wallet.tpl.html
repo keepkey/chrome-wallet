@@ -8,18 +8,11 @@
     </header>
 
     <div class="content">
-        <div class="wallet online">
-            <div class="connection-light"></div>
-            <wallet-balance
-                    class="details"
-                    balance="wallet.highConfidenceBalance"
-                    pending="wallet.lowConfidenceBalance"
-                    loading="receiveDisabled()">
-            </wallet-balance>
-            <div class="account-number" ng-hide="singleAccount">
-                Account #{{wallet.accountNumber}}
-            </div>
-        </div>
+        <account-balance
+                account="wallet"
+                loading="receiveDisabled()"
+                name-display="number">
+        </account-balance>
 
         <div class="menu">
             <ul>
