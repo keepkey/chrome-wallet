@@ -12,7 +12,6 @@ angular.module('kkWallet')
               }
             }
             navigationService.go(location);
-            $rootScope.$digest();
           }
         ];
       }
@@ -21,7 +20,6 @@ angular.module('kkWallet')
         return ['NavigationService', '$rootScope',
           function (navigationService, $rootScope) {
             navigationService.goToPrevious('slideRight');
-            $rootScope.$digest();
           }
         ];
       }
@@ -107,13 +105,13 @@ angular.module('kkWallet')
           if (this.request.message.request_type === 'TXFINISHED') {
             angular.copy({}, transactionService.transactionInProgress);
             navigationService.go('/walletlist');
-            $rootScope.$digest();
           }
         }
       ]);
       deviceBridgeServiceProvider.when('Features', ['NavigationService', 'DeviceFeatureService', '$rootScope',
         function (navigationService, deviceFeatureService, $rootScope) {
           deviceFeatureService.set(this.request.message);
+          navigationService.dumpHistory();
           if (deviceFeatureService.features.bootloader_mode) {
             navigationService.go('/bootloader');
           }
@@ -126,7 +124,6 @@ angular.module('kkWallet')
           else {
             navigationService.go('/initialize');
           }
-          $rootScope.$digest();
         }
       ]);
 

@@ -47,6 +47,7 @@ angular.module('kkCommon')
           }
 
           $injector.invoke(messageHandler, messageArguments);
+          $rootScope.$digest();
         }
 
         return {

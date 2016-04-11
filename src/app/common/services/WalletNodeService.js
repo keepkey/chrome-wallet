@@ -1,8 +1,8 @@
 /* global _ */
 
 angular.module('kkCommon')
-  .factory('WalletNodeService', ['$rootScope', 'DeviceBridgeService',
-    function WalletNodeService($rootScope, deviceBridgeService) {
+  .factory('WalletNodeService', ['$rootScope', '$timeout', 'DeviceBridgeService',
+    function WalletNodeService($rootScope, $timeout, deviceBridgeService) {
       var nodes = [];
       var walletStats = {};
 
@@ -74,7 +74,6 @@ angular.module('kkCommon')
 
       function clearData() {
         nodes.length = 0;
-        $rootScope.$digest();
       }
 
       function joinPaths() {
