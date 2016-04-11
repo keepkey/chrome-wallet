@@ -5,7 +5,6 @@ angular.module('kkWallet')
       $scope.walletStats = walletNodeService.walletStats;
       $scope.walletId = $routeParams.wallet;
 
-      //walletNodeService.reload(true);
       updateWallet();
 
       $scope.singleAccount = $scope.walletList.length === 1;
