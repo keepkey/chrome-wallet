@@ -10,7 +10,7 @@ angular.module('kkWallet')
           features.patch_version
         ].join('.');
 
-        return compareVersions(features.available_firmware_version, currentVersion) > 0;
+        return semver.gt(features.available_firmware_version, currentVersion);
       }
 
       return {
