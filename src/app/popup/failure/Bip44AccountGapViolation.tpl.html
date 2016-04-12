@@ -1,0 +1,22 @@
+<section id="bip44-account-gap-violation"
+         ng-controller="Bip44AccountGapViolationController">
+    <header>
+        <back-button class="button-left header-button"
+                     destination="'/walletList'"></back-button>
+    </header>
+
+    <div class="content">
+        <h2><b>
+            <span class="cornflower-text">Unable to create a new account</span>
+        </b></h2>
+        <div class="description">
+            A new account can't be created when the previous account doesn't
+            have any transactions associated with it. Before you can create a
+            new account, you need to send funds to the account named
+            <span class="previous-account-name">{{previousAccountName}}</span>.
+            <div class="technical-description">BIP44 Account Gap Violation</div>
+        </div>
+    </div>
+
+    <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>
+</section>

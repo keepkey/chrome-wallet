@@ -865,7 +865,8 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#label, #pin, #character-request, #device-options, #receive {
+#label, #pin, #character-request, #device-options, #receive,
+#bip44-account-gap-violation {
   .content {
     padding-top: 10px;
     h2 {
@@ -928,6 +929,24 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
       font-size: 12px;
       margin: 10px 50px;
     }
+  }
+}
+
+#bip44-account-gap-violation {
+  .description {
+    margin: 25px;
+  }
+  .previous-account-name {
+    &:before {
+      content: open-quote;
+    }
+    &:after {
+      content: close-quote;
+    }
+    font-weight: 800;
+  }
+  .technical-description {
+    display: none;
   }
 }
 

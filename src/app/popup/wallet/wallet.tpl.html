@@ -37,11 +37,6 @@
                         Change Account Name
                     </button>
                 </li>
-                <li ng-hide="singleAccount">
-                    <button class="menu-item" ng-click="delete()">
-                        Delete Account
-                    </button>
-                </li>
             </ul>
         </div>
     </div>
@@ -51,7 +46,7 @@
             <strong>{{device.label || 'KeepKey'}}</strong> connected
         </div>
         <add-account-button class="right"
-                            ng-if="singleAccount || !receiveDisabled()">
+                            ng-if="singleAccount && !receiveDisabled()">
         </add-account-button>
 
         <div class="wallet-name right" ng-if="!singleAccount"

@@ -8,8 +8,10 @@ angular.module('kkWallet')
           $scope.onClick = function () {
             var destination;
 
-            if (!getLastAccount().hasTransactionHistory) {
-              destination = '/failure/create_account_failed';
+            var lastAccount = getLastAccount();
+
+            if (!lastAccount.hasTransactionHistory) {
+              destination = '/failure/bip44_account_gap_violation/' + lastAccount.name;
             } else {
               destination = '/accountConfig';
             }
