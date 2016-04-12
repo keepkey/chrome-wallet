@@ -50,10 +50,10 @@
         <div class="left">
             <strong>{{device.label || 'KeepKey'}}</strong> connected
         </div>
-        <div class="new-account-link right" ng-if="singleAccount || !receiveDisabled()"
-             ng-click="go('/accountConfig', 'slideLeft')">
-            Add account
-        </div>
+        <add-account-button class="right"
+                            ng-if="singleAccount || !receiveDisabled()">
+        </add-account-button>
+
         <div class="wallet-name right" ng-if="!singleAccount"
              ng-disabled="receiveDisabled()" ng-bind="wallet.name"></div>
     </div>

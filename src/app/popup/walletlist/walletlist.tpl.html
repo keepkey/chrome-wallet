@@ -7,10 +7,6 @@
         <div class="left">
             <strong>{{device.label || 'KeepKey'}}</strong> connected
         </div>
-        <div class="new-account-link right"
-             ng-if="loaded"
-             ng-click="go('/accountConfig', 'slideLeft')">
-            Add account
-        </div>
+        <add-account-button class="right" ng-if="loaded"></add-account-button>
     </div>
 </section>

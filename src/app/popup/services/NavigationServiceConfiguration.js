@@ -79,6 +79,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/failure/pinConfirmationFailed.tpl.html',
           goable: false
         })
+        .when('/failure/create_account_failed', {
+          templateUrl: 'app/popup/failure/createAccountFailed.tpl.html',
+          goable: true
+        })
         .when('/failure/:message', {
           templateUrl: 'app/popup/failure/failure.tpl.html',
           goable: false

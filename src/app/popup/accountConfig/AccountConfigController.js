@@ -3,15 +3,15 @@ angular.module('kkWallet')
     function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, deviceBridgeService) {
       $scope.walletList = walletNodeService.wallets;
       $scope.walletName = '';
-      if ($routeParams.accountId) {
-        var wallet = _.find($scope.walletList, {
-          id: $routeParams.accountId
-        });
 
-        if (wallet) {
-          $scope.walletName = wallet.name;
-        }
+      var wallet = _.find($scope.walletList, {
+        id: $routeParams.accountId
+      });
+
+      if (wallet) {
+        $scope.walletName = wallet.name;
       }
+
       $scope.device = deviceFeatureService.features;
       $scope.creating = false;
       var startingAccountListCount = $scope.walletList.length;
@@ -20,6 +20,7 @@ angular.module('kkWallet')
         if ($scope.form.$valid) {
           $scope.creating = true;
           var newAccountNode = findNextAccountNode();
+          console.log('new account node path:', newAccountNode);
           deviceBridgeService.addAccount(newAccountNode, $scope.walletName);
         }
       };
@@ -39,13 +40,12 @@ angular.module('kkWallet')
       });
 
       function findNextAccountNode() {
-        var candidateAccount = 0;
-        while (_.find($scope.walletList, {
-          nodePath: "m/44'/0'/" + candidateAccount + "'"
-        })) {
-          candidateAccount++;
-        }
-        return "m/44'/0'/" + candidateAccount + "'";
+        var lastAccount = _.last(_.sortBy($scope.walletList, function(account) {
+          return parseInt(account.accountNumber);
+        }));
+        var lastAccountNumber = parseInt(lastAccount.accountNumber);
+        return "m/44'/0'/" + (lastAccountNumber + 1) + "'";
+
       }
     }
   ]);
