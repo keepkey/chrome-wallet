@@ -47,6 +47,12 @@ angular.module('kkWallet')
         $scope.go('/accountConfig/' + $scope.walletId, 'slideLeft');
       };
 
+      $scope.openBuyBitcoinWindow = function() {
+        chrome.tabs.create({
+          url: 'https://www.keepkey.com/buy-bitcoin.php'
+        });
+      };
+
       function updateWallet() {
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);
         $scope.singleAccount = $scope.walletList.length === 1;
