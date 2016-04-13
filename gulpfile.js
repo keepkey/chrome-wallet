@@ -21,6 +21,7 @@ var karma = require('karma').server;
 var manifest = require('./manifest');
 var wrap = require('gulp-wrap');
 var rename = require('gulp-rename');
+var gulpif = require('gulp-if');
 
 var environment = (args.environment || 'local');
 
@@ -113,6 +114,7 @@ gulp.task('zip', ['vendorScriptsProduction', 'appCommonScripts', 'appPopupScript
 
 function appScriptBuilder(moduleName, angularModuleName, extraFiles) {
   var sources = [
+    'license-header.js',
     ['src', 'app', moduleName, moduleName + '.js'].join('/'),
     ['src', 'app', moduleName, '**/*.js'].join('/'),
     '!' + ['src', 'app', moduleName, '**/*.spec.js'].join('/')
@@ -129,8 +131,10 @@ function appScriptBuilder(moduleName, angularModuleName, extraFiles) {
 
   var jsScriptStream = gulp.src(sources)
     .pipe(replace("{{VERSION}}", manifest.version))
-    .pipe(concat(tempMinifiedFile));
-  //.pipe(uglify());
+    .pipe(concat(tempMinifiedFile))
+    .pipe(gulpif(environment !== 'local', uglify({
+      preserveComments: "license"
+    })));
 
   var templateStream = gulp.src(templateSourceFiles)
     .pipe(minifyHTML())
@@ -174,10 +178,10 @@ gulp.task('less', function () {
 
 gulp.task('cssProduction', function () {
   return gulp.src([
-    'vendor/angular/angular-csp.css',
-    'vendor/angular-bootstrap/ui-bootstrap-csp.css',
-    'vendor/angular-xeditable/dist/css/xeditable.css',
-    'src/styles/**/*.css'])
+      'vendor/angular/angular-csp.css',
+      'vendor/angular-bootstrap/ui-bootstrap-csp.css',
+      'vendor/angular-xeditable/dist/css/xeditable.css',
+      'src/styles/**/*.css'])
     .pipe(cleanCss())
     .pipe(gulp.dest('dist/styles'));
 });
