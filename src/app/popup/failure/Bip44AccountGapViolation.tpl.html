@@ -7,13 +7,20 @@
 
     <div class="content">
         <h2><b>
-            <span class="cornflower-text">Unable to create a new account</span>
+            <span class="cornflower-text">Unable to Create a New Account</span>
         </b></h2>
         <div class="description">
-            A new account can't be created when the previous account doesn't
-            have any transactions associated with it. Before you can create a
-            new account, you need to send funds to the account named
-            <span class="previous-account-name">{{previousAccountName}}</span>.
+            <p>
+                A new account can't be created when the previous account doesn't
+                have any transactions associated with it. Before you can create
+                a new account, you need to send funds to the account named
+                <span class="previous-account-name">{{previousAccountName}}</span>.
+            </p>
+            <p>
+                More details are available in the
+                <a target="_blank" href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account">BIP44</a>
+                specification.
+            </p>
             <div class="technical-description">BIP44 Account Gap Violation</div>
         </div>
     </div>
