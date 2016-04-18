@@ -28,7 +28,7 @@ angular.module('kkWallet')
           $scope.denomination = BITCOINS;
 
           $scope.$watch('amount', function() {
-            $scope.formattedAmount = toBitcoins($scope.amount);
+            $scope.formattedAmount = ($scope.amount > 0) ? toBitcoins($scope.amount) : '0.0';
           })
         }
       ],
