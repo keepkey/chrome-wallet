@@ -376,21 +376,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#pin-confirmation-failed {
-  .content {
-    .failure-list {
-      height: 24px;
-    }
-    .message {
-      text-align: center;
-      margin: 47px 0;
-    }
-  }
-  footer {
-    margin: 0;
-  }
-}
-
 .disabled {
   background-color: lightgrey;
   color: darkgray;
@@ -518,18 +503,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
       color: #000;
       font-weight: 200;
     }
-  }
-  .alert-icon {
-    color: lightcoral;
-    font-size: 40px;
-    margin: 12px;
-    font-weight: 700;
-    float: left;
-  }
-  .failure-list {
-    height: 120px;
-    font-size: 14px;
-    margin: 20px 0 20px 65px;
   }
 }
 
@@ -932,9 +905,25 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#bip44-account-gap-violation {
+.failure {
+  .content-inner {
+    height: @content-height - @button-height;
+  }
+  .content-inner-with-button {
+    height: @content-height - @button-bar - @button-height;
+  }
+  .alert-icon {
+    color: #d26464;
+    font-size: 40px;
+    margin-left: -60px;
+    font-weight: 700;
+    float: left;
+  }
   .description {
-    margin: 25px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 30px 0 100px;
   }
   .previous-account-name {
     &:before {
