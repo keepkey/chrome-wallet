@@ -21,7 +21,7 @@ angular.module('kkWallet')
       $scope.$watch("wallets.length", function() {
         $scope.loaded = !!$scope.wallets.length;
         if ($scope.wallets.length == 1) {
-          $scope.go('/wallet/' + $scope.wallets[0].id);
+          $scope.go('/wallet/' + $scope.wallets[0].id, 'cross-fade');
         }
       });
 
