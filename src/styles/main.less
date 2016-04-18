@@ -1319,6 +1319,7 @@ a, a:hover {
 }
 
 .account-balance-component {
+  font-family: 'Open Sans', sans-serif;
   height: @wallet-height;
   padding: 20px;
   position: relative;
@@ -1332,6 +1333,9 @@ a, a:hover {
     float: left;
     margin-top: 9px;
   }
+  .has-pending-balance {
+    margin-top: -6px;
+  }
   .balance {
     font-size: 26px;
     font-weight: 300;
@@ -1339,11 +1343,14 @@ a, a:hover {
     transition: all 0.2s ease-out;
     padding: 0;
     .wallet-currency {
+      color: #bbbbbb;
+      letter-spacing: 1.3px;
       font-size: 11px;
       margin-left: 0px;
     }
   }
   .unconfirmed-balance {
+    color: #bbbbbb;
     margin: -4px 20px;
     .wallet-currency {
       display: none;
