@@ -1,12 +1,15 @@
-<section id="wallet-list" ng-controller="WalletListController">
-    <ng-include src="'app/popup/walletlist/header.tpl.html'"></ng-include>
-    <ng-include src="'app/popup/walletlist/wallets.tpl.html'"></ng-include>
-    <ng-include ng-if="!loaded"
-                src="'app/popup/walletlist/loading.tpl.html'"></ng-include>
-    <div class="footer">
-        <div class="left">
-            <strong>{{device.label || 'KeepKey'}}</strong> connected
+<section ng-controller="WalletListController">
+    <div ng-if="!loaded">
+        <ng-include src="'app/popup/walletlist/loading.tpl.html'"></ng-include>
+    </div>
+    <div id="wallet-list" ng-if="showWalletList()">
+        <ng-include src="'app/popup/walletlist/header.tpl.html'"></ng-include>
+        <ng-include src="'app/popup/walletlist/wallets.tpl.html'"></ng-include>
+        <div class="footer">
+            <div class="left">
+                <strong>{{device.label || 'KeepKey'}}</strong> connected
+            </div>
+            <add-account-button class="right" ng-if="loaded"></add-account-button>
         </div>
-        <add-account-button class="right" ng-if="loaded"></add-account-button>
     </div>
 </section>
