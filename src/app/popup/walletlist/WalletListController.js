@@ -10,6 +10,10 @@ angular.module('kkWallet')
         walletNodeService.loadAccounts();
       }
 
+      $scope.showWalletList = function() {
+        return $scope.loaded && $scope.wallets.length > 1;
+      };
+
       $scope.goWallet = function(wallet) {
         $scope.go('/wallet/' + wallet.id, 'slideLeft');
       };
