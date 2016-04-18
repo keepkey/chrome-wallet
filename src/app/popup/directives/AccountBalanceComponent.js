@@ -6,7 +6,8 @@ angular.module('kkWallet')
       scope: {
         account: '=',
         loading: '=',
-        nameDisplay: '@'
+        nameDisplay: '@',
+        singleAccount: '='
       },
       controller: ['$scope',
         function($scope) {
