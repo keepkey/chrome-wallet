@@ -1245,11 +1245,6 @@ a, a:hover {
   }
 }
 
-.account-number {
-  font-size: 8px;
-  float: right;
-}
-
 #wallet-list {
   position: relative;
   .menu {
@@ -1274,6 +1269,11 @@ a, a:hover {
       }
       &:hover a {
         color: #ffffff;
+      }
+      .account-number {
+        font-size: 10px;
+        float: right;
+        color: #858585;
       }
       .details {
         height: @wallet-height;
@@ -1325,7 +1325,7 @@ a, a:hover {
       }
       &:hover {
         opacity: 0.8;
-        .balance {
+        .balance, .account-number {
           color: #666666;
         }
         .wallet-name {
