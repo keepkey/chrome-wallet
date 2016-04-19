@@ -1318,6 +1318,18 @@ a, a:hover {
   }
 }
 
+.wallet-fade {
+  transition-timing-function: ease;
+  transition-duration: 250ms;
+  transition-property: opacity;
+  &.nd-show {
+    opacity: 1;
+  }
+  &.ng-hide {
+    opacity: 0;
+  }
+}
+
 .account-balance-component {
   font-family: 'Open Sans', sans-serif;
   height: @wallet-height;

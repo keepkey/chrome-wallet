@@ -1,8 +1,8 @@
-<section ng-controller="WalletListController">
-    <div ng-if="!loaded">
+<section id="wallet-list" ng-controller="WalletListController">
+    <div ng-hide="loaded">
         <ng-include src="'app/popup/walletlist/loading.tpl.html'"></ng-include>
     </div>
-    <div id="wallet-list" ng-if="showWalletList()">
+    <div class="wallet-fade" ng-hide="!showWalletList()">
         <ng-include src="'app/popup/walletlist/header.tpl.html'"></ng-include>
         <ng-include src="'app/popup/walletlist/wallets.tpl.html'"></ng-include>
         <div class="footer">
