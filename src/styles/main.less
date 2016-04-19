@@ -1264,10 +1264,17 @@ a, a:hover {
     overflow-x: hidden;
     overflow-y: scroll;
     .wallet {
+      cursor: pointer;
       border-bottom: 1px solid #EBEBEC;
       height: @wallet-height;
       padding: 1px @wallet-list-margin;
       transition: 0.3s all ease-in;
+      a {
+        color: #C4D600;
+      }
+      &:hover a {
+        color: #ffffff;
+      }
       .details {
         height: @wallet-height;
         margin: 15px 34px 0 19px;
@@ -1280,6 +1287,16 @@ a, a:hover {
         }
         > div {
           display: inline-block;
+        }
+        .wallet-amount {
+          font-family: 'Open Sans', sans-serif;
+        }
+        .wallet-currency {
+          letter-spacing: 1.3px;
+          font-size: 75%;
+        }
+        .unconfirmed-balance, .balance {
+          color: #858585;
         }
         .balance {
           margin-right: 3px;
@@ -1304,14 +1321,15 @@ a, a:hover {
       .wallet-name {
         font-size: 24px;
         transition: all 0.2s ease-out;
+        color: #666666;
       }
       &:hover {
         opacity: 0.8;
         .balance {
-          color: #000;
+          color: #666666;
         }
-        h3.wallet-name {
-          color: #858585;
+        .wallet-name {
+          color: #000000;
         }
       }
     }
