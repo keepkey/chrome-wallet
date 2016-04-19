@@ -11,7 +11,7 @@
         <account-balance
                 account="wallet"
                 loading="receiveDisabled()"
-                name-display="number"
+                name-display="name"
                 single-account="singleAccount">
         </account-balance>
 
@@ -56,6 +56,6 @@
         </add-account-button>
 
         <div class="wallet-name right" ng-if="!singleAccount"
-             ng-disabled="receiveDisabled()" ng-bind="wallet.name"></div>
+             ng-disabled="receiveDisabled()">Account #{{wallet.accountNumber}}</div>
     </div>
 </section>
