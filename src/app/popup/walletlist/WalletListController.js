@@ -10,6 +10,8 @@ angular.module('kkWallet')
         walletNodeService.loadAccounts();
       }
 
+      navigationService.setNextTransition('cross-fade');
+
       $scope.showWalletList = function() {
         return $scope.loaded && $scope.wallets.length > 1;
       };
@@ -21,7 +23,7 @@ angular.module('kkWallet')
       $scope.$watch("wallets.length", function() {
         $scope.loaded = !!$scope.wallets.length;
         if ($scope.wallets.length == 1) {
-          $scope.go('/wallet/' + $scope.wallets[0].id, 'cross-fade');
+          $scope.go('/wallet/' + $scope.wallets[0].id);
         }
       });
 

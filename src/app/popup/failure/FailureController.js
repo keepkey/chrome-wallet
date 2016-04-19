@@ -3,7 +3,9 @@ angular.module('kkWallet')
     function FailureController($scope, $timeout, failureMessageService, deviceBridgeService, navigationService) {
       $scope.failures = failureMessageService.get();
 
-      navigationService.setNextTransition('slideRight');
+      if(navigationService.getPreviousRoute() !== '/walletlist'){
+        navigationService.setNextTransition('slideRight');
+      }
 
       $scope.ok = function () {
         deviceBridgeService.initialize();

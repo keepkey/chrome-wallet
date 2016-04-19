@@ -15,11 +15,10 @@ angular.module('kkWallet')
             $scope.pin = '' + $scope.pin + position;
           };
           $scope.sendPin = function() {
-            navigationService.setNextTransition('slideLeft');
             deviceBridgeService.sendPin({pin: $scope.pin});
             $scope.pin = '';
             if ($scope.successRoute) {
-              navigationService.go($scope.successRoute, 'slideRight');
+              navigationService.go($scope.successRoute);
             }
           };
           $scope.$watch('pin', function() {
