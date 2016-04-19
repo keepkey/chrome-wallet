@@ -6,6 +6,7 @@ angular.module('kkWallet')
       scope: {
         account: '=',
         loading: '=',
+        accountSettings: '=', 
         nameDisplay: '@',
         singleAccount: '='
       },
@@ -16,6 +17,10 @@ angular.module('kkWallet')
           } else if ($scope.nameDisplay === 'name') {
             $scope.name = $scope.account.name;
           }
+
+          $scope.canEdit = function() {
+            return typeof $scope.accountSettings === 'function';
+          };
         }
       ],
       templateUrl: 'app/popup/directives/AccountBalanceComponent.tpl.html'

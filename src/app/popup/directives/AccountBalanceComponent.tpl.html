@@ -7,6 +7,6 @@
             loading="loading">
     </wallet-balance>
     <div class="account-number" ng-hide="singleAccount">
-        {{name}}
+        {{name}} <button ng-if="canEdit()" class="fa fa-pencil" ng-click="accountSettings()"></button>
     </div>
 </div>

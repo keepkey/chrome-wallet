@@ -12,7 +12,8 @@
                 account="wallet"
                 loading="receiveDisabled()"
                 name-display="name"
-                single-account="singleAccount">
+                single-account="singleAccount"
+                account-settings="accountSettings">
         </account-balance>
 
         <div class="menu">
@@ -31,11 +32,6 @@
                 <li>
                     <button class="menu-item" ng-click="showTransactions()">
                         Transactions
-                    </button>
-                </li>
-                <li ng-hide="singleAccount">
-                    <button class="menu-item" ng-click="accountSettings()">
-                        Change Account Name
                     </button>
                 </li>
                 <li>
