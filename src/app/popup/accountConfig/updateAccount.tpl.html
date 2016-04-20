@@ -14,7 +14,7 @@
                         <div class="invalid"
                              ng-messages="form.accountName.$error"
                              role="alert"
-                             ng-show="form.accountName.$touched">
+                             ng-show="form.$submitted">
                             <div ng-message="required">
                                 Required
                             </div>
@@ -32,7 +32,7 @@
             <button class="button"
                     type="submit"
                     ng-click="updateAccountName()"
-                    ng-disabled="!form.$valid || creating">
+                    ng-disabled="creating">
                 Update Account
             </button>
         </form>
