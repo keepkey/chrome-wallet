@@ -854,22 +854,20 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#add-account {
-  .content.in-progress-overlay, .content.loading {
-    padding: 30px;
-    h2 {
-      padding-bottom: inherit;
-      border: none;
-    }
-    transition-timing-function: ease;
-    transition-duration: 250ms;
-    transition-property: opacity;
-    &.nd-show {
-      opacity: 1;
-    }
-    &.ng-hide {
-      opacity: 0;
-    }
+.content.in-progress-overlay {
+  padding: 30px;
+  h2 {
+    padding-bottom: inherit;
+    border: none;
+  }
+  transition-timing-function: ease;
+  transition-duration: 250ms;
+  transition-property: opacity;
+  &.nd-show {
+    opacity: 1;
+  }
+  &.ng-hide {
+    opacity: 0;
   }
 }
 
