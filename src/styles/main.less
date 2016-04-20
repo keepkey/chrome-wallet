@@ -615,6 +615,25 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
+button.fa {
+  color: #9FAE00;
+  border: 1px solid #ECECED;
+  border-radius: 63px;
+  background: #fff;
+  transition: 0.2s all ease-in;
+  &:hover {
+    background-color: #9FAE00;
+    color: #fff;
+    border-color: #9FAE00;
+  }
+  &:active {
+    opacity: 0.2;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
 .text-link-button {
   cursor: pointer;
   color: #9FAE00;
@@ -1206,25 +1225,6 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.copy-to-clipboard-button {
-  width: 25px;
-  height: 25px;
-  background-color: transparent;
-  border: 1px solid #d5d5d5;
-  border-radius: 3px;
-  border-style: none;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  color: #000;
-  &:active {
-    color: #888
-  }
-  &:focus {
-    outline: none;
-  }
-}
-
 .menu-annotation {
   text-align: center;
 }
@@ -1393,18 +1393,6 @@ a, a:hover {
     margin: -4px 20px;
     .wallet-currency {
       display: none;
-    }
-  }
-  button {
-    color: #9FAE00;
-    border: 1px solid #ECECED;
-    border-radius: 63px;
-    background: #fff;
-    transition: 0.2s all ease-in;
-    &:hover {
-      background-color: #9FAE00;
-      color: #fff;
-      border-color: #9FAE00;
     }
   }
 }
