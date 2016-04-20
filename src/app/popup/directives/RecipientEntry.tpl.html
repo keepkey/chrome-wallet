@@ -6,6 +6,11 @@
         </a>
     </script>
     <label>{{label}}</label>
+    <div class="invalid-recipient" ng-messages="field.$error" role="alert" ng-show="form.$submitted">
+        <div ng-message="required">
+            Required
+        </div>
+    </div>
     <input type="text"
            name="{{fieldName}}"
            autocomplete="off"
@@ -16,6 +21,6 @@
            class="form-control"
            typeahead-show-hint="true"
            typeahead-min-length="0"
-           ng-required focus>
+           required>
     <div class="destination-descriptor" ng-show="accountLabel">{{accountLabel}}</div>
 </div>

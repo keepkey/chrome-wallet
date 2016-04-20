@@ -25,22 +25,24 @@ angular.module('kkWallet')
         feeLevel: $scope.feeOptions[0]
       };
       $scope.buildTransaction = function () {
-        $scope.preparingTransaction = true;
-        transactionService.transactionInProgress = {
-          accountId: $scope.wallet.id,
-          amount: $scope.userInput.amount,
-          feeLevel: $scope.userInput.feeLevel
-        };
+        if ($scope.form.$valid) {
+          $scope.preparingTransaction = true;
+          transactionService.transactionInProgress = {
+            accountId: $scope.wallet.id,
+            amount: $scope.userInput.amount,
+            feeLevel: $scope.userInput.feeLevel
+          };
 
-        var destinationAccount = _.get($scope.userInput, 'address.id');
-        if (destinationAccount) {
-          transactionService.transactionInProgress.sendToAccount = destinationAccount;
-        } else {
-          transactionService.transactionInProgress.sendTo = $scope.userInput.address;
+          var destinationAccount = _.get($scope.userInput, 'address.id');
+          if (destinationAccount) {
+            transactionService.transactionInProgress.sendToAccount = destinationAccount;
+          } else {
+            transactionService.transactionInProgress.sendTo = $scope.userInput.address;
+          }
+
+          deviceBridgeService.requestTransactionSignature(transactionService.transactionInProgress);
+          navigationService.setNextTransition('slideLeft');
         }
-
-        deviceBridgeService.requestTransactionSignature(transactionService.transactionInProgress);
-        navigationService.setNextTransition('slideLeft');
       };
 
       $scope.setFeeLevel = function (option) {

@@ -9,7 +9,7 @@
 
 <div class="amount-entry">
     <label>Amount:</label>
-    <div class="invalid" ng-messages="field.$error" role="alert" ng-show="field.$touched">
+    <div class="invalid" ng-messages="field.$error" role="alert" ng-show="form.$submitted">
         <div ng-message="required">
             Required
         </div>
