@@ -35,7 +35,7 @@ angular.module('kkWallet')
 
       $scope.$watch('walletList.length', function () {
         if ($scope.walletList.length !== startingAccountListCount) {
-          $scope.go('/walletlist', 'slideLeft');
+          $scope.go('/walletlist', 'slideRight');
         }
       });
 

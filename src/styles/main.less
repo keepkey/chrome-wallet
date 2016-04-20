@@ -408,12 +408,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#add-account {
-  button {
-    bottom: inherit;
-  }
-}
-
 .tooltip.key-help {
   left: 20px !important;
   .tooltip-inner {
@@ -860,6 +854,25 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   }
 }
 
+#add-account {
+  .content.in-progress-overlay, .content.loading {
+    padding: 30px;
+    h2 {
+      padding-bottom: inherit;
+      border: none;
+    }
+    transition-timing-function: ease;
+    transition-duration: 250ms;
+    transition-property: opacity;
+    &.nd-show {
+      opacity: 1;
+    }
+    &.ng-hide {
+      opacity: 0;
+    }
+  }
+}
+
 #initialize, #bootloader {
   .content-inner {
     height: @content-height - 40px;
@@ -1234,15 +1247,7 @@ a, a:hover {
   right: 0;
   bottom: 0;
   opacity: .9;
-  font-size: 20px;
-  color: gray;
   background-color: white;
-  text-align: center;
-  padding: 10px;
-  .spinner {
-    font-size: 75px;
-    margin: 100px 0 70px 0;
-  }
 }
 
 #wallet-list {
