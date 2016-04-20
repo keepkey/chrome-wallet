@@ -875,20 +875,22 @@ button.fa {
   }
 }
 
-.content.in-progress-overlay {
-  padding: 30px;
-  h2 {
-    padding-bottom: inherit;
-    border: none;
-  }
-  transition-timing-function: ease;
-  transition-duration: 250ms;
-  transition-property: opacity;
-  &.nd-show {
-    opacity: 1;
-  }
-  &.ng-hide {
-    opacity: 0;
+#receive, #add-account, #build-transaction {
+  .content.in-progress-overlay {
+    padding: 30px;
+    h2 {
+      padding-bottom: inherit;
+      border: none;
+    }
+    transition-timing-function: ease;
+    transition-duration: 250ms;
+    transition-property: opacity;
+    &.nd-show {
+      opacity: 1;
+    }
+    &.ng-hide {
+      opacity: 0;
+    }
   }
 }
 
