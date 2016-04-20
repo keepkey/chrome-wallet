@@ -16,7 +16,7 @@ angular.module('kkWallet')
       },
       controller: ['$scope', 'WalletNodeService',
         function ($scope, walletNodeService) {
-          $scope.accountLabel = '';
+          $scope.labelVariation = $scope.label;
           if (walletNodeService.wallets.length > 1) {
             $scope.placeholder = "Enter address or select an account...";
           } else {
@@ -28,13 +28,12 @@ angular.module('kkWallet')
           $scope.$watch('selected', function () {
             var accountNumber = _.get($scope.selected, 'accountNumber');
             if (accountNumber) {
-              $scope.accountLabel = 'Transfer to account #' + accountNumber;
+              $scope.labelVariation = 'Send bitcoin to account:';
             } else if (_.isString($scope.selected) &&
               $scope.selected.match(/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/)) {
-              $scope.accountLabel = 'Send to address';
+              $scope.labelVariation = 'Send bitcoin to address:';
             } else {
-              $scope.accountLabel = '';
-
+              $scope.labelVariation = $scope.label;
             }
           })
 

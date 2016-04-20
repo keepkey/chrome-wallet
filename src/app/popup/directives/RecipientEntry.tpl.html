@@ -5,7 +5,7 @@
             (Account #{{match.model.accountNumber}})
         </a>
     </script>
-    <label>{{label}}</label>
+    <label>{{labelVariation}}</label>
     <div class="invalid-recipient" ng-messages="field.$error" role="alert" ng-show="form.$submitted">
         <div ng-message="required">
             Required
@@ -22,5 +22,4 @@
            typeahead-show-hint="true"
            typeahead-min-length="0"
            required>
-    <div class="destination-descriptor" ng-show="accountLabel">{{accountLabel}}</div>
 </div>
