@@ -19,7 +19,7 @@ angular.module('kkCommon')
           nextDestination = undefined;
         }
 
-        if (path === $location.path()) {
+        if (path.toLowerCase() === $location.path().toLowerCase()) {
           return;
         }
 
