@@ -10,7 +10,11 @@ angular.module('kkWallet')
         walletNodeService.loadAccounts();
       }
 
-      navigationService.setNextTransition('cross-fade');
+      if(navigationService.getPreviousRoute() === '/label/initialize') {
+        navigationService.setNextTransition('slideLeft');
+      } else {
+        navigationService.setNextTransition('cross-fade');
+      }
 
       $scope.showWalletList = function() {
         return $scope.loaded && $scope.wallets.length > 1;
