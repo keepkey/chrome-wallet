@@ -60,6 +60,7 @@ angular.module('kkWallet')
             case 'PIN changed':
               destination = '/device';
               break;
+            case 'Device reset':
             case 'Device recovered':
             case 'Transaction sent':
               destination = '/walletList';
