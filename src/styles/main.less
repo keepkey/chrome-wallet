@@ -950,7 +950,7 @@ button.fa {
   }
 }
 
-.failure {
+.failure, .notification {
   .content-inner {
     height: @content-height - @button-height;
   }
@@ -958,7 +958,6 @@ button.fa {
     height: @content-height - @button-bar - @button-height;
   }
   .alert-icon {
-    color: #d26464;
     font-size: 40px;
     margin-left: -60px;
     font-weight: 700;
@@ -981,6 +980,39 @@ button.fa {
   }
   .technical-description {
     display: none;
+  }
+}
+
+.failure {
+  .alert-icon {
+    color: #d26464;
+  }
+}
+
+.notification {
+  top: 0;
+  background: #ffffff;
+  transition-timing-function: ease;
+  transition-duration: 250ms;
+  transition-property: opacity;
+  opacity: 0.9;
+  .alert-icon {
+    color: #c4d600;
+  }
+  .content-inner {
+    height: @body-height;
+  }
+  .description {
+    margin: 0 30px 0 80px;
+  }
+  .alert-icon {
+    margin-left: -20px;
+  }
+  &.ng-hide {
+    opacity: 0;
+  }
+  p {
+    margin-left: 30px;
   }
 }
 

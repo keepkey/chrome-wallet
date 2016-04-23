@@ -52,8 +52,8 @@ angular.module('kkWallet')
         }]);
       deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
       deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
-      deviceBridgeServiceProvider.when('Success', [ '$injector',
-        function($injector) {
+      deviceBridgeServiceProvider.when('Success', [ '$injector', 'NotificationMessageService',
+        function($injector, notificationMessageService) {
           var destination;
           switch (this.request.message.message) {
             case 'Settings applied':
@@ -62,7 +62,10 @@ angular.module('kkWallet')
               break;
             case 'Device reset':
             case 'Device recovered':
+              destination = '/walletList';
+              break;
             case 'Transaction sent':
+              notificationMessageService.set('Your bitcoin transaction was successfully sent!');
               destination = '/walletList';
               break;
             case 'Account name updated':
