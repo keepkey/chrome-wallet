@@ -65,6 +65,7 @@ angular.module('kkWallet')
               destination = '/device';
               break;
             case 'PIN changed':
+              notificationMessageService.set('Your PIN was successfully changed!');
               destination = '/device';
               break;
             case 'Device reset':
