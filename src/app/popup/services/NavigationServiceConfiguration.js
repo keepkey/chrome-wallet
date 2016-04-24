@@ -121,6 +121,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/success/uploadComplete.tpl.html',
           goable: false
         })
+        .when('/success/passphrase_accepted', {
+          templateUrl: 'app/popup/walletlist/walletlist.tpl.html',
+          goable: false
+        })
         .when('/success/:message', {
           templateUrl: 'app/popup/success/success.tpl.html',
           goable: false
