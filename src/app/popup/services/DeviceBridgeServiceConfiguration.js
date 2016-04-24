@@ -56,6 +56,10 @@ angular.module('kkWallet')
         function($injector, notificationMessageService, walletNodeService) {
           var destination;
           switch (this.request.message.message) {
+            case 'Device wiped':
+              notificationMessageService.set('Your KeepKey was successfully wiped!');
+              destination = '/initialize';
+              break;
             case 'Settings applied':
             case 'PIN changed':
               destination = '/device';
