@@ -61,6 +61,9 @@ angular.module('kkWallet')
               destination = '/initialize';
               break;
             case 'Settings applied':
+              notificationMessageService.set('Your device label was successfully changed!');
+              destination = '/device';
+              break;
             case 'PIN changed':
               destination = '/device';
               break;
