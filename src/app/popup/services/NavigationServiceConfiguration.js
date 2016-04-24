@@ -125,10 +125,6 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/success/uploadComplete.tpl.html',
           goable: false
         })
-        .when('/success/device_wiped', {
-          templateUrl: 'app/popup/initialize/initialize.tpl.html',
-          goable: false
-        })
         .when('/success/:message', {
           templateUrl: 'app/popup/success/success.tpl.html',
           goable: false
