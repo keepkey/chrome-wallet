@@ -52,8 +52,8 @@ angular.module('kkWallet')
         }]);
       deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
       deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
-      deviceBridgeServiceProvider.when('Success', [ '$injector', 'NotificationMessageService',
-        function($injector, notificationMessageService) {
+      deviceBridgeServiceProvider.when('Success', [ '$injector', 'NotificationMessageService', 'WalletNodeService',
+        function($injector, notificationMessageService, walletNodeService) {
           var destination;
           switch (this.request.message.message) {
             case 'Settings applied':
@@ -66,7 +66,13 @@ angular.module('kkWallet')
               break;
             case 'Transaction sent':
               notificationMessageService.set('Your bitcoin transaction was successfully sent!');
-              destination = '/walletList';
+
+              if(walletNodeService.wallets.length > 1) {
+                destination = '/walletList';
+              } else {
+                destination = '/wallet/' + walletNodeService.wallets[0].id;
+              }
+
               break;
             case 'Account name updated':
             case 'Passphrase accepted':
