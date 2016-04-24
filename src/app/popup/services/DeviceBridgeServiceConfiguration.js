@@ -36,6 +36,7 @@ angular.module('kkWallet')
         }
       ]);
       deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
+      deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
       deviceBridgeServiceProvider.when('ButtonRequest', ['$injector', 'NavigationService',
         function ($injector, navigationService) {
           if (this.request.message.code === 'ButtonRequest_ProtectCall') {
@@ -83,7 +84,6 @@ angular.module('kkWallet')
 
               break;
             case 'Account name updated':
-            case 'Passphrase accepted':
               $injector.invoke(navigateToPreviousLocation(), this);
               break;
             default:
@@ -94,7 +94,6 @@ angular.module('kkWallet')
           }
         }
       ]);
-      deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
       deviceBridgeServiceProvider.when('Address', navigateToPreviousLocation());
       deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
         function ($injector, failureMessageService, navigationService) {

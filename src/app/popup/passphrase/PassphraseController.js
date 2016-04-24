@@ -1,16 +1,16 @@
 angular.module('kkWallet')
-  .controller('PassphraseController', ['$scope', 'DeviceBridgeService',
-    function PassphraseController($scope, deviceBridgeService) {
+  .controller('PassphraseController', ['$scope', 'DeviceBridgeService', 'NavigationService',
+    function PassphraseController($scope, deviceBridgeService, navigationService) {
       $scope.userInput = {
         passphrase: '',
         confirmPassphrase: ''
       };
       $scope.sendPassphrase = function () {
-        if ($scope.passphraseForm.$valid) {
-          deviceBridgeService.sendPassphrase($scope.userInput.passphrase);
-          $scope.userInput.passphrase = '';
-          $scope.userInput.confirmPassphrase = '';
+        if(!$scope.form.$valid) {
+          return false;
         }
+        navigationService.setNextTransition('cross-fade');
+        deviceBridgeService.sendPassphrase($scope.userInput.passphrase);
       };
     }
   ]);
