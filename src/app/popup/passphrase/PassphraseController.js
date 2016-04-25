@@ -11,6 +11,8 @@ angular.module('kkWallet')
         }
         navigationService.setNextTransition('cross-fade');
         deviceBridgeService.sendPassphrase($scope.userInput.passphrase);
+        $scope.userInput.passphrase = '';
+        $scope.userInput.confirmPassphrase = '';
       };
     }
   ]);
