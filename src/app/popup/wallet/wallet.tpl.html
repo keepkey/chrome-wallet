@@ -1,50 +1,43 @@
 <section id="wallet" ng-controller="WalletController">
     <header>
-        <!--<settings-button class="button-left header-button"></settings-button>-->
-        <a class="button-right header-button refresh-button" ng-click="refresh()">
-            <div class="icon icon-refresh"></div>
-        </a>
+        <back-button ng-hide="singleAccount"
+                     class="button-left header-button"></back-button>
+        <settings-button ng-show="singleAccount"
+                         class="button-left header-button"></settings-button>
+        <refresh-button class="button-right header-button"></refresh-button>
     </header>
 
     <div class="content">
-        <div class="wallet online">
-            <div class="details">
-                <h2 class="val">
-                    <div class="connection-light"></div>
-                    <span ng-show="receiveDisabled()">
-                        <span class="fa fa-refresh fa-spin"></span>
-                    </span>
-                    <span ng-hide="receiveDisabled()" ng-bind="balance()"></span>
-                    <span class="wallet-currency">{{btcFormatter.BITCOINS}}</span>
-                </h2>
-                <div class="unconfirmed-balance" ng-show="hasPendingBalance()">
-                    <span>Pending:</span>
-                    <span ng-bind="pendingBalance()"></span>
-                    <span class="wallet-currency">{{btcFormatter.BITCOINS}}</span>
-                </div>
-            </div>
-        </div>
+        <account-balance
+                account="wallet"
+                loading="receiveDisabled()"
+                name-display="name"
+                single-account="singleAccount"
+                account-settings="accountSettings">
+        </account-balance>
 
         <div class="menu">
             <ul>
                 <li>
-                    <button class="menu-item notification"
-                            ng-click="go('/update-firmware', 'slideLeft')"
-                            ng-show="device.firmwareUpdateAvailable">
-                        Firmware Update Available</button>
-                </li>
-                <li>
-                    <button class="menu-item" ng-click="send()" ng-disabled="!sendAllowed()">Send Money</button>
-                </li>
-                <li>
-                    <button class="menu-item" ng-click="receive()" ng-disabled="receiveDisabled()">Receive Money
+                    <button class="menu-item" ng-click="send()"
+                            ng-disabled="!sendAllowed()">
+                        Send Bitcoin
                     </button>
                 </li>
                 <li>
-                    <button class="menu-item" ng-click="showTransactions()">Transactions</button>
+                    <button class="menu-item" ng-click="receive()"
+                            ng-disabled="receiveDisabled()">Receive Bitcoin
+                    </button>
                 </li>
                 <li>
-                    <button class="menu-item" ng-click="go('/device', 'slideLeft')">Device Settings</button>
+                    <button class="menu-item" ng-click="showTransactions()">
+                        Transactions
+                    </button>
+                </li>
+                <li>
+                    <button class="menu-item" ng-click="openBuyBitcoinWindow()">
+                        Buy &amp; Sell Bitcoin
+                    </button>
                 </li>
                 <li>
                     <button class="menu-item" ng-click="openBuyBitcoinWindow()">
@@ -55,5 +48,17 @@
         </div>
     </div>
 
-    <div class="footer"><strong>{{device.label || 'KeepKey'}}</strong> connected</div>
+    <div class="footer">
+        <div class="left">
+            <strong>{{device.label || 'KeepKey'}}</strong> connected
+        </div>
+        <add-account-button class="text-link-button right"
+                            ng-if="singleAccount && !receiveDisabled()">
+        </add-account-button>
+
+        <div class="wallet-name right" ng-if="!singleAccount"
+             ng-disabled="receiveDisabled()">Account #{{wallet.accountNumber}}</div>
+    </div>
+
+    <notification-message></notification-message>
 </section>

@@ -1,0 +1,25 @@
+<div class="recipient-entry">
+    <script type="text/ng-template" id="customTemplate.html">
+        <a>
+            <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+            (Account #{{match.model.accountNumber}})
+        </a>
+    </script>
+    <label>{{labelVariation}}</label>
+    <div class="invalid-recipient" ng-messages="field.$error" role="alert" ng-show="form.$submitted">
+        <div ng-message="required">
+            Required
+        </div>
+    </div>
+    <input type="text"
+           name="{{fieldName}}"
+           autocomplete="off"
+           ng-model="selected"
+           placeholder="{{placeholder}}"
+           uib-typeahead="account as account.name for account in accounts | filter:{name:$viewValue}"
+           typeahead-template-url="customTemplate.html"
+           class="form-control"
+           typeahead-show-hint="true"
+           typeahead-min-length="0"
+           required>
+</div>

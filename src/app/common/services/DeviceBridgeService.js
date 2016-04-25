@@ -47,6 +47,7 @@ angular.module('kkCommon')
           }
 
           $injector.invoke(messageHandler, messageArguments);
+          $rootScope.$digest();
         }
 
         return {
@@ -109,9 +110,10 @@ angular.module('kkCommon')
               messageType: 'FirmwareUpdate'
             });
           },
-          getUnusedExternalAddressNode: function(walletId) {
+          getUnusedExternalAddressNode: function(accountId) {
             var message = angular.extend({}, {
-              messageType: 'GetUnusedExternalAddressNode'
+              messageType: 'GetUnusedExternalAddressNode',
+              account: accountId
             });
             return sendMessage(message);
           },
@@ -154,23 +156,43 @@ angular.module('kkCommon')
             message.amount *= 100000000;
             return sendMessage(message);
           },
-          getFees: function () {
-            return sendMessage({
-              messageType: 'GetFees'
-            });
-          },
-          estimateFeeForTransaction: function (node, transactionAmount) {
+          estimateFeeForTransaction: function (accountId, transactionAmount) {
             return sendMessage({
               messageType: 'EstimateFeeForTransaction',
-              walletNode: node,
+              accountId: accountId,
               transactionAmount: transactionAmount * 100000000
             })
           },
-          getMaximumTransactionAmount: function (node, feeLevel) {
+          getMaximumTransactionAmount: function (nodeId) {
             return sendMessage({
               messageType: 'GetMaximumTransactionAmount',
-              walletNode: node,
-              feeLevel: feeLevel
+              accountId: nodeId
+            });
+          },
+          addAccount: function(nodeVector, accountName) {
+            return sendMessage({
+              messageType: 'AddAccount',
+              nodeVector: nodeVector,
+              name: accountName
+            })
+          },
+          deleteAccount: function(walletId) {
+            return sendMessage({
+              messageType: 'DeleteAccount',
+              accountId: walletId
+            });
+          },
+          updateWalletName: function(walletId, walletName) {
+            return sendMessage({
+              messageType: 'ChangeWalletName',
+              accountId: walletId,
+              accountName: walletName
+            });
+          },
+          sendPassphrase: function(passphrase) {
+            return sendMessage({
+              messageType: 'Passphrase',
+              passphrase: passphrase
             });
           }
         };

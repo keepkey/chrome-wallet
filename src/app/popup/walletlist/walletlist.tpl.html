@@ -1,35 +1,16 @@
-<section id="initialized" ng-controller="WalletListController">
-    <header>
-        <!--<settings-button class="button-left header-button"></settings-button>-->
-        <a class="button-right header-button refresh-button" ng-click="refresh()">
-            <div class="icon icon-refresh"></div>
-        </a>
-    </header>
-
-    <div class="content">
-        <a class="text-link-button" ng-click="wipeDevice()">Wipe Device</a>
+<section id="wallet-list" ng-controller="WalletListController">
+    <div ng-hide="loaded">
+        <ng-include src="'app/popup/walletlist/loading.tpl.html'"></ng-include>
     </div>
-
-    <div class="wallets">
-        <div class="wallet online" ng-repeat="wallet in wallets track by wallet.id">
-            <div class="connection-light">
+    <div class="wallet-fade" ng-hide="!showWalletList()">
+        <ng-include src="'app/popup/walletlist/header.tpl.html'"></ng-include>
+        <ng-include src="'app/popup/walletlist/wallets.tpl.html'"></ng-include>
+        <div class="footer">
+            <div class="left">
+                <strong>{{device.label || 'KeepKey'}}</strong> connected
             </div>
-            <div class="details">
-                <h2 class="val"><span ng-bind="getBalance(wallet.hdNode)"></span> <span
-                        class="wallet-currency"> btc</span></h2>
-
-                <h3 class="wallet-name">
-                    {{wallet.name}}
-                    <a class="wallet-link-qr" ng-hide="!wallet.xpub" ng-click="goReceive(wallet)">QR</a>
-                </h3>
-            </div>
-            <div class="go-side">
-                <div class="go-btn" ng-show="sendAllowed(wallet)">
-                    <a class="wallet-link-send" ng-disabled="!wallet.xpub" ng-click="goBuildTransaction(wallet)">
-                        <div class="icon icon-forward"></div>
-                    </a>
-                </div>
-            </div>
+            <add-account-button class="text-link-button right"></add-account-button>
         </div>
     </div>
+    <notification-message can-notify="showWalletList()"></notification-message>
 </section>

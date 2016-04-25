@@ -1,6 +1,7 @@
 angular.module('kkWallet')
   .config(['$routeProvider',
     function ($routeProvider) {
+      $routeProvider.caseInsensitiveMatch = true;
       $routeProvider
         .when('/', {
           templateUrl: 'app/popup/connect/connect.tpl.html'
@@ -10,6 +11,10 @@ angular.module('kkWallet')
         })
         .when('/device', {
           templateUrl: 'app/popup/device/device.tpl.html',
+          goable: true
+        })
+        .when('/lifeboat', {
+          templateUrl: 'app/popup/device/lifeboat.tpl.html',
           goable: true
         })
         .when('/initialize', {
@@ -51,6 +56,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/buttonRequest/protectCallChangeLabel.tpl.html',
           goable: false
         })
+        .when('/buttonRequest/button_request_confirm_transfer_to_account', {
+          templateUrl: 'app/popup/buttonRequest/confirmTransferToAccount.tpl.html',
+          goable: false
+        })
         .when('/buttonRequest/:code', {
           templateUrl: 'app/popup/buttonRequest/buttonRequest.tpl.html',
           goable: false
@@ -70,6 +79,18 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/failure/pinConfirmationFailed.tpl.html',
           goable: false
         })
+        .when('/failure/invalid_pin', {
+          templateUrl: 'app/popup/failure/pinInvalid.tpl.html',
+          goable: false
+        })
+        .when('/failure/bip44_account_gap_violation/:previousAccountName', {
+          templateUrl: 'app/popup/failure/Bip44AccountGapViolation.tpl.html',
+          goable: true
+        })
+        .when('/failure/unable_to_initialize', {
+          templateUrl: 'app/popup/failure/UnableToInitialize.tpl.html',
+          goable: true
+        })
         .when('/failure/:message', {
           templateUrl: 'app/popup/failure/failure.tpl.html',
           goable: false
@@ -79,10 +100,6 @@ angular.module('kkWallet')
           goable: true
         })
         .when('/wallet/:wallet', {
-          templateUrl: 'app/popup/wallet/wallet.tpl.html',
-          goable: true
-        })
-        .when('/wallet', {
           templateUrl: 'app/popup/wallet/wallet.tpl.html',
           goable: true
         })
@@ -106,6 +123,10 @@ angular.module('kkWallet')
         })
         .when('/success/upload_complete', {
           templateUrl: 'app/popup/success/uploadComplete.tpl.html',
+          goable: false
+        })
+        .when('/success/passphrase_accepted', {
+          templateUrl: 'app/popup/walletlist/walletlist.tpl.html',
           goable: false
         })
         .when('/success/:message', {
@@ -147,11 +168,20 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/support/support.tpl.html',
           goable: true
         })
+        .when('/accountConfig/:accountId', {
+          templateUrl: 'app/popup/accountConfig/updateAccount.tpl.html',
+          goable: true
+        })
+        .when('/accountConfig', {
+          templateUrl: 'app/popup/accountConfig/addAccount.tpl.html',
+          goable: true
+        })
         .when('/update-firmware', {
           templateUrl: 'app/popup/update-firmware/update-firmware.tpl.html',
           goable: true
         })
         .otherwise({
-          redirectTo: '/'
+          redirectTo: '/',
+          goable: false
         });
     }]);

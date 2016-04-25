@@ -1,21 +1,18 @@
 angular.module('kkTransactions')
   .config(['DeviceBridgeServiceProvider',
     function (deviceBridgeServiceProvider) {
-      deviceBridgeServiceProvider.when('connected', ['DeviceBridgeService', 'NavigationService',
-        function (deviceBridgeService, navigationService) {
-          deviceBridgeService.initialize();
-          navigationService.go('/0');
-        }
-      ]);
       deviceBridgeServiceProvider.when('disconnected', ['WalletNodeService',
         function (walletNodeService) {
           walletNodeService.clear();
+          chrome.tabs.getCurrent(function(tab) {
+            chrome.tabs.remove(tab.id);
+          });
         }
       ]);
 
-      deviceBridgeServiceProvider.when('WalletNodes', ['WalletNodeService',
+      deviceBridgeServiceProvider.when('TransactionHistory', ['WalletNodeService',
         function (walletNodeService) {
-          walletNodeService.updateWalletNodes(this.request.message);
+          walletNodeService.updateWalletHistory(this.request.message);
         }
       ]);
 

@@ -4,18 +4,12 @@ angular.module('kkCommon')
       var nextTransition, nextDestination, previousRoute = [];
 
       function isGoable(path) {
-        var result = {
-          goable: false
-        };
+        // NOTE $route.routes is not defined in the API documentation, so this could break
+        var route = _.find($route.routes, function(it) {
+          return it.regexp && path.match(it.regexp);
+        });
 
-        // NOTE $route.routes is not defined in the API documentation
-        angular.forEach($route.routes, function (value, key) {
-          if (value.regexp && path.match(value.regexp)) {
-            this.goable = this.goable || angular.isUndefined(value.goable) || value.goable;
-          }
-        }, result);
-
-        return result.goable;
+        return !!route.goable;
       }
 
       function go(path, pageAnimationClass) {
@@ -25,14 +19,18 @@ angular.module('kkCommon')
           nextDestination = undefined;
         }
 
-        if (path === $location.path()) {
+        if (path.toLowerCase() === $location.path().toLowerCase()) {
           return;
         }
 
-        // Keep track of the last 'goable' path
-        if (isGoable($location.path())) {
+        if (_.indexOf(previousRoute, path) !== -1) {
+          while (previousRoute.length && previousRoute.pop() !== path);
+        } else if (isGoable($location.path())) {
           previousRoute.push($location.path());
         }
+
+        console.log('navigating from %s to %s with "%s" transition',
+          previousRoute.join(' > '), path, $rootScope.pageAnimationClass);
 
         if (typeof(pageAnimationClass) !== 'undefined') {
           $rootScope.pageAnimationClass = pageAnimationClass;
@@ -43,7 +41,6 @@ angular.module('kkCommon')
         else {
           $rootScope.pageAnimationClass = 'cross-fade';
         }
-        console.log('navigating from %s to %s with "%s" transition', previousRoute, path, $rootScope.pageAnimationClass);
         nextTransition = undefined;
 
         $timeout(function () {
@@ -55,7 +52,10 @@ angular.module('kkCommon')
       return {
         go: go,
         goToPrevious: function (pageAnimationClass) {
-          go(previousRoute.pop(), pageAnimationClass);
+          var destination = _.last(previousRoute);
+          if (destination) {
+            go(destination, pageAnimationClass, true);
+          }
         },
         setNextTransition: function (pageAnimationClass) {
           nextTransition = pageAnimationClass;
@@ -68,6 +68,15 @@ angular.module('kkCommon')
         },
         getCurrentRoute: function () {
           return $location.path();
+        },
+        dumpHistory: function() {
+          previousRoute.length = 0;
+        },
+        hasPreviousRoute: function() {
+          return !!_.last(previousRoute);
+        },
+        addHistory: function(route) {
+          previousRoute.push(route);
         }
       };
     }

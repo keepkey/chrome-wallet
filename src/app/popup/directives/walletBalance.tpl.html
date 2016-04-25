@@ -1,0 +1,12 @@
+<div class="wallet-balance" ng-class="{'has-pending-balance': pending}">
+    <div class="balance">
+        <span ng-show="loading">
+            <span class="fa fa-refresh fa-spin"></span>
+        </span>
+        <bitcoin-amount ng-hide="loading" amount="balance"></bitcoin-amount>
+    </div>
+    <div class="unconfirmed-balance" ng-show="pending">
+        <span>Pending:&nbsp;</span>
+        <bitcoin-amount amount="pending"></bitcoin-amount>
+    </div>
+</div>

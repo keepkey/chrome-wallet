@@ -1,70 +1,66 @@
 <section id="build-transaction" ng-controller="SendController">
     <header>
-        <back-button class="button-left header-button" destination="backDestination"></back-button>
+        <back-button class="button-left header-button"></back-button>
     </header>
 
     <div class="content">
-        <div ng-show="wallet.final_balance">
-            <h2><span class="cornflower-txt"><b>Send Money</b></span> from your KeepKey</h2>
+        <div ng-show="showForm">
+            <account-balance
+                    account="wallet"
+                    single-account="singleAccount"
+                    loading="false"
+                    name-display="name">
+            </account-balance>
+
 
             <form name="form" novalidate>
+                <div class="form-input-container">
+                    <div class="content-form-inner">
+                        <div class="content-inner-centering">
+                            <recipient-entry
+                                    recipient="userInput.address"
+                                    field-name="dest"
+                                    form="form"
+                                    label="Send bitcoin to:"
+                                    current-account="wallet.id"
+                                    disabled="preparingTransaction">
+                            </recipient-entry>
 
-            <div class="form-input-container">
-                <div class="content-form-inner">
-                    <div class="content-inner-centering">
+                            <amount-entry
+                                    amount="userInput.amount"
+                                    max-amount="maxAmount.max"
+                                    field-name="amount"
+                                    form="form"
+                                    disable="preparingTransaction">
+                            </amount-entry>
 
-                        <label>Recipient Address:</label>
-                        <div class="invalid" ng-show="form.$submitted">
-                            <div ng-show="form.dest.$error.required">Required</div>
-                            <div ng-show="form.dest.$error.pattern">Invalid Address</div>
-                        </div>
-                        <input
-                                type="text"
-                                name="dest"
-                                ng-model="userInput.address"
-                                pattern="[13][a-km-zA-HJ-NP-Z1-9]{25,34}"
-                                required
-                                focus>
+                            <fee-selector
+                                    ng-if="feeSelectorEnabled"
+                                    estimated-fees="estimatedFee.fee"
+                                    selected="userInput.feeLevel"
+                                    active="!preparingTransaction && userInput.amount > 0">
+                            </fee-selector>
 
-                        <label>Amount: <span class="available-balance">({{getMaxAmount()}} {{btcFormatter.BITCOINS}})</span></label>
-                        <div class="invalid" ng-show="form.$submitted">
-                            <div ng-show="form.amount.$error.required">Required</div>
-                            <div ng-show="form.amount.$error.max">Not Enough Funds</div>
-                            <div ng-show="form.amount.$error.min">Too Low</div>
-                            <div ng-show="form.amount.$error.number">Invalid Amount</div>
-                        </div>
-                        <input
-                                type="number"
-                                name="amount"
-                                ng-model="userInput.amount"
-                                required
-                                min="0.00000001"
-                                max="{{getMaxAmount()}}">
-
-                        <label>Transaction speed:</label>
-                        <div class="fee-level-btn btn-group" role="group">
-                            <button ng-repeat="feeLevelOption in feeOptions"
-                                type="button"
-                                ng-click="setFeeLevel(feeLevelOption)"
-                                ng-class="{'btn-primary': userInput.feeLevel === feeLevelOption, 'btn-default': userInput.feeLevel !== feeLevelOption }"
-                                class="btn"
-                                ng-disabled="userInput.amount > 0 && estimatedFee.fee[feeLevelOption] === undefined">
-                                <div>{{feeDisplay[feeLevelOption]}}</div>
-                            </button>
-                        </div>
-
-                        <div class="fee-display" ng-show="getFee(userInput.feeLevel) > 0">
-                            <label>Fee:</label><span class="fee">{{formatFee(userInput.feeLevel)}}</span>
+                            <div class="fee-display"
+                                 ng-show="getFee(userInput.feeLevel) > 0">
+                                <label>Fee:</label>
+                                <bitcoin-amount class="fee"
+                                                amount="getFee(userInput.feeLevel)"></bitcoin-amount>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <button class="button" type="submit" ng-click="buildTransaction()">Send</button>
+                <button class="button" type="submit"
+                        ng-disabled="preparingTransaction"
+                        ng-click="buildTransaction()">Send
+                </button>
             </form>
         </div>
-        <div ng-hide="wallet.final_balance">
-            Can't send when the wallet doesn't have a balance
+        <div ng-hide="showForm">
+            Can't send from an account with a high confidence balance of 0
         </div>
     </div>
+    <ng-include src="'app/popup/send/preparing.tpl.html'"
+                ng-if="preparingTransaction"></ng-include>
 </section>

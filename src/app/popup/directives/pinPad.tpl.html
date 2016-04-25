@@ -1,5 +1,5 @@
 <div class="noselect">
-    <div class="content-form-inner">
+    <div class="content-pin-inner">
         <div class="content-inner-centering">
             <div class="help">Use PIN layout shown on KeepKey to find the location to press on this PIN pad.</div>
             <div class="pin-pad">
@@ -18,7 +18,12 @@
                     <a class="button pin" ng-click="appendToPin(2)">•</a>
                     <a class="button pin" ng-click="appendToPin(3)">•</a>
                 </div>
-                <div class="pin-view" ng-bind="displayPin"></div>
+                <div class="pin-display-container">
+                    <div class="pin-view" ng-bind="displayPin"></div>
+                    <i class="backspace fa fa-arrow-left"
+                       ng-click="backspace()"
+                       ng-show="displayPin.length"></i>
+                </div>
             </div>
         </div>
     </div>

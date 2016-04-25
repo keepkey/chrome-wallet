@@ -1,8 +1,10 @@
 angular.module('kkWallet')
-    .controller('InitializationController', ['$scope', 'InitializationDataService',
-        function InitializationController($scope, initializationDataService) {
+    .controller('InitializationController', ['$scope', 'InitializationDataService', 'WalletNodeService',
+        function InitializationController($scope, initializationDataService, walletNodeService) {
             $scope.initializationData = initializationDataService;
             $scope.displayPin = '';
+
+            walletNodeService.clear();
 
             $scope.appendToPin = function(digit) {
                 $scope.initializationData.pin = '' + $scope.initializationData.pin + digit;

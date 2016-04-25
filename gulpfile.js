@@ -13,12 +13,15 @@ var minifyHTML = require('gulp-minify-html');
 var zip = require('gulp-zip');
 var jsonminify = require('gulp-jsonminify');
 var less = require('gulp-less');
-var minifyCss = require('gulp-minify-css');
+var cleanCss = require('gulp-clean-css');
 var args = require('yargs').argv;
 var ngConstant = require('gulp-ng-constant');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
 var manifest = require('./manifest');
+var wrap = require('gulp-wrap');
+var rename = require('gulp-rename');
+var gulpif = require('gulp-if');
 
 var environment = (args.environment || 'local');
 
@@ -27,6 +30,7 @@ var vendorJavascriptFiles = [
   'vendor/angular/angular.min.js',
   'vendor/angular-animate/angular-animate.min.js',
   'vendor/angular-route/angular-route.min.js',
+  'vendor/angular-messages/angular-messages.min.js',
   'vendor/angular-bootstrap/ui-bootstrap.min.js',
   'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
   'vendor/lodash/lodash.min.js',
@@ -34,7 +38,7 @@ var vendorJavascriptFiles = [
   'vendor/qrcode-generator/js/qrcode.js',
   'vendor/angular-qrcode/angular-qrcode.js',
   'vendor/clipboard/dist/clipboard.min.js',
-  'vendor/compare-versions/index.js'
+  'vendor/semver/semver.min.js'
 ];
 var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
 
@@ -79,8 +83,16 @@ gulp.task('vendorScriptsProduction', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('backgroundScript', function () {
-  return gulp.src(['src/background.js'])
+gulp.task('wrapJson', function() {
+  return gulp.src('config/' + environment + '.json')
+    .pipe(wrap('var config=<%= JSON.stringify(contents) %>;'))
+    .pipe(rename({suffix: '.json', extname: '.js'}))
+    .pipe(gulp.dest('generatedJs'));
+});
+
+gulp.task('backgroundScript', ['wrapJson'], function () {
+  return gulp.src(['generatedJs/' + environment + '.json.js', 'src/background.js'])
+    .pipe(concat('background.js'))
     .pipe(gulp.dest('dist'));
 });
 
@@ -102,6 +114,7 @@ gulp.task('zip', ['vendorScriptsProduction', 'appCommonScripts', 'appPopupScript
 
 function appScriptBuilder(moduleName, angularModuleName, extraFiles) {
   var sources = [
+    'license-header.js',
     ['src', 'app', moduleName, moduleName + '.js'].join('/'),
     ['src', 'app', moduleName, '**/*.js'].join('/'),
     '!' + ['src', 'app', moduleName, '**/*.spec.js'].join('/')
@@ -118,8 +131,10 @@ function appScriptBuilder(moduleName, angularModuleName, extraFiles) {
 
   var jsScriptStream = gulp.src(sources)
     .pipe(replace("{{VERSION}}", manifest.version))
-    .pipe(concat(tempMinifiedFile));
-  //.pipe(uglify());
+    .pipe(concat(tempMinifiedFile))
+    .pipe(gulpif(environment !== 'local', uglify({
+      preserveComments: "license"
+    })));
 
   var templateStream = gulp.src(templateSourceFiles)
     .pipe(minifyHTML())
@@ -157,17 +172,17 @@ gulp.task('less', function () {
     .pipe(less({
       paths: [path.join(__dirname, 'less', 'includes')]
     }))
-    .pipe(minifyCss())
+    .pipe(cleanCss())
     .pipe(gulp.dest('dist/styles'));
 });
 
 gulp.task('cssProduction', function () {
   return gulp.src([
-    'vendor/angular/angular-csp.css',
-    'vendor/bootstrap-bower/css/bootstrap.min.css',
-    'vendor/angular-xeditable/dist/css/xeditable.css',
-    'src/styles/**/*.css'])
-    .pipe(minifyCss())
+      'vendor/angular/angular-csp.css',
+      'vendor/angular-bootstrap/ui-bootstrap-csp.css',
+      'vendor/angular-xeditable/dist/css/xeditable.css',
+      'src/styles/**/*.css'])
+    .pipe(cleanCss())
     .pipe(gulp.dest('dist/styles'));
 });
 

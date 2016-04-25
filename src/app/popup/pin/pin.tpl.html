@@ -1,6 +1,9 @@
 <section id="pin" ng-controller="PinController">
     <header>
-        <back-button class="button-left header-button" action="onCancel()"></back-button>
+        <back-button ng-hide="showDeviceConfigurationButton"
+                     class="button-left header-button" action="cancelDeviceOperation();"></back-button>
+        <settings-button ng-show="showDeviceConfigurationButton"
+                         class="button-left header-button" route="'/lifeboat'"></settings-button>
     </header>
 
     <div class="content">
@@ -10,7 +13,7 @@
             </h2>
         </div>
 
-        <pin-pad button-text="Send PIN" return-to-previous-route="{{!changingPin}}"></pin-pad>
+        <pin-pad button-text="Send PIN" success-route="{{successRoute}}"></pin-pad>
     </div>
 
     <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>

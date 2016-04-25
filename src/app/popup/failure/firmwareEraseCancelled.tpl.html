@@ -1,11 +1,15 @@
 <section id="firmware-erase-cancelled" ng-controller="FailureController">
-    <header>
-    </header>
+    <header></header>
 
-    <div class="content">
-        <div>Firmware Erase Cancelled</div>
-        <div class="plug-icon"><span class="fa fa-plug"></span></div>
-        <div>Disconnect and reconnect to reboot your KeepKey.</div>
+    <div class="content failure">
+        <div class="content-inner">
+            <div class="description">
+                <div class="alert-icon">
+                    <span class="fa fa-exclamation-triangle"></span>
+                </div>
+                <p>Firmware erase cancelled. Disconnect and reconnect to reboot your KeepKey.</p>
+            </div>
+        </div>
     </div>
 
     <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>

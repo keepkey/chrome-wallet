@@ -1,7 +1,8 @@
 {
   "environment": "local",
+  "showFeeSelector": false,
   "keepkeyProxy": {
-    "applicationId": "badomolcmhkafhofmedjoekochbhakia"
+    "applicationId": "ijfagfipdbiddhgemjdcfmnbnbgneeia"
   },
   "keepkeyWallet": {
     "applicationId": "mhlamlofhneobmgegoakakaohndmjbcd"

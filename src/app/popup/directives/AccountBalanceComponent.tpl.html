@@ -1,0 +1,12 @@
+<div class="account-balance-component online">
+    <div class="connection-light"></div>
+    <wallet-balance
+            class="details"
+            balance="account.highConfidenceBalance"
+            pending="account.lowConfidenceBalance"
+            loading="loading">
+    </wallet-balance>
+    <div class="account-number" ng-hide="singleAccount">
+        {{name}} <button ng-if="canEdit()" class="fa fa-pencil" ng-click="accountSettings()"></button>
+    </div>
+</div>

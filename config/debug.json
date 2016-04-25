@@ -1,5 +1,6 @@
 {
   "environment": "debug",
+  "showFeeSelector": false,
   "keepkeyProxy": {
     "applicationId": "hnmabaiiicpenmplhedainbdjcomnaed"
   },

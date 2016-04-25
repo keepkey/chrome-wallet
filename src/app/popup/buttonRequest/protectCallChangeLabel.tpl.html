@@ -1,6 +1,6 @@
 <section id="button-request" ng-controller="ButtonRequestController">
     <header>
-        <back-button class="button-left header-button" action="onCancel()"></back-button>
+        <back-button class="button-left header-button" action="cancelDeviceOperation();"></back-button>
     </header>
     <div
         id="change-label"
@@ -12,6 +12,6 @@
                 to change the label.</span></h2>
             </div>
         </div>
-        <a class="text-link-button cancel" ng-click="onCancel()">Cancel</a>
+        <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
     </div>
 </section>

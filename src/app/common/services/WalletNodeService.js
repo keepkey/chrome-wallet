@@ -1,31 +1,22 @@
 /* global _ */
 
 angular.module('kkCommon')
-  .factory('WalletNodeService', ['$rootScope', 'DeviceBridgeService',
-    function WalletNodeService($rootScope, deviceBridgeService) {
+  .factory('WalletNodeService', ['$rootScope', '$timeout', 'DeviceBridgeService',
+    function WalletNodeService($rootScope, $timeout, deviceBridgeService) {
       var nodes = [];
       var walletStats = {};
 
-      function getPublicKeysForNodes(nodes) {
-        _.each(nodes, function (it) {
-            delete it.chainCode;
-            delete it.publicKey;
-            delete it.xpub;
-            deviceBridgeService.getPublicKey({
-              addressN: it.nodePath
-            });
-          }
-        );
-        setTimeout(function () {
-          $rootScope.$digest();
-        });
-      }
-
       function updateWalletNodes(newNodes) {
+        if (newNodes.length === 0) {
+          // Bootstrap the first account
+          deviceBridgeService.addAccount('m/44\'/0\'/0\'', 'Main Account');
+          return;
+        }
         _.each(newNodes, function (node) {
-          var index = getWalletIndexByHdNode(node.hdNode);
-          if (nodes[index]) {
-            angular.copy(node, nodes[index]);
+          node.accountNumber = _.trim(_.last(node.nodePath.split('/')), "'");
+          var matchingNode = _.find(nodes, {id: node.id});
+          if (matchingNode) {
+            angular.copy(node, matchingNode);
           } else {
             nodes.push(node);
           }
@@ -33,12 +24,21 @@ angular.module('kkCommon')
 
         setFirstWalletId();
 
-        getPublicKeysForNodes(_.filter(nodes, function (it) {
-          return !(it.wallet && it.wallet.xpub);
-        }));
         setTimeout(function () {
           $rootScope.$digest();
         });
+      }
+
+      function updateWalletHistory(historyNode) {
+        var node = _.find(nodes, {id: historyNode.id});
+        if (_.get(node, 'txHist')) {
+          angular.copy(historyNode.txHist, node.txHist);
+        } else if (node) {
+          node.txHist = historyNode.txHist;
+        } else {
+          nodes.push(historyNode);
+        }
+        $rootScope.$digest();
       }
 
       function firstUnusedAddress(walletId) {
@@ -61,27 +61,11 @@ angular.module('kkCommon')
       }
 
       function getWalletById(id) {
-        var node;
-
-        if (_.isString(id)) {
-          id = parseInt(id, 10);
-        }
-        if (_.isNaN(id)) {
-          node = undefined;
-        } else {
-          var hdNode = ['m', "44'", "0'", id + "'"].join('/');
-          node = _.find(nodes, {hdNode: hdNode});
-          if (!node) {
-            if (nodes.length > id) {
-              node = nodes[id];
-            }
-          }
-        }
-        return node;
+        return _.find(nodes, {id: id});
       }
 
       function getWalletIndexByHdNode(hdNode) {
-        return _.findIndex(nodes, {hdNode: hdNode})
+        return _.findIndex(nodes, {nodePath: hdNode})
       }
 
       function setFirstWalletId() {
@@ -90,7 +74,6 @@ angular.module('kkCommon')
 
       function clearData() {
         nodes.length = 0;
-        $rootScope.$digest();
       }
 
       function joinPaths() {
@@ -114,9 +97,11 @@ angular.module('kkCommon')
         }, []);
       }
 
-      var getTransactionHistory = deviceBridgeService.getTransactionHistory;
+      function removeAccount(accountId) {
+        _.remove(nodes, {id: accountId});
+      }
 
-      deviceBridgeService.getWalletNodes();
+      var getTransactionHistory = deviceBridgeService.getTransactionHistory;
 
       return {
         wallets: nodes,
@@ -124,11 +109,14 @@ angular.module('kkCommon')
         reload: reloadWallets,
         getWalletById: getWalletById,
         updateWalletNodes: updateWalletNodes,
+        updateWalletHistory: updateWalletHistory,
         firstUnusedAddress: firstUnusedAddress,
         joinPaths: joinPaths,
         pathToAddressN: pathToAddressN,
         clear: clearData,
-        getTransactionHistory: getTransactionHistory
+        getTransactionHistory: getTransactionHistory,
+        loadAccounts: deviceBridgeService.getWalletNodes,
+        removeAccount: removeAccount
       };
     }
   ])

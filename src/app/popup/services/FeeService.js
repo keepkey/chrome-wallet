@@ -10,15 +10,6 @@ angular.module('kkWallet')
         fees: fees,
         estimatedFee: estimatedFee,
         maxTransactionAmount: maxTransactionAmount,
-        update: function () {
-          if (!updateInProgress) {
-            updateInProgress = true;
-            deviceBridgeService.getFees()
-              .then(function () {
-                updateInProgress = false;
-              });
-          }
-        },
         set: function (value) {
           angular.copy(value, fees);
         },

@@ -1,6 +1,6 @@
 <section id="button-request" ng-controller="SignTxController">
     <header>
-        <back-button class="button-left header-button" action="onCancel()"></back-button>
+        <back-button class="button-left header-button" action="cancelDeviceOperation();"></back-button>
     </header>
 
     <div id="confirm-fee" class="content" ng-class="buttonRequestType">
@@ -10,6 +10,6 @@
                     Make sure the details are accurate.</h2>
             </div>
         </div>
-        <a class="text-link-button cancel" ng-click="onCancel()">Cancel</a>
+        <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
     </div>
 </section>

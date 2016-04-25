@@ -1,0 +1,16 @@
+<div class="fee-selector">
+    <label>Transaction speed:</label>
+    <div class="fee-level-btn btn-group" role="group">
+        <button ng-repeat="feeLevelOption in feeOptions"
+                type="button"
+                ng-click="setSelected(feeLevelOption)"
+                ng-class="{
+                    'btn-primary': selected === feeLevelOption,
+                    'btn-default': selected !== feeLevelOption
+                }"
+                class="btn"
+                ng-disabled="active && estimatedFees[feeLevelOption] === undefined">
+            <div>{{feeDisplay[feeLevelOption]}}</div>
+        </button>
+    </div>
+</div>

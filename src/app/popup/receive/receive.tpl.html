@@ -1,19 +1,16 @@
 <section id="receive" ng-controller="ReceiveController">
     <header>
-        <back-button class="button-left header-button" action="onCancel()"></back-button>
+        <back-button class="button-left header-button" action="cancelDeviceOperation();"></back-button>
     </header>
 
     <div class="content">
-        <h2><span class="cornflower-txt"><b>Receive</b></span> Bitcoins</h2>
+        <h2><span class="cornflower-txt"><b>Receive</b></span> Bitcoin</h2>
 
         <div class="content-inner">
             <div class="content-inner-centering">
 
                 <div class="help">Confirm the address below is the same one shown on your KeepKey before using it.</div>
 
-                <div class="spinner" ng-hide="firstUnusedAddress.address">
-                    <span class="fa fa-refresh fa-spin"></span>
-                </div>
                 <qrcode ng-show="firstUnusedAddress.address"
                         class="qrcode"
                         data="{{bitcoinLink}}"
@@ -21,7 +18,7 @@
                         error-correction-level="L"
                         target="_blank"></qrcode>
 
-                <div>
+                <div ng-show="firstUnusedAddress.address">
                     <span class="bitcoin-receive-link">
                         {{firstUnusedAddress.address}}
                     </span>
@@ -30,5 +27,23 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <div class="content in-progress-overlay" ng-hide="firstUnusedAddress.address">
+      <div class="content-no-button-inner">
+          <div class="content-inner-centering">
+              <h2><span class="cornflower-txt"><b>Finding unused address.</b></span><br>
+              Please wait while we<br> find an unused address...</h2>
+              <div id="loader">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div class="second-top"></div>
+                  <div class="top"></div>
+              </div>
+          </div>
+      </div>
     </div>
 </section>
