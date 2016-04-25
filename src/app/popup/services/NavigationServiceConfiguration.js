@@ -87,6 +87,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/failure/Bip44AccountGapViolation.tpl.html',
           goable: true
         })
+        .when('/failure/unable_to_initialize', {
+          templateUrl: 'app/popup/failure/UnableToInitialize.tpl.html',
+          goable: true
+        })
         .when('/failure/:message', {
           templateUrl: 'app/popup/failure/failure.tpl.html',
           goable: false
