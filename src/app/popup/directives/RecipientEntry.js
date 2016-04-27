@@ -14,17 +14,20 @@ angular.module('kkWallet')
       link: function ($scope) {
         $scope.field = _.get($scope.form, $scope.fieldName);
       },
-      controller: ['$scope', 'WalletNodeService',
-        function ($scope, walletNodeService) {
+      controller: ['$scope', 'WalletNodeService', 'DeviceFeatureService',
+        function ($scope, walletNodeService, featureService) {
           $scope.labelVariation = $scope.label;
-          if (walletNodeService.wallets.length > 1) {
+          if (walletNodeService.wallets.length > 1 &&
+            _.get(featureService.features,
+              "deviceCapabilities.supportsSecureAccountTransfer")) {
             $scope.placeholder = "Enter address or select an account...";
+            $scope.accounts = _.sortBy(_.reject(walletNodeService.wallets, {
+              id: $scope.currentAccount
+            }), 'name');
           } else {
             $scope.placeholder = "Enter an address...";
+            $scope.accounts = [];
           }
-          $scope.accounts = _.sortBy(_.reject(walletNodeService.wallets, {
-            id: $scope.currentAccount
-          }), 'name');
           $scope.$watch('selected', function () {
             var accountNumber = _.get($scope.selected, 'accountNumber');
             if (accountNumber) {
