@@ -6,7 +6,13 @@ angular.module('kkWallet')
       $scope.supportEmailAddress = 'support@keepkey.com';
       $scope.supportWebLink = 'https://keepkey.freshdesk.com/support/solutions';
       $scope.supportPhoneNumber = '+1-855-463-8550';
-      
+
+      if (deviceFeatureService.get('deviceCapabilities.vendorName') === 'KeepKey') {
+        $scope.supportName = 'Your KeepKey';
+      } else {
+        $scope.supportName = 'The KeepKey Chrome Wallet';
+      }
+
       $scope.launchSupportTab = function() {
         window.open($scope.supportWebLink, '_blank');
       };
@@ -14,7 +20,6 @@ angular.module('kkWallet')
       $scope.openEmail = function() {
         window.open('mailto:' + $scope.supportEmailAddress);
       };
-      $scope.device = angular.copy(deviceFeatureService.features);
-      delete $scope.device.coins;
+      $scope.device = deviceFeatureService.features;
     }
   ]);

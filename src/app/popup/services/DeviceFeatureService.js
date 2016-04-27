@@ -15,6 +15,9 @@ angular.module('kkWallet')
 
       return {
         features: features,
+        get: function(featureName) {
+          return _.get(features, featureName);
+        },
         set: function (data) {
           angular.copy(data, features);
           features.wallet_version = version;
