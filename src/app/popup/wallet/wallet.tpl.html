@@ -39,13 +39,19 @@
                         Buy &amp; Sell Bitcoin
                     </button>
                 </li>
+                <li ng-if="offerKeepKeyPurchase">
+                    <button class="menu-item" ng-click="openBuyKeepkeyWindow()">
+                        Buy a KeepKey
+                    </button>
+                </li>
+                </li>
             </ul>
         </div>
     </div>
 
     <div class="footer">
         <div class="left">
-            <strong>{{device.label || 'KeepKey'}}</strong> connected
+            <strong><device-label></device-label></strong> connected
         </div>
         <add-account-button class="text-link-button right"
                             ng-if="singleAccount && !receiveDisabled()">

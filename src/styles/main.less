@@ -60,9 +60,15 @@ b {
   font-weight: 700;
 }
 
-html, body, #mask, [ng-class="pageAnimationClass"], section {
+html, body {
   width: @body-width;
   height: @body-height;
+  overflow: hidden;
+}
+
+#mask, [ng-class="pageAnimationClass"], section {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -875,7 +881,7 @@ button.fa {
   }
 }
 
-#label, #pin, #character-request, #device-settings {
+#label, #pin, #character-request, #device-settings, #support {
   .content {
     padding-top: 10px;
     h2 {

@@ -4,14 +4,14 @@
     </header>
 
     <div class="content">
-        <h2><span class="cornflower-txt"><b>{{changeLabel ? 'Change Label' : 'Choose a Label'}}</b></span> For Your KeepKey</h2>
+        <h2><span class="cornflower-txt"><b>{{changeLabel ? 'Change Label' : 'Choose a Label'}}</b></span> For Your <vendor-name></vendor-name></h2>
 
         <form name="form" novalidate>
 
             <div class="form-input-container">
                 <div class="content-form-inner">
                     <div class="content-inner-centering">
-                        <div class="help">A label allows you to distinguish your KeepKey from others that you may own.</div>
+                        <div class="help">A label allows you to distinguish your <vendor-name></vendor-name> from others that you may own.</div>
                         <label>Label</label>
                         <div class="invalid" ng-show="form.$submitted">
                             <div ng-show="form.deviceLabel.$error.required">Required</div>

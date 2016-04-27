@@ -5,7 +5,7 @@
 
     <div class="content">
         <div class="content-inner">
-            <div class="content-inner-centering">
+            <div class="content-inner-centering" ng-if="firmwareAvailable">
                 <h2>
                     <div class="cornflower-txt">
                         <b>KeepKey</b> firmware update.
@@ -20,6 +20,18 @@
                     </div>
                 </h2>
                 <a class="button" ng-click="updateFirmware()">Update Firmware</a>
+            </div>
+            <div class="content-inner-centering" ng-if="!firmwareAvailable">
+                <h2>
+                    <div class="cornflower-txt">
+                        No firmware file available
+                    </div>
+                    <div>
+                        KeepKey Wallet doesn't have firmware for your device.
+                        Please follow the instructions from the device's
+                        manufacturer for updating your firmware.
+                    </div>
+                </h2>
             </div>
         </div>
     </div>
