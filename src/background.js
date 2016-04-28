@@ -5,6 +5,11 @@
 var popupId;
 var defaultPopup;
 
+if (config.environment !== 'prod') {
+  chrome.browserAction.setBadgeText({text: config.environment});
+  chrome.browserAction.setBadgeBackgroundColor({color: '#888'});
+}
+
 chrome.browserAction.getPopup({}, function (popup) {
   var trimLength = window.location.origin.length;
   defaultPopup = popup.substr(trimLength);
