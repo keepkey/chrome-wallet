@@ -1,0 +1,9 @@
+{
+  environment: rc
+  keepkeyProxy: {
+    applicationId: ndpjhnboalogfiafbknodggihfiedibo
+  },
+  keepkeyWallet: {
+    applicationId: ooebcblfhoolggpbpkmjpieidkmengcl
+  }
+}

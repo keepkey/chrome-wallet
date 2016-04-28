@@ -1,0 +1,9 @@
+{
+  environment: local
+  keepkeyProxy: {
+    applicationId: ijfagfipdbiddhgemjdcfmnbnbgneeia
+  },
+  keepkeyWallet: {
+    applicationId: mhlamlofhneobmgegoakakaohndmjbcd
+  }
+}
