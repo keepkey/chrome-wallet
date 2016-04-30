@@ -1,0 +1,9 @@
+{
+  environment: prod
+  keepkeyProxy: {
+    applicationId: idgiipeogajjpkgheijapngmlbohdhjg
+  },
+  keepkeyWallet: {
+    applicationId: hmldnhmidmcofnbojkgfnibmhmjopbpc
+  }
+}

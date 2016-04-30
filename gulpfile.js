@@ -1,4 +1,5 @@
 // Requires
+var _ = require('lodash');
 var path = require('path');
 var gulp = require('gulp');
 var concat = require('gulp-concat');
@@ -22,6 +23,9 @@ var manifest = require('./manifest');
 var wrap = require('gulp-wrap');
 var rename = require('gulp-rename');
 var gulpif = require('gulp-if');
+var hjson = require('gulp-hjson');
+var jsoncombine = require('gulp-jsoncombine');
+var bower = require('gulp-bower');
 
 var environment = (args.environment || 'local');
 
@@ -47,7 +51,11 @@ var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
 gulp.task('default', ['test', 'build', 'watch']);
 
 gulp.task('clean', function (cb) {
-  del(['dist', 'generatedJs', '*.zip'], cb);
+  del(['dist', 'build', '*.zip', 'vendor', 'node_modules'], cb);
+});
+
+gulp.task('bower', function() {
+  return bower();
 });
 
 gulp.task('build', [
@@ -61,37 +69,69 @@ gulp.task('build', [
   'assetsProduction',
   'htmlProduction',
   'manifestProduction',
-  'buildConfig',
   'zip'
 ]);
 
-gulp.task('buildConfig', function () {
-  var envConfig = require('./config/' + environment + '.json');
+gulp.task('hjson2json', function() {
+  return gulp.src('config/**/*.hjson')
+    .pipe(hjson({to: 'json'}))
+    .pipe(gulp.dest('build'));
+});
+
+gulp.task('buildConfig', ['hjson2json', 'proxyConfig'], function () {
+  return gulp.src([
+      'build/global.json',
+      'build/environments/' + environment + '.json',
+      'build/proxyConfig.json'
+    ])
+    .pipe(jsoncombine('config.json', function (files) {
+      return new Buffer(JSON.stringify(_.merge.apply(_, _.values(files))));
+    }))
+    .pipe(gulp.dest('build'));
+});
+
+gulp.task('buildAngularConfig', ['buildConfig'], function () {
+  var envConfig = require('./build/config.json');
   return ngConstant({
     name: 'kkCommon',
     constants: {environmentConfig: envConfig},
     stream: true,
     deps: false
-  }).pipe(gulp.dest('generatedJs'));
+  }).pipe(gulp.dest('build'));
 
 
 });
 
-gulp.task('vendorScriptsProduction', function () {
+gulp.task('buildBackgroundConfig', ['buildConfig'], function() {
+  return gulp.src('build/config.json')
+    .pipe(wrap('var config=<%= JSON.stringify(contents) %>;'))
+    .pipe(rename({extname: '.js'}))
+    .pipe(gulp.dest('build'));
+});
+
+gulp.task('proxyConfig', ['hjson2json'], function() {
+  return gulp.src(['build/environments/*.json', 'build/conflicting-applications.json'])
+    .pipe(jsoncombine('proxyConfig.json', function (files) {
+      var foreignFiles = _.omit(files, [environment, 'conflicting-applications']);
+      var appIds = _.uniq(_.map(_.values(foreignFiles), function(file) {
+        return _.get(file, 'keepkeyProxy.applicationId');
+      }));
+      appIds = appIds.concat(
+        _.get(files, 'conflicting-applications.conflictingApplicationIds'));
+      return new Buffer('{"foreignProxies":' + JSON.stringify(appIds) + '}');
+    }))
+    .pipe(gulp.dest('build'));
+});
+
+
+gulp.task('vendorScriptsProduction', ['bower'], function () {
   return gulp.src(vendorJavascriptFiles)
     .pipe(concat('vendor-scripts.min.js'))
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('wrapJson', function() {
-  return gulp.src('config/' + environment + '.json')
-    .pipe(wrap('var config=<%= JSON.stringify(contents) %>;'))
-    .pipe(rename({suffix: '.json', extname: '.js'}))
-    .pipe(gulp.dest('generatedJs'));
-});
-
-gulp.task('backgroundScript', ['wrapJson'], function () {
-  return gulp.src(['generatedJs/' + environment + '.json.js', 'src/background.js'])
+gulp.task('backgroundScript', ['buildBackgroundConfig'], function () {
+  return gulp.src(['build/config.js', 'src/background.js'])
     .pipe(concat('background.js'))
     .pipe(gulp.dest('dist'));
 });
@@ -148,17 +188,17 @@ function appScriptBuilder(moduleName, angularModuleName, extraFiles) {
     .pipe(gulp.dest('dist'));
 }
 
-gulp.task('appCommonScripts', ['buildConfig'],
+gulp.task('appCommonScripts', ['buildAngularConfig'],
   appScriptBuilder.bind(this, 'common', 'kkCommon', [
-    'generatedJs/constants.js'
+    'build/constants.js'
   ])
 );
 
-gulp.task('appPopupScripts', ['buildConfig'],
+gulp.task('appPopupScripts',
   appScriptBuilder.bind(this, 'popup', 'kkWallet')
 );
 
-gulp.task('appTransactionScripts', ['buildConfig'],
+gulp.task('appTransactionScripts',
   appScriptBuilder.bind(this, 'transactions', 'kkTransactions')
 );
 

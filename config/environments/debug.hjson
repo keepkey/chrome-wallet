@@ -1,0 +1,9 @@
+{
+  environment: debug
+  keepkeyProxy: {
+    applicationId: hnmabaiiicpenmplhedainbdjcomnaed
+  },
+  keepkeyWallet: {
+    applicationId: fbomagjielcdijoiggoloodoibbbblgf
+  }
+}

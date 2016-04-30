@@ -2,6 +2,7 @@ node_modules
 vendor
 dist
 generatedJs
+build
 dist.crx
 dist.pem
 *.zip
