@@ -72,12 +72,18 @@ gulp.task('build', [
   'zip'
 ]);
 
-gulp.task('buildConfig', function () {
+gulp.task('hjson2json', function() {
+  return gulp.src('config/**/*.hjson')
+    .pipe(hjson({to: 'json'}))
+    .pipe(gulp.dest('build'));
+});
+
+gulp.task('buildConfig', ['hjson2json', 'proxyConfig'], function () {
   return gulp.src([
-      'config/global.hjson',
-      'config/environments/' + environment + '.hjson'
+      'build/global.json',
+      'build/environments/' + environment + '.json',
+      'build/proxyConfig.json'
     ])
-    .pipe(hjson({ to: 'json' }))
     .pipe(jsoncombine('config.json', function (files) {
       return new Buffer(JSON.stringify(_.merge.apply(_, _.values(files))));
     }))
@@ -102,6 +108,21 @@ gulp.task('buildBackgroundConfig', ['buildConfig'], function() {
     .pipe(rename({extname: '.js'}))
     .pipe(gulp.dest('build'));
 });
+
+gulp.task('proxyConfig', ['hjson2json'], function() {
+  return gulp.src(['build/environments/*.json', 'build/conflicting-applications.json'])
+    .pipe(jsoncombine('proxyConfig.json', function (files) {
+      var foreignFiles = _.omit(files, [environment, 'conflicting-applications']);
+      var appIds = _.uniq(_.map(_.values(foreignFiles), function(file) {
+        return _.get(file, 'keepkeyProxy.applicationId');
+      }));
+      appIds = appIds.concat(
+        _.get(files, 'conflicting-applications.conflictingApplicationIds'));
+      return new Buffer('{"foreignProxies":' + JSON.stringify(appIds) + '}');
+    }))
+    .pipe(gulp.dest('build'));
+});
+
 
 gulp.task('vendorScriptsProduction', ['bower'], function () {
   return gulp.src(vendorJavascriptFiles)
