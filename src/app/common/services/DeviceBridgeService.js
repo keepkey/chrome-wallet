@@ -153,14 +153,13 @@ angular.module('kkCommon')
             var message = angular.extend({}, {
               messageType: 'RequestTransactionSignature'
             }, transactionRequest);
-            message.amount *= 100000000;
             return sendMessage(message);
           },
           estimateFeeForTransaction: function (accountId, transactionAmount) {
             return sendMessage({
               messageType: 'EstimateFeeForTransaction',
               accountId: accountId,
-              transactionAmount: transactionAmount * 100000000
+              transactionAmount: transactionAmount
             })
           },
           getMaximumTransactionAmount: function (nodeId) {

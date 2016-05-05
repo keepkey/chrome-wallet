@@ -2,9 +2,13 @@ angular.module('kkWallet')
   .controller('SendController', ['$scope', '$routeParams',
     'DeviceBridgeService', 'NavigationService', 'WalletNodeService',
     'TransactionService', 'FeeService', 'environmentConfig',
-     function SendController($scope, $routeParams, deviceBridgeService, 
+    function SendController($scope, $routeParams, deviceBridgeService,
                             navigationService, walletNodeService,
                             transactionService, feeService, environmentConfig) {
+      function bitcoinsToSatoshis(amount) {
+        return Math.round(amount * 100000000);
+      }
+
       walletNodeService.reload();
 
       $scope.feeOptions = feeService.feeOptions;
@@ -17,7 +21,7 @@ angular.module('kkWallet')
       $scope.preparingTransaction = false;
 
       $scope.feeSelectorEnabled = environmentConfig.showFeeSelector;
-      
+
       $scope.userInput = {
         sourceIndex: $routeParams.wallet,
         sourceName: $scope.wallet.name,
@@ -30,7 +34,7 @@ angular.module('kkWallet')
           $scope.preparingTransaction = true;
           transactionService.transactionInProgress = {
             accountId: $scope.wallet.id,
-            amount: $scope.userInput.amount,
+            amount: bitcoinsToSatoshis($scope.userInput.amount),
             feeLevel: $scope.userInput.feeLevel
           };
 
@@ -60,13 +64,13 @@ angular.module('kkWallet')
 
       $scope.$watch('userInput.amount', function computeFees() {
         if ($scope.wallet.id) {
-          feeService.compute($scope.wallet.id, $scope.userInput.amount);
+          feeService.compute($scope.wallet.id, bitcoinsToSatoshis($scope.userInput.amount));
         }
       });
-      $scope.$watch('wallet.id', function() {
+      $scope.$watch('wallet.id', function () {
         if ($scope.wallet.id) {
           feeService.getMaximumTransactionAmount($scope.wallet.id);
-          feeService.compute($scope.wallet.id, $scope.userInput.amount);
+          feeService.compute($scope.wallet.id, bitcoinsToSatoshis($scope.userInput.amount));
         }
       });
     }
