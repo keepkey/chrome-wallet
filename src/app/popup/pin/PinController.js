@@ -7,6 +7,9 @@ angular.module('kkWallet')
       if (previousRoute === '/walletlist') {
         $scope.successRoute = previousRoute;
         $scope.showDeviceConfigurationButton = true;
+      } else if (previousRoute.startsWith('/send/')) {
+        $scope.successRoute = '/preparing';
+        navigationService.setNextTransition('slideLeft');
       } else if(navigationService.getCurrentRoute() === '/pin/pin_matrix_request_type_new_second' &&
         deviceFeatureService.features.initialized) {
         navigationService.setNextTransition('slideRight');

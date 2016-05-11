@@ -180,6 +180,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/update-firmware/update-firmware.tpl.html',
           goable: true
         })
+        .when('/preparing', {
+          templateUrl: 'app/popup/preparing/preparing.tpl.html',
+          goable: false
+        })
         .otherwise({
           redirectTo: '/',
           goable: false

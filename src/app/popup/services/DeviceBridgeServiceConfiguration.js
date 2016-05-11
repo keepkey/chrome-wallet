@@ -3,8 +3,8 @@ angular.module('kkWallet')
     function (deviceBridgeServiceProvider) {
 
       function navigateToLocation(locationTemplate) {
-        return ['NavigationService', '$rootScope',
-          function (navigationService, $rootScope) {
+        return ['NavigationService',
+          function (navigationService) {
             var location = locationTemplate;
             for (var field in this.request.message) {
               if (this.request.message.hasOwnProperty(field)) {
@@ -17,8 +17,8 @@ angular.module('kkWallet')
       }
 
       function navigateToPreviousLocation() {
-        return ['NavigationService', '$rootScope',
-          function (navigationService, $rootScope) {
+        return ['NavigationService',
+          function (navigationService) {
             navigationService.goToPrevious('slideRight');
           }
         ];
@@ -117,16 +117,16 @@ angular.module('kkWallet')
           $injector.invoke(navigateToLocation('/failure/:message'), this);
         }
       ]);
-      deviceBridgeServiceProvider.when('TxRequest', ['NavigationService', 'TransactionService', '$rootScope',
-        function (navigationService, transactionService, $rootScope) {
+      deviceBridgeServiceProvider.when('TxRequest', ['NavigationService', 'TransactionService',
+        function (navigationService, transactionService) {
           if (this.request.message.request_type === 'TXFINISHED') {
             angular.copy({}, transactionService.transactionInProgress);
             navigationService.go('/walletlist');
           }
         }
       ]);
-      deviceBridgeServiceProvider.when('Features', ['NavigationService', 'DeviceFeatureService', '$rootScope',
-        function (navigationService, deviceFeatureService, $rootScope) {
+      deviceBridgeServiceProvider.when('Features', ['NavigationService', 'DeviceFeatureService',
+        function (navigationService, deviceFeatureService) {
           deviceFeatureService.set(this.request.message);
           navigationService.dumpHistory();
           if (deviceFeatureService.features.bootloader_mode) {
@@ -169,6 +169,12 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('MaximumTransactionAmount', ['FeeService',
         function (feeService) {
           feeService.setMaxTransactionAmount(this.request.message);
+        }
+      ]);
+      
+      deviceBridgeServiceProvider.when('Processed', ['ProgressService',
+        function(progressService) {
+          progressService.update(this.request.message);
         }
       ]);
 
