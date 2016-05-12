@@ -17,7 +17,9 @@
                     <div class="second-top"></div>
                     <div class="top"></div>
                 </div>
-                <div class="progress-indicator">{{progress.current}} of {{progress.total}}</div>
+                <div class="progress-indicator" ng-show="progress.total">
+                    {{ progress.current }} of {{ progress.total }}
+                </div>
             </div>
         </div>
     </div>
