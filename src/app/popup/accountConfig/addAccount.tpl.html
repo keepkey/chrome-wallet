@@ -28,6 +28,10 @@
                                ng-disabled="creating"
                                required
                                focus>
+
+                        <select ng-options="assetType as assetType.name for assetType in assetTypes"
+                                ng-model="selectedAsset"></select>
+
                     </div>
                 </div>
             </div>
