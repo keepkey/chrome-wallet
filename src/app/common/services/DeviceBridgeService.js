@@ -191,11 +191,12 @@ angular.module('kkCommon')
               feeLevel: feeLevel
             });
           },
-          addAccount: function(nodeVector, accountName) {
+          addAccount: function(nodeVector, accountName, coinType) {
             return sendMessage({
               messageType: 'AddAccount',
               nodeVector: nodeVector,
-              name: accountName
+              name: accountName,
+              coinType: coinType
             })
           },
           deleteAccount: function(walletId) {

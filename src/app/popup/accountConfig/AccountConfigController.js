@@ -4,6 +4,29 @@ angular.module('kkWallet')
       $scope.walletList = walletNodeService.wallets;
       $scope.walletName = '';
 
+      //TODO load the list of assets from the proxy
+      $scope.assetTypes = [{
+        code: 'btc',
+        name: 'Bitcoin',
+        coinTypeCode: "0'"
+      }, {
+        code: 'ltc',
+        name: 'Litecoin',
+        coinTypeCode: "2'"
+      }];
+
+
+      $scope.selectedAsset = $scope.assetTypes[0];
+      $scope.updateAssetType = function() {
+
+      };
+
+      $scope.setAssetType = function(assetType) {
+        $scope.assetType = assetType;
+        console.log(assetType);
+        return false;
+      };
+
       var wallet = _.find($scope.walletList, {
         id: $routeParams.accountId
       });
@@ -22,7 +45,8 @@ angular.module('kkWallet')
           var newAccountNode = findNextAccountNode();
           console.log('new account node path:', newAccountNode);
           notificationMessageService.set('Your new account was successfully created!');
-          deviceBridgeService.addAccount(newAccountNode, $scope.walletName);
+          deviceBridgeService.addAccount(newAccountNode, $scope.walletName,
+            $scope.selectedAsset.name);
         }
       };
 
@@ -41,13 +65,17 @@ angular.module('kkWallet')
         }
       });
 
-      function findNextAccountNode() {
-        var lastAccount = _.last(_.sortBy($scope.walletList, function(account) {
-          return parseInt(account.accountNumber);
-        }));
-        var lastAccountNumber = parseInt(lastAccount.accountNumber);
-        return "m/44'/0'/" + (lastAccountNumber + 1) + "'";
-
+      function findNextAccountNode(assetType) {
+        var newAccountNumber = 0;
+        var accounts = _.filter($scope.walletList, {coinType: $scope.selectedAsset.name});
+        if (accounts.length) {
+          var lastAccount = _.last(_.sortBy(accounts, function (account) {
+            return parseInt(account.accountNumber);
+          }));
+          newAccountNumber = parseInt(lastAccount.accountNumber) + 1;
+        }
+        return "m/44'/" + $scope.selectedAsset.coinTypeCode + "/" +
+          newAccountNumber + "'";
       }
     }
   ]);
