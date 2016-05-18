@@ -72,12 +72,13 @@ angular.module('kkWallet')
             $scope.wallet.nodePath, $scope.unusedAddress.path
           ));
 
-        deviceBridgeService.getAddress({
-          messageType: 'GetAddress',
-          addressN: addressN,
-          coinName: "Bitcoin",
-          showDisplay: true
-        });
+          deviceBridgeService.getAddress({
+            messageType: 'GetAddress',
+            addressN: addressN,
+            coinName: $scope.wallet.coinType,
+            showDisplay: true
+          });
+        }
       }
 
       $scope.$watch('wallet.wallet.chains', getAddress, true);
