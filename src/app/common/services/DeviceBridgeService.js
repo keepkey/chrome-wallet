@@ -78,6 +78,10 @@ angular.module('kkCommon')
             var message = angular.extend({messageType: 'ApplySettings'}, options);
             return sendMessage(message);
           },
+          enablePassphrase: function (options) {
+            var message = angular.extend({messageType: 'EnablePassphrase'}, options);
+            return sendMessage(message);
+          },
           sendPin: function (options) {
             var message = angular.extend({messageType: 'PinMatrixAck'}, options);
             return sendMessage(message);
