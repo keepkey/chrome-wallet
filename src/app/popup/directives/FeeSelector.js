@@ -27,15 +27,6 @@ angular.module('kkWallet')
             }
           }
 
-          $scope.setSelected = function(feeLevel) {
-            $scope.selected = feeLevel;
-          };
-
-          $scope.feeDisplay = {
-            'slow': '1-hour +',
-            'medium': '30-min',
-            'fast': '10-min'
-          };
           $scope.fees = feeService.fees;
           $scope.feeOptions = feeService.feeOptions;
 
