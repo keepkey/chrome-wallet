@@ -39,14 +39,6 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
       deviceBridgeServiceProvider.when('ButtonRequest', ['$injector', 'NavigationService',
         function ($injector, navigationService) {
-          if (this.request.message.code === 'ButtonRequest_ProtectCall') {
-            if (navigationService.getCurrentRoute() == '/label/settings') {
-              this.request.message.code += 'ChangeLabel';
-            } else {
-              this.request.message.code += 'ChangePin';
-            }
-          }
-
           if (this.request.message.code !== 'ButtonRequest_Address') {
             $injector.invoke(navigateToLocation('/buttonRequest/:code'), this);
           }
