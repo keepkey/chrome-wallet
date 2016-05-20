@@ -1,3 +1,5 @@
 {
-  showFeeSelector: true
+  showFeeSelector: false
+  regularFeeLevel: slow
+  priorityFeeLevel: fast
 }

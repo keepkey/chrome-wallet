@@ -2,9 +2,10 @@
     <div class="fee-level-btn btn-group" role="group">
         <label>
             <input type="checkbox"
+                   ng-disabled="active && estimatedFees.{{priorityFeeLevel}} === undefined"
                    ng-model="selected"
-                   ng-true-value="'fast'"
-                   ng-false-value="'slow'">
+                   ng-true-value="'{{priorityFeeLevel}}'"
+                   ng-false-value="'{{regularFeeLevel}}'">
             Prioritize transaction processing (Higher miner fee)
         </label>
     </div>

@@ -35,7 +35,7 @@
                             </amount-entry>
 
                             <fee-selector
-                                    ng-if="feeSelectorEnabled"
+                                    ng-show="config.showFeeSelector"
                                     estimated-fees="estimatedFee.fee"
                                     selected="userInput.feeLevel"
                                     active="!preparingTransaction && userInput.amount > 0">

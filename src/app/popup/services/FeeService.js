@@ -2,7 +2,6 @@ angular.module('kkWallet')
   .factory('FeeService', ['$rootScope', 'DeviceBridgeService',
     function FeeService($rootScope, deviceBridgeService) {
       var fees = {};
-      var updateInProgress = false;
       var estimatedFee = {};
       var maxTransactionAmount = {};
 

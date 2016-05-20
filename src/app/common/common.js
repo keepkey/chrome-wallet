@@ -1,9 +1,15 @@
 angular.module('kkCommon', [])
   .constant('VERSION', '{{VERSION}}')
-  .run(['DeviceBridgeService', function(deviceBridgeService) {
-    window.KeepKey = {
-      enablePassphrase: function(enabled) {
-        deviceBridgeService.enablePassphrase({enabled: enabled});
-      }
-    };
-  }]);
+  .run(['DeviceBridgeService', 'environmentConfig', '$rootScope',
+    function (deviceBridgeService, environmentConfig, $rootScope) {
+      window.KeepKey = {
+        enablePassphrase: function (enabled) {
+          deviceBridgeService.enablePassphrase({enabled: enabled});
+        },
+        enableFeeSelector: function (enabled) {
+          environmentConfig.showFeeSelector = enabled;
+          $rootScope.$apply();
+        }
+      };
+    }
+  ]);

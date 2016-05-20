@@ -20,7 +20,7 @@ angular.module('kkWallet')
       $scope.showForm = !!($scope.wallet.highConfidenceBalance);
       $scope.preparingTransaction = false;
 
-      $scope.feeSelectorEnabled = environmentConfig.showFeeSelector;
+      $scope.config = environmentConfig;
 
       $scope.userInput = {
         sourceIndex: $routeParams.wallet,
