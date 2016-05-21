@@ -41,8 +41,8 @@ angular.module('kkCommon')
         $rootScope.$digest();
       }
 
-      function firstUnusedAddress(walletId) {
-        deviceBridgeService.getUnusedExternalAddressNode(walletId);
+      function unusedAddress(walletId, depth) {
+        deviceBridgeService.getUnusedExternalAddressNode(walletId, depth);
       }
 
       function reloadWallets(clearAddresses) {
@@ -110,7 +110,7 @@ angular.module('kkCommon')
         getWalletById: getWalletById,
         updateWalletNodes: updateWalletNodes,
         updateWalletHistory: updateWalletHistory,
-        firstUnusedAddress: firstUnusedAddress,
+        unusedAddress: unusedAddress,
         joinPaths: joinPaths,
         pathToAddressN: pathToAddressN,
         clear: clearData,

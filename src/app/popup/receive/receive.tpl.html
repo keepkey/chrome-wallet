@@ -11,25 +11,26 @@
 
                 <div class="help">Confirm the address below is the same one shown on your <vendor-name></vendor-name> before using it.</div>
 
-                <qrcode ng-show="firstUnusedAddress.address"
+                <qrcode ng-show="unusedAddress.address"
                         class="qrcode"
                         data="{{bitcoinLink}}"
                         size="160"
                         error-correction-level="L"
                         target="_blank"></qrcode>
 
-                <div ng-show="firstUnusedAddress.address">
+                <div ng-show="unusedAddress.address">
                     <span class="bitcoin-receive-link">
-                        {{firstUnusedAddress.address}}
+                        {{unusedAddress.address}}
                     </span>
                     <button class="copy-to-clipboard-button fa fa-clipboard"
-                            data-clipboard-text="{{firstUnusedAddress.address}}"></button>
+                            data-clipboard-text="{{unusedAddress.address}}"></button>
                 </div>
             </div>
+            <div>Address depth: {{addressDepth}}</div>
         </div>
     </div>
     
-    <div class="content in-progress-overlay" ng-hide="firstUnusedAddress.address">
+    <div class="content in-progress-overlay" ng-hide="unusedAddress.address">
       <div class="content-no-button-inner">
           <div class="content-inner-centering">
               <h2><span class="cornflower-txt"><b>Finding unused address.</b></span><br>

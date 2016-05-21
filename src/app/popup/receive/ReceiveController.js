@@ -14,12 +14,13 @@ angular.module('kkWallet')
       });
 
       $scope.walletId = $routeParams.walletId;
+      $scope.addressDepth = $routeParams.addressDepth || 0;
       $scope.wallet = walletNodeService.getWalletById($scope.walletId);
 
       $scope.bitcoinLink = '';
 
       function getAddress() {
-        walletNodeService.firstUnusedAddress($scope.walletId);
+        walletNodeService.unusedAddress($scope.walletId, $scope.addressDepth);
       }
 
       $scope.$on("$destroy", function () {
@@ -31,10 +32,10 @@ angular.module('kkWallet')
       });
 
       function displayAddressOnDevice() {
-        if (_.get($scope, 'firstUnusedAddress.address')) {
+        if (_.get($scope, 'unusedAddress.address')) {
           var addressN = walletNodeService.pathToAddressN(
             walletNodeService.joinPaths(
-              $scope.wallet.nodePath, $scope.firstUnusedAddress.path
+              $scope.wallet.nodePath, $scope.unusedAddress.path
             ));
 
           deviceBridgeService.getAddress({
@@ -47,8 +48,8 @@ angular.module('kkWallet')
       }
 
       function setBitcoinLink() {
-        if ($scope.firstUnusedAddress && $scope.firstUnusedAddress.address) {
-          $scope.bitcoinLink = $scope.firstUnusedAddress.address;
+        if (_.get($scope.unusedAddress, 'address')) {
+          $scope.bitcoinLink = $scope.unusedAddress.address;
         } else {
           $scope.bitcoinLink = '';
         }
@@ -57,10 +58,10 @@ angular.module('kkWallet')
       $scope.$watch('wallet', getAddress, true);
 
       $scope.$watch('wallet.wallet.chains[0].firstUnused', function (newVal) {
-        $scope.firstUnusedAddress = newVal;
+        $scope.unusedAddress = newVal;
         setBitcoinLink();
       }, true);
-      $scope.$watch('firstUnusedAddress.address', displayAddressOnDevice);
+      $scope.$watch('unusedAddress.address', displayAddressOnDevice);
     }
   ])
 ;

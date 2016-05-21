@@ -49,6 +49,10 @@ angular.module('kkWallet')
           goable: false
         })
         .when('/buttonRequest/button_request_protect_call', {
+          templateUrl: 'app/popup/buttonRequest/generic.tpl.html',
+          goable: false
+        })
+        .when('/buttonRequest/button_request_change_pin', {
           templateUrl: 'app/popup/buttonRequest/changePin.tpl.html',
           goable: false
         })
@@ -146,6 +150,10 @@ angular.module('kkWallet')
           goable: false
         })
         .when('/receive/:walletId', {
+          templateUrl: 'app/popup/receive/receive.tpl.html',
+          goable: true
+        })
+        .when('/receive/:walletId/:addressDepth', {
           templateUrl: 'app/popup/receive/receive.tpl.html',
           goable: true
         })
