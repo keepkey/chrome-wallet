@@ -9,6 +9,9 @@ angular.module('kkWallet')
 
       $scope.singleAccount = $scope.walletList.length === 1;
 
+      $scope.firmwareUpdateAvailable =
+        deviceFeatureService.features.firmwareUpdateAvailable;
+      
       $scope.offerKeepKeyPurchase =
         deviceFeatureService.get('deviceCapabilities.vendorName') !== 'KeepKey';
 

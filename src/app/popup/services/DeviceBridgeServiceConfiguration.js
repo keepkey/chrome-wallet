@@ -125,9 +125,6 @@ angular.module('kkWallet')
           if (deviceFeatureService.features.bootloader_mode) {
             navigationService.go('/bootloader');
           }
-          else if (deviceFeatureService.features.firmwareUpdateAvailable) {
-            navigationService.go('/update-firmware');
-          }
           else if (deviceFeatureService.features.initialized) {
             navigationService.go('/walletlist');
           }
