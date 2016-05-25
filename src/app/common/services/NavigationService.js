@@ -12,7 +12,7 @@ angular.module('kkCommon')
         return !!route.goable;
       }
 
-      function go(path, pageAnimationClass) {
+      function go(path, pageAnimationClass, replaceCurrentRoute) {
 
         if (nextDestination) {
           path = nextDestination;
@@ -25,7 +25,7 @@ angular.module('kkCommon')
 
         if (_.indexOf(previousRoute, path) !== -1) {
           while (previousRoute.length && previousRoute.pop() !== path);
-        } else if (isGoable($location.path())) {
+        } else if (isGoable($location.path()) && !replaceCurrentRoute) {
           previousRoute.push($location.path());
         }
 

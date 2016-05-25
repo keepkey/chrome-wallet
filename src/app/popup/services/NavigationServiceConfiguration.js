@@ -149,11 +149,11 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/success/success.tpl.html',
           goable: false
         })
-        .when('/receive/:walletId', {
+        .when('/receive/:walletId/:addressDepth', {
           templateUrl: 'app/popup/receive/receive.tpl.html',
           goable: true
         })
-        .when('/receive/:walletId/:addressDepth', {
+        .when('/receive/:walletId', {
           templateUrl: 'app/popup/receive/receive.tpl.html',
           goable: true
         })

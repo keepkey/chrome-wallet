@@ -90,7 +90,6 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
         function ($injector, failureMessageService, navigationService) {
           const IGNORED_FAILURES = [
-            'Show address cancelled',
             'Firmware erase cancelled',
             'PIN Cancelled',
             'Signing cancelled by user',
@@ -102,6 +101,8 @@ angular.module('kkWallet')
           ];
           if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
             $injector.invoke(navigateToPreviousLocation(), this);
+            return;
+          } else if (this.request.message.message === 'Show address cancelled') {
             return;
           }
           failureMessageService.add(this.request.message);

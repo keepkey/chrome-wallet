@@ -959,6 +959,25 @@ button.fa {
       margin: 10px 50px;
     }
   }
+  .address-nav {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    color: #999;
+    &.prev {
+      left: 50px;
+    }
+    &.next {
+      right: 50px;
+    }
+    &.disabled, &.disabled:hover {
+      color: #ddd;
+      background-color: inherit;
+    }
+    &:hover {
+      color: #777;
+    }
+  }
 }
 
 .failure, .notification {

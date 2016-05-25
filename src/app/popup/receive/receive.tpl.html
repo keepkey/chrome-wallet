@@ -1,6 +1,6 @@
 <section id="receive" ng-controller="ReceiveController">
     <header>
-        <back-button class="button-left header-button" action="cancelDeviceOperation();"></back-button>
+        <back-button class="button-left header-button"></back-button>
     </header>
 
     <div class="content">
@@ -26,7 +26,12 @@
                             data-clipboard-text="{{unusedAddress.address}}"></button>
                 </div>
             </div>
-            <div>Address depth: {{addressDepth}}</div>
+            <div class="address-nav prev fa fa-chevron-left"
+                 ng-class="{disabled: addressDepth <= 0}"
+                 ng-click="showAnotherAddress(addressDepth - 1)"></div>
+            <div class="address-nav next fa fa-chevron-right"
+                 ng-class="{disabled: addressDepth >= maxDepth}"
+                 ng-click="showAnotherAddress(addressDepth + 1)"></div>
         </div>
     </div>
     

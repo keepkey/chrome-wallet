@@ -1,8 +1,9 @@
 /* global _ */
 
 angular.module('kkCommon')
-  .factory('WalletNodeService', ['$rootScope', '$timeout', 'DeviceBridgeService',
-    function WalletNodeService($rootScope, $timeout, deviceBridgeService) {
+  .factory('WalletNodeService', [
+    '$rootScope', '$timeout', 'DeviceBridgeService', 'environmentConfig',
+    function WalletNodeService($rootScope, $timeout, deviceBridgeService, config) {
       var nodes = [];
       var walletStats = {};
 
@@ -42,7 +43,12 @@ angular.module('kkCommon')
       }
 
       function unusedAddress(walletId, depth) {
-        deviceBridgeService.getUnusedExternalAddressNode(walletId, depth);
+        var account = _.find(this.wallets, {id: walletId});
+        account.wallet.chains.forEach(function(it) {
+          it.unusedAddresses = [];
+        });
+        deviceBridgeService.getUnusedExternalAddressNode(
+          walletId, config.maxReceiveAddresses);
       }
 
       function reloadWallets(clearAddresses) {
