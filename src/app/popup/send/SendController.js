@@ -27,7 +27,7 @@ angular.module('kkWallet')
         sourceName: $scope.wallet.name,
         address: '',
         amount: '',
-        feeLevel: $scope.feeOptions[0]
+        feeLevel: $scope.config.regularFeeLevel
       };
       $scope.buildTransaction = function () {
         if ($scope.form.$valid) {
@@ -40,12 +40,15 @@ angular.module('kkWallet')
 
           var destinationAccount = _.get($scope.userInput, 'address.id');
           if (destinationAccount) {
-            transactionService.transactionInProgress.sendToAccount = destinationAccount;
+            transactionService.transactionInProgress.sendToAccount = 
+              destinationAccount;
           } else {
-            transactionService.transactionInProgress.sendTo = $scope.userInput.address;
+            transactionService.transactionInProgress.sendTo = 
+              $scope.userInput.address;
           }
 
-          deviceBridgeService.requestTransactionSignature(transactionService.transactionInProgress);
+          deviceBridgeService.requestTransactionSignature(
+            transactionService.transactionInProgress);
           navigationService.setNextTransition('slideLeft');
         }
       };
@@ -59,18 +62,22 @@ angular.module('kkWallet')
       };
 
       if ($scope.wallet.id) {
-        feeService.getMaximumTransactionAmount($scope.wallet.id);
+        feeService.getMaximumTransactionAmount($scope.wallet.id,
+          $scope.userInput.feeLevel);
       }
 
       $scope.$watch('userInput.amount', function computeFees() {
         if ($scope.wallet.id) {
-          feeService.compute($scope.wallet.id, bitcoinsToSatoshis($scope.userInput.amount));
+          feeService.compute($scope.wallet.id, 
+            bitcoinsToSatoshis($scope.userInput.amount));
         }
       });
       $scope.$watch('wallet.id', function () {
         if ($scope.wallet.id) {
-          feeService.getMaximumTransactionAmount($scope.wallet.id);
-          feeService.compute($scope.wallet.id, bitcoinsToSatoshis($scope.userInput.amount));
+          feeService.getMaximumTransactionAmount($scope.wallet.id,
+            $scope.userInput.feeLevel);
+          feeService.compute($scope.wallet.id,
+            bitcoinsToSatoshis($scope.userInput.amount));
         }
       });
     }
