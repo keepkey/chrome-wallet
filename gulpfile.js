@@ -116,13 +116,12 @@ gulp.task('proxyConfig', ['hjson2json'], function() {
       var appIds = _.uniq(_.map(_.values(foreignFiles), function(file) {
         return _.get(file, 'keepkeyProxy.applicationId');
       }));
-      appIds = appIds.concat(
-        _.get(files, 'conflicting-applications.conflictingApplicationIds'));
-      return new Buffer('{"foreignProxies":' + JSON.stringify(appIds) + '}');
+      var otherAppIds = _.get(files, 'conflicting-applications.conflictingApplicationIds');
+      return new Buffer('{"foreignKeepkeyProxies":' + JSON.stringify(appIds) +
+        ',"foreignConflictingApplicationIds":' + JSON.stringify(otherAppIds) + '}');
     }))
     .pipe(gulp.dest('build'));
 });
-
 
 gulp.task('vendorScriptsProduction', ['bower'], function () {
   return gulp.src(vendorJavascriptFiles)

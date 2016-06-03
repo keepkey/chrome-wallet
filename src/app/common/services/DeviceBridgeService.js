@@ -29,7 +29,6 @@ angular.module('kkCommon')
             sendResponse: sendResponse
           };
 
-
           if (sender.id !== environmentConfig.keepkeyProxy.applicationId) {
             $injector.invoke(incomingMessages.unknownSender, messageArguments);
             return;
@@ -58,7 +57,22 @@ angular.module('kkCommon')
             chrome.runtime.onMessageExternal.removeListener(respondToMessages);
           },
           isDeviceReady: function () {
-            return sendMessage({messageType: 'deviceReady'});
+            return Promise.resolve(false); //sendMessage({messageType: 'deviceReady'});
+          },
+          getDevices: function() {
+            return sendMessage({messageType: 'GetDeviceList'})
+              .then(function(deviceList) {
+                console.log('Devices:', deviceList);
+                // return deviceList;
+
+                if (deviceList && deviceList.length) {
+                  $injector.invoke(incomingMessages['PreconnectCheck'], {
+                    request: {
+                      message: deviceList[0]
+                    }
+                  });
+                }
+              });
           },
           resetDevice: function (options) {
             var message = angular.extend({

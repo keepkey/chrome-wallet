@@ -1,6 +1,6 @@
 {
   showFeeSelector: false
-  regularFeeLevel: slow
+  regularFeeLevel: fast
   priorityFeeLevel: fast
   maxReceiveAddresses: 10
 }

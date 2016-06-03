@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-  .run(['$q', 'environmentConfig', 'chrome', 'DeviceBridgeService',
-    function ($q, environmentConfig, chrome, deviceBridgeService) {
+  .run(['$q', 'environmentConfig', 'chrome',
+    function ($q, environmentConfig, chrome) {
       function getExtensionList() {
         return $q(function (resolve) {
           chrome.management.getAll(function (extensions) {
@@ -38,7 +38,7 @@ angular.module('kkWallet')
         return $q(function(resolve, reject) {
           chrome.management.getAll(function (extensions) {
             extensions.forEach(function (ext) {
-              if (environmentConfig.foreignProxies.indexOf(ext.id) !== -1) {
+              if (environmentConfig.foreignKeepkeyProxies.indexOf(ext.id) !== -1) {
                 if (ext.enabled) {
                   chrome.management.setEnabled(ext.id, false);
                 }

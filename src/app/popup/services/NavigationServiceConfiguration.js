@@ -204,6 +204,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/preparing/preparing.tpl.html',
           goable: false
         })
+        .when('/disableConflicting/:id', {
+          templateUrl: 'app/popup/disable_conflicting/disable_conflicting.tpl.html',
+          goable: false
+        })
         .otherwise({
           redirectTo: '/',
           goable: false
