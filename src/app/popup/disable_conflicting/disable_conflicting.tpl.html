@@ -1,22 +1,24 @@
-<section id="success" ng-controller="DisableConflictingController">
-    <header>
-        <!--<settings-button class="button-left header-button"></settings-button>-->
-    </header>
-
+<section id="conflicting-application" ng-controller="DisableConflictingController">
     <div class="content">
         <h2>
             <span class="cornflower-txt">Conflicting Application</span>
         </h2>
         <div>
-            There is an Chrome application running that is known to conflict
-            with the KeepKey Chrome Wallet the application is named:
+            There is another Chrome application running that conflicts with the
+            KeepKey Chrome Wallet. The application is named:
         </div>
-        <div><b>{{appName}}</b></div>
-        <button ng-disabled="!disableExtension" ng-click="disableExtension()">
-            Turn {{appName}} off
+        <h2>
+            <span class="cornflower-txt">{{appName}}</span>
+        </h2>
+        <div>
+            In order to continue, the application needs to be disabled. You may
+            have to re-enable it manually through the Chrome Extensions
+            Management page.
+        </div>
+        <button class="button"
+                ng-disabled="!disableExtension"
+                ng-click="disableExtension()">
+            Disable {{appName}}
         </button>
     </div>
-
-    <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>
-
 </section>

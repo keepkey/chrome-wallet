@@ -68,6 +68,13 @@ angular.module('kkWallet')
       $rootScope.cancelDeviceOperation = function () {
         deviceBridgeService.cancel();
       };
+
+      $rootScope.openBuyKeepkeyWindow = function() {
+        chrome.tabs.create({
+          url: 'https://httpslink.com/oz52'
+        });
+      };
+
     }
   ]);
 

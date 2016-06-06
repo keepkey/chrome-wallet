@@ -592,6 +592,14 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   .device-image('../assets/img/transfer-background.png');
 }
 
+#disable-passphrase {
+  .device-image('../assets/img/disable-passphrase-background.png');
+}
+
+#enable-passphrase {
+  .device-image('../assets/img/enable-passphrase-background.png');
+}
+
 .button, a.button {
   height: @button-height;
   display: block;
@@ -1538,6 +1546,19 @@ a, a:hover {
   }
 }
 
-.old-firmware-warning {
+.generic-button-message {
   margin: 0 20px;
+  .button {
+    position: absolute;
+    bottom: 50px;
+  }
+}
+
+#conflicting-application {
+  .content div {
+    margin: 0px 20px 10px;
+  }
+  .button {
+    width: 75%;
+  }
 }

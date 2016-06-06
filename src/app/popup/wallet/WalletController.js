@@ -57,12 +57,6 @@ angular.module('kkWallet')
         });
       };
 
-      $scope.openBuyKeepkeyWindow = function() {
-        chrome.tabs.create({
-          url: 'https://httpslink.com/oz52'
-        });
-      };
-
       function updateWallet() {
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);
         $scope.singleAccount = $scope.walletList.length === 1;
