@@ -8,34 +8,18 @@ angular.module('kkWallet')
         selected: '=',
         active: '='
       },
-      controller: ['$scope', 'FeeService',
-        function ($scope, feeService) {
-          function verifyFeeLevel() {
-            var translation = {
-              'fast': 'medium',
-              'medium': 'slow',
-              'slow': 'slow'
-            };
+      controller: ['$scope', 'FeeService', 'environmentConfig',
+        function ($scope, feeService, environmentConfig) {
+          $scope.regularFeeLevel = environmentConfig.regularFeeLevel;
+          $scope.priorityFeeLevel = environmentConfig.priorityFeeLevel;
 
-            if (_.get($scope, 'estimatedFees.length')) {
-              while (_.isUndefined($scope.estimatedFee[$scope.userInput.feeLevel])) {
-                $scope.userInput.feeLevel = translation[$scope.userInput.feeLevel];
-                if ($scope.userInput.feeLevel === 'slow') {
-                  break;
-                }
-              }
+          function verifyFeeLevel() {
+            if ($scope.estimatedFees &&
+              _.isUndefined($scope.estimatedFees[$scope.priorityFeeLevel])) {
+              $scope.selected = $scope.regularFeeLevel;
             }
           }
 
-          $scope.setSelected = function(feeLevel) {
-            $scope.selected = feeLevel;
-          };
-
-          $scope.feeDisplay = {
-            'slow': '1-hour +',
-            'medium': '30-min',
-            'fast': '10-min'
-          };
           $scope.fees = feeService.fees;
           $scope.feeOptions = feeService.feeOptions;
 
