@@ -2,4 +2,5 @@
   showFeeSelector: false
   regularFeeLevel: fast
   priorityFeeLevel: fast
+  maxReceiveAddresses: 10
 }

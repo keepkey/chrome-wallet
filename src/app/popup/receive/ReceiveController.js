@@ -1,6 +1,10 @@
 angular.module('kkWallet')
-  .controller('ReceiveController', ['$rootScope', '$scope', '$routeParams', '$location', 'DeviceBridgeService', 'WalletNodeService', 'NavigationService',
-    function ReceiveController($rootScope, $scope, $routeParams, $location, deviceBridgeService, walletNodeService, navigationService) {
+  .controller('ReceiveController', ['$rootScope', '$scope', '$routeParams',
+    '$location', 'DeviceBridgeService', 'WalletNodeService',
+    'NavigationService', '$timeout', 'environmentConfig',
+    function ReceiveController($rootScope, $scope, $routeParams, $location,
+                               deviceBridgeService, walletNodeService,
+                               navigationService, $timeout, config) {
       navigationService.setNextTransition('slideLeft');
 
       new Clipboard('.copy-to-clipboard-button');
@@ -13,54 +17,70 @@ angular.module('kkWallet')
         });
       });
 
+      var cancelled = false;
+
       $scope.walletId = $routeParams.walletId;
+      $scope.addressDepth = parseInt($routeParams.addressDepth) || 0;
       $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+      $scope.maxDepth = config.maxReceiveAddresses - 1;
 
       $scope.bitcoinLink = '';
 
       function getAddress() {
-        walletNodeService.firstUnusedAddress($scope.walletId);
-      }
-
-      $scope.$on("$destroy", function () {
-        if (deviceReadyPromise && $location.path() !== '/pin/pin_matrix_request_type_current') {
-          deviceReadyPromise.then(function () {
-            deviceBridgeService.cancel();
-          });
+        var unusedAddresses = _.get($scope.wallet, 'wallet.chains.0.unusedAddresses');
+        if (!unusedAddresses) {
+          return;
         }
-      });
-
-      function displayAddressOnDevice() {
-        if (_.get($scope, 'firstUnusedAddress.address')) {
-          var addressN = walletNodeService.pathToAddressN(
-            walletNodeService.joinPaths(
-              $scope.wallet.nodePath, $scope.firstUnusedAddress.path
-            ));
-
-          deviceBridgeService.getAddress({
-            messageType: 'GetAddress',
-            addressN: addressN,
-            coinName: "Bitcoin",
-            showDisplay: true
-          });
-        }
-      }
-
-      function setBitcoinLink() {
-        if ($scope.firstUnusedAddress && $scope.firstUnusedAddress.address) {
-          $scope.bitcoinLink = $scope.firstUnusedAddress.address;
+        if (unusedAddresses.length > $scope.addressDepth) {
+          $scope.unusedAddress = unusedAddresses[$scope.addressDepth];
+          $scope.bitcoinLink = $scope.unusedAddress.address;
+          displayAddressOnDevice($scope.unusedAddress.address);
         } else {
+          walletNodeService.unusedAddress($scope.walletId);
           $scope.bitcoinLink = '';
         }
       }
 
-      $scope.$watch('wallet', getAddress, true);
+      $scope.$on("$destroy", function () {
+        if (!cancelled) {
+          if (deviceReadyPromise && $location.path() !== '/pin/pin_matrix_request_type_current') {
+            deviceReadyPromise.then(function () {
+              deviceBridgeService.cancel();
+            });
+          }
+        }
+      });
 
-      $scope.$watch('wallet.wallet.chains[0].firstUnused', function (newVal) {
-        $scope.firstUnusedAddress = newVal;
-        setBitcoinLink();
-      }, true);
-      $scope.$watch('firstUnusedAddress.address', displayAddressOnDevice);
+      $scope.showAnotherAddress = function (next) {
+        if (next < 0 || next > $scope.maxDepth) {
+          return false;
+        }
+        deviceReadyPromise.then(function () {
+          cancelled = true;
+          deviceBridgeService.cancel();
+          $timeout(function() {
+            var destination = ['/receive', $scope.walletId, next].join('/');
+            var direction = next > $scope.addressDepth ? 'slideLeft' : 'slideRight';
+            $scope.go(destination, direction, true);
+          }, 500);
+        });
+      };
+
+      function displayAddressOnDevice(address) {
+        var addressN = walletNodeService.pathToAddressN(
+          walletNodeService.joinPaths(
+            $scope.wallet.nodePath, $scope.unusedAddress.path
+          ));
+
+        deviceBridgeService.getAddress({
+          messageType: 'GetAddress',
+          addressN: addressN,
+          coinName: "Bitcoin",
+          showDisplay: true
+        });
+      }
+
+      $scope.$watch('wallet.wallet.chains', getAddress, true);
     }
   ])
 ;

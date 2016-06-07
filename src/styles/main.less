@@ -592,6 +592,14 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   .device-image('../assets/img/transfer-background.png');
 }
 
+#disable-passphrase {
+  .device-image('../assets/img/disable-passphrase-background.png');
+}
+
+#enable-passphrase {
+  .device-image('../assets/img/enable-passphrase-background.png');
+}
+
 .button, a.button {
   height: @button-height;
   display: block;
@@ -957,6 +965,25 @@ button.fa {
     .message {
       font-size: 12px;
       margin: 10px 50px;
+    }
+  }
+  .address-nav {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    color: #999;
+    &.prev {
+      left: 50px;
+    }
+    &.next {
+      right: 50px;
+    }
+    &.disabled, &.disabled:hover {
+      color: #ddd;
+      background-color: inherit;
+    }
+    &:hover {
+      color: #777;
     }
   }
 }
@@ -1516,5 +1543,22 @@ a, a:hover {
   .progress-indicator {
     margin: 25px 0;
     text-align: center;
+  }
+}
+
+.generic-button-message {
+  margin: 0 20px;
+  .button {
+    position: absolute;
+    bottom: 50px;
+  }
+}
+
+#conflicting-application {
+  .content div {
+    margin: 0px 20px 10px;
+  }
+  .button {
+    width: 75%;
   }
 }

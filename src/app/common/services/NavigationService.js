@@ -1,7 +1,7 @@
 angular.module('kkCommon')
   .factory('NavigationService', ['$location', '$rootScope', '$route', '$timeout',
     function ($location, $rootScope, $route, $timeout) {
-      var nextTransition, nextDestination, previousRoute = [];
+      var nextTransition, nextDestination, previousRoute = [], disabled = false;
 
       function isGoable(path) {
         // NOTE $route.routes is not defined in the API documentation, so this could break
@@ -12,7 +12,10 @@ angular.module('kkCommon')
         return !!route.goable;
       }
 
-      function go(path, pageAnimationClass) {
+      function go(path, pageAnimationClass, replaceCurrentRoute) {
+        if (disabled) {
+          return;
+        }
 
         if (nextDestination) {
           path = nextDestination;
@@ -25,7 +28,7 @@ angular.module('kkCommon')
 
         if (_.indexOf(previousRoute, path) !== -1) {
           while (previousRoute.length && previousRoute.pop() !== path);
-        } else if (isGoable($location.path())) {
+        } else if (isGoable($location.path()) && !replaceCurrentRoute) {
           previousRoute.push($location.path());
         }
 
@@ -77,6 +80,9 @@ angular.module('kkCommon')
         },
         addHistory: function(route) {
           previousRoute.push(route);
+        },
+        disableNavigation: function(state) {
+          disabled = state;
         }
       };
     }

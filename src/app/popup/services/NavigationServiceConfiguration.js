@@ -48,12 +48,24 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/buttonRequest/feeOverThreshhold.tpl.html',
           goable: false
         })
-        .when('/buttonRequest/button_request_protect_call_change_pin', {
-          templateUrl: 'app/popup/buttonRequest/protectCallChangePin.tpl.html',
+        .when('/buttonRequest/button_request_protect_call', {
+          templateUrl: 'app/popup/buttonRequest/generic.tpl.html',
           goable: false
         })
-        .when('/buttonRequest/button_request_protect_call_change_label', {
-          templateUrl: 'app/popup/buttonRequest/protectCallChangeLabel.tpl.html',
+        .when('/buttonRequest/button_request_change_pin', {
+          templateUrl: 'app/popup/buttonRequest/changePin.tpl.html',
+          goable: false
+        })
+        .when('/buttonRequest/button_request_change_label', {
+          templateUrl: 'app/popup/buttonRequest/changeLabel.tpl.html',
+          goable: false
+        })
+        .when('/buttonRequest/button_request_enable_passphrase', {
+          templateUrl: 'app/popup/buttonRequest/enablePassphrase.tpl.html',
+          goable: false
+        })
+        .when('/buttonRequest/button_request_disable_passphrase', {
+          templateUrl: 'app/popup/buttonRequest/disablePassphrase.tpl.html',
           goable: false
         })
         .when('/buttonRequest/button_request_confirm_transfer_to_account', {
@@ -137,6 +149,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/success/success.tpl.html',
           goable: false
         })
+        .when('/receive/:walletId/:addressDepth', {
+          templateUrl: 'app/popup/receive/receive.tpl.html',
+          goable: true
+        })
         .when('/receive/:walletId', {
           templateUrl: 'app/popup/receive/receive.tpl.html',
           goable: true
@@ -186,6 +202,10 @@ angular.module('kkWallet')
         })
         .when('/preparing', {
           templateUrl: 'app/popup/preparing/preparing.tpl.html',
+          goable: false
+        })
+        .when('/disableConflicting/:id', {
+          templateUrl: 'app/popup/disable_conflicting/disable_conflicting.tpl.html',
           goable: false
         })
         .otherwise({

@@ -10,7 +10,8 @@ angular.module('kkWallet')
           features.patch_version
         ].join('.');
 
-        return semver.gt(features.available_firmware_version, currentVersion);
+        return features.deviceCapabilities.firmwareImageAvailable &&
+          semver.gt(features.available_firmware_version, currentVersion);
       }
 
       return {

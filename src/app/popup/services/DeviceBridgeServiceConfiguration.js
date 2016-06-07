@@ -8,7 +8,8 @@ angular.module('kkWallet')
             var location = locationTemplate;
             for (var field in this.request.message) {
               if (this.request.message.hasOwnProperty(field)) {
-                location = location.replace(':' + field, encodeURIComponent(_.snakeCase(this.request.message[field])));
+                location = location.replace(':' + field,
+                  encodeURIComponent(_.snakeCase(this.request.message[field])));
               }
             }
             navigationService.go(location);
@@ -24,49 +25,46 @@ angular.module('kkWallet')
         ];
       }
 
-      deviceBridgeServiceProvider.when('connected', ['DeviceBridgeService',
-        function (deviceBridgeService) {
-          deviceBridgeService.initialize();
-        }
-      ]);
-      deviceBridgeServiceProvider.when('disconnected', ['$injector', 'WalletNodeService',
+      deviceBridgeServiceProvider.when('disconnected', [
+        '$injector', 'WalletNodeService',
         function ($injector, walletNodeService) {
           walletNodeService.clear();
           $injector.invoke(navigateToLocation('/connect'), this);
         }
       ]);
-      deviceBridgeServiceProvider.when('PinMatrixRequest', navigateToLocation('/pin/:type'));
-      deviceBridgeServiceProvider.when('PassphraseRequest', navigateToLocation('/passphrase'));
-      deviceBridgeServiceProvider.when('ButtonRequest', ['$injector', 'NavigationService',
+      deviceBridgeServiceProvider.when('PinMatrixRequest',
+        navigateToLocation('/pin/:type'));
+      deviceBridgeServiceProvider.when('PassphraseRequest',
+        navigateToLocation('/passphrase'));
+      deviceBridgeServiceProvider.when('ButtonRequest', [
+        '$injector', 'NavigationService',
         function ($injector, navigationService) {
-          if (this.request.message.code === 'ButtonRequest_ProtectCall') {
-            if (navigationService.getCurrentRoute() == '/label/settings') {
-              this.request.message.code += 'ChangeLabel';
-            } else {
-              this.request.message.code += 'ChangePin';
-            }
-          }
-
           if (this.request.message.code !== 'ButtonRequest_Address') {
             $injector.invoke(navigateToLocation('/buttonRequest/:code'), this);
           }
         }]);
-      deviceBridgeServiceProvider.when('WordRequest', navigateToLocation('/wordRequest'));
-      deviceBridgeServiceProvider.when('CharacterRequest', navigateToLocation('/characterRequest/:word_pos/:character_pos'));
-      deviceBridgeServiceProvider.when('Success', [ '$injector', 'NotificationMessageService', 'WalletNodeService',
-        function($injector, notificationMessageService, walletNodeService) {
+      deviceBridgeServiceProvider.when('WordRequest',
+        navigateToLocation('/wordRequest'));
+      deviceBridgeServiceProvider.when('CharacterRequest',
+        navigateToLocation('/characterRequest/:word_pos/:character_pos'));
+      deviceBridgeServiceProvider.when('Success', [
+        '$injector', 'NotificationMessageService', 'WalletNodeService',
+        function ($injector, notificationMessageService, walletNodeService) {
           var destination;
           switch (this.request.message.message) {
             case 'Device wiped':
-              notificationMessageService.set('Your KeepKey was successfully wiped!');
+              notificationMessageService.set(
+                'Your KeepKey was successfully wiped!');
               destination = '/initialize';
               break;
             case 'Settings applied':
-              notificationMessageService.set('Your device label was successfully changed!');
+              notificationMessageService.set(
+                'Your device label was successfully changed!');
               destination = '/device';
               break;
             case 'PIN changed':
-              notificationMessageService.set('Your PIN was successfully changed!');
+              notificationMessageService.set(
+                'Your PIN was successfully changed!');
               destination = '/device';
               break;
             case 'Device reset':
@@ -74,9 +72,10 @@ angular.module('kkWallet')
               destination = '/walletList';
               break;
             case 'Transaction sent':
-              notificationMessageService.set('Your bitcoin transaction was successfully sent!');
+              notificationMessageService.set(
+                'Your bitcoin transaction was successfully sent!');
 
-              if(walletNodeService.wallets.length > 1) {
+              if (walletNodeService.wallets.length > 1) {
                 destination = '/walletList';
               } else {
                 destination = '/wallet/' + walletNodeService.wallets[0].id;
@@ -95,10 +94,10 @@ angular.module('kkWallet')
         }
       ]);
       deviceBridgeServiceProvider.when('Address', navigateToPreviousLocation());
-      deviceBridgeServiceProvider.when('Failure', ['$injector', 'FailureMessageService', 'NavigationService',
+      deviceBridgeServiceProvider.when('Failure', [
+        '$injector', 'FailureMessageService', 'NavigationService',
         function ($injector, failureMessageService, navigationService) {
           const IGNORED_FAILURES = [
-            'Show address cancelled',
             'Firmware erase cancelled',
             'PIN Cancelled',
             'Signing cancelled by user',
@@ -111,13 +110,16 @@ angular.module('kkWallet')
           if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
             $injector.invoke(navigateToPreviousLocation(), this);
             return;
+          } else if (this.request.message.message === 'Show address cancelled') {
+            return;
           }
           failureMessageService.add(this.request.message);
           navigationService.setNextDestination();
           $injector.invoke(navigateToLocation('/failure/:message'), this);
         }
       ]);
-      deviceBridgeServiceProvider.when('TxRequest', ['NavigationService', 'TransactionService',
+      deviceBridgeServiceProvider.when('TxRequest', [
+        'NavigationService', 'TransactionService',
         function (navigationService, transactionService) {
           if (this.request.message.request_type === 'TXFINISHED') {
             angular.copy({}, transactionService.transactionInProgress);
@@ -125,15 +127,13 @@ angular.module('kkWallet')
           }
         }
       ]);
-      deviceBridgeServiceProvider.when('Features', ['NavigationService', 'DeviceFeatureService',
+      deviceBridgeServiceProvider.when('Features', [
+        'NavigationService', 'DeviceFeatureService',
         function (navigationService, deviceFeatureService) {
           deviceFeatureService.set(this.request.message);
           navigationService.dumpHistory();
           if (deviceFeatureService.features.bootloader_mode) {
             navigationService.go('/bootloader');
-          }
-          else if (deviceFeatureService.features.firmwareUpdateAvailable) {
-            navigationService.go('/update-firmware');
           }
           else if (deviceFeatureService.features.initialized) {
             navigationService.go('/walletlist');
@@ -144,7 +144,8 @@ angular.module('kkWallet')
         }
       ]);
 
-      deviceBridgeServiceProvider.when('ImageHashCode', ['ProxyInfoService',
+      deviceBridgeServiceProvider.when('ImageHashCode', [
+        'ProxyInfoService',
         function (proxyInfoService) {
           proxyInfoService.set(this.request.message);
         }
@@ -154,27 +155,49 @@ angular.module('kkWallet')
         // Do nothing
       });
 
-      deviceBridgeServiceProvider.when('WalletNodes', ['WalletNodeService',
+      deviceBridgeServiceProvider.when('WalletNodes', [
+        'WalletNodeService',
         function (walletNodeService) {
           walletNodeService.updateWalletNodes(this.request.message);
         }
       ]);
 
-      deviceBridgeServiceProvider.when('EstimatedTransactionFee', ['FeeService',
+      deviceBridgeServiceProvider.when('EstimatedTransactionFee', [
+        'FeeService',
         function (feeService) {
           feeService.setEstimate(this.request.message);
         }
       ]);
 
-      deviceBridgeServiceProvider.when('MaximumTransactionAmount', ['FeeService',
+      deviceBridgeServiceProvider.when('MaximumTransactionAmount', [
+        'FeeService',
         function (feeService) {
           feeService.setMaxTransactionAmount(this.request.message);
         }
       ]);
-      
-      deviceBridgeServiceProvider.when('Processed', ['ProgressService',
-        function(progressService) {
+
+      deviceBridgeServiceProvider.when('Processed', [
+        'ProgressService',
+        function (progressService) {
           progressService.update(this.request.message);
+        }
+      ]);
+
+      deviceBridgeServiceProvider.when('PreconnectCheck', [
+        'NavigationService', 'ChromeManagementService', 'DeviceBridgeService',
+        function (navigationService, chromeManagementService, deviceBridgeService) {
+          if (this.request.message.productName === 'KeepKey') {
+            deviceBridgeService.initialize();
+          } else {
+            chromeManagementService.getConflictingAppIds()
+              .then(function(apps) {
+                if (apps.length) {
+                  navigationService.go('/disableConflicting/' + apps[0]);
+                } else {
+                  deviceBridgeService.initialize();
+                }
+              });
+          }
         }
       ]);
 
@@ -188,7 +211,8 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('unknownMessageType', function () {
         this.sendResponse({
           messageType: "Error",
-          result: "Unknown messageType " + this.request.messageType + ", message rejected"
+          result: "Unknown messageType " + this.request.messageType +
+          ", message rejected"
         });
       });
     }

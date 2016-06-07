@@ -9,6 +9,9 @@ angular.module('kkWallet')
 
       $scope.singleAccount = $scope.walletList.length === 1;
 
+      $scope.firmwareUpdateAvailable =
+        deviceFeatureService.features.firmwareUpdateAvailable;
+      
       $scope.offerKeepKeyPurchase =
         deviceFeatureService.get('deviceCapabilities.vendorName') !== 'KeepKey';
 
@@ -51,12 +54,6 @@ angular.module('kkWallet')
       $scope.openBuyBitcoinWindow = function() {
         chrome.tabs.create({
           url: 'https://www.keepkey.com/buy-bitcoin.php'
-        });
-      };
-
-      $scope.openBuyKeepkeyWindow = function() {
-        chrome.tabs.create({
-          url: 'https://httpslink.com/oz52'
         });
       };
 

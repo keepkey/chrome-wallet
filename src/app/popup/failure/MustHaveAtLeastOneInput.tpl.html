@@ -1,0 +1,24 @@
+<section id="failure" ng-controller="FailureController">
+    <header></header>
+
+    <div class="content failure">
+        <div class="content-inner-with-button">
+            <div class="description">
+                <div class="alert-icon">
+                    <span class="fa fa-exclamation-triangle"></span>
+                </div>
+                <div class="failure-list ng-scope" ng-repeat="failure in failures">
+                    <p>
+                        The transaction you are trying to send doesn't have any
+                        inputs. This usually happens when you send an amount
+                        that doesn't leave enough to pay the miners' fees. Try
+                        sending a lower amount.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <a class="button" ng-click="ok()">OK</a>
+    </div>
+
+    <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>
+</section>

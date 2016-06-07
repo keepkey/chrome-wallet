@@ -1,6 +1,10 @@
 angular.module('kkWallet')
   .directive('vendorName', function vendorName() {
     return {
+      scope: {
+        before: '@',
+        after: '@'
+      },
       restrict: 'E',
       replace: true,
       controller: ['$scope', 'DeviceFeatureService',
@@ -9,6 +13,6 @@ angular.module('kkWallet')
             deviceFeatureService.get('deviceCapabilities.vendorName');
         }
       ],
-      template: '<span class="vendor-name"> {{vendorName}} </span>'
+      template: '<span class="vendor-name"> {{before}}{{vendorName}}{{after}} </span>'
     };
   });
