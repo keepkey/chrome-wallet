@@ -2,9 +2,11 @@ angular.module('kkWallet')
   .controller('SendController', ['$scope', '$routeParams',
     'DeviceBridgeService', 'NavigationService', 'WalletNodeService',
     'TransactionService', 'FeeService', 'environmentConfig',
+    'DeviceFeatureService',
     function SendController($scope, $routeParams, deviceBridgeService,
                             navigationService, walletNodeService,
-                            transactionService, feeService, environmentConfig) {
+                            transactionService, feeService, environmentConfig,
+                            featureService) {
       function bitcoinsToSatoshis(amount) {
         return Math.round(amount * 100000000);
       }
@@ -19,6 +21,20 @@ angular.module('kkWallet')
       $scope.singleAccount = walletNodeService.wallets.length === 1;
       $scope.showForm = !!($scope.wallet.highConfidenceBalance);
       $scope.preparingTransaction = false;
+
+      $scope.supportsSecureTransfer = _.get(featureService.features,
+        "deviceCapabilities.supportsSecureAccountTransfer");
+      $scope.oldFirmwareVersion =
+        featureService.features.firmwareUpdateAvailable;
+      $scope.vendorName =
+        featureService.get('deviceCapabilities.vendorName');
+
+      $scope.showSecurityStripe = !$scope.supportsSecureTransfer;
+      $scope.showSecurityPanel = false;
+
+      $scope.toggleSecurityPanel = function() {
+        $scope.showSecurityPanel = !$scope.showSecurityPanel;
+      };
 
       $scope.config = environmentConfig;
 

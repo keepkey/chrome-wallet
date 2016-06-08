@@ -25,17 +25,18 @@
                 Update Firmware
             </button>
         </div>
-        <div class="generic-button-message" ng-if="vendorName !== 'KeepKey'">
-            Your <vendor-name></vendor-name> device doesn't offer
+        <div class="generic-button-message"
+             ng-if="!oldFirmwareVersion && vendorName !== 'KeepKey'">
+            Your <vendor-name></vendor-name> doesn't offer
             enough information for the <b>KeepKey Chrome Extension</b>
             to know with certainty what it is asking you to confirm.
-            Please carefully read the message displayed on the screen
+            Please  cautiously read the message displayed on the screen
             of your <vendor-name after="."></vendor-name>
-            If you want more specific warnings to be displayed to you in the
+            For more specific warnings to be displayed in the
             <b>KeepKey Chrome Extension</b>, consider upgrading to
             KeepKey.
             <button class="button" ng-click="openBuyKeepkeyWindow()">
-                Buy a KeepKey
+                Upgrade to KeepKey
             </button>
         </div>
         <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
