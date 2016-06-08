@@ -7,20 +7,37 @@
             id="generic"
             class="content"
             ng-class="[buttonRequestType]">
-        <div class="content-confirming-inner">
-            <div class="content-inner-centering">
-                <h2><span class="cornflower-txt">Confirm this action on your
-                    <b><vendor-name></vendor-name></b></span>
-                </h2>
-                <div class="old-firmware-warning" ng-if="oldFirmwareVersion">
-                    There is a newer firmware version for your
-                    <b><vendor-name></vendor-name></b>.
-                    When it is installed, you get more specific instructions in
-                    this window when your
-                    <b><vendor-name></vendor-name></b>
-                    needs you to confirm an action.
-                </div>
-            </div>
+        <h2>
+                    <span class="cornflower-txt">
+                        Confirm this action on your
+                        <b><vendor-name></vendor-name></b>
+                    </span>
+        </h2>
+        <div class="generic-button-message" ng-if="oldFirmwareVersion">
+            There is a newer firmware version for your
+            <b><vendor-name after="."></vendor-name></b>
+            When it is installed, you get more specific instructions in
+            this window when your
+            <b><vendor-name></vendor-name></b>
+            needs you to confirm an action.
+            <button class="button"
+                    ng-click="go('/update-firmware')">
+                Update Firmware
+            </button>
+        </div>
+        <div class="generic-button-message"
+             ng-if="!oldFirmwareVersion && vendorName !== 'KeepKey'">
+            Your <vendor-name></vendor-name> doesn't offer
+            enough information for the <b>KeepKey Chrome Extension</b>
+            to know with certainty what it is asking you to confirm.
+            Please  cautiously read the message displayed on the screen
+            of your <vendor-name after="."></vendor-name>
+            For more specific warnings to be displayed in the
+            <b>KeepKey Chrome Extension</b>, consider upgrading to
+            KeepKey.
+            <button class="button" ng-click="openBuyKeepkeyWindow()">
+                Upgrade to KeepKey
+            </button>
         </div>
         <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
     </div>

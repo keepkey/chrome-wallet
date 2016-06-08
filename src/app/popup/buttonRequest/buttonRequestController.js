@@ -12,6 +12,8 @@ angular.module('kkWallet')
       $scope.device = deviceFeatureService.features;
       $scope.oldFirmwareVersion = 
         deviceFeatureService.features.firmwareUpdateAvailable;
+      $scope.vendorName =
+        deviceFeatureService.get('deviceCapabilities.vendorName');
 
       var currentRoute = navigationService.getCurrentRoute();
 

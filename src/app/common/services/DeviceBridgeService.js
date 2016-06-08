@@ -181,10 +181,11 @@ angular.module('kkCommon')
               transactionAmount: transactionAmount
             })
           },
-          getMaximumTransactionAmount: function (nodeId) {
+          getMaximumTransactionAmount: function (nodeId, feeLevel) {
             return sendMessage({
               messageType: 'GetMaximumTransactionAmount',
-              accountId: nodeId
+              accountId: nodeId,
+              feeLevel: feeLevel
             });
           },
           addAccount: function(nodeVector, accountName) {
