@@ -1,3 +1,8 @@
 angular.module('kkWallet')
-  .controller('UpdateFirmwareCtrl', function UpdateFirmwareCtrl($scope) {
-  });
+  .controller('UpdateFirmwareCtrl', ['$scope', 'DeviceFeatureService',
+    'EntryPointNavigationService',
+    function UpdateFirmwareCtrl($scope, featureService, navigationService) {
+      $scope.skipable = featureService.get('initialized');
+      $scope.goToTop = navigationService.goToTop;
+    }
+  ]);

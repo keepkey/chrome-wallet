@@ -103,6 +103,9 @@ angular.module('kkCommon')
           initialize: function () {
             return sendMessage({messageType: 'Initialize'});
           },
+          initiateSession: function() {
+            return sendMessage({messageType: 'InitiateSession'});
+          },
           cancel: function () {
             return sendMessage({messageType: 'Cancel'});
           },

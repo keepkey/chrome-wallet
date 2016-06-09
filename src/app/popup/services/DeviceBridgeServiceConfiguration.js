@@ -128,19 +128,10 @@ angular.module('kkWallet')
         }
       ]);
       deviceBridgeServiceProvider.when('Features', [
-        'NavigationService', 'DeviceFeatureService',
+        'EntryPointNavigationService', 'DeviceFeatureService',
         function (navigationService, deviceFeatureService) {
           deviceFeatureService.set(this.request.message);
-          navigationService.dumpHistory();
-          if (deviceFeatureService.features.bootloader_mode) {
-            navigationService.go('/bootloader');
-          }
-          else if (deviceFeatureService.features.initialized) {
-            navigationService.go('/walletlist');
-          }
-          else {
-            navigationService.go('/initialize');
-          }
+          navigationService.goToTop(true);
         }
       ]);
 
