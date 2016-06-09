@@ -521,7 +521,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 .content-no-button-inner {
-  height: @content-height;
+  height: 320px;
 }
 
 .content-pin-inner {
@@ -598,6 +598,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
 #enable-passphrase {
   .device-image('../assets/img/enable-passphrase-background.png');
+}
+
+#generic {
+  .device-image('../assets/img/confirm-background.png');
 }
 
 .button, a.button {
@@ -938,7 +942,6 @@ button.fa {
   }
   .menu {
     border-style: none;
-    height: @body-height - @header-height;
   }
 }
 
@@ -969,7 +972,7 @@ button.fa {
   }
   .address-nav {
     position: absolute;
-    top: 50%;
+    top: 55%;
     font-size: 30px;
     color: #999;
     &.prev {
@@ -1563,38 +1566,43 @@ a, a:hover {
   }
 }
 
-.bottom-stripe {
-  width: 100%;
-  text-align: center;
+.security-notification {
   position: absolute;
-  bottom: 0;
-  height: 30px;
-  border-radius: 10px 10px 0 0;
-  overflow: hidden;
-  background-color: white;
-  transition: height .5s;
-  border-top: 1px black solid;
-  border-left: 1px black solid;
-  border-right: 1px black solid;
-  &.open {
-    height: 330px;
+  bottom: 10px;
+  left: 15px;
+  color: #d26464;
+  font-size: 11px;
+  text-decoration: underline;
+  &:hover {
+    color: #a25050;
   }
-  header {
-    background-color: red;
-    font-weight: bold;
-    font-size: 16px;
-    height: 30px;
-    line-height: 30px;
+}
+
+.security-notification-popover {
+  max-width: 310px;
+  max-height: 335px;
+  .popover-title {
+    background-color: #d26464;
     color: white;
+    text-align: center;
   }
-  div {
-    margin: 10px 10px 0;
-    text-align: left;
-    &:first-of-type {
-      margin-top: 45px;
+  .scrollable {
+    height: 190px;
+    overflow-y: scroll;
+    margin-bottom: 40px;
+    border: 1px lightgray solid;
+    padding: 5px;
+    div {
+      margin-bottom: 5px;
     }
   }
-  .button {
-    position: initial;
-  }
+}
+
+.popover .button {
+  width: 250px;
+  bottom: 10px;
+}
+
+#generic h2 {
+  margin-top: 20px;
 }

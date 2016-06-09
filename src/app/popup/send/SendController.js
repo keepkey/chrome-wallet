@@ -29,12 +29,7 @@ angular.module('kkWallet')
       $scope.vendorName =
         featureService.get('deviceCapabilities.vendorName');
 
-      $scope.showSecurityStripe = !$scope.supportsSecureTransfer;
-      $scope.showSecurityPanel = false;
-
-      $scope.toggleSecurityPanel = function() {
-        $scope.showSecurityPanel = !$scope.showSecurityPanel;
-      };
+      $scope.showSecurityWarning = !$scope.supportsSecureTransfer;
 
       $scope.config = environmentConfig;
 

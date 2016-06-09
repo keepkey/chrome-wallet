@@ -1,0 +1,26 @@
+<div>
+    <div class="scrollable">
+        <div>
+            Transferring funds between accounts on your
+            <vendor-name></vendor-name>
+            may be vulnerable to malware on your computer.
+            <vendor-name></vendor-name>
+            relies on the computer to lookup and
+            provide the an address for the destination account. This gives
+            malware a chance to change the address before it is sent to your
+            <vendor-name after="."></vendor-name>
+        </div>
+        <div>
+            KeepKey firmware version 1.1.0 and later looks up the address on
+            the device so that malware doesn’t have the chance to change it.
+        </div>
+    </div>
+    <button class="button" ng-if="oldFirmwareVersion"
+            ng-click="go('/update-firmware')">
+        Update Firmware
+    </button>
+    <button class="button" ng-click="openBuyKeepkeyWindow()"
+            ng-if="!oldFirmwareVersion && vendorName !== 'KeepKey'">
+        Upgrade to a KeepKey
+    </button>
+</div>

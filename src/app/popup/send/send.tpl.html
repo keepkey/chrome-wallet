@@ -60,32 +60,14 @@
         <div ng-hide="showForm">
             Can't send from an account with a high confidence balance of 0
         </div>
-        <div class="bottom-stripe" ng-class="{open: showSecurityPanel}"
-             ng-if="showSecurityStripe" ng-click="toggleSecurityPanel()">
-            <header>Security Alert</header>
-            <div>
-                Transferring funds between accounts on your
-                <vendor-name></vendor-name>
-                may be vulnerable to malware on your computer.
-                <vendor-name></vendor-name> relies on the computer to lookup and
-                provide the an address for the destination account. This gives
-                malware a chance to change the address before it is sent to your
-                <vendor-name after="."></vendor-name>
-            </div>
-            <div>
-                KeepKey firmware version 1.1.0 and later looks up the address on
-                the device so that malware doesn’t have the chance to change it.
-            </div>
-            <button class="button" ng-if="oldFirmwareVersion"
-                    ng-click="go('/update-firmware')">
-                Update Firmware
-            </button>
-            <button class="button" ng-click="openBuyKeepkeyWindow()"
-                    ng-if="!oldFirmwareVersion && vendorName !== 'KeepKey'">
-                Upgrade to a KeepKey
-            </button>
-        </div>
-    </div>
+
+        <a class="security-notification"
+           ng-if="showSecurityWarning"
+           uib-popover-template="'app/popup/send/fund-transfer-security-warning.tpl.html'"
+           popover-class="security-notification-popover"
+           popover-trigger="outsideClick"
+           popover-placement="top-left"
+           popover-title="Security Notification">Security Notification</a>
     </div>
     <ng-include src="'app/popup/send/preparing.tpl.html'"
                 ng-if="preparingTransaction"></ng-include>
