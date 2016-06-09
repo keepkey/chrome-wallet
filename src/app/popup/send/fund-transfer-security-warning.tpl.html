@@ -15,12 +15,12 @@
             the device so that malware doesn’t have the chance to change it.
         </div>
     </div>
-    <button class="button" ng-if="oldFirmwareVersion"
-            ng-click="go('/update-firmware')">
+    <button class="button" ng-if="$prevScope.oldFirmwareVersion"
+            ng-click="$root.go('/update-firmware')">
         Update Firmware
     </button>
-    <button class="button" ng-click="openBuyKeepkeyWindow()"
-            ng-if="!oldFirmwareVersion && vendorName !== 'KeepKey'">
+    <button class="button" ng-click="$root.openBuyKeepkeyWindow()"
+            ng-if="!$prevScope.oldFirmwareVersion && $prevScope.vendorName !== 'KeepKey'">
         Upgrade to a KeepKey
     </button>
 </div>

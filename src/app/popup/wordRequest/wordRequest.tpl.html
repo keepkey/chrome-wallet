@@ -28,6 +28,7 @@
             <button class="button" type="submit" ng-click="send()">Send</button>
         </form>
     </div>
-
-    <footer ng-include="'app/popup/footer/footer.tpl.html'"></footer>
+    <security-notification
+            popup-template="app/popup/wordRequest/security-notification.tpl.html">
+    </security-notification>
 </div>

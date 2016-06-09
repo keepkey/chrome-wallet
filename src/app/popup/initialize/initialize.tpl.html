@@ -21,6 +21,10 @@
         <a class="text-link-button" ng-click="go('/label/recover', 'slideLeft')">
             or Recover <vendor-name></vendor-name>
         </a>
+
+        <security-notification ng-if="features.deviceCapabilities.defaultMnemonicSeedLength != 12"
+                               popup-template="app/popup/wordRequest/security-notification.tpl.html">
+        </security-notification>
     </div>
     <notification-message></notification-message>
 </section>

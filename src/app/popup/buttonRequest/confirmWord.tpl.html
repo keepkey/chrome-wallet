@@ -17,6 +17,9 @@
                 </h2>
             </div>
         </div>
+        <security-notification ng-if="device.deviceCapabilities.defaultMnemonicSeedLength != 12"
+                               popup-template="app/popup/wordRequest/security-notification.tpl.html">
+        </security-notification>
         <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
     </div>
 </section>

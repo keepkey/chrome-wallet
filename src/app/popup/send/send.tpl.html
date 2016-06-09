@@ -61,13 +61,10 @@
             Can't send from an account with a high confidence balance of 0
         </div>
 
-        <a class="security-notification"
-           ng-if="showSecurityWarning"
-           uib-popover-template="'app/popup/send/fund-transfer-security-warning.tpl.html'"
-           popover-class="security-notification-popover"
-           popover-trigger="outsideClick"
-           popover-placement="top-left"
-           popover-title="Security Notification">Security Notification</a>
+        <security-notification
+                ng-if="showSecurityWarning"
+                popup-template="app/popup/send/fund-transfer-security-warning.tpl.html">
+        </security-notification>
     </div>
     <ng-include src="'app/popup/send/preparing.tpl.html'"
                 ng-if="preparingTransaction"></ng-include>
