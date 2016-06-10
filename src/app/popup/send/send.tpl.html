@@ -60,11 +60,6 @@
         <div ng-hide="showForm">
             Can't send from an account with a high confidence balance of 0
         </div>
-
-        <security-notification
-                ng-if="showSecurityWarning"
-                popup-template="app/popup/send/fund-transfer-security-warning.tpl.html">
-        </security-notification>
     </div>
     <ng-include src="'app/popup/send/preparing.tpl.html'"
                 ng-if="preparingTransaction"></ng-include>
