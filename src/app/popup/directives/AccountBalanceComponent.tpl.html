@@ -4,7 +4,8 @@
             class="details"
             balance="account.highConfidenceBalance"
             pending="account.lowConfidenceBalance"
-            loading="loading">
+            loading="loading"
+            currency="currency">
     </wallet-balance>
     <div class="account-number" ng-hide="singleAccount">
         {{name}} <button ng-if="canEdit()" class="fa fa-pencil" ng-click="accountSettings()"></button>

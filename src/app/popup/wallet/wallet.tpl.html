@@ -13,7 +13,7 @@
                 loading="receiveDisabled()"
                 name-display="name"
                 single-account="singleAccount"
-                account-settings="accountSettings">
+                account-settings="accountSettings" currency="currency">
         </account-balance>
 
         <div class="menu">
@@ -28,12 +28,12 @@
                 <li>
                     <button class="menu-item" ng-click="send()"
                             ng-disabled="!sendAllowed()">
-                        Send Bitcoin
+                        Send {{currency}}
                     </button>
                 </li>
                 <li>
                     <button class="menu-item" ng-click="receive()"
-                            ng-disabled="receiveDisabled()">Receive Bitcoin
+                            ng-disabled="receiveDisabled()">Receive {{currency}}
                     </button>
                 </li>
                 <li>
@@ -43,7 +43,7 @@
                 </li>
                 <li>
                     <button class="menu-item" ng-click="openBuyBitcoinWindow()">
-                        Buy &amp; Sell Bitcoin
+                        Buy &amp; Sell {{currency}}
                     </button>
                 </li>
                 <li ng-if="offerKeepKeyPurchase">
