@@ -59,6 +59,7 @@ angular.module('kkWallet')
 
       function updateWallet() {
         $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+        $scope.currency = $scope.wallet.coinType;
         $scope.singleAccount = $scope.walletList.length === 1;
       }
 

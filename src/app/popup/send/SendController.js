@@ -18,6 +18,7 @@ angular.module('kkWallet')
       $scope.maxAmount = feeService.maxTransactionAmount;
 
       $scope.wallet = walletNodeService.getWalletById($routeParams.wallet);
+      $scope.currency = $scope.wallet.coinType;
       $scope.singleAccount = walletNodeService.wallets.length === 1;
       $scope.showForm = !!($scope.wallet.highConfidenceBalance);
       $scope.preparingTransaction = false;

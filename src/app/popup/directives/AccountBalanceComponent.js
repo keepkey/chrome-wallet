@@ -8,7 +8,8 @@ angular.module('kkWallet')
         loading: '=',
         accountSettings: '=', 
         nameDisplay: '@',
-        singleAccount: '='
+        singleAccount: '=',
+        currency: '='
       },
       controller: ['$scope',
         function($scope) {

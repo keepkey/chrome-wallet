@@ -3,10 +3,12 @@
         <span ng-show="loading">
             <span class="fa fa-refresh fa-spin"></span>
         </span>
-        <bitcoin-amount ng-hide="loading" amount="balance"></bitcoin-amount>
+        <bitcoin-amount ng-hide="loading"
+                        amount="balance"
+                        currency="currency"></bitcoin-amount>
     </div>
     <div class="unconfirmed-balance" ng-show="pending">
         <span>Pending:&nbsp;</span>
-        <bitcoin-amount amount="pending"></bitcoin-amount>
+        <bitcoin-amount amount="pending" currency="currency"></bitcoin-amount>
     </div>
 </div>
