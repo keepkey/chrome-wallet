@@ -208,6 +208,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/disable_conflicting/disable_conflicting.tpl.html',
           goable: false
         })
+        .when('/prerelease-device', {
+          templateUrl: 'app/popup/prerelease-device/prerelease-device.tpl.html',
+          goable: false
+        })
         .otherwise({
           redirectTo: '/',
           goable: false
