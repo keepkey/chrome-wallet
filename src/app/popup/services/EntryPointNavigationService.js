@@ -6,18 +6,17 @@ angular.module('kkWallet')
       return {
         goToTop: function (checkForFirmwareUpdate) {
           navigationService.dumpHistory();
-          if (deviceFeatureService.get('bootloader_mode')) {
+          if (deviceFeatureService.get('deviceCapabilities.prereleaseDevice')) {
+            navigationService.go('/prerelease-device');
+          } else if (deviceFeatureService.get('bootloader_mode')) {
             navigationService.go('/bootloader');
-          }
-          else if (checkForFirmwareUpdate &&
+          } else if (checkForFirmwareUpdate &&
             deviceFeatureService.get('firmwareUpdateAvailable')) {
             navigationService.go('/update-firmware');
-          }
-          else if (deviceFeatureService.get('initialized')) {
+          } else if (deviceFeatureService.get('initialized')) {
             deviceBridgeService.initiateSession();
             navigationService.go('/walletlist');
-          }
-          else {
+          } else {
             navigationService.go('/initialize');
           }
         }
