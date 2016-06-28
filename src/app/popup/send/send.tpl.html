@@ -13,6 +13,8 @@
             </account-balance>
 
 
+            <div ng-if="exchangeLogoVisible">***</div>
+
             <form name="form" novalidate>
                 <div class="form-input-container">
                     <div class="content-form-inner">
@@ -21,7 +23,7 @@
                                     recipient="userInput.address"
                                     field-name="dest"
                                     form="form"
-                                    label="Send {{currency}} to:"
+                                    currency-name="{{currency}}"
                                     current-account="wallet.id"
                                     disabled="preparingTransaction">
                             </recipient-entry>

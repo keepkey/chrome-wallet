@@ -10,11 +10,12 @@ angular.module('kkWallet')
 
             var lastAccount = getLastAccount();
 
-            if (!lastAccount.hasTransactionHistory) {
-              destination = '/failure/bip44_account_gap_violation/' + lastAccount.name;
-            } else {
+            // TODO Reinstate check for account gap violations
+            // if (!lastAccount.hasTransactionHistory) {
+            //   destination = '/failure/bip44_account_gap_violation/' + lastAccount.name;
+            // } else {
               destination = '/accountConfig';
-            }
+            // }
 
             $scope.go(destination, 'slideLeft');
           }

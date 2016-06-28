@@ -2,7 +2,7 @@
     <script type="text/ng-template" id="customTemplate.html">
         <a>
             <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
-            (Account #{{match.model.accountNumber}})
+            ({{match.model.coinType}} account #{{match.model.accountNumber}})
         </a>
     </script>
     <label>{{labelVariation}}</label>
