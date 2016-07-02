@@ -61,11 +61,16 @@ angular.module('kkWallet')
               $scope.userInput.address;
           }
 
-          transactionService.transactionInProgress.isCurrencyExchange =
+          var isCurrencyExchange =
             !!destinationCurrency && (destinationCurrency !== $scope.currency);
 
-          deviceBridgeService.requestTransactionSignature(
-            transactionService.transactionInProgress);
+          if (!isCurrencyExchange) {
+            deviceBridgeService.requestTransactionSignature(
+              transactionService.transactionInProgress);
+          } else {
+            deviceBridgeService.requestCurrencyExchange(
+              transactionService.transactionInProgress);
+          }
           navigationService.setNextTransition('slideLeft');
         }
       };
