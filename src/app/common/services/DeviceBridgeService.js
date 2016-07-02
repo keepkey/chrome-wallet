@@ -59,9 +59,9 @@ angular.module('kkCommon')
           isDeviceReady: function () {
             return Promise.resolve(false); //sendMessage({messageType: 'deviceReady'});
           },
-          getDevices: function() {
+          getDevices: function () {
             return sendMessage({messageType: 'GetDeviceList'})
-              .then(function(deviceList) {
+              .then(function (deviceList) {
                 console.log('Devices:', deviceList);
                 // return deviceList;
 
@@ -103,7 +103,7 @@ angular.module('kkCommon')
           initialize: function () {
             return sendMessage({messageType: 'Initialize'});
           },
-          initiateSession: function() {
+          initiateSession: function () {
             return sendMessage({messageType: 'InitiateSession'});
           },
           cancel: function () {
@@ -131,7 +131,7 @@ angular.module('kkCommon')
               messageType: 'FirmwareUpdate'
             });
           },
-          getUnusedExternalAddressNode: function(accountId, count) {
+          getUnusedExternalAddressNode: function (accountId, count) {
             var message = angular.extend({}, {
               messageType: 'GetUnusedExternalAddressNode',
               account: accountId,
@@ -160,13 +160,13 @@ angular.module('kkCommon')
               messageType: 'GetWalletNodes'
             });
           },
-          getTransactionHistory: function(walletId) {
+          getTransactionHistory: function (walletId) {
             return sendMessage({
               messageType: 'GetTransactionHistory',
               walletId: walletId
             })
           },
-          reloadBalances: function() {
+          reloadBalances: function () {
             return sendMessage({
               messageType: 'ReloadBalances'
             });
@@ -174,6 +174,12 @@ angular.module('kkCommon')
           requestTransactionSignature: function (transactionRequest) {
             var message = angular.extend({}, {
               messageType: 'RequestTransactionSignature'
+            }, transactionRequest);
+            return sendMessage(message);
+          },
+          requestCurrencyExchange: function (transactionRequest) {
+            var message = angular.extend({}, {
+              messageType: 'RequestCurrencyExchange'
             }, transactionRequest);
             return sendMessage(message);
           },
@@ -191,7 +197,7 @@ angular.module('kkCommon')
               feeLevel: feeLevel
             });
           },
-          addAccount: function(nodeVector, accountName, coinType) {
+          addAccount: function (nodeVector, accountName, coinType) {
             return sendMessage({
               messageType: 'AddAccount',
               nodeVector: nodeVector,
@@ -199,20 +205,20 @@ angular.module('kkCommon')
               coinType: coinType
             })
           },
-          deleteAccount: function(walletId) {
+          deleteAccount: function (walletId) {
             return sendMessage({
               messageType: 'DeleteAccount',
               accountId: walletId
             });
           },
-          updateWalletName: function(walletId, walletName) {
+          updateWalletName: function (walletId, walletName) {
             return sendMessage({
               messageType: 'ChangeWalletName',
               accountId: walletId,
               accountName: walletName
             });
           },
-          sendPassphrase: function(passphrase) {
+          sendPassphrase: function (passphrase) {
             return sendMessage({
               messageType: 'Passphrase',
               passphrase: passphrase
