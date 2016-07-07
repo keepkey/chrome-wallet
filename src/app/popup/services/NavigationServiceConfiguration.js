@@ -212,6 +212,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/prerelease-device/prerelease-device.tpl.html',
           goable: false
         })
+        .when('/confirm-exchange', {
+          templateUrl: 'app/popup/confirm-exchange/confirm-exchange.tpl.html',
+          goable: false
+        })
         .otherwise({
           redirectTo: '/',
           goable: false
