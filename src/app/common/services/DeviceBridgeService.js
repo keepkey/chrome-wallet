@@ -183,6 +183,12 @@ angular.module('kkCommon')
             }, transactionRequest);
             return sendMessage(message);
           },
+          confirmCurrencyExchange: function(transactionId) {
+            return sendMessage({
+              messageType: 'CurrencyExchangeConfirmation',
+              transactionId: transactionId
+            });
+          },
           estimateFeeForTransaction: function (accountId, transactionAmount) {
             return sendMessage({
               messageType: 'EstimateFeeForTransaction',

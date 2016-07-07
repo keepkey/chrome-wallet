@@ -1,0 +1,22 @@
+<div id="confirm-exchange" ng-controller="ConfirmExchangeController">
+    <header>
+        <back-button class="button-left header-button"></back-button>
+    </header>
+
+    <div class="content">
+        Exchange Details
+        <div>From Amount: {{depositAmount}}</div>
+        <div>From Currency: {{depositCurrency}}</div>
+        <div>From Account: {{depositAccount}}</div>
+        <div>To Amount: {{withdrawalAmount}}</div>
+        <div>To Currency: {{withdrawalCurrency}}</div>
+        <div>To Account: {{withdrawalAccount}}</div>
+        <div>exchangeRate: {{exchangeRate}}</div>
+        <div>minerFee: {{minerFee}}</div>
+        <div>transactionId: {{transactionId}}</div>
+        <button class="button" type="submit" ng-click="nextAction()">Approve</button>
+    </div>
+
+    <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
+
+</div>

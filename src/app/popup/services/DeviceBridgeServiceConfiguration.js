@@ -195,6 +195,14 @@ angular.module('kkWallet')
         }
       ]);
 
+      deviceBridgeServiceProvider.when('RequestCurrencyExchangeConfirmation', [
+        'NavigationService', 'ExchangeService',
+        function(navigationService, exchangeService) {
+          exchangeService.set(this.request.message);
+          navigationService.go('/confirm-exchange');
+        }
+      ]);
+
       deviceBridgeServiceProvider.when('unknownSender', function () {
         this.sendResponse({
           messageType: "Error",
