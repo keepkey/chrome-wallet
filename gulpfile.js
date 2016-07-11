@@ -189,7 +189,7 @@ function appScriptBuilder(moduleName, angularModuleName, extraFiles) {
 
 gulp.task('appCommonScripts', ['buildAngularConfig'],
   appScriptBuilder.bind(this, 'common', 'kkCommon', [
-    'build/constants.js'
+    'build/ngConstants.js'
   ])
 );
 
