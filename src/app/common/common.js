@@ -9,6 +9,9 @@ angular.module('kkCommon', [])
         enableFeeSelector: function (enabled) {
           environmentConfig.showFeeSelector = enabled;
           $rootScope.$apply();
+        },
+        enableShapeshift: function(enabled) {
+          deviceBridgeService.enableShapeshift({enabled: enabled});
         }
       };
     }

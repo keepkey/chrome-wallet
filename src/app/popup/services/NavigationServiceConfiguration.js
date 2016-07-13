@@ -72,6 +72,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/buttonRequest/confirmTransferToAccount.tpl.html',
           goable: false
         })
+        .when('/buttonRequest/button_request_apply_policies', {
+          templateUrl: 'app/popup/buttonRequest/apply-policy.tpl.html',
+          goable: false
+        })
         .when('/buttonRequest/:code', {
           templateUrl: 'app/popup/buttonRequest/buttonRequest.tpl.html',
           goable: false

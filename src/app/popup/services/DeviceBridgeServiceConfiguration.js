@@ -76,6 +76,11 @@ angular.module('kkWallet')
                 'Your PIN was successfully changed!');
               destination = '/device';
               break;
+            case 'Policies applied':
+              notificationMessageService.set(
+                'Your device policies were updated!');
+              navigateToWalletRoot();
+              break;
             case 'Device reset':
             case 'Device recovered':
               navigateToWalletRoot();
@@ -108,7 +113,8 @@ angular.module('kkWallet')
             'Reset cancelled',
             'Recovery cancelled',
             'Apply settings cancelled',
-            'PIN change cancelled'
+            'PIN change cancelled',
+            'Apply policy cancelled'
           ];
           if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
             $injector.invoke(navigateToPreviousLocation(), this);
