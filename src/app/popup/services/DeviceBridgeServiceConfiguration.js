@@ -51,6 +51,15 @@ angular.module('kkWallet')
         '$injector', 'NotificationMessageService', 'WalletNodeService',
         function ($injector, notificationMessageService, walletNodeService) {
           var destination;
+
+          function navigateToWalletRoot() {
+            if (walletNodeService.wallets.length > 1) {
+              destination = '/walletList';
+            } else {
+              destination = '/wallet/' + walletNodeService.wallets[0].id;
+            }
+          }
+
           switch (this.request.message.message) {
             case 'Device wiped':
               notificationMessageService.set(
@@ -67,20 +76,19 @@ angular.module('kkWallet')
                 'Your PIN was successfully changed!');
               destination = '/device';
               break;
+            case 'Policies applied':
+              notificationMessageService.set(
+                'Your device policies were updated!');
+              navigateToWalletRoot();
+              break;
             case 'Device reset':
             case 'Device recovered':
-              destination = '/walletList';
+              navigateToWalletRoot();
               break;
             case 'Transaction sent':
               notificationMessageService.set(
                 'Your bitcoin transaction was successfully sent!');
-
-              if (walletNodeService.wallets.length > 1) {
-                destination = '/walletList';
-              } else {
-                destination = '/wallet/' + walletNodeService.wallets[0].id;
-              }
-
+              navigateToWalletRoot();
               break;
             case 'Account name updated':
               $injector.invoke(navigateToPreviousLocation(), this);
@@ -105,7 +113,8 @@ angular.module('kkWallet')
             'Reset cancelled',
             'Recovery cancelled',
             'Apply settings cancelled',
-            'PIN change cancelled'
+            'PIN change cancelled',
+            'Apply policy cancelled'
           ];
           if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
             $injector.invoke(navigateToPreviousLocation(), this);

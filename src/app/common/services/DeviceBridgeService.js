@@ -96,6 +96,10 @@ angular.module('kkCommon')
             var message = angular.extend({messageType: 'EnablePassphrase'}, options);
             return sendMessage(message);
           },
+          enableShapeshift: function (options) {
+            var message = angular.extend({messageType: 'EnableShapeshift'}, options);
+            return sendMessage(message);
+          },
           sendPin: function (options) {
             var message = angular.extend({messageType: 'PinMatrixAck'}, options);
             return sendMessage(message);

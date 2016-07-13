@@ -1,0 +1,22 @@
+<section id="button-request-apply-policy" ng-controller="ButtonRequestController">
+    <header>
+        <back-button class="button-left header-button"
+                     action="cancelDeviceOperation();"></back-button>
+    </header>
+    <div
+            id="apply-policy"
+            class="content"
+            ng-class="buttonRequestType">
+        <div class="content-confirming-inner">
+            <div class="content-inner-centering">
+                <h2>
+                    <span class="cornflower-txt">
+                        Confirm that you want to change a policy on your
+                        <b><vendor-name after="."></vendor-name></b>
+                    </span>
+                </h2>
+            </div>
+        </div>
+        <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
+    </div>
+</section>
