@@ -4,14 +4,23 @@ angular.module('kkCommon', [])
     function (deviceBridgeService, environmentConfig, $rootScope) {
       window.KeepKey = {
         enablePassphrase: function (enabled) {
+          if (_.isUndefined(enabled)) {
+            enabled = true;
+          }
           deviceBridgeService.enablePassphrase({enabled: enabled});
         },
         enableFeeSelector: function (enabled) {
           environmentConfig.showFeeSelector = enabled;
           $rootScope.$apply();
         },
-        enableShapeshift: function(enabled) {
-          deviceBridgeService.enableShapeshift({enabled: enabled});
+        enablePolicy: function(policyName, enabled) {
+          if (_.isUndefined(enabled)) {
+            enabled = true;
+          }
+          deviceBridgeService.enablePolicy({
+            policyName: policyName,
+            enabled: enabled
+          });
         }
       };
     }
