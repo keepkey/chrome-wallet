@@ -14,8 +14,8 @@
             <div class="wallet-name" ng-bind="wallet.name"></div>
             <div>
                 <wallet-balance
-                        balance="wallet.highConfidenceBalance"
-                        pending="wallet.lowConfidenceBalance">
+                        balance="wallet.highConfidenceBalance + wallet.lowConfidenceBalance"
+                        currency="wallet.coinType">
                 </wallet-balance>
                 <div class="account-number">Account #{{wallet.accountNumber}}</div>
             </div>

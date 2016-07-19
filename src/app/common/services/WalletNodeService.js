@@ -125,5 +125,4 @@ angular.module('kkCommon')
         removeAccount: removeAccount
       };
     }
-  ])
-;
+  ]);
