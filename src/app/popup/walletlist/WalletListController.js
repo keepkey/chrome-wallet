@@ -10,32 +10,38 @@ angular.module('kkWallet')
         walletNodeService.loadAccounts();
       }
 
-      if(navigationService.getPreviousRoute() === '/label/initialize') {
+      if (navigationService.getPreviousRoute() === '/label/initialize') {
         navigationService.setNextTransition('slideLeft');
       } else {
         navigationService.setNextTransition('cross-fade');
       }
 
-      $scope.showWalletList = function() {
+      $scope.showWalletList = function () {
         return $scope.loaded && $scope.wallets.length > 1;
       };
 
-      $scope.goWallet = function(wallet) {
+      $scope.goWallet = function (wallet) {
         $scope.go('/wallet/' + wallet.id, 'slideLeft');
       };
 
       $scope.coinTypes = [];
 
-      $scope.walletsByCoinType = function(coinType) {
-        return _.filter($scope.wallets, {coinType: coinType});
+      $scope.accountsByCoinType = function (coinType) {
+        return $scope.accountGroups[coinType];
       };
 
-      $scope.$watch("wallets.length", function() {
+      $scope.accountGroupCollapsed = {};
+
+      $scope.$watch("wallets.length", function () {
         $scope.loaded = !!$scope.wallets.length;
         if ($scope.wallets.length == 1) {
           $scope.go('/wallet/' + $scope.wallets[0].id);
         }
-        $scope.coinTypes = _.uniq(_.map($scope.wallets, 'coinType'));
+        $scope.accountGroups = _.groupBy($scope.wallets, 'coinType');
+        $scope.coinTypes = _.keys($scope.accountGroups).sort();
+        $scope.accountGroupCollapsed = _.forIn(_.invert($scope.coinTypes), function(v, k, object) {
+          object[k] = false;
+        });
       });
 
     }

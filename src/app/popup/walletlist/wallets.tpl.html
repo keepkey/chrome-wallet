@@ -1,27 +1,35 @@
 <div class="wallets">
-    <div class="wallet-group"
-         ng-repeat="coinType in coinTypes | orderBy: 'coinType'">
-        <div class="wallet-group-title" ng-if="coinTypes.length > 1">{{coinType}}</div>
-        <div class="wallet online"
-             ng-repeat="wallet in walletsByCoinType(coinType) | orderBy : 'accountNumber' track by wallet.id"
-             ng-click="goWallet(wallet)">
-            <div class="connection-light"></div>
-            <div class="go-side">
-                <div class="go-btn">
-                    <a class="wallet-link">
-                        <div class="icon icon-forward"></div>
-                    </a>
+    <div class="account-group"
+         ng-repeat="coinType in coinTypes"
+         ng-click="accountGroupCollapsed[coinType] = !accountGroupCollapsed[coinType]">
+        <div class="account-group-title" ng-if="coinTypes.length > 1">
+            <i class="fa fa-chevron-down"
+               ng-class="{collapsed: accountGroupCollapsed[coinType]}"
+               aria-hidden="true"></i>
+            {{coinType}}
+        </div>
+        <div class="account-group-content" ng-hide="accountGroupCollapsed[coinType]">
+            <div class="wallet online"
+                 ng-repeat="wallet in accountsByCoinType(coinType) | orderBy : 'accountNumber' track by wallet.id"
+                 ng-click="goWallet(wallet)">
+                <div class="connection-light"></div>
+                <div class="go-side">
+                    <div class="go-btn">
+                        <a class="wallet-link">
+                            <div class="icon icon-forward"></div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="details">
-                <div class="wallet-name" ng-bind="wallet.name"></div>
-                <div>
-                    <wallet-balance
-                            balance="wallet.highConfidenceBalance + wallet.lowConfidenceBalance"
-                            currency="wallet.coinType">
-                    </wallet-balance>
-                    <div class="account-number">{{wallet.coinType}} Account
-                        #{{wallet.accountNumber}}
+                <div class="details">
+                    <div class="wallet-name" ng-bind="wallet.name"></div>
+                    <div>
+                        <wallet-balance
+                                balance="wallet.highConfidenceBalance + wallet.lowConfidenceBalance"
+                                currency="wallet.coinType">
+                        </wallet-balance>
+                        <div class="account-number">{{wallet.coinType}} Account
+                            #{{wallet.accountNumber}}
+                        </div>
                     </div>
                 </div>
             </div>
