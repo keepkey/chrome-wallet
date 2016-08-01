@@ -1,6 +1,12 @@
 angular.module('kkWallet')
-  .controller('WalletListController', ['$scope', 'DeviceFeatureService', 'DeviceBridgeService', 'NavigationService', 'WalletNodeService', 'TransactionService',
-    function WalletListController($scope, deviceFeatureService, deviceBridgeService, navigationService, walletNodeService, transactionService) {
+  .controller('WalletListController', [
+    '$scope', 'DeviceFeatureService', 'DeviceBridgeService',
+    'NavigationService', 'WalletNodeService', 'TransactionService',
+    'CurrencyLookupService',
+    function WalletListController($scope, deviceFeatureService,
+                                  deviceBridgeService, navigationService,
+                                  walletNodeService, transactionService,
+                                  currencyLookupService) {
       $scope.wallets = walletNodeService.wallets;
       $scope.balances = transactionService.walletBalances;
       $scope.device = deviceFeatureService.features;
@@ -25,23 +31,30 @@ angular.module('kkWallet')
       };
 
       $scope.coinTypes = [];
+      $scope.displayedAccounts = $scope.wallets;
+      $scope.defaultCoinTypeFilterValue = 'ALL';
+      $scope.coinTypeFilter = $scope.defaultCoinTypeFilterValue;
 
-      $scope.accountsByCoinType = function (coinType) {
-        return $scope.accountGroups[coinType];
+      $scope.setCoinTypeFilter = function(coinType) {
+        $scope.coinTypeFilter = coinType;
       };
 
-      $scope.accountGroupCollapsed = {};
+      $scope.isSelectedCoinType = function(account, coinTypeFilter) {
+        return coinTypeFilter === $scope.defaultCoinTypeFilterValue ||
+          coinTypeFilter === currencyLookupService.getCurrencySymbol(account.coinType);
+      };
 
       $scope.$watch("wallets.length", function () {
         $scope.loaded = !!$scope.wallets.length;
         if ($scope.wallets.length == 1) {
           $scope.go('/wallet/' + $scope.wallets[0].id);
         }
-        $scope.accountGroups = _.groupBy($scope.wallets, 'coinType');
-        $scope.coinTypes = _.keys($scope.accountGroups).sort();
-        $scope.accountGroupCollapsed = _.forIn(_.invert($scope.coinTypes), function(v, k, object) {
-          object[k] = false;
-        });
+        var coinTypes = _.uniq(_.map($scope.wallets, 'coinType'));
+
+        $scope.coinTypes = _.map(coinTypes,
+          function (it) {
+            return currencyLookupService.getCurrencySymbol(it);
+          }).sort();
       });
 
     }

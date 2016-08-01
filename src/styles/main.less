@@ -24,7 +24,7 @@
 @content-width: @body-width - 2 * @content-padding;
 
 @wallet-list-width: 260px;
-@wallet-list-margin: 20px;
+@wallet-list-margin: 6px;
 @wallet-height: 68px;
 
 @status-bar-height: 40px;
@@ -1336,6 +1336,10 @@ a, a:hover {
   background-color: white;
 }
 
+@pill-container-width: 58px;
+@pill-button-width: @pill-container-width - 11;
+@footer-height: 40px;
+
 #wallet-list {
   position: relative;
   .menu {
@@ -1345,23 +1349,33 @@ a, a:hover {
   .content {
     margin-top: -20px;
   }
-  .account-group-title {
-    background-color: #C4D600;
-    color: #666;
-    font-size: 14px;
-    width: 100%;
-    padding: 2px 10px;
-    i {
-      &.collapsed {
-        transform: rotate(-90deg);
+  .pill-container {
+    text-align: center;
+    border-right: 1px solid #EBEBEC;
+    position: absolute;
+    top: @header-height;
+    bottom: @footer-height;
+    left: 0;
+    width: @pill-container-width;
+    overflow: hidden;
+    .button {
+      position: initial;
+      padding: 5px 5px;
+      width: @pill-button-width;
+      margin: 5px 5px 0 5px;
+      border-radius: 5px;
+      display: inline-block;
+      &.selected {
+        background-color: #7A8500;
       }
     }
   }
   .wallets {
     position: absolute;
     top: @header-height;
-    bottom: 40px;
-    width: 100%;
+    bottom: @footer-height;
+    left: @pill-container-width;
+    right: 0;
     overflow-x: hidden;
     overflow-y: scroll;
     .wallet {
@@ -1370,6 +1384,7 @@ a, a:hover {
       height: @wallet-height;
       padding: 1px @wallet-list-margin;
       transition: 0.3s all ease-in;
+      position: relative;
       a {
         color: #C4D600;
       }
@@ -1383,19 +1398,15 @@ a, a:hover {
       }
       .details {
         height: @wallet-height;
-        margin: 15px 34px 0 19px;
+        margin: 15px 30px 0 13px;
       }
       .wallet-balance {
         font-size: 12px;
         float: left;
-        &.has-pending-balance {
-          font-size: 75%;
-        }
-        > div {
-          display: inline-block;
-        }
         .wallet-amount {
           font-family: 'Open Sans', sans-serif;
+          display: inline-block;
+          max-width: 72px;
         }
         .wallet-currency {
           letter-spacing: 1.3px;
@@ -1407,18 +1418,11 @@ a, a:hover {
         .balance {
           margin-right: 3px;
         }
-        .unconfirmed-balance {
-          &:before {
-            content: "(";
-          }
-          &:after {
-            content: ")";
-          }
-        }
       }
       .connection-light {
-        margin-top: 29px;
-        float: left;
+        position: absolute;
+        top: 32px;
+        left: 5px;
       }
       .go-side {
         height: @wallet-height;
