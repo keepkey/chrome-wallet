@@ -12,6 +12,23 @@
                 <div class="content-form-inner">
                     <div class="content-inner-centering">
                         <div class="help">Using accounts helps you organize balances on your device. Account names help you distinguish between accounts.</div>
+
+                        <div class="btn-group" uib-dropdown is-open="status.isopen">
+                            <button type="button"
+                                    uib-dropdown-toggle
+                                    ng-disabled="disabled">
+                                {{selectedAsset}} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu
+                                role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"
+                                    ng-repeat="assetType in assetTypes"
+                                    ng-click="setAssetType(assetType)">
+                                    <a href="#" ng-click="$event.preventDefault()">{{assetType}}</a>
+                                </li>
+                            </ul>
+                        </div>
+
                         <label>Account Name</label>
                         <div class="invalid"
                              ng-messages="form.accountName.$error"
@@ -28,10 +45,6 @@
                                ng-disabled="creating"
                                required
                                focus>
-
-                        <select ng-options="assetType as assetType.name for assetType in assetTypes"
-                                ng-model="selectedAsset"></select>
-
                     </div>
                 </div>
             </div>

@@ -3,19 +3,25 @@ angular.module('kkCommon')
     var coinType = {
       Bitcoin: {
         name: 'Bitcoin',
-        currencySymbol: 'BTC'
+        currencySymbol: 'BTC',
+        coinTypeCode: "0'"
       },
       Litecoin: {
         name: 'Litecoin',
-        currencySymbol: 'LTC'
+        currencySymbol: 'LTC',
+        coinTypeCode: "2'"
       }
     };
 
-    function getCurrencySymbol(currencyName) {
-      return _.get(coinType, currencyName + '.currencySymbol');
-    }
-
     return {
-      getCurrencySymbol: getCurrencySymbol
+      getCurrencySymbol: function getCurrencySymbol(currencyName) {
+        return _.get(coinType, [currencyName, 'currencySymbol'].join('.'));
+      },
+      getCurrencyCode: function getCurrencyCode(currencyName) {
+        return _.get(coinType, [currencyName, 'coinTypeCode'].join('.'));
+      },
+      getCurrencyTypes: function () {
+        return _.keys(coinType);
+      }
     }
   });

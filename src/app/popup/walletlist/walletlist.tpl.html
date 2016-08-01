@@ -9,7 +9,10 @@
             <div class="left">
                 <strong><device-label></device-label></strong> connected
             </div>
-            <add-account-button class="text-link-button right"></add-account-button>
+            <div class="new-account-link text-link-button right"
+                 ng-click="go('/accountConfig', 'slideLeft')">
+                Add Account
+            </div>
         </div>
     </div>
     <notification-message can-notify="showWalletList()"></notification-message>
