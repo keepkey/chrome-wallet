@@ -60,9 +60,11 @@
         <div class="left">
             <strong><device-label></device-label></strong> connected
         </div>
-        <add-account-button class="text-link-button right"
-                            ng-if="singleAccount && !receiveDisabled()">
-        </add-account-button>
+        <div class="new-account-link text-link-button right"
+             ng-if="singleAccount"
+             ng-click="go('/accountConfig', 'slideLeft')">
+            Add Account
+        </div>
 
         <div class="wallet-name right" ng-if="!singleAccount"
              ng-disabled="receiveDisabled()">Account #{{wallet.accountNumber}}</div>

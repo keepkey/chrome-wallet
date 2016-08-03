@@ -35,7 +35,7 @@ angular.module('kkWallet')
         if ($scope.form.$valid) {
           $scope.creating = true;
           var lastAccount = getLastAccount();
-          if (!lastAccount.hasTransactionHistory) {
+          if (lastAccount && !lastAccount.hasTransactionHistory) {
             $scope.go(
               '/failure/bip44_account_gap_violation/' + lastAccount.name,
               'slideLeft');
