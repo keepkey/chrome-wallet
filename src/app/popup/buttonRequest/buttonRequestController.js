@@ -10,10 +10,17 @@ angular.module('kkWallet')
       $scope.buttonRequestType = $routeParams.code;
       $scope.proxyInfo = proxyInfoService.info;
       $scope.device = deviceFeatureService.features;
-      $scope.oldFirmwareVersion = 
+      $scope.oldFirmwareVersion =
         deviceFeatureService.features.firmwareUpdateAvailable;
       $scope.vendorName =
         deviceFeatureService.get('deviceCapabilities.vendorName');
+
+      if ($routeParams.policy === 'exchange_1') {
+        $scope.policyName = $routeParams.policy;
+        $scope.policyDescription = 'ShapeShift Exchange';
+        $scope.policyState = $routeParams.state;
+        $scope.policyEnable = $routeParams.state === 'enable';
+      }
 
       var currentRoute = navigationService.getCurrentRoute();
 

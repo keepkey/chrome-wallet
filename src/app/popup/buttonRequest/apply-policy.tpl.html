@@ -1,4 +1,5 @@
-<section id="button-request-apply-policy" ng-controller="ButtonRequestController">
+<section id="button-request-apply-policy"
+         ng-controller="ButtonRequestController">
     <header>
         <back-button class="button-left header-button"
                      action="cancelDeviceOperation();"></back-button>
@@ -6,15 +7,21 @@
     <div
             id="apply-policy"
             class="content"
-            ng-class="buttonRequestType">
+            ng-class="{'enable-policy': policyEnable, 'disable-policy': !policyEnable}">
         <div class="content-confirming-inner">
             <div class="content-inner-centering">
                 <h2>
                     <span class="cornflower-txt">
-                        Confirm that you want to change a policy on your
+                        Confirm that you want to {{policyState}} the
+                        {{policyDescription}} policy on your
                         <b><vendor-name after="."></vendor-name></b>
                     </span>
                 </h2>
+                <div class="policy-disclaimer">
+                    <ng-include ng-if="policyName === 'exchange_1' && policyEnable"
+                                src="'app/popup/buttonRequest/shapeshift-terms-of-service.tpl.html'">
+                    </ng-include>
+                </div>
             </div>
         </div>
         <a class="text-link-button cancel" ng-click="cancelDeviceOperation();">Cancel</a>
