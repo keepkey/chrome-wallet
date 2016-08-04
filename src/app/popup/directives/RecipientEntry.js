@@ -8,7 +8,7 @@ angular.module('kkWallet')
         fieldName: '@',
         form: '=',
         disabled: '=',
-        currentAccount: '=',
+        currentAccountNumber: '=currentAccount',
         currencyName: '@'
       },
       link: function ($scope) {
@@ -17,35 +17,45 @@ angular.module('kkWallet')
       controller: ['$scope', 'WalletNodeService', 'DeviceFeatureService',
         function ($scope, walletNodeService, featureService) {
           $scope.labelVariation = 'Send ' + $scope.currencyName + ' to:';
+
+          $scope.currentAccount =
+            walletNodeService.getWalletById($scope.currentAccountNumber);
           if (walletNodeService.wallets.length > 1 &&
             _.get(featureService.features,
               "deviceCapabilities.supportsSecureAccountTransfer")) {
             $scope.placeholder = "Enter address or select an account...";
             $scope.accounts = _(walletNodeService.wallets)
               .reject({
-                id: $scope.currentAccount
+                id: $scope.currentAccountNumber
               })
               .sortBy('name')
               .value();
-
-            //   _.sortBy(_.reject(walletNodeService.wallets, {
-            //   id: $scope.currentAccount
-            // }), 'name');
           } else {
             $scope.placeholder = "Enter an address...";
             $scope.accounts = [];
           }
           $scope.$watch('selected', function () {
-            var accountNumber = _.get($scope.selected, 'accountNumber');
-            if (accountNumber) {
-              $scope.labelVariation = 'Send ' + $scope.currencyName + ' to account:';
+            var label;
+            var destinationAccount = _.get($scope.selected, 'accountNumber');
+            if (destinationAccount) {
+              if ($scope.currentAccount.coinType ===
+                $scope.selected.coinType) {
+                label = ['Transfer', $scope.currencyName, 'to account'];
+              } else {
+                label = [
+                  'Convert', $scope.currencyName,
+                  'to', $scope.selected.coinType,
+                  'and send to'
+                ];
+              }
             } else if (_.isString($scope.selected) &&
               $scope.selected.match(/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/)) { //TODO use a regexp appropriate for the currency
-              $scope.labelVariation = 'Send ' + $scope.currencyName + ' to address:';
+              label = ['Send', $scope.currencyName, 'to address'];
             } else {
-              $scope.labelVariation = 'Send ' + $scope.currencyName + ' to:';
+              label = ['Send', $scope.currencyName, 'to'];
             }
-          })
+            $scope.labelVariation = label.join(' ') + ':';
+          });
 
         }
       ],

@@ -23,6 +23,8 @@ angular.module('kkWallet')
       $scope.showForm = !!($scope.wallet.highConfidenceBalance);
       $scope.preparingTransaction = false;
 
+      $scope.buttonText = 'Send';
+
       $scope.supportsSecureTransfer = _.get(featureService.features,
         "deviceCapabilities.supportsSecureAccountTransfer");
       $scope.oldFirmwareVersion =
@@ -90,8 +92,15 @@ angular.module('kkWallet')
 
       $scope.$watch('userInput.address', function() {
         var destinationCurrency = _.get($scope.userInput.address, 'coinType');
-        $scope.exchangeLogoVisible =
-          (destinationCurrency && destinationCurrency !== $scope.currency);
+        if (destinationCurrency) {
+          if (destinationCurrency !== $scope.currency) {
+            $scope.buttonText = 'Convert and Send';
+          } else {
+            $scope.buttonText = 'Transfer';
+          }
+        } else {
+          $scope.buttonText = 'Send';
+        }
       });
       
       $scope.$watch('userInput.amount', function computeFees() {

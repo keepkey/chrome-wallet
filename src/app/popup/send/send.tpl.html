@@ -12,9 +12,6 @@
                     name-display="name" currency="currency">
             </account-balance>
 
-
-            <div ng-if="exchangeLogoVisible">Shift it!</div>
-
             <form name="form" novalidate>
                 <div class="form-input-container">
                     <div class="content-form-inner">
@@ -56,7 +53,8 @@
 
                 <button class="button" type="submit"
                         ng-disabled="preparingTransaction"
-                        ng-click="buildTransaction()">Send
+                        ng-click="buildTransaction()">
+                    {{buttonText}}
                 </button>
             </form>
         </div>
