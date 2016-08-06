@@ -16,11 +16,12 @@ angular.module('kkWallet')
           $scope.currencySymbol =
             currencyLookupService.getCurrencySymbol($scope.currency);
 
-          $scope.formattedAmount = toBitcoins($scope.amount);
+          $scope.formattedAmount = toBitcoins(parseFloat($scope.amount));
 
           $scope.$watch('amount', function() {
+            var amount = parseFloat($scope.amount);
             $scope.formattedAmount =
-              ($scope.amount > 0) ? toBitcoins($scope.amount) : '0.0';
+              (amount > 0) ? toBitcoins(amount) : '0.0';
           });
         }
       ],

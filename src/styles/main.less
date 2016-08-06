@@ -906,13 +906,19 @@ button.fa {
   }
 }
 
-#label, #pin, #character-request, #device-settings, #support {
+#label, #pin, #character-request, #device-settings, #support, #confirm-exchange {
   .content {
     padding-top: 10px;
     h2 {
       padding-bottom: 10px;
       border-bottom: 1px solid @interior-border-color;
     }
+  }
+}
+
+#confirm-exchange {
+  .content .content-inner {
+    height: 100px;
   }
 }
 
@@ -1524,6 +1530,12 @@ a, a:hover {
     .wallet-currency {
       display: none;
     }
+  }
+}
+
+.cryptocurrency-amount {
+  &:before, &:after {
+    content: ' ';
   }
 }
 

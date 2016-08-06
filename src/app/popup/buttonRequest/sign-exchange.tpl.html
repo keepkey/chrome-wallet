@@ -1,0 +1,23 @@
+<section id="button-request" ng-controller="SignExchangeController">
+    <header>
+        <back-button class="button-left header-button" action="cancelExchangeRequest();"></back-button>
+    </header>
+
+    <div id="transaction" class="content" ng-class="buttonRequestType">
+        <div class="content-confirming-inner">
+            <div class="content-inner-centering">
+                <h2>
+                    <span class="cornflower-txt">
+                        On your <b><vendor-name after=","></vendor-name></b>
+                        confirm the ShapeShift exchange summary.
+                    </span>
+                    Make sure the details are accurate.
+                    <ng-include
+                            src="'app/popup/buttonRequest/shapeshift-terms-of-service.tpl.html'">
+                    </ng-include>
+                </h2>
+            </div>
+        </div>
+        <a class="text-link-button cancel" ng-click="cancelExchangeRequest();">Cancel</a>
+    </div>
+</section>

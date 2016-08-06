@@ -44,6 +44,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/buttonRequest/signTx.tpl.html',
           goable: false
         })
+        .when('/buttonRequest/button_request_sign_exchange', {
+          templateUrl: 'app/popup/buttonRequest/sign-exchange.tpl.html',
+          goable: false
+        })
         .when('/buttonRequest/button_request_fee_over_threshold', {
           templateUrl: 'app/popup/buttonRequest/feeOverThreshhold.tpl.html',
           goable: false
