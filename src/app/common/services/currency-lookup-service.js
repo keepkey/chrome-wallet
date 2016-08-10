@@ -4,12 +4,14 @@ angular.module('kkCommon')
       Bitcoin: {
         name: 'Bitcoin',
         currencySymbol: 'BTC',
-        coinTypeCode: "0'"
+        coinTypeCode: "0'",
+        addressRegExp: /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/
       },
       Litecoin: {
         name: 'Litecoin',
         currencySymbol: 'LTC',
-        coinTypeCode: "2'"
+        coinTypeCode: "2'",
+        addressRegExp: /^L[a-km-zA-HJ-NP-Z1-9]{26,33}$/
       }
     };
 
@@ -19,6 +21,9 @@ angular.module('kkCommon')
       },
       getCurrencyCode: function getCurrencyCode(currencyName) {
         return _.get(coinType, [currencyName, 'coinTypeCode'].join('.'));
+      },
+      getCurrencyAddressRegExp: function getCurrencyCode(currencyName) {
+        return _.get(coinType, [currencyName, 'addressRegExp'].join('.'));
       },
       getCurrencyTypes: function () {
         return _.keys(coinType);

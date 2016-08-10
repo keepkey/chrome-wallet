@@ -14,12 +14,18 @@ angular.module('kkWallet')
       link: function ($scope) {
         $scope.field = _.get($scope.form, $scope.fieldName);
       },
-      controller: ['$scope', 'WalletNodeService', 'DeviceFeatureService',
-        function ($scope, walletNodeService, featureService) {
+      controller: [
+        '$scope', 'WalletNodeService', 'DeviceFeatureService',
+        'CurrencyLookupService',
+        function ($scope, walletNodeService, featureService,
+                  currencyLookupService) {
           $scope.labelVariation = 'Send ' + $scope.currencyName + ' to:';
 
           $scope.currentAccount =
             walletNodeService.getWalletById($scope.currentAccountNumber);
+          var addressValidationRegExp = currencyLookupService
+            .getCurrencyAddressRegExp($scope.currentAccount.coinType);
+
           if (walletNodeService.wallets.length > 1 &&
             _.get(featureService.features,
               "deviceCapabilities.supportsSecureAccountTransfer")) {
@@ -34,12 +40,18 @@ angular.module('kkWallet')
             $scope.placeholder = "Enter an address...";
             $scope.accounts = [];
           }
+          var patterns = [ addressValidationRegExp.source ];
+          Array.prototype.push.apply(patterns, _.map($scope.accounts, function(account){
+            return '^' + account.name + '$';
+          }));
+
+          $scope.pattern = patterns.join('|');
+
           $scope.$watch('selected', function () {
             var label;
             var destinationAccount = _.get($scope.selected, 'accountNumber');
             if (destinationAccount) {
-              if ($scope.currentAccount.coinType ===
-                $scope.selected.coinType) {
+              if ($scope.currentAccount.coinType === $scope.selected.coinType) {
                 label = ['Transfer', $scope.currencyName, 'to account'];
               } else {
                 label = [
@@ -49,7 +61,7 @@ angular.module('kkWallet')
                 ];
               }
             } else if (_.isString($scope.selected) &&
-              $scope.selected.match(/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/)) { //TODO use a regexp appropriate for the currency
+              $scope.selected.match(addressValidationRegExp)) {
               label = ['Send', $scope.currencyName, 'to address'];
             } else {
               label = ['Send', $scope.currencyName, 'to'];
