@@ -31,6 +31,7 @@ angular.module('kkWallet')
       };
 
       $scope.coinTypes = [];
+      $scope.showFilters = false;
       $scope.displayedAccounts = $scope.wallets;
       $scope.defaultCoinTypeFilterValue = 'ALL';
       $scope.coinTypeFilter = $scope.defaultCoinTypeFilterValue;
@@ -55,6 +56,8 @@ angular.module('kkWallet')
           function (it) {
             return currencyLookupService.getCurrencySymbol(it);
           }).sort();
+
+        $scope.showFilters = $scope.coinTypes.length > 1;
       });
 
     }
