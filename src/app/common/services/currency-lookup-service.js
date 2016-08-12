@@ -12,6 +12,12 @@ angular.module('kkCommon')
         currencySymbol: 'LTC',
         coinTypeCode: "2'",
         addressRegExp: /^L[a-km-zA-HJ-NP-Z1-9]{26,33}$/
+      },
+      Dogecoin: {
+        name: 'Dogecoin',
+        currencySymbol: 'DOGE',
+        coinTypeCode: "3'",
+        addressRegExp: /^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$/
       }
     };
 
