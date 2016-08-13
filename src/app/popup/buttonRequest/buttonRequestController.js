@@ -15,7 +15,7 @@ angular.module('kkWallet')
       $scope.vendorName =
         deviceFeatureService.get('deviceCapabilities.vendorName');
 
-      if ($routeParams.policy === 'exchange_1') {
+      if ($routeParams.policy === 'shape_shift') {
         $scope.policyName = $routeParams.policy;
         $scope.policyDescription = 'ShapeShift Exchange';
         $scope.policyState = $routeParams.state;
