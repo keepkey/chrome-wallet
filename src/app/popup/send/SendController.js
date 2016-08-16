@@ -25,14 +25,16 @@ angular.module('kkWallet')
 
       $scope.buttonText = 'Send';
 
-      $scope.supportsSecureTransfer = _.get(featureService.features,
+      $scope.supportsSecureTransfer = featureService.get(
         "deviceCapabilities.supportsSecureAccountTransfer");
       $scope.oldFirmwareVersion =
         featureService.features.firmwareUpdateAvailable;
       $scope.vendorName =
         featureService.get('deviceCapabilities.vendorName');
+      $scope.supportsSecureExchange = featureService.getPolicySetting('ShapeShift');
 
-      $scope.showSecurityWarning = !$scope.supportsSecureTransfer;
+      $scope.showSecurityWarning =
+        !$scope.supportsSecureTransfer || !$scope.supportsSecureExchange;
 
       $scope.config = environmentConfig;
 

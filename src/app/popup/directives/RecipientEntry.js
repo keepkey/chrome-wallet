@@ -26,22 +26,27 @@ angular.module('kkWallet')
           var addressValidationRegExp = currencyLookupService
             .getCurrencyAddressRegExp($scope.currentAccount.coinType);
 
-          if (walletNodeService.wallets.length > 1 &&
-            _.get(featureService.features,
-              "deviceCapabilities.supportsSecureAccountTransfer")) {
+          if (walletNodeService.wallets.length > 1) {
             $scope.placeholder = "Enter address or select an account...";
-            $scope.accounts = _(walletNodeService.wallets)
+            var walletList = _(walletNodeService.wallets)
               .reject({
                 id: $scope.currentAccountNumber
-              })
-              .sortBy('name')
-              .value();
+              });
+
+            if (!_.get(featureService.features,
+                "deviceCapabilities.supportsSecureAccountTransfer")) {
+              walletList = _(walletNodeService.wallets)
+                .reject({
+                  coinType: $scope.currentAccount.coinType
+                })
+            }
+            $scope.accounts = walletList.sortBy('name').value();
           } else {
             $scope.placeholder = "Enter an address...";
             $scope.accounts = [];
           }
-          var patterns = [ addressValidationRegExp.source ];
-          Array.prototype.push.apply(patterns, _.map($scope.accounts, function(account){
+          var patterns = [addressValidationRegExp.source];
+          Array.prototype.push.apply(patterns, _.map($scope.accounts, function (account) {
             return '^' + account.name + '$';
           }));
 

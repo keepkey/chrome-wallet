@@ -24,6 +24,12 @@ angular.module('kkWallet')
           features.wallet_version = version;
           features.environment = environmentConfig.environment;
           features.firmwareUpdateAvailable = isFirmwareUpdateAvailable();
+        },
+        getPolicySetting: function(policyName) {
+          var featureObject = _.find(features.policies, {
+            policy_name: policyName
+          });
+          return featureObject && featureObject.enabled;
         }
       };
     }
