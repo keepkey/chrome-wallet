@@ -1449,10 +1449,14 @@ a, a:hover {
           font-family: 'Open Sans', sans-serif;
           display: inline-block;
           max-width: 72px;
+          overflow: hidden;
+          text-overflow: clip;
         }
         .wallet-currency {
           letter-spacing: 1.3px;
           font-size: 75%;
+          position: relative;
+          top: -6px;
         }
         .unconfirmed-balance, .balance {
           color: #858585;
