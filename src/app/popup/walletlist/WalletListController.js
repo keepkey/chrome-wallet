@@ -12,6 +12,8 @@ angular.module('kkWallet')
       $scope.device = deviceFeatureService.features;
       $scope.loaded = !!$scope.wallets.length;
 
+      walletGroups();
+
       if (!$scope.wallets.length) {
         walletNodeService.loadAccounts();
       }
@@ -30,34 +32,25 @@ angular.module('kkWallet')
         $scope.go('/wallet/' + wallet.id, 'slideLeft');
       };
 
-      $scope.coinTypes = [];
-      $scope.showFilters = false;
       $scope.displayedAccounts = $scope.wallets;
-      $scope.defaultCoinTypeFilterValue = 'ALL';
-      $scope.coinTypeFilter = $scope.defaultCoinTypeFilterValue;
 
-      $scope.setCoinTypeFilter = function(coinType) {
-        $scope.coinTypeFilter = coinType;
-      };
-
-      $scope.isSelectedCoinType = function(account, coinTypeFilter) {
-        return coinTypeFilter === $scope.defaultCoinTypeFilterValue ||
-          coinTypeFilter === currencyLookupService.getCurrencySymbol(account.coinType);
-      };
+      function walletGroups() {
+        $scope.walletGroups = _.map(_.groupBy($scope.wallets, 'coinType'),
+          function (wallets, key) {
+            return {
+              coinType: key,
+              wallets: wallets
+            }
+          }
+        );
+      }
 
       $scope.$watch("wallets.length", function () {
         $scope.loaded = !!$scope.wallets.length;
         if ($scope.wallets.length == 1) {
           $scope.go('/wallet/' + $scope.wallets[0].id);
         }
-        var coinTypes = _.uniq(_.map($scope.wallets, 'coinType'));
-
-        $scope.coinTypes = _.map(coinTypes,
-          function (it) {
-            return currencyLookupService.getCurrencySymbol(it);
-          }).sort();
-
-        $scope.showFilters = $scope.coinTypes.length > 1;
+        walletGroups();
       });
 
     }

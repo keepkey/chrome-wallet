@@ -1391,26 +1391,8 @@ a, a:hover {
   .content {
     margin-top: -20px;
   }
-  .pill-container {
-    text-align: center;
-    border-right: 1px solid #EBEBEC;
-    position: absolute;
-    top: @header-height;
-    bottom: @footer-height;
-    left: 0;
-    width: @pill-container-width;
-    overflow: hidden;
-    .button {
-      position: initial;
-      padding: 5px 5px;
-      width: @pill-button-width;
-      margin: 5px 5px 0 5px;
-      border-radius: 5px;
-      display: inline-block;
-      &.selected {
-        background-color: #7A8500;
-      }
-    }
+  .wallet-group {
+    border-bottom: 5px solid #EBEBEC;
   }
   .wallets {
     position: absolute;
@@ -1439,8 +1421,8 @@ a, a:hover {
         color: #858585;
       }
       .details {
-        height: @wallet-height;
-        margin: 15px 30px 0 13px;
+        height: @wallet-height - 15px;
+        margin: 15px 30px 0;
       }
       .wallet-balance {
         font-size: 12px;
@@ -1468,7 +1450,7 @@ a, a:hover {
       .connection-light {
         position: absolute;
         top: 32px;
-        left: 5px;
+        left: 14px;
       }
       .go-side {
         height: @wallet-height;
