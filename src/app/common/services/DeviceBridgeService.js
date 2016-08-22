@@ -59,9 +59,9 @@ angular.module('kkCommon')
           isDeviceReady: function () {
             return Promise.resolve(false); //sendMessage({messageType: 'deviceReady'});
           },
-          getDevices: function() {
+          getDevices: function () {
             return sendMessage({messageType: 'GetDeviceList'})
-              .then(function(deviceList) {
+              .then(function (deviceList) {
                 console.log('Devices:', deviceList);
                 // return deviceList;
 
@@ -96,6 +96,10 @@ angular.module('kkCommon')
             var message = angular.extend({messageType: 'EnablePassphrase'}, options);
             return sendMessage(message);
           },
+          enablePolicy: function (options) {
+            var message = angular.extend({messageType: 'EnablePolicy'}, options);
+            return sendMessage(message);
+          },
           sendPin: function (options) {
             var message = angular.extend({messageType: 'PinMatrixAck'}, options);
             return sendMessage(message);
@@ -103,7 +107,7 @@ angular.module('kkCommon')
           initialize: function () {
             return sendMessage({messageType: 'Initialize'});
           },
-          initiateSession: function() {
+          initiateSession: function () {
             return sendMessage({messageType: 'InitiateSession'});
           },
           cancel: function () {
@@ -131,7 +135,7 @@ angular.module('kkCommon')
               messageType: 'FirmwareUpdate'
             });
           },
-          getUnusedExternalAddressNode: function(accountId, count) {
+          getUnusedExternalAddressNode: function (accountId, count) {
             var message = angular.extend({}, {
               messageType: 'GetUnusedExternalAddressNode',
               account: accountId,
@@ -160,13 +164,13 @@ angular.module('kkCommon')
               messageType: 'GetWalletNodes'
             });
           },
-          getTransactionHistory: function(walletId) {
+          getTransactionHistory: function (walletId) {
             return sendMessage({
               messageType: 'GetTransactionHistory',
               walletId: walletId
             })
           },
-          reloadBalances: function() {
+          reloadBalances: function () {
             return sendMessage({
               messageType: 'ReloadBalances'
             });
@@ -176,6 +180,18 @@ angular.module('kkCommon')
               messageType: 'RequestTransactionSignature'
             }, transactionRequest);
             return sendMessage(message);
+          },
+          requestCurrencyExchange: function (transactionRequest) {
+            var message = angular.extend({}, {
+              messageType: 'RequestCurrencyExchange'
+            }, transactionRequest);
+            return sendMessage(message);
+          },
+          confirmCurrencyExchange: function(transactionId) {
+            return sendMessage({
+              messageType: 'CurrencyExchangeConfirmation',
+              transactionId: transactionId
+            });
           },
           estimateFeeForTransaction: function (accountId, transactionAmount) {
             return sendMessage({
@@ -191,27 +207,28 @@ angular.module('kkCommon')
               feeLevel: feeLevel
             });
           },
-          addAccount: function(nodeVector, accountName) {
+          addAccount: function (nodeVector, accountName, coinType) {
             return sendMessage({
               messageType: 'AddAccount',
               nodeVector: nodeVector,
-              name: accountName
+              name: accountName,
+              coinType: coinType
             })
           },
-          deleteAccount: function(walletId) {
+          deleteAccount: function (walletId) {
             return sendMessage({
               messageType: 'DeleteAccount',
               accountId: walletId
             });
           },
-          updateWalletName: function(walletId, walletName) {
+          updateWalletName: function (walletId, walletName) {
             return sendMessage({
               messageType: 'ChangeWalletName',
               accountId: walletId,
               accountName: walletName
             });
           },
-          sendPassphrase: function(passphrase) {
+          sendPassphrase: function (passphrase) {
             return sendMessage({
               messageType: 'Passphrase',
               passphrase: passphrase

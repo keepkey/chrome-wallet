@@ -9,9 +9,8 @@
                     account="wallet"
                     single-account="singleAccount"
                     loading="false"
-                    name-display="name">
+                    name-display="name" currency="currency">
             </account-balance>
-
 
             <form name="form" novalidate>
                 <div class="form-input-container">
@@ -21,7 +20,7 @@
                                     recipient="userInput.address"
                                     field-name="dest"
                                     form="form"
-                                    label="Send bitcoin to:"
+                                    currency-name="{{currency}}"
                                     current-account="wallet.id"
                                     disabled="preparingTransaction">
                             </recipient-entry>
@@ -45,7 +44,8 @@
                                  ng-show="getFee(userInput.feeLevel) > 0">
                                 <label>Fee:</label>
                                 <bitcoin-amount class="fee"
-                                                amount="getFee(userInput.feeLevel)"></bitcoin-amount>
+                                                amount="getFee(userInput.feeLevel)"
+                                                currency="currency"></bitcoin-amount>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,8 @@
 
                 <button class="button" type="submit"
                         ng-disabled="preparingTransaction"
-                        ng-click="buildTransaction()">Send
+                        ng-click="buildTransaction()">
+                    {{buttonText}}
                 </button>
             </form>
         </div>

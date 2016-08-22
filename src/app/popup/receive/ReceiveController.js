@@ -22,6 +22,7 @@ angular.module('kkWallet')
       $scope.walletId = $routeParams.walletId;
       $scope.addressDepth = parseInt($routeParams.addressDepth) || 0;
       $scope.wallet = walletNodeService.getWalletById($scope.walletId);
+      $scope.currency = $scope.wallet.coinType;
       $scope.maxDepth = config.maxReceiveAddresses - 1;
 
       $scope.bitcoinLink = '';
@@ -75,7 +76,7 @@ angular.module('kkWallet')
         deviceBridgeService.getAddress({
           messageType: 'GetAddress',
           addressN: addressN,
-          coinName: "Bitcoin",
+          coinName: $scope.wallet.coinType,
           showDisplay: true
         });
       }

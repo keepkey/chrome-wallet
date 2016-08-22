@@ -18,18 +18,23 @@ angular.module('kkWallet')
       $scope.maxAmount = feeService.maxTransactionAmount;
 
       $scope.wallet = walletNodeService.getWalletById($routeParams.wallet);
+      $scope.currency = $scope.wallet.coinType;
       $scope.singleAccount = walletNodeService.wallets.length === 1;
       $scope.showForm = !!($scope.wallet.highConfidenceBalance);
       $scope.preparingTransaction = false;
 
-      $scope.supportsSecureTransfer = _.get(featureService.features,
+      $scope.buttonText = 'Send';
+
+      $scope.supportsSecureTransfer = featureService.get(
         "deviceCapabilities.supportsSecureAccountTransfer");
       $scope.oldFirmwareVersion =
         featureService.features.firmwareUpdateAvailable;
       $scope.vendorName =
         featureService.get('deviceCapabilities.vendorName');
+      $scope.supportsSecureExchange = featureService.getPolicySetting('ShapeShift');
 
-      $scope.showSecurityWarning = !$scope.supportsSecureTransfer;
+      $scope.showSecurityWarning =
+        !$scope.supportsSecureTransfer || !$scope.supportsSecureExchange;
 
       $scope.config = environmentConfig;
 
@@ -40,6 +45,7 @@ angular.module('kkWallet')
         amount: '',
         feeLevel: $scope.config.regularFeeLevel
       };
+
       $scope.buildTransaction = function () {
         if ($scope.form.$valid) {
           $scope.preparingTransaction = true;
@@ -50,16 +56,25 @@ angular.module('kkWallet')
           };
 
           var destinationAccount = _.get($scope.userInput, 'address.id');
+          var destinationCurrency = _.get($scope.userInput, 'address.coinType');
           if (destinationAccount) {
-            transactionService.transactionInProgress.sendToAccount = 
+            transactionService.transactionInProgress.sendToAccount =
               destinationAccount;
           } else {
             transactionService.transactionInProgress.sendTo = 
               $scope.userInput.address;
           }
 
-          deviceBridgeService.requestTransactionSignature(
-            transactionService.transactionInProgress);
+          var isCurrencyExchange =
+            !!destinationCurrency && (destinationCurrency !== $scope.currency);
+
+          if (!isCurrencyExchange) {
+            deviceBridgeService.requestTransactionSignature(
+              transactionService.transactionInProgress);
+          } else {
+            deviceBridgeService.requestCurrencyExchange(
+              transactionService.transactionInProgress);
+          }
           navigationService.setNextTransition('slideLeft');
         }
       };
@@ -77,6 +92,19 @@ angular.module('kkWallet')
           $scope.userInput.feeLevel);
       }
 
+      $scope.$watch('userInput.address', function() {
+        var destinationCurrency = _.get($scope.userInput.address, 'coinType');
+        if (destinationCurrency) {
+          if (destinationCurrency !== $scope.currency) {
+            $scope.buttonText = 'Convert and Send';
+          } else {
+            $scope.buttonText = 'Transfer';
+          }
+        } else {
+          $scope.buttonText = 'Send';
+        }
+      });
+      
       $scope.$watch('userInput.amount', function computeFees() {
         if ($scope.wallet.id) {
           feeService.compute($scope.wallet.id, 

@@ -1,23 +1,30 @@
-<div class="wallets">
-    <div class="wallet online"
-         ng-repeat="wallet in wallets | orderBy : 'accountNumber' track by wallet.id"
-         ng-click="goWallet(wallet)">
-        <div class="connection-light"></div>
-        <div class="go-side">
-            <div class="go-btn">
-                <a class="wallet-link">
-                    <div class="icon icon-forward"></div>
-                </a>
-            </div>
-        </div>
-        <div class="details">
-            <div class="wallet-name" ng-bind="wallet.name"></div>
-            <div>
-                <wallet-balance
-                        balance="wallet.highConfidenceBalance + wallet.lowConfidenceBalance"
-                        currency="wallet.coinType">
-                </wallet-balance>
-                <div class="account-number">Account #{{wallet.accountNumber}}</div>
+<div class="wallet-list-container" ng-class="{'filters-hidden': !showFilters}">
+    <div class="wallets">
+        <div class="wallet-group"
+             ng-repeat="walletGroup in walletGroups | orderBy : ['coinType'] track by walletGroup.coinType">
+            <div class="wallet online"
+                 ng-repeat="wallet in walletGroup.wallets | orderBy : ['accountNumber'] track by wallet.id"
+                 ng-click="goWallet(wallet)">
+                <div class="connection-light"></div>
+                <div class="go-side">
+                    <div class="go-btn">
+                        <a class="wallet-link">
+                            <div class="icon icon-forward"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="wallet-name" ng-bind="wallet.name"></div>
+                    <div>
+                        <wallet-balance
+                                balance="wallet.highConfidenceBalance + wallet.lowConfidenceBalance"
+                                currency="wallet.coinType">
+                        </wallet-balance>
+                        <div class="account-number">
+                            Account #{{wallet.accountNumber}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

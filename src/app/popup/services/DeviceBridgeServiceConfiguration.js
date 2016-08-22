@@ -40,7 +40,16 @@ angular.module('kkWallet')
         '$injector', 'NavigationService',
         function ($injector, navigationService) {
           if (this.request.message.code !== 'ButtonRequest_Address') {
-            $injector.invoke(navigateToLocation('/buttonRequest/:code'), this);
+            var fields, policy, state;
+            var rawData = _.get(this, 'request.message.data');
+            if (rawData) {
+              fields = rawData.split(':');
+              this.request.message.policy = fields[0];
+              this.request.message.state = fields[1];
+              $injector.invoke(navigateToLocation('/buttonRequest/:code/:policy/:state'), this);
+            } else {
+              $injector.invoke(navigateToLocation('/buttonRequest/:code'), this);
+            }
           }
         }]);
       deviceBridgeServiceProvider.when('WordRequest',
@@ -76,6 +85,11 @@ angular.module('kkWallet')
                 'Your PIN was successfully changed!');
               destination = '/device';
               break;
+            case 'Policies applied':
+              notificationMessageService.set(
+                'Your device policies were updated!');
+              navigateToWalletRoot();
+              break;
             case 'Device reset':
             case 'Device recovered':
               navigateToWalletRoot();
@@ -108,7 +122,8 @@ angular.module('kkWallet')
             'Reset cancelled',
             'Recovery cancelled',
             'Apply settings cancelled',
-            'PIN change cancelled'
+            'PIN change cancelled',
+            'Apply policy cancelled'
           ];
           if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
             $injector.invoke(navigateToPreviousLocation(), this);
@@ -192,6 +207,14 @@ angular.module('kkWallet')
                 }
               });
           }
+        }
+      ]);
+
+      deviceBridgeServiceProvider.when('RequestCurrencyExchangeConfirmation', [
+        'NavigationService', 'ExchangeService',
+        function(navigationService, exchangeService) {
+          exchangeService.set(this.request.message);
+          navigationService.go('/confirm-exchange');
         }
       ]);
 

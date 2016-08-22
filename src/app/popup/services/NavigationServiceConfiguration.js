@@ -44,6 +44,10 @@ angular.module('kkWallet')
           templateUrl: 'app/popup/buttonRequest/signTx.tpl.html',
           goable: false
         })
+        .when('/buttonRequest/button_request_sign_exchange', {
+          templateUrl: 'app/popup/buttonRequest/sign-exchange.tpl.html',
+          goable: false
+        })
         .when('/buttonRequest/button_request_fee_over_threshold', {
           templateUrl: 'app/popup/buttonRequest/feeOverThreshhold.tpl.html',
           goable: false
@@ -70,6 +74,10 @@ angular.module('kkWallet')
         })
         .when('/buttonRequest/button_request_confirm_transfer_to_account', {
           templateUrl: 'app/popup/buttonRequest/confirmTransferToAccount.tpl.html',
+          goable: false
+        })
+        .when('/buttonRequest/button_request_apply_policies/:policy/:state', {
+          templateUrl: 'app/popup/buttonRequest/apply-policy.tpl.html',
           goable: false
         })
         .when('/buttonRequest/:code', {
@@ -210,6 +218,10 @@ angular.module('kkWallet')
         })
         .when('/prerelease-device', {
           templateUrl: 'app/popup/prerelease-device/prerelease-device.tpl.html',
+          goable: false
+        })
+        .when('/confirm-exchange', {
+          templateUrl: 'app/popup/confirm-exchange/confirm-exchange.tpl.html',
           goable: false
         })
         .otherwise({

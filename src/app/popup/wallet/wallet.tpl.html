@@ -13,7 +13,7 @@
                 loading="receiveDisabled()"
                 name-display="name"
                 single-account="singleAccount"
-                account-settings="accountSettings">
+                account-settings="accountSettings" currency="currency">
         </account-balance>
 
         <div class="menu">
@@ -28,12 +28,12 @@
                 <li>
                     <button class="menu-item" ng-click="send()"
                             ng-disabled="!sendAllowed()">
-                        Send Bitcoin
+                        Send {{currency}}
                     </button>
                 </li>
                 <li>
                     <button class="menu-item" ng-click="receive()"
-                            ng-disabled="receiveDisabled()">Receive Bitcoin
+                            ng-disabled="receiveDisabled()">Receive {{currency}}
                     </button>
                 </li>
                 <li>
@@ -43,7 +43,7 @@
                 </li>
                 <li>
                     <button class="menu-item" ng-click="openBuyBitcoinWindow()">
-                        Buy &amp; Sell Bitcoin
+                        Buy &amp; Sell {{currency}}
                     </button>
                 </li>
                 <li ng-if="offerKeepKeyPurchase">
@@ -60,12 +60,16 @@
         <div class="left">
             <strong><device-label></device-label></strong> connected
         </div>
-        <add-account-button class="text-link-button right"
-                            ng-if="singleAccount && !receiveDisabled()">
-        </add-account-button>
+        <div class="new-account-link text-link-button right"
+             ng-if="singleAccount"
+             ng-click="go('/accountConfig', 'slideLeft')">
+            Add Account
+        </div>
 
         <div class="wallet-name right" ng-if="!singleAccount"
-             ng-disabled="receiveDisabled()">Account #{{wallet.accountNumber}}</div>
+             ng-disabled="receiveDisabled()">
+            {{wallet.coinType}} Account #{{wallet.accountNumber}}
+        </div>
     </div>
 
     <notification-message></notification-message>

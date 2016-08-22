@@ -10,7 +10,7 @@ angular.module('kkCommon')
       function updateWalletNodes(newNodes) {
         if (newNodes.length === 0) {
           // Bootstrap the first account
-          deviceBridgeService.addAccount('m/44\'/0\'/0\'', 'Main Account');
+          deviceBridgeService.addAccount('m/44\'/0\'/0\'', 'Main Account', 'Bitcoin');
           return;
         }
         _.each(newNodes, function (node) {

@@ -6,7 +6,8 @@ angular.module('kkWallet')
       scope: {
         balance: '=',
         pending: '=',
-        loading: '='
+        loading: '=',
+        currency: '='
       },
       templateUrl: 'app/popup/directives/walletBalance.tpl.html'
     };

@@ -2,19 +2,19 @@
     <script type="text/ng-template" id="customTemplate.html">
         <a>
             <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
-            (Account #{{match.model.accountNumber}})
+            ({{match.model.coinType}} account #{{match.model.accountNumber}})
         </a>
     </script>
     <label>{{labelVariation}}</label>
     <div class="invalid-recipient" ng-messages="field.$error" role="alert" ng-show="form.$submitted">
-        <div ng-message="required">
-            Required
-        </div>
+        <div ng-message="required">Required</div>
+        <div ng-message="pattern">Invalid address / unknown account</div>
     </div>
     <input type="text"
            name="{{fieldName}}"
            autocomplete="off"
            ng-model="selected"
+           ng-pattern="pattern"
            placeholder="{{placeholder}}"
            uib-typeahead="account as account.name for account in accounts | filter:{name:$viewValue}"
            typeahead-template-url="customTemplate.html"

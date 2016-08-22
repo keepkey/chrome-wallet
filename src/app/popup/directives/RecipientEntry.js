@@ -8,37 +8,71 @@ angular.module('kkWallet')
         fieldName: '@',
         form: '=',
         disabled: '=',
-        label: '@',
-        currentAccount: '='
+        currentAccountNumber: '=currentAccount',
+        currencyName: '@'
       },
       link: function ($scope) {
         $scope.field = _.get($scope.form, $scope.fieldName);
       },
-      controller: ['$scope', 'WalletNodeService', 'DeviceFeatureService',
-        function ($scope, walletNodeService, featureService) {
-          $scope.labelVariation = $scope.label;
-          if (walletNodeService.wallets.length > 1 &&
-            _.get(featureService.features,
-              "deviceCapabilities.supportsSecureAccountTransfer")) {
+      controller: [
+        '$scope', 'WalletNodeService', 'DeviceFeatureService',
+        'CurrencyLookupService',
+        function ($scope, walletNodeService, featureService,
+                  currencyLookupService) {
+          $scope.labelVariation = 'Send ' + $scope.currencyName + ' to:';
+
+          $scope.currentAccount =
+            walletNodeService.getWalletById($scope.currentAccountNumber);
+          var addressValidationRegExp = currencyLookupService
+            .getCurrencyAddressRegExp($scope.currentAccount.coinType);
+
+          if (walletNodeService.wallets.length > 1) {
             $scope.placeholder = "Enter address or select an account...";
-            $scope.accounts = _.sortBy(_.reject(walletNodeService.wallets, {
-              id: $scope.currentAccount
-            }), 'name');
+            var walletList = _(walletNodeService.wallets)
+              .reject({
+                id: $scope.currentAccountNumber
+              });
+
+            if (!_.get(featureService.features,
+                "deviceCapabilities.supportsSecureAccountTransfer")) {
+              walletList = _(walletNodeService.wallets)
+                .reject({
+                  coinType: $scope.currentAccount.coinType
+                })
+            }
+            $scope.accounts = walletList.sortBy('name').value();
           } else {
             $scope.placeholder = "Enter an address...";
             $scope.accounts = [];
           }
+          var patterns = [addressValidationRegExp.source];
+          Array.prototype.push.apply(patterns, _.map($scope.accounts, function (account) {
+            return '^' + account.name + '$';
+          }));
+
+          $scope.pattern = patterns.join('|');
+
           $scope.$watch('selected', function () {
-            var accountNumber = _.get($scope.selected, 'accountNumber');
-            if (accountNumber) {
-              $scope.labelVariation = 'Send bitcoin to account:';
+            var label;
+            var destinationAccount = _.get($scope.selected, 'accountNumber');
+            if (destinationAccount) {
+              if ($scope.currentAccount.coinType === $scope.selected.coinType) {
+                label = ['Transfer', $scope.currencyName, 'to account'];
+              } else {
+                label = [
+                  'Convert', $scope.currencyName,
+                  'to', $scope.selected.coinType,
+                  'and send to'
+                ];
+              }
             } else if (_.isString($scope.selected) &&
-              $scope.selected.match(/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/)) {
-              $scope.labelVariation = 'Send bitcoin to address:';
+              $scope.selected.match(addressValidationRegExp)) {
+              label = ['Send', $scope.currencyName, 'to address'];
             } else {
-              $scope.labelVariation = $scope.label;
+              label = ['Send', $scope.currencyName, 'to'];
             }
-          })
+            $scope.labelVariation = label.join(' ') + ':';
+          });
 
         }
       ],

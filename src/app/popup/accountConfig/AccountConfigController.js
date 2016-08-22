@@ -1,8 +1,23 @@
 angular.module('kkWallet')
-  .controller('AccountConfigController', ['$scope', '$routeParams', 'WalletNodeService', 'DeviceFeatureService', 'DeviceBridgeService', 'NotificationMessageService',
-    function WalletController($scope, $routeParams, walletNodeService, deviceFeatureService, deviceBridgeService, notificationMessageService) {
+  .controller('AccountConfigController', [
+    '$scope', '$routeParams', 'WalletNodeService', 'DeviceFeatureService',
+    'DeviceBridgeService', 'NotificationMessageService',
+    'CurrencyLookupService',
+    function WalletController($scope, $routeParams, walletNodeService,
+                              deviceFeatureService, deviceBridgeService,
+                              notificationMessageService,
+                              currencyLookupService) {
       $scope.walletList = walletNodeService.wallets;
       $scope.walletName = '';
+
+      $scope.assetTypes = currencyLookupService.getCurrencyTypes();
+
+      $scope.selectedAsset = 'Bitcoin';
+
+      $scope.setAssetType = function (assetType) {
+        $scope.selectedAsset = assetType;
+        return false;
+      };
 
       var wallet = _.find($scope.walletList, {
         id: $routeParams.accountId
@@ -19,10 +34,18 @@ angular.module('kkWallet')
       $scope.addAccount = function () {
         if ($scope.form.$valid) {
           $scope.creating = true;
-          var newAccountNode = findNextAccountNode();
-          console.log('new account node path:', newAccountNode);
-          notificationMessageService.set('Your new account was successfully created!');
-          deviceBridgeService.addAccount(newAccountNode, $scope.walletName);
+          var lastAccount = getLastAccount();
+          if (lastAccount && !lastAccount.hasTransactionHistory) {
+            $scope.go(
+              '/failure/bip44_account_gap_violation/' + lastAccount.name,
+              'slideLeft');
+          } else {
+            var newAccountNode = findNextAccountNode(lastAccount);
+            console.log('new account node path:', newAccountNode);
+            notificationMessageService.set('Your new account was successfully created!');
+            deviceBridgeService.addAccount(newAccountNode, $scope.walletName,
+              $scope.selectedAsset);
+          }
         }
       };
 
@@ -41,13 +64,26 @@ angular.module('kkWallet')
         }
       });
 
-      function findNextAccountNode() {
-        var lastAccount = _.last(_.sortBy($scope.walletList, function(account) {
+      function getLastAccount() {
+        var newAccountNumber = 0;
+        var accounts = _.filter($scope.walletList, {
+          coinType: $scope.selectedAsset
+        });
+        return _.last(_.sortBy(accounts, function (account) {
           return parseInt(account.accountNumber);
         }));
-        var lastAccountNumber = parseInt(lastAccount.accountNumber);
-        return "m/44'/0'/" + (lastAccountNumber + 1) + "'";
+      }
 
+      function findNextAccountNode(lastAccount) {
+        var newAccountNumber = 0;
+        if (!_.isUndefined(lastAccount)) {
+          newAccountNumber = parseInt(lastAccount.accountNumber) + 1;
+        }
+        return [
+          "m", "44'",
+          currencyLookupService.getCurrencyCode($scope.selectedAsset),
+          newAccountNumber + "'"
+        ].join('/');
       }
     }
   ]);
