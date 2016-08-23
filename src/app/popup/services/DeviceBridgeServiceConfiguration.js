@@ -96,7 +96,7 @@ angular.module('kkWallet')
               break;
             case 'Transaction sent':
               notificationMessageService.set(
-                'Your bitcoin transaction was successfully sent!');
+                'Your transaction was successfully sent!');
               navigateToWalletRoot();
               break;
             case 'Account name updated':
