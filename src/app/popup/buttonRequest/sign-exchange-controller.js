@@ -5,7 +5,6 @@ angular.module('kkWallet')
     function ($scope) {
       $scope.cancelExchangeRequest = function() {
         $scope.cancelDeviceOperation();
-        $scope.goBack();
       }
     }
   ]);
