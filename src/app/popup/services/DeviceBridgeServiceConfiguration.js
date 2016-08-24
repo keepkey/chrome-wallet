@@ -124,7 +124,7 @@ angular.module('kkWallet')
             'Apply settings cancelled',
             'PIN change cancelled',
             'Apply policy cancelled',
-            'Exchange request failed: cancelled'
+            'Exchange cancelled'
           ];
           if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
             $injector.invoke(navigateToPreviousLocation(), this);

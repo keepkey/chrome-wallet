@@ -2,7 +2,7 @@ angular.module('kkWallet')
   .controller('FailureController', ['$scope', '$timeout', 'FailureMessageService', 'DeviceBridgeService', 'NavigationService',
     function FailureController($scope, $timeout, failureMessageService, deviceBridgeService, navigationService) {
       $scope.failures = _.map(failureMessageService.get(), function(failure) {
-          if (failure.message.length) {
+          if (_.isArray(failure.message)) {
             return failure.message.pop();
           } else if (failure.message) {
             return failure.message;
