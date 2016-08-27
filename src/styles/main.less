@@ -40,7 +40,7 @@
 @interior-border-color: #ECECED;
 @interior-border-width: 1px;
 
-@header-footer-background-color: #FDFDFD;
+@header-footer-background-color: #F8F8F8;
 
 @charset "UTF-8";
 
@@ -129,6 +129,14 @@ header {
   top: 0px;
   left: 0;
   width: 100%;
+  .title {
+    text-align: center;
+    font-size: 17px;
+    color: #666;
+    margin: 13px 45px;
+    overflow-x: hidden;
+    white-space: nowrap;
+    letter-spacing: 2px;  }
 }
 
 form {
@@ -339,24 +347,37 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   transform: rotate(360deg);
 }
 
+.recipient-entry {
+  position: relative;
+  input {
+    margin: 0;
+  }
+  label {
+    float: none;
+  }
+  button {
+    width: 100%;
+  }
+  .dropdown-menu {
+    width: 100%;
+    max-height: 100px;
+    overflow-y: scroll;
+  }
+  .dropdown {
+    width: 100%;
+  }
+}
+
+.shapeshift-market-data {
+  text-align: center;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
 #build-transaction {
   form {
     border-top: 1px solid #ECECED;
     background-color: #FDFDFD;
-  }
-  .recipient-entry {
-    position: relative;
-    input {
-      margin: 0;
-    }
-    label {
-      float: none;
-    }
-    .dropdown-menu {
-      width: 100%;
-      max-height: 100px;
-      overflow-y: scroll;
-    }
   }
   .fee-display {
     transition: 0.2s all ease-in-out;
@@ -706,7 +727,7 @@ button.fa {
   height: 30px;
   width: 30px;
   border-radius: 200px;
-  top: 10px;
+  top: 8px;
   cursor: pointer;
   color: #fff;
   font-size: 30px;
@@ -1335,6 +1356,7 @@ input::-webkit-inner-spin-button {
   position: absolute;
   font-size: 11px;
   font-weight: 500;
+  background-color: @header-footer-background-color;
   strong {
     color: #999;
   }
@@ -1604,6 +1626,12 @@ a, a:hover {
     margin: 25px 0;
     text-align: center;
     font-family: "Open Sans";
+  }
+}
+
+#exchange {
+  .recipient-entry .dropdown-menu {
+    max-height: 80px;
   }
 }
 

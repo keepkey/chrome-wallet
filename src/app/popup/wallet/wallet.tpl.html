@@ -37,6 +37,12 @@
                     </button>
                 </li>
                 <li>
+                    <button class="menu-item" ng-click="exchange()"
+                            ng-disabled="!sendAllowed()">
+                        Exchange with ShapeShift
+                    </button>
+                </li>
+                <li>
                     <button class="menu-item" ng-click="showTransactions()">
                         Transactions
                     </button>

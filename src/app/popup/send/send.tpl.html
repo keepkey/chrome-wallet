@@ -22,10 +22,14 @@
                                     form="form"
                                     currency-name="{{currency}}"
                                     current-account="wallet.id"
+                                    address-allowed="true"
+                                    transfer-allowed="true"
+                                    exchange-allowed="true"
                                     disabled="preparingTransaction">
                             </recipient-entry>
 
                             <amount-entry
+                                    label="Amount"
                                     amount="userInput.amount"
                                     max-amount="maxAmount.max"
                                     field-name="amount"

@@ -9,7 +9,10 @@ angular.module('kkWallet')
         form: '=',
         disabled: '=',
         currentAccountNumber: '=currentAccount',
-        currencyName: '@'
+        currencyName: '@',
+        addressAllowed: '@',
+        transferAllowed: '@',
+        exchangeAllowed: '@'
       },
       link: function ($scope) {
         $scope.field = _.get($scope.form, $scope.fieldName);
@@ -19,10 +22,18 @@ angular.module('kkWallet')
         'CurrencyLookupService',
         function ($scope, walletNodeService, featureService,
                   currencyLookupService) {
+
+          $scope.acceptAddress = ($scope.addressAllowed === 'true');
+          $scope.acceptTransfer = ($scope.transferAllowed === 'true');
+          $scope.acceptExchange = ($scope.exchangeAllowed === 'true');
+
+          $scope.useDropdown = !$scope.acceptAddress;
+
           $scope.labelVariation = 'Send ' + $scope.currencyName + ' to:';
 
           $scope.currentAccount =
             walletNodeService.getWalletById($scope.currentAccountNumber);
+
           var addressValidationRegExp = currencyLookupService
             .getCurrencyAddressRegExp($scope.currentAccount.coinType);
 
@@ -34,9 +45,16 @@ angular.module('kkWallet')
               });
 
             if (!_.get(featureService.features,
-                "deviceCapabilities.supportsSecureAccountTransfer")) {
+                "deviceCapabilities.supportsSecureAccountTransfer") || !$scope.acceptTransfer) {
               walletList = _(walletNodeService.wallets)
                 .reject({
+                  coinType: $scope.currentAccount.coinType
+                })
+            }
+
+            if (!$scope.acceptExchange) {
+              walletList = _(walletNodeService.wallets)
+                .filter({
                   coinType: $scope.currentAccount.coinType
                 })
             }
@@ -45,12 +63,23 @@ angular.module('kkWallet')
             $scope.placeholder = "Enter an address...";
             $scope.accounts = [];
           }
-          var patterns = [addressValidationRegExp.source];
+          var patterns = [];
+          if ($scope.acceptAddress) {
+            patterns.push(addressValidationRegExp.source);
+          }
           Array.prototype.push.apply(patterns, _.map($scope.accounts, function (account) {
             return '^' + account.name + '$';
           }));
 
           $scope.pattern = patterns.join('|');
+
+          if ($scope.useDropdown && $scope.accounts.length) {
+            $scope.selected = $scope.accounts[0];
+          }
+
+          $scope.setDestinationAccount = function(account) {
+            $scope.selected = account;
+          };
 
           $scope.$watch('selected', function () {
             var label;

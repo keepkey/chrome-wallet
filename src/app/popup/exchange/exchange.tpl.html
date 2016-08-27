@@ -1,0 +1,96 @@
+<section id="exchange" ng-controller="ExchangeController">
+    <header>
+        <div class="title">Exchange</div>
+        <back-button class="button-left header-button"></back-button>
+    </header>
+
+    <div class="content">
+        <div ng-show="showForm">
+            <account-balance
+                    account="wallet"
+                    single-account="singleAccount"
+                    loading="false"
+                    name-display="name" currency="currency">
+            </account-balance>
+
+            <form name="form" novalidate>
+                <div class="form-input-container">
+                    <div class="content-form-inner">
+                        <div class="content-inner-centering">
+                            <amount-entry
+                                    label="{{currency}} Amount"
+                                    amount="userInput.depositAmount"
+                                    max-amount="maxAmount.max"
+                                    field-name="deposit-amount"
+                                    form="form"
+                                    disable="preparingTransaction">
+                            </amount-entry>
+
+                            <shapeshift-market-data
+                                    deposit-currency="currency"
+                                    withdrawal-currency="userInput.address.coinType">
+                            </shapeshift-market-data>
+
+                            <recipient-entry
+                                    recipient="userInput.address"
+                                    field-name="dest"
+                                    form="form"
+                                    currency-name="{{currency}}"
+                                    current-account="wallet.id"
+                                    address-allowed="false"
+                                    transfer-allowed="false"
+                                    exchange-allowed="true"
+                                    disabled="preparingTransaction">
+                            </recipient-entry>
+
+                            <div class="amount-entry">
+                                <label>{{userInput.address.coinType}} Amount:</label>
+                                <div class="invalid" ng-messages="field.$error" role="alert" ng-show="form.$submitted">
+                                    <div ng-message="required">
+                                        Required
+                                    </div>
+                                    <div ng-message="max">
+                                        Not Enough Funds
+                                    </div>
+                                    <div ng-message="min">
+                                        Too Low
+                                    </div>
+                                    <div ng-message="number">
+                                        Invalid Amount
+                                    </div>
+                                </div>
+                                <input
+                                        type="number"
+                                        name="withdrawal-amount"
+                                        ng-model="userInput.withdrawalAmount"
+                                        ng-disabled="preparingTransaction"
+                                        ng-change="console.log('withdrawal changed')"
+                                        required>
+                            </div>
+
+                            <div class="fee-display"
+                                 ng-show="getFee(userInput.feeLevel) > 0">
+                                <label>Fee:</label>
+                                <bitcoin-amount class="fee"
+                                                amount="getFee(userInput.feeLevel)"
+                                                currency="currency"></bitcoin-amount>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="button" type="submit"
+                        ng-disabled="preparingTransaction"
+                        ng-click="buildTransaction()">
+                    {{buttonText}}
+                </button>
+            </form>
+        </div>
+        <div ng-hide="showForm">
+            Can't send from an account with a high confidence balance of 0
+        </div>
+    </div>
+    <ng-include src="'app/popup/send/preparing.tpl.html'"
+                ng-if="preparingTransaction"></ng-include>
+
+</section>

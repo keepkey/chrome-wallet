@@ -5,12 +5,13 @@
             ({{match.model.coinType}} account #{{match.model.accountNumber}})
         </a>
     </script>
-    <label>{{labelVariation}}</label>
+    <label ng-hide="useDropdown">{{labelVariation}}</label>
     <div class="invalid-recipient" ng-messages="field.$error" role="alert" ng-show="form.$submitted">
         <div ng-message="required">Required</div>
         <div ng-message="pattern">Invalid address / unknown account</div>
     </div>
-    <input type="text"
+    <input ng-if="!useDropdown"
+           type="text"
            name="{{fieldName}}"
            autocomplete="off"
            ng-model="selected"
@@ -22,4 +23,19 @@
            typeahead-show-hint="true"
            typeahead-min-length="0"
            required>
+    <div class="btn-group" uib-dropdown is-open="status.isopen" ng-if="useDropdown">
+        <button type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+            {{selected.name}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem" ng-repeat="account in accounts"
+                ng-click="setDestinationAccount(account)">
+                <a href="#" ng-click="$event.preventDefault()">
+                    {{account.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
 </div>

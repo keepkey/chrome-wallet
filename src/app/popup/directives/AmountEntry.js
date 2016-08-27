@@ -8,7 +8,8 @@ angular.module('kkWallet')
         maxAmount: '=',
         fieldName: '@',
         form: '=',
-        disabled: '='
+        disabled: '=',
+        label: '@'
       },
       controller: ['$scope', 'FeeService',
         function ($scope, feeService) {

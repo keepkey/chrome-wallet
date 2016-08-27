@@ -23,6 +23,10 @@ angular.module('kkWallet')
         $scope.go(['/receive', $scope.walletId].join('/'), 'slideLeft');
       };
 
+      $scope.exchange = function () {
+        $scope.go(['/exchange', $scope.walletId].join('/'), 'slideLeft');
+      };
+
       $scope.sendAllowed = function () {
         return (
           !!_.get($scope, 'wallet.wallet.xpub') &&
