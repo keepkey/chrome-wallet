@@ -1,6 +1,7 @@
 <div class="amount-entry">
     <label>Amount:</label>
-    <div class="invalid" ng-messages="field.$error" role="alert" ng-show="form.$submitted">
+    <div class="invalid" ng-messages="field.$error" role="alert"
+         ng-show="form.$submitted">
         <div ng-message="required">
             Required
         </div>
@@ -14,13 +15,15 @@
             Invalid Amount
         </div>
     </div>
-    <input
-            ng-keypress="fillMaxDetector($event)"
-            type="number"
-            name="{{fieldName}}"
-            ng-model="amount"
-            ng-disabled="disabled || maxIsDust"
-            required
-            min="{{dust / 100000000}}"
-            max="{{getMaxAmount()}}">
+    <div class="input-field">
+        <input
+                ng-keypress="fillMaxDetector($event)"
+                type="number"
+                name="{{fieldName}}"
+                ng-model="amount"
+                ng-disabled="disabled || maxIsDust"
+                required
+                min="{{dust / 100000000}}"
+                max="{{getMaxAmount()}}">
+    </div>
 </div>
