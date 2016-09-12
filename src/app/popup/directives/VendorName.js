@@ -11,6 +11,9 @@ angular.module('kkWallet')
         function ($scope, deviceFeatureService) {
           $scope.vendorName =
             deviceFeatureService.get('deviceCapabilities.vendorName');
+          if (!$scope.vendorName) {
+            $scope.vendorName = 'device';
+          }
         }
       ],
       template: '<span class="vendor-name"> {{before}}{{vendorName}}{{after}} </span>'

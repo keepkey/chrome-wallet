@@ -8,12 +8,16 @@ angular.module('kkWallet')
         maxAmount: '=',
         fieldName: '@',
         form: '=',
-        disabled: '='
+        disabled: '=',
+        currency: '='
       },
-      controller: ['$scope', 'FeeService',
-        function ($scope, feeService) {
-          $scope.dust = 546;
-          
+      controller: ['$scope', 'CurrencyLookupService',
+        function ($scope, currencyLookupService) {
+          $scope.dust = currencyLookupService.getDust($scope.currency);
+
+          $scope.symbol = currencyLookupService
+            .getCurrencySymbol($scope.currency);
+
           $scope.fillMaxDetector = function(ev) {
             if (ev.charCode === 33) {
               $scope.amount = $scope.getMaxAmount();

@@ -114,27 +114,55 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('Failure', [
         '$injector', 'FailureMessageService', 'NavigationService',
         function ($injector, failureMessageService, navigationService) {
-          const IGNORED_FAILURES = [
-            'Firmware erase cancelled',
-            'PIN Cancelled',
-            'Signing cancelled by user',
-            'Wipe cancelled',
-            'Reset cancelled',
-            'Recovery cancelled',
-            'Apply settings cancelled',
-            'PIN change cancelled',
-            'Apply policy cancelled',
-            'Exchange cancelled'
-          ];
-          if (_.indexOf(IGNORED_FAILURES, this.request.message.message) !== -1) {
-            $injector.invoke(navigateToPreviousLocation(), this);
-            return;
-          } else if (this.request.message.message === 'Show address cancelled') {
-            return;
+          const GO_BACK = 0;
+          const DO_NOTHING = 1;
+          const FailureModes = [{
+            message: 'Firmware erase cancelled',
+            action: GO_BACK
+          }, {
+            message: 'PIN Cancelled',
+            action: GO_BACK
+          }, {
+            message: 'Signing cancelled by user',
+            action: GO_BACK
+          }, {
+            message: 'Wipe cancelled',
+            action: GO_BACK
+          }, {
+            message: 'Reset cancelled',
+            action: GO_BACK
+          }, {
+            message: 'Recovery cancelled',
+            action: GO_BACK
+          }, {
+            message: 'Apply settings cancelled',
+            action: GO_BACK
+          }, {
+            message: 'PIN change cancelled',
+            action: GO_BACK
+          }, {
+            message: 'Exchange cancelled',
+            action: GO_BACK
+          }, {
+            message: 'Show address cancelled',
+            action: DO_NOTHING
+          }, {
+            message: 'Aborted',
+            action: DO_NOTHING
+          }];
+
+          var action =
+            _.find(FailureModes, {message: this.request.message.message});
+          switch (_.get(action, 'action')) {
+            case GO_BACK:
+              $injector.invoke(navigateToPreviousLocation(), this);
+            case DO_NOTHING:
+              return;
+            default:
+              failureMessageService.add(this.request.message);
+              navigationService.setNextDestination();
+              $injector.invoke(navigateToLocation('/failure/:message'), this);
           }
-          failureMessageService.add(this.request.message);
-          navigationService.setNextDestination();
-          $injector.invoke(navigateToLocation('/failure/:message'), this);
         }
       ]);
       deviceBridgeServiceProvider.when('TxRequest', [
