@@ -21,6 +21,13 @@ angular.module('kkCommon')
         coinTypeCode: "3'",
         addressRegExp: /^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$/,
         dust: 100000000
+      },
+      Ethereum: {
+        name: 'Ethereum',
+        currencySymbol: 'ETH',
+        coinTypeCode: "60'",
+        addressRegExp: /^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$/,
+        dust: "420000000000000"
       }
     };
 
