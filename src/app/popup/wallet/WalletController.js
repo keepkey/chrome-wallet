@@ -7,8 +7,6 @@ angular.module('kkWallet')
 
       updateWallet();
 
-      $scope.singleAccount = $scope.walletList.length === 1;
-
       $scope.firmwareUpdateAvailable =
         deviceFeatureService.features.firmwareUpdateAvailable;
       
@@ -25,17 +23,12 @@ angular.module('kkWallet')
 
       $scope.sendAllowed = function () {
         return (
-          !!_.get($scope, 'wallet.wallet.xpub') &&
-          !!_.get($scope, 'wallet.nodePath') &&
-          !!_.get($scope, 'wallet.highConfidenceBalance')
+          !$scope.wallet.highConfidenceBalance.isZero()
         );
       };
 
       $scope.receiveDisabled = function () {
-        return !(
-          !!_.get($scope, 'wallet.wallet.xpub') &&
-          !!_.get($scope, 'wallet.nodePath')
-        );
+        return false; //TODO Inline this
       };
 
       $scope.refresh = function () {
