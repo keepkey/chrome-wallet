@@ -247,6 +247,12 @@ angular.module('kkWallet')
         }
       ]);
 
+      deviceBridgeServiceProvider.when('ReceiveAddress', [
+        'ReceiveAddressService', function(receiveAddressService) {
+          receiveAddressService.set(this.request.message);
+        }
+      ]);
+
       deviceBridgeServiceProvider.when('unknownSender', function () {
         this.sendResponse({
           messageType: "Error",

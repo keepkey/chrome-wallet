@@ -135,12 +135,12 @@ angular.module('kkCommon')
               messageType: 'FirmwareUpdate'
             });
           },
-          getUnusedExternalAddressNode: function (accountId, count) {
-            var message = angular.extend({}, {
-              messageType: 'GetUnusedExternalAddressNode',
+          getReceiveAddress: function (accountId, depth) {
+            var message = {
+              messageType: 'GetReceiveAddress',
               account: accountId,
-              count: count
-            });
+              depth: depth
+            };
             return sendMessage(message);
           },
           getAddress: function (options) {
