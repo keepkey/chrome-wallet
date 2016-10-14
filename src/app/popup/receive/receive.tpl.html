@@ -30,9 +30,11 @@
                 </div>
             </div>
             <div class="address-nav prev fa fa-chevron-left"
+                 ng-hide="isSingleAddressAccount"
                  ng-class="{disabled: addressDepth <= 0}"
                  ng-click="showAnotherAddress(addressDepth - 1)"></div>
             <div class="address-nav next fa fa-chevron-right"
+                 ng-hide="isSingleAddressAccount"
                  ng-class="{disabled: addressDepth >= maxDepth}"
                  ng-click="showAnotherAddress(addressDepth + 1)"></div>
         </div>

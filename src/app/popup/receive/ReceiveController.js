@@ -24,6 +24,7 @@ angular.module('kkWallet')
       $scope.wallet = walletNodeService.getWalletById($scope.walletId);
       $scope.currency = $scope.wallet.coinType;
       $scope.maxDepth = config.maxReceiveAddresses - 1;
+      $scope.isSingleAddressAccount = ($scope.wallet.addressStrategy === 'single');
 
       receiveAddressService.clear();
       deviceBridgeService.getReceiveAddress($scope.walletId, $scope.addressDepth);
