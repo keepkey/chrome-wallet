@@ -398,21 +398,26 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 }
 
 .active-keys {
-  margin: 20px 32px 20px 42px;
+  margin: 10px 32px 10px 42px;
+  .legend-header {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+  }
   .key {
     float: left;
     margin: 0 5px 5px 0;
     width: 60px;
-    height: 30px;
-    line-height: 30px;
     text-align: center;
     background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  .disabled {
-    color: #ccc;
-    background-color: inherit;
+    color: inherit;
+    .fa {
+      color: green;
+    }
+    &.disabled .fa {
+      color: #f00;
+    }
   }
   .error {
     color: #f00;

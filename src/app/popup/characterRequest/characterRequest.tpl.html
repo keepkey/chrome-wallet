@@ -14,42 +14,45 @@
         </h2>
 
         <div class="active-keys clearfix">
+            <div class="legend-header">Available Keys</div>
             <div class="key letter" ng-class="letterClasses"
-                 tooltip-template="'app/popup/characterRequest/letterTooltip.tpl.html'"
+                 uib-tooltip-template="'app/popup/characterRequest/letterTooltip.tpl.html'"
                  tooltip-placement="bottom"
                  tooltip-append-to-body="true"
                  tooltip-class="key-help letters">
-                A - Z
+                <i class="fa" ng-class="letterIcon"></i> A - Z
             </div>
             <div class="key space-bar" ng-class="spaceBarClasses"
-                 tooltip-template="'app/popup/characterRequest/spaceTooltip.tpl.html'"
+                 uib-tooltip-template="'app/popup/characterRequest/spaceTooltip.tpl.html'"
                  tooltip-placement="bottom"
                  tooltip-append-to-body="true"
                  tooltip-class="key-help space">
-                Space
+                <i class="fa" ng-class="spaceBarIcon"></i> Space
             </div>
             <div class="key end-of-key" ng-class="enterClasses"
-                tooltip-template="'app/popup/characterRequest/enterTooltip.tpl.html'"
-                tooltip-placement="bottom"
-                tooltip-append-to-body="true"
-                tooltip-class="key-help enter">
-                Enter
+                 uib-tooltip-template="'app/popup/characterRequest/enterTooltip.tpl.html'"
+                 tooltip-placement="bottom"
+                 tooltip-append-to-body="true"
+                 tooltip-class="key-help enter">
+                <i class="fa" ng-class="enterIcon"></i> Enter
             </div>
             <div class="key backspace" ng-class="backspaceClasses"
-                tooltip-template="'app/popup/characterRequest/deleteTooltip.tpl.html'"
-                tooltip-placement="bottom"
-                tooltip-append-to-body="true"
-                tooltip-class="key-help delete">
-                Delete
+                 uib-tooltip-template="'app/popup/characterRequest/deleteTooltip.tpl.html'"
+                 tooltip-placement="bottom"
+                 tooltip-append-to-body="true"
+                 tooltip-class="key-help delete">
+                <i class="fa" ng-class="backspaceIcon"></i> Delete
             </div>
         </div>
 
         <div class="word-list clearfix">
             <!-- This would be better with -webkit-column-* styling, but it doesn't work correctly. -->
-            <div class="column" ng-repeat="columnIndex in [0, 1, 2] track by columnIndex">
+            <div class="column"
+                 ng-repeat="columnIndex in [0, 1, 2] track by columnIndex">
                 <div ng-repeat="wordIndex in getColumnArray(wordCount, columnIndex) track by $index">
                     <span class="checkmark-container">
-                        <span ng-show="wordCompleted(wordIndex)" class="fa fa-check"></span>
+                        <span ng-show="wordCompleted(wordIndex)"
+                              class="fa fa-check"></span>
                     </span>
                     <span class="word-index">{{wordIndex + 1}}.</span>
                     <span class="word-representation"
@@ -59,8 +62,11 @@
                 </div>
             </div>
         </div>
-        <div class="more-words-message" ng-show="moreWordsAvailable">Type a space to enter more words</div>
-        <button class="button" disabled="disabled" ng-disabled="enterClasses.disabled"
+        <div class="more-words-message" ng-show="moreWordsAvailable">
+            Type a space to enter more words
+        </div>
+        <button class="button" disabled="disabled"
+                ng-disabled="enterClasses.disabled"
                 ng-click="send()">
             Done
         </button>

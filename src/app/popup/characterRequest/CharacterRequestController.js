@@ -62,18 +62,21 @@ angular.module('kkWallet')
         disabled: $scope.model.currentCharacterPosition < 3 || $scope.model.currentWord === 23,
         active: false
       };
+      $scope.spaceBarIcon = $scope.spaceBarClasses.disabled ? 'fa-times' : 'fa-check';
 
       $scope.letterClasses = {
         error: false,
         disabled: $scope.model.currentCharacterPosition >= WORD_LENGTH,
         active: false
       };
+      $scope.letterIcon = $scope.letterClasses.disabled ? 'fa-times' : 'fa-check';
 
       $scope.backspaceClasses = {
         active: false,
         error: false,
         disabled: $scope.model.currentWord === 0 && $scope.model.currentCharacterPosition === 0
       };
+      $scope.backspaceIcon = $scope.backspaceClasses.disabled ? 'fa-times' : 'fa-check';
 
       $scope.enterClasses = {
         active: false,
@@ -81,6 +84,7 @@ angular.module('kkWallet')
         disabled: [11, 17, 23].indexOf($scope.model.currentWord) === -1 ||
         $scope.model.currentCharacterPosition < 3
       };
+      $scope.enterIcon = $scope.enterClasses.disabled ? 'fa-times' : 'fa-check';
 
       $scope.moreWordsAvailable =
         [11, 17].indexOf($scope.model.currentWord) !== -1 &&
