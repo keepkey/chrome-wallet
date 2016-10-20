@@ -2,14 +2,11 @@ angular.module('kkWallet')
   .controller('SendController', ['$scope', '$routeParams',
     'DeviceBridgeService', 'NavigationService', 'WalletNodeService',
     'TransactionService', 'FeeService', 'environmentConfig',
-    'DeviceFeatureService',
+    'DeviceFeatureService', 'CurrencyLookupService',
     function SendController($scope, $routeParams, deviceBridgeService,
                             navigationService, walletNodeService,
                             transactionService, feeService, environmentConfig,
-                            featureService) {
-      function bitcoinsToSatoshis(amount) {
-        return Math.round(amount * 100000000);
-      }
+                            featureService, currencyLookupService) {
 
       walletNodeService.reload();
 
@@ -20,7 +17,7 @@ angular.module('kkWallet')
       $scope.wallet = walletNodeService.getWalletById($routeParams.wallet);
       $scope.currency = $scope.wallet.coinType;
       $scope.singleAccount = walletNodeService.wallets.length === 1;
-      $scope.showForm = !!($scope.wallet.highConfidenceBalance);
+      $scope.showForm = !$scope.wallet.highConfidenceBalance.equals(0);
       $scope.preparingTransaction = false;
 
       $scope.buttonText = 'Send';
@@ -51,7 +48,8 @@ angular.module('kkWallet')
           $scope.preparingTransaction = true;
           transactionService.transactionInProgress = {
             accountId: $scope.wallet.id,
-            amount: bitcoinsToSatoshis($scope.userInput.amount),
+            amount: currencyLookupService
+              .unformatAmount($scope.currency, $scope.userInput.amount),
             feeLevel: $scope.userInput.feeLevel
           };
 
@@ -61,7 +59,7 @@ angular.module('kkWallet')
             transactionService.transactionInProgress.sendToAccount =
               destinationAccount;
           } else {
-            transactionService.transactionInProgress.sendTo = 
+            transactionService.transactionInProgress.sendTo =
               $scope.userInput.address;
           }
 
@@ -92,7 +90,7 @@ angular.module('kkWallet')
           $scope.userInput.feeLevel);
       }
 
-      $scope.$watch('userInput.address', function() {
+      $scope.$watch('userInput.address', function () {
         var destinationCurrency = _.get($scope.userInput.address, 'coinType');
         if (destinationCurrency) {
           if (destinationCurrency !== $scope.currency) {
@@ -104,19 +102,19 @@ angular.module('kkWallet')
           $scope.buttonText = 'Send';
         }
       });
-      
+
       $scope.$watch('userInput.amount', function computeFees() {
         if ($scope.wallet.id) {
-          feeService.compute($scope.wallet.id, 
-            bitcoinsToSatoshis($scope.userInput.amount));
+          feeService.compute($scope.wallet.id, currencyLookupService
+            .unformatAmount($scope.currency, $scope.userInput.amount));
         }
       });
       $scope.$watch('wallet.id', function () {
         if ($scope.wallet.id) {
           feeService.getMaximumTransactionAmount($scope.wallet.id,
             $scope.userInput.feeLevel);
-          feeService.compute($scope.wallet.id,
-            bitcoinsToSatoshis($scope.userInput.amount));
+          feeService.compute($scope.wallet.id, currencyLookupService
+            .unformatAmount($scope.currency, $scope.userInput.amount));
         }
       });
     }

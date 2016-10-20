@@ -38,7 +38,8 @@ angular.module('kkCommon')
         name: 'Ethereum',
         currencySymbol: 'ETH',
         coinTypeCode: "60'",
-        addressRegExp: /^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$/,
+        //TODO Implement checksum address: https://github.com/ethereum/go-ethereum/blob/aa9fff3e68b1def0a9a22009c233150bf9ba481f/jsre/ethereum_js.go#L2317
+        addressRegExp: /^(0x)?[0-9a-fA-F]{40}$/,
         dust: "420000000000000",
         decimals: 18,
         displayAmountConstructor: BigNumber.another({
@@ -64,11 +65,17 @@ angular.module('kkCommon')
         return _.get(coinType, [currencyName, 'dust'].join('.'));
       },
       formatAmount: function (currencyName, amount) {
+        if (_.isUndefined(amount)) {
+          amount = 0;
+        }
         var currencySettings = _.get(coinType, currencyName);
         return new currencySettings.displayAmountConstructor(amount)
           .shift(-currencySettings.decimals);
       },
       unformatAmount: function(currencyName, amount) {
+        if (_.isUndefined(amount) || amount === "") {
+          amount = 0;
+        }
         var currencySettings = _.get(coinType, currencyName);
         return new BigNumber(amount)
           .shift(currencySettings.decimals)
