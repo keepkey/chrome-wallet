@@ -29,10 +29,10 @@ angular.module('kkWallet')
           $scope.getMaxAmount = function () {
             if ($scope.maxAmount) {
               $scope.maxIsDust = $scope.maxAmount < $scope.dust;
-              return $scope.maxAmount / 100000000;
+              return currencyLookupService.formatAmount($scope.currency, $scope.maxAmount);
             } else {
               $scope.maxIsDust = true;
-              return 21000000;
+              return new BigNumber(0);
             }
           };
         }
