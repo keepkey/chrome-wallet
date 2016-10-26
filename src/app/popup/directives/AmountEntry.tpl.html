@@ -18,7 +18,7 @@
     <div class="input-field">
         <input
                 ng-keypress="fillMaxDetector($event)"
-                type="number"
+                ng-change="validateNumber()"
                 name="{{fieldName}}"
                 ng-model="amount"
                 ng-disabled="disabled || maxIsDust"

@@ -73,7 +73,7 @@ angular.module('kkCommon')
           .shift(-currencySettings.decimals);
       },
       unformatAmount: function(currencyName, amount) {
-        if (_.isUndefined(amount) || amount === "") {
+        if (['', '.', undefined].includes(amount)) {
           amount = 0;
         }
         var currencySettings = _.get(coinType, currencyName);

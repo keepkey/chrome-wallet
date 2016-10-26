@@ -1,5 +1,5 @@
 angular.module('kkWallet')
-  .directive('amountEntry', function() {
+  .directive('amountEntry', function () {
     return {
       restrict: 'E',
       replace: true,
@@ -13,14 +13,17 @@ angular.module('kkWallet')
       },
       controller: ['$scope', 'CurrencyLookupService',
         function ($scope, currencyLookupService) {
+          $scope.previousValue = '';
+
           $scope.dust = currencyLookupService.getDust($scope.currency);
 
           $scope.symbol = currencyLookupService
             .getCurrencySymbol($scope.currency);
 
-          $scope.fillMaxDetector = function(ev) {
-            if (ev.charCode === 33) {
-              $scope.amount = $scope.getMaxAmount();
+          $scope.fillMaxDetector = function (ev) {
+            if (ev.key === '!') {
+              $scope.amount = $scope.getMaxAmount().toString();
+              ev.preventDefault();
               return false;
             }
             return true;
@@ -35,9 +38,23 @@ angular.module('kkWallet')
               return new BigNumber(0);
             }
           };
+
+          $scope.validateNumber = function () {
+            if (['', '.', undefined].includes($scope.amount)) {
+              $scope.previousValue = $scope.amount;
+              return;
+            }
+            try {
+              new BigNumber($scope.amount);
+            } catch(e) {
+              $scope.amount = $scope.previousValue;
+            } finally {
+              $scope.previousValue = $scope.amount;
+            }
+          }
         }
       ],
-      link: function($scope) {
+      link: function ($scope) {
         $scope.field = _.get($scope.form, $scope.fieldName);
       },
       templateUrl: 'app/popup/directives/AmountEntry.tpl.html'
