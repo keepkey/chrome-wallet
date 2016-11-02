@@ -15,7 +15,8 @@ angular.module('kkWallet')
         function ($scope, currencyLookupService) {
           $scope.previousValue = '';
 
-          $scope.dust = currencyLookupService.getDust($scope.currency);
+          var dust = new BigNumber(currencyLookupService.getDust($scope.currency));
+          var maxAmount = $scope.maxAmount ? new BigNumber($scope.maxAmount) : new BigNumber(0);
 
           $scope.symbol = currencyLookupService
             .getCurrencySymbol($scope.currency);
@@ -30,28 +31,36 @@ angular.module('kkWallet')
           };
 
           $scope.getMaxAmount = function () {
-            if ($scope.maxAmount) {
-              $scope.maxIsDust = $scope.maxAmount < $scope.dust;
-              return currencyLookupService.formatAmount($scope.currency, $scope.maxAmount);
-            } else {
+            if (maxAmount.equals(0)) {
               $scope.maxIsDust = true;
-              return new BigNumber(0);
+              return maxAmount;
+            } else {
+              $scope.maxIsDust = maxAmount.lessThan(dust);
+              return currencyLookupService.formatAmount($scope.currency, maxAmount);
             }
           };
 
           $scope.validateNumber = function () {
+            var amountEntered;
             if (['', '.', undefined].includes($scope.amount)) {
               $scope.previousValue = $scope.amount;
               return;
             }
             try {
-              new BigNumber($scope.amount);
-            } catch(e) {
+              amountEntered = currencyLookupService.unformatAmount($scope.currency, $scope.amount);
+            } catch (e) {
               $scope.amount = $scope.previousValue;
             } finally {
               $scope.previousValue = $scope.amount;
             }
+
+            $scope.field.$error.min = amountEntered.lessThan(dust);
+            $scope.field.$error.max = amountEntered.greaterThan(maxAmount);
           }
+
+          $scope.$watch('maxAmount', function() {
+            maxAmount = $scope.maxAmount ? new BigNumber($scope.maxAmount) : new BigNumber(0);
+          });
         }
       ],
       link: function ($scope) {
