@@ -48,14 +48,13 @@ angular.module('kkWallet')
             }
             try {
               amountEntered = currencyLookupService.unformatAmount($scope.currency, $scope.amount);
+              $scope.field.$error.min = amountEntered.lessThan(dust);
+              $scope.field.$error.max = amountEntered.greaterThan(maxAmount);
             } catch (e) {
               $scope.amount = $scope.previousValue;
             } finally {
               $scope.previousValue = $scope.amount;
             }
-
-            $scope.field.$error.min = amountEntered.lessThan(dust);
-            $scope.field.$error.max = amountEntered.greaterThan(maxAmount);
           }
 
           $scope.$watch('maxAmount', function() {
