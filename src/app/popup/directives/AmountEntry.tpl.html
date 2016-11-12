@@ -18,10 +18,12 @@
     <div class="input-field">
         <input
                 ng-keypress="fillMaxDetector($event)"
-                ng-change="validateNumber()"
                 name="{{fieldName}}"
                 ng-model="amount"
                 ng-disabled="disabled || maxIsDust"
+                bignumber-min="{{dust.toString()}}"
+                bignumber-max="{{bigMaxAmount.toString()}}"
+                currency="{{currency}}"
                 required>
     </div>
 </div>

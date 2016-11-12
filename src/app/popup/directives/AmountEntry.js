@@ -15,8 +15,8 @@ angular.module('kkWallet')
         function ($scope, currencyLookupService) {
           $scope.previousValue = '';
 
-          var dust = new BigNumber(currencyLookupService.getDust($scope.currency));
-          var maxAmount = $scope.maxAmount ? new BigNumber($scope.maxAmount) : new BigNumber(0);
+          $scope.dust = new BigNumber(currencyLookupService.getDust($scope.currency));
+          $scope.bigMaxAmount = $scope.maxAmount ? new BigNumber($scope.maxAmount) : new BigNumber(0);
 
           $scope.symbol = currencyLookupService
             .getCurrencySymbol($scope.currency);
@@ -31,38 +31,21 @@ angular.module('kkWallet')
           };
 
           $scope.getMaxAmount = function () {
-            if (maxAmount.equals(0)) {
+            if ($scope.bigMaxAmount.equals(0)) {
               $scope.maxIsDust = true;
-              return maxAmount;
+              return $scope.bigMaxAmount;
             } else {
-              $scope.maxIsDust = maxAmount.lessThan(dust);
-              return currencyLookupService.formatAmount($scope.currency, maxAmount);
+              $scope.maxIsDust = $scope.bigMaxAmount.lessThan($scope.dust);
+              return currencyLookupService.formatAmount($scope.currency, $scope.bigMaxAmount);
             }
           };
 
-          $scope.validateNumber = function () {
-            var amountEntered;
-            if (['', '.', undefined].includes($scope.amount)) {
-              $scope.previousValue = $scope.amount;
-              return;
-            }
-            try {
-              amountEntered = currencyLookupService.unformatAmount($scope.currency, $scope.amount);
-              $scope.field.$error.min = amountEntered.lessThan(dust);
-              $scope.field.$error.max = amountEntered.greaterThan(maxAmount);
-            } catch (e) {
-              $scope.amount = $scope.previousValue;
-            } finally {
-              $scope.previousValue = $scope.amount;
-            }
-          }
-
           $scope.$watch('maxAmount', function() {
-            maxAmount = $scope.maxAmount ? new BigNumber($scope.maxAmount) : new BigNumber(0);
+            $scope.bigMaxAmount = $scope.maxAmount ? new BigNumber($scope.maxAmount) : new BigNumber(0);
           });
         }
       ],
-      link: function ($scope) {
+      link: function ($scope, elm, attrs, controller) {
         $scope.field = _.get($scope.form, $scope.fieldName);
       },
       templateUrl: 'app/popup/directives/AmountEntry.tpl.html'
