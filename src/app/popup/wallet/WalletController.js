@@ -4,6 +4,7 @@ angular.module('kkWallet')
       $scope.walletList = walletNodeService.wallets;
       $scope.walletStats = walletNodeService.walletStats;
       $scope.walletId = $routeParams.wallet;
+      $scope.fresh = walletNodeService.getFreshStatus();
 
       updateWallet();
 
@@ -29,10 +30,6 @@ angular.module('kkWallet')
 
       $scope.receiveDisabled = function () {
         return false; //TODO Inline this
-      };
-
-      $scope.refresh = function () {
-        deviceBridgeService.reloadBalances();
       };
 
       $scope.showTransactions = function () {
