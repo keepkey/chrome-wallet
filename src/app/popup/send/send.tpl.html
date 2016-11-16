@@ -9,7 +9,9 @@
                     account="wallet"
                     single-account="singleAccount"
                     loading="false"
-                    name-display="name" currency="currency">
+                    name-display="name"
+                    currency="currency"
+                    fresh="fresh">
             </account-balance>
 
             <form name="form" novalidate>
@@ -30,8 +32,7 @@
                                     max-amount="maxAmount.max"
                                     field-name="amount"
                                     form="form"
-                                    disable="preparingTransaction"
-                                    currency="currency">
+                                    disable="preparingTransaction">
                             </amount-entry>
 
                             <fee-selector
