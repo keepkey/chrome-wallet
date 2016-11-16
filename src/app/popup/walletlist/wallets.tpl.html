@@ -5,7 +5,8 @@
             <div class="wallet online"
                  ng-repeat="wallet in walletGroup.wallets | orderBy : ['accountNumber'] track by wallet.id"
                  ng-click="goWallet(wallet)">
-                <div class="connection-light"></div>
+                <div ng-show="fresh.status" class="connection-light"></div>
+                <div ng-hide="fresh.status" class="refreshing-balance"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i></div>
                 <div class="go-side">
                     <div class="go-btn">
                         <a class="wallet-link">
