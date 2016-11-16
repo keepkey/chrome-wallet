@@ -1460,11 +1460,20 @@ a, a:hover {
         .balance {
           margin-right: 3px;
         }
+        .fa.fa-refresh {
+          font-size: 8px;
+        }
       }
       .connection-light {
         position: absolute;
         top: 32px;
         left: 14px;
+      }
+      .refreshing-balance {
+        position: absolute;
+        top: 26px;
+        left: 13px;
+        color: #CCCCCC;
       }
       .go-side {
         height: @wallet-height;
@@ -1515,6 +1524,11 @@ a, a:hover {
   .connection-light {
     float: left;
     margin-top: 9px;
+  }
+  .refreshing-balance {
+    float: left;
+    color: #CCCCCC;
+    margin: 4px 9px 5px 0;
   }
   .has-pending-balance {
     margin-top: -6px;
