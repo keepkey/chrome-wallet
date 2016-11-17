@@ -10,6 +10,7 @@ angular.module('kkWallet')
       $scope.wallets = walletNodeService.wallets;
       $scope.device = deviceFeatureService.features;
       $scope.loaded = !!$scope.wallets.length;
+      $scope.fresh = walletNodeService.getFreshStatus();
 
       walletGroups();
 

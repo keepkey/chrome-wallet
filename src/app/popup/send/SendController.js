@@ -19,6 +19,7 @@ angular.module('kkWallet')
       $scope.singleAccount = walletNodeService.wallets.length === 1;
       $scope.showForm = !$scope.wallet.highConfidenceBalance.equals(0);
       $scope.preparingTransaction = false;
+      $scope.fresh = walletNodeService.getFreshStatus();
 
       $scope.buttonText = 'Send';
 

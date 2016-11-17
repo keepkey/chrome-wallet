@@ -3,9 +3,10 @@ angular.module('kkWallet')
     return {
       restrict: 'E',
       replace: true,
-      controller: ['$scope', 'DeviceBridgeService',
-        function ($scope, deviceBridgeService) {
+      controller: ['$scope', 'DeviceBridgeService', 'WalletNodeService',
+        function ($scope, deviceBridgeService, walletNodeService) {
           $scope.refresh = function () {
+            walletNodeService.setUnfresh();
             deviceBridgeService.reloadBalances();
           };
         }

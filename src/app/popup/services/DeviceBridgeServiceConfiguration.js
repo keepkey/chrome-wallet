@@ -95,6 +95,7 @@ angular.module('kkWallet')
               navigateToWalletRoot();
               break;
             case 'Transaction sent':
+              walletNodeService.setUnfresh();
               notificationMessageService.set(
                 'Your transaction was successfully sent!');
               navigateToWalletRoot();
@@ -196,7 +197,7 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('WalletNodes', [
         'WalletNodeService',
         function (walletNodeService) {
-          walletNodeService.updateWalletNodes(this.request.message);
+          walletNodeService.updateWalletNodes(this.request.message, this.request.messageIsFresh);
         }
       ]);
 

@@ -1,5 +1,6 @@
 <div class="account-balance-component online">
-    <div class="connection-light"></div>
+    <div ng-show="fresh.status" class="connection-light"></div>
+    <div ng-hide="fresh.status" class="refreshing-balance"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i></div>
     <wallet-balance
             class="details"
             balance="account.highConfidenceBalance"

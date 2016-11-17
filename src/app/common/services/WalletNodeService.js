@@ -6,8 +6,13 @@ angular.module('kkCommon')
     function WalletNodeService($rootScope, $timeout, deviceBridgeService, config) {
       var nodes = [];
       var walletStats = {};
+      var fresh = {
+        status: false
+      };
 
-      function updateWalletNodes(newNodes) {
+      function updateWalletNodes(newNodes, nodesAreFresh) {
+        fresh.status = nodesAreFresh;
+
         if (newNodes.length === 0) {
           // Bootstrap the first account
           deviceBridgeService.addAccount('m/44\'/0\'/0\'', 'Main Account', 'Bitcoin');
@@ -102,6 +107,14 @@ angular.module('kkCommon')
         _.remove(nodes, {id: accountId});
       }
 
+      function setUnfresh() {
+        fresh.status = false;
+      }
+
+      function getFreshStatus() {
+        return fresh;
+      }
+
       var getTransactionHistory = deviceBridgeService.getTransactionHistory;
 
       return {
@@ -116,7 +129,9 @@ angular.module('kkCommon')
         clear: clearData,
         getTransactionHistory: getTransactionHistory,
         loadAccounts: deviceBridgeService.getWalletNodes,
-        removeAccount: removeAccount
+        removeAccount: removeAccount,
+        setUnfresh: setUnfresh,
+        getFreshStatus: getFreshStatus
       };
     }
   ]);

@@ -72,6 +72,8 @@ angular.module('kkCommon')
                     }
                   });
                 }
+
+                return deviceList && deviceList.length;
               });
           },
           resetDevice: function (options) {

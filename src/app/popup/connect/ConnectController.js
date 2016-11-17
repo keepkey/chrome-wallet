@@ -3,12 +3,8 @@ angular.module('kkWallet')
     function ($scope, deviceBridgeService) {
       $scope.noDevice = false;
       deviceBridgeService.getDevices()
-        .then(function (response) {
-          if (response && response.length) {
-            deviceBridgeService.initialize();
-          } else {
-            $scope.noDevice = true;
-          }
+        .then(function (status) {
+          $scope.noDevice = !status;
         });
     }
   ]);
