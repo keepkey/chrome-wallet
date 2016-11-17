@@ -45,7 +45,18 @@ angular.module('kkCommon')
         displayAmountConstructor: BigNumber.another({
           DECIMAL_PLACES: 18
         })
-      }
+      },
+      Dash: {
+        name: 'Dash',
+        currencySymbol: 'DASH',
+        coinTypeCode: "5'",
+        addressRegExp: /^X[1-9A-HJ-NP-Za-km-z]{33}$/,
+        dust: 0,
+        decimals: 8,
+        displayAmountConstructor: BigNumber.another({
+          DECIMAL_PLACES: 8
+        })
+      },
     };
 
     return {
