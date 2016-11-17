@@ -58,3 +58,4 @@ crashlytics.properties
 crashlytics-build.properties
 
 keepkey-wallet-test
+/dist/

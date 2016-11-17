@@ -43,7 +43,8 @@ angular.module('kkCommon')
         dust: "420000000000000",
         decimals: 18,
         displayAmountConstructor: BigNumber.another({
-          DECIMAL_PLACES: 18
+          DECIMAL_PLACES: 18,
+          EXPONENTIAL_AT: [-19, 9]
         })
       }
     };
@@ -69,8 +70,9 @@ angular.module('kkCommon')
           amount = 0;
         }
         var currencySettings = _.get(coinType, currencyName);
-        return new currencySettings.displayAmountConstructor(amount)
+        var result = new currencySettings.displayAmountConstructor(amount)
           .shift(-currencySettings.decimals);
+        return result.gte(0) ? result : 0.0;
       },
       unformatAmount: function(currencyName, amount) {
         if (['', '.', undefined].includes(amount)) {
