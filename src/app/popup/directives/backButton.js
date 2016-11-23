@@ -10,7 +10,7 @@ angular.module('kkWallet')
       },
       controller: ['$scope', 'NavigationService',
         function ($scope, navigationService) {
-          $scope.hasPreviousRoute = navigationService.hasPreviousRoute();
+          $scope.hasPreviousRoute = navigationService.hasPreviousRoute() || $scope.destination;
           if (!$scope.animation) {
             $scope.animation = 'slideRight';
           }

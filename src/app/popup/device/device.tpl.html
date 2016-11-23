@@ -8,16 +8,30 @@
             <span class="cornflower-txt">
                 <b>Settings</b>
             </span>
-            For Your <vendor-name></vendor-name>
+            For Your
+            <vendor-name></vendor-name>
         </h2>
 
         <div class="menu">
-          <ul>
-            <li><button class="menu-item" ng-click="go('/label/settings', 'slideLeft')">Change Label</button></li>
-            <li><button class="menu-item" ng-click="changePin()">{{device.pin_protection ? "Change PIN" : "Add PIN Protection"}}</button></li>
-            <li><button class="menu-item" ng-click="wipeDevice()">Wipe Device</button></li>
-            <li><button class="menu-item" ng-click="go('/support', 'slideLeft')">Contact Support</button></li>
-          </ul>
+            <ul>
+                <li>
+                    <button class="menu-item" ng-click="go('/label/settings', 'slideLeft')">Change Label</button>
+                </li>
+                <li>
+                    <button class="menu-item" ng-click="changePin()">
+                        {{device.pin_protection ? "Change PIN" : "Add PIN Protection"}}
+                    </button>
+                </li>
+                <li>
+                    <button class="menu-item" ng-click="wipeDevice()">Wipe Device</button>
+                </li>
+                <li>
+                    <button class="menu-item" ng-click="go('/support', 'slideLeft')">Contact Support</button>
+                </li>
+                <li>
+                    <button class="menu-item" ng-click="go('/acknowledgements', 'slideLeft')">Acknowledgements</button>
+                </li>
+            </ul>
         </div>
     </div>
 
