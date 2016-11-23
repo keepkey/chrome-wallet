@@ -150,6 +150,9 @@ angular.module('kkWallet')
           }, {
             message: 'Aborted',
             action: DO_NOTHING
+          }, {
+            message: 'Exchange transaction cancelled',
+            action: GO_BACK
           }];
 
           var action =
