@@ -16,23 +16,18 @@ angular.module('kkCommon')
         function sendMessage(message) {
           console.log('message sent to proxy:', angular.copy(message));
           return $q(function (resolve) {
-            chrome.runtime.sendMessage(environmentConfig.keepkeyProxy.applicationId, message, {}, resolve);
+            chrome.runtime.sendMessage(message, {}, resolve);
           });
         }
 
         function respondToMessages(request, sender, sendResponse) {
-          console.log("External message:", request);
+          console.log("proxy-->UI:", request);
 
           var messageArguments = {
             request: request,
             sender: sender,
             sendResponse: sendResponse
           };
-
-          if (sender.id !== environmentConfig.keepkeyProxy.applicationId) {
-            $injector.invoke(incomingMessages.unknownSender, messageArguments);
-            return;
-          }
 
           //TODO Since messages are broadcast, rethink whether a dispatcher is the
           // right thing to do.
@@ -51,10 +46,10 @@ angular.module('kkCommon')
 
         return {
           startListener: function startListener() {
-            chrome.runtime.onMessageExternal.addListener(respondToMessages);
+            chrome.runtime.onMessage.addListener(respondToMessages);
           },
           stopListener: function stopListener() {
-            chrome.runtime.onMessageExternal.removeListener(respondToMessages);
+            chrome.runtime.onMessage.removeListener(respondToMessages);
           },
           isDeviceReady: function () {
             return Promise.resolve(false); //sendMessage({messageType: 'deviceReady'});

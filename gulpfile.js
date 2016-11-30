@@ -202,10 +202,15 @@ gulp.task('appTransactionScripts',
   appScriptBuilder.bind(this, 'transactions', 'kkTransactions')
 );
 
-gulp.task('assetsProduction', function () {
+gulp.task('assetsProduction', ['copyFonts'], function () {
   return gulp.src('src/assets/**/*')
     .pipe(gulp.dest('dist/assets'));
 });
+
+gulp.task('copyFonts', function() {
+  return gulp.src(['src/fonts/**/*', 'node_modules/font-awesome/fonts/fontawesome-webfont.woff2'])
+    .pipe(gulp.dest('dist/fonts'));
+})
 
 gulp.task('less', function () {
   return gulp.src('src/styles/**/*.less')
