@@ -49,11 +49,15 @@
                 </div>
             </div>
 
-            <button class="button"
+            <div class="beta-release-notification" ng-show="selectedAsset==='Ethereum'">Ethereum is not supported in this release</div>
+
+            <button
+                    class="button"
                     type="submit"
                     ng-click="addAccount()"
                     ng-disabled="creating">
-                Add Account
+                <span ng-hide="selectedAsset==='Ethereum'">Add Account</span>
+                <span ng-show="selectedAsset==='Ethereum'">Learn more about Ethereum Support</span>
             </button>
         </form>
     </div>
