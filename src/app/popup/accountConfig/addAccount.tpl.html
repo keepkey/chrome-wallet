@@ -42,18 +42,21 @@
                                type="text"
                                autocomplete="off"
                                ng-model="walletName"
-                               ng-disabled="creating"
+                               ng-disabled="creating || getBetaForEthereumSupport"
                                required
                                focus>
                     </div>
                 </div>
             </div>
 
+            <div class="ethereum-beta-notification" ng-show="getBetaForEthereumSupport">Ethereum support is available in a beta release</div>
+
             <button class="button"
                     type="submit"
                     ng-click="addAccount()"
                     ng-disabled="creating">
-                Add Account
+                <span ng-hide="getBetaForEthereumSupport">Add Account</span>
+                <span ng-show="getBetaForEthereumSupport">Learn more about Ethereum Support</span>
             </button>
         </form>
     </div>

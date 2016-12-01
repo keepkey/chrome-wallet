@@ -10,12 +10,20 @@ angular.module('kkWallet')
       $scope.walletList = walletNodeService.wallets;
       $scope.walletName = '';
 
-      $scope.assetTypes = currencyLookupService.getCurrencyTypes();
+      $scope.assetTypes = angular.copy(currencyLookupService.getCurrencyTypes());
+
+      var ethereumSupported = _.indexOf($scope.assetTypes, 'Ethereum') !== -1;
+
+      if (!ethereumSupported) {
+        $scope.assetTypes.push('Ethereum');
+      }
 
       $scope.selectedAsset = 'Bitcoin';
+      $scope.getBetaForEthereumSupport = false;
 
       $scope.setAssetType = function (assetType) {
         $scope.selectedAsset = assetType;
+        $scope.getBetaForEthereumSupport = !ethereumSupported && assetType === 'Ethereum';
         return false;
       };
 
@@ -32,7 +40,11 @@ angular.module('kkWallet')
       var startingAccountListCount = $scope.walletList.length;
 
       $scope.addAccount = function () {
-        if ($scope.form.$valid) {
+        if ($scope.getBetaForEthereumSupport) {
+          chrome.tabs.create({
+            url: 'https://www.keepkey.com/2016/11/23/ethereum-arrives-keepkey/'
+          });
+        } else if ($scope.form.$valid) {
           $scope.creating = true;
           var lastAccount = getLastAccount();
           if (lastAccount && !lastAccount.hasTransactionHistory) {
