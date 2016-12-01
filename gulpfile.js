@@ -42,7 +42,8 @@ var vendorJavascriptFiles = [
   'vendor/qrcode-generator/js/qrcode.js',
   'vendor/angular-qrcode/angular-qrcode.js',
   'vendor/clipboard/dist/clipboard.min.js',
-  'vendor/semver/semver.min.js'
+  'vendor/semver/semver.min.js',
+  'vendor/bignumber.js/bignumber.min.js'
 ];
 var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
 

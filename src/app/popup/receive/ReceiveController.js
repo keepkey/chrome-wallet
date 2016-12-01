@@ -1,10 +1,10 @@
 angular.module('kkWallet')
   .controller('ReceiveController', ['$rootScope', '$scope', '$routeParams',
     '$location', 'DeviceBridgeService', 'WalletNodeService',
-    'NavigationService', '$timeout', 'environmentConfig',
+    'NavigationService', '$timeout', 'environmentConfig', 'ReceiveAddressService',
     function ReceiveController($rootScope, $scope, $routeParams, $location,
                                deviceBridgeService, walletNodeService,
-                               navigationService, $timeout, config) {
+                               navigationService, $timeout, config, receiveAddressService) {
       navigationService.setNextTransition('slideLeft');
 
       new Clipboard('.copy-to-clipboard-button');
@@ -24,25 +24,13 @@ angular.module('kkWallet')
       $scope.wallet = walletNodeService.getWalletById($scope.walletId);
       $scope.currency = $scope.wallet.coinType;
       $scope.maxDepth = config.maxReceiveAddresses - 1;
+      $scope.isSingleAddressAccount = ($scope.wallet.addressStrategy === 'single');
 
-      $scope.bitcoinLink = '';
-
-      function getAddress() {
-        var unusedAddresses = _.get($scope.wallet, 'wallet.chains.0.unusedAddresses');
-        if (!unusedAddresses) {
-          return;
-        }
-        if (unusedAddresses.length > $scope.addressDepth) {
-          $scope.unusedAddress = unusedAddresses[$scope.addressDepth];
-          $scope.bitcoinLink = $scope.unusedAddress.address;
-          displayAddressOnDevice($scope.unusedAddress.address);
-        } else {
-          walletNodeService.unusedAddress($scope.walletId);
-          $scope.bitcoinLink = '';
-        }
-      }
+      receiveAddressService.clear();
+      deviceBridgeService.getReceiveAddress($scope.walletId, $scope.addressDepth);
 
       $scope.$on("$destroy", function () {
+        receiveAddressService.clear();
         if (!cancelled) {
           if (deviceReadyPromise && $location.path() !== '/pin/pin_matrix_request_type_current') {
             deviceReadyPromise.then(function () {
@@ -67,21 +55,9 @@ angular.module('kkWallet')
         });
       };
 
-      function displayAddressOnDevice(address) {
-        var addressN = walletNodeService.pathToAddressN(
-          walletNodeService.joinPaths(
-            $scope.wallet.nodePath, $scope.unusedAddress.path
-          ));
-
-        deviceBridgeService.getAddress({
-          messageType: 'GetAddress',
-          addressN: addressN,
-          coinName: $scope.wallet.coinType,
-          showDisplay: true
-        });
-      }
-
-      $scope.$watch('wallet.wallet.chains', getAddress, true);
+      $scope.$watch(receiveAddressService.value, function() {
+        $scope.unusedAddress = receiveAddressService.value;
+      }, true);
     }
   ])
 ;

@@ -16,7 +16,7 @@
 
                 <qrcode ng-show="unusedAddress.address"
                         class="qrcode"
-                        data="{{bitcoinLink}}"
+                        data="{{unusedAddress.address}}"
                         size="160"
                         error-correction-level="L"
                         target="_blank"></qrcode>
@@ -30,9 +30,11 @@
                 </div>
             </div>
             <div class="address-nav prev fa fa-chevron-left"
+                 ng-hide="isSingleAddressAccount"
                  ng-class="{disabled: addressDepth <= 0}"
                  ng-click="showAnotherAddress(addressDepth - 1)"></div>
             <div class="address-nav next fa fa-chevron-right"
+                 ng-hide="isSingleAddressAccount"
                  ng-class="{disabled: addressDepth >= maxDepth}"
                  ng-click="showAnotherAddress(addressDepth + 1)"></div>
         </div>

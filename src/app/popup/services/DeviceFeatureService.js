@@ -1,6 +1,6 @@
 angular.module('kkWallet')
-  .factory('DeviceFeatureService', ['VERSION', 'environmentConfig',
-    function DeviceFeatureService(version, environmentConfig) {
+  .factory('DeviceFeatureService', ['VERSION', 'environmentConfig', 'CurrencyLookupService',
+    function DeviceFeatureService(version, environmentConfig, currencyLookupService) {
       var features = {};
 
       function isFirmwareUpdateAvailable() {
@@ -24,6 +24,7 @@ angular.module('kkWallet')
           features.wallet_version = version;
           features.environment = environmentConfig.environment;
           features.firmwareUpdateAvailable = isFirmwareUpdateAvailable();
+          currencyLookupService.set(features.coin_metadata);
         },
         getPolicySetting: function(policyName) {
           var featureObject = _.find(features.policies, {

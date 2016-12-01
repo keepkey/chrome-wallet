@@ -7,6 +7,7 @@
 @header-legend-height: 33px;
 @font-color: #303942;
 @link-color: #9FAE00;
+@bootstrap-container-fluid-padding: 15px;
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -47,7 +48,7 @@ a {
 .logo {
   width: 97px;
   height: 78px;
-  background: url(https://cdn.keepkey.com/wp-content/themes/keepkey/img/logo-grey.png);
+  background: url('../assets/img/keepkey-logo.png');
   background-size: 97px 78px;
 }
 
@@ -78,8 +79,8 @@ a {
     z-index: 2;
     top: 0;
     right: @gutter-width;
-    left: @nav-width + @tab-content-padding + @gutter-width;
-    table {
+    left: @nav-width + @tab-content-padding + @gutter-width + @bootstrap-container-fluid-padding;
+    .table {
       margin-bottom: 0px;
       height: @header-legend-height;
     }
@@ -90,11 +91,19 @@ a {
     height: @header-title-height;
     font-size: 1.5em;
   }
-  table {
-    width: 740px;
-    thead {
+  .table {
+    width: 910px;
+    .transaction {
+      border-top: 1px solid #ddd;
+    }
+    .thead, .transaction {
+      padding: 3px 0;
       .amount {
         text-align: center;
+      }
+      >div {
+        display: inline-block;
+        vertical-align: middle;
       }
     }
     .date {
@@ -107,7 +116,7 @@ a {
       width: 309px;
     }
     .amount {
-      width: 96px;
+      width: 180px;
       text-align: right;
       .received {
         color: #C3D40F;

@@ -95,6 +95,7 @@ angular.module('kkWallet')
               navigateToWalletRoot();
               break;
             case 'Transaction sent':
+              walletNodeService.setUnfresh();
               notificationMessageService.set(
                 'Your transaction was successfully sent!');
               navigateToWalletRoot();
@@ -149,6 +150,9 @@ angular.module('kkWallet')
           }, {
             message: 'Aborted',
             action: DO_NOTHING
+          }, {
+            message: 'Exchange transaction cancelled',
+            action: GO_BACK
           }];
 
           var action =
@@ -196,7 +200,7 @@ angular.module('kkWallet')
       deviceBridgeServiceProvider.when('WalletNodes', [
         'WalletNodeService',
         function (walletNodeService) {
-          walletNodeService.updateWalletNodes(this.request.message);
+          walletNodeService.updateWalletNodes(this.request.message, this.request.messageIsFresh);
         }
       ]);
 
@@ -244,6 +248,12 @@ angular.module('kkWallet')
         function(navigationService, exchangeService) {
           exchangeService.set(this.request.message);
           navigationService.go('/confirm-exchange');
+        }
+      ]);
+
+      deviceBridgeServiceProvider.when('ReceiveAddress', [
+        'ReceiveAddressService', function(receiveAddressService) {
+          receiveAddressService.set(this.request.message);
         }
       ]);
 

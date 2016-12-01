@@ -17,13 +17,14 @@
     </div>
     <div class="input-field">
         <input
-                ng-keypress="fillMaxDetector($event)"
-                type="number"
-                name="{{fieldName}}"
-                ng-model="amount"
-                ng-disabled="disabled || maxIsDust"
-                required
-                min="{{dust / 100000000}}"
-                max="{{getMaxAmount()}}">
+            ng-keypress="fillMaxDetector($event)"
+            name="{{fieldName}}"
+            ng-model="amount"
+            ng-disabled="disabled || maxIsDust"
+            bignumber-min="{{dust.toString()}}"
+            bignumber-max="{{bigMaxAmount.toString()}}"
+            currency="{{currency}}"
+            autocomplete="off"
+            required>
     </div>
 </div>

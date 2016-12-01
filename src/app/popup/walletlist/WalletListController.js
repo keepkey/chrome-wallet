@@ -8,9 +8,9 @@ angular.module('kkWallet')
                                   walletNodeService, transactionService,
                                   currencyLookupService) {
       $scope.wallets = walletNodeService.wallets;
-      $scope.balances = transactionService.walletBalances;
       $scope.device = deviceFeatureService.features;
       $scope.loaded = !!$scope.wallets.length;
+      $scope.fresh = walletNodeService.getFreshStatus();
 
       walletGroups();
 

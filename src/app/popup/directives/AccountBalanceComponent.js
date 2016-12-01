@@ -9,7 +9,8 @@ angular.module('kkWallet')
         accountSettings: '=', 
         nameDisplay: '@',
         singleAccount: '=',
-        currency: '='
+        currency: '=',
+        fresh: '='
       },
       controller: ['$scope',
         function($scope) {

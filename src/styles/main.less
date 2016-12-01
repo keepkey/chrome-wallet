@@ -958,14 +958,14 @@ button.fa {
     width: 100%;
     button {
       width: 100%;
-      height: 31px;
+      line-height: 30px;
       font-size: 15px;
       font-weight: bold;
     }
     .dropdown-menu {
       width: 100%;
-      height: 95px;
-      overflow: auto;
+      max-height: 95px;
+      overflow-y: scroll;
     }
   }
 }
@@ -1036,6 +1036,24 @@ button.fa {
     &:hover {
       color: #777;
     }
+  }
+}
+
+#acknowledgement {
+  title {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    text-decoration: underline;
+  }
+  ul {
+    padding: 0;
+  }
+  li {
+    margin: 10px;
+    text-align: center;
+    list-style-type: none;
   }
 }
 
@@ -1463,11 +1481,20 @@ a, a:hover {
         .balance {
           margin-right: 3px;
         }
+        .fa.fa-refresh {
+          font-size: 8px;
+        }
       }
       .connection-light {
         position: absolute;
         top: 32px;
         left: 14px;
+      }
+      .refreshing-balance {
+        position: absolute;
+        top: 26px;
+        left: 13px;
+        color: #CCCCCC;
       }
       .go-side {
         height: @wallet-height;
@@ -1519,6 +1546,11 @@ a, a:hover {
     float: left;
     margin-top: 9px;
   }
+  .refreshing-balance {
+    float: left;
+    color: #CCCCCC;
+    margin: 4px 9px 5px 0;
+  }
   .has-pending-balance {
     margin-top: -6px;
   }
@@ -1528,6 +1560,12 @@ a, a:hover {
     color: #666666;
     transition: all 0.2s ease-out;
     padding: 0;
+    .wallet-amount {
+      display: inline-block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 220px;
+    }
     .wallet-currency {
       color: #bbbbbb;
       letter-spacing: 1.3px;
@@ -1641,12 +1679,4 @@ a, a:hover {
 
 #generic h2 {
   margin-top: 20px;
-}
-
-.beta-release-notification {
-  margin-top: 28px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 13px;
-  background-color: yellow;
 }
