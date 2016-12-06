@@ -19,7 +19,7 @@ var environment = (args.environment || 'local');
 var versionedFiles = ['./bower.json', './manifest.json', './package.json'];
 
 // Default task
-gulp.task('default', ['test', 'build', 'watch']);
+gulp.task('default', ['build']);
 
 gulp.task('clean', function (cb) {
   del(['dist', 'build', '*.zip', 'vendor', 'node_modules'], cb);
@@ -77,9 +77,9 @@ gulp.task('backgroundScript', ['buildBackgroundConfig'], function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('zip', function () {
+gulp.task('zip', ['backgroundScript', 'assets', 'manifest'], function () {
   return gulp.src('dist/**/*')
-    .pipe(zip('keepkey-wallet-' + environment + '.zip'))
+    .pipe(zip('keepkey-launcher-' + environment + '.zip'))
     .pipe(gulp.dest('.'));
 });
 
@@ -100,19 +100,19 @@ gulp.task('manifest', function () {
 });
 
 gulp.task('bumpPatch', function () {
-  gulp.src(versionedFiles)
+  return gulp.src(versionedFiles)
     .pipe(bump({type: 'patch'}))
     .pipe(gulp.dest('./'));
 });
 
 gulp.task('bumpMinor', function () {
-  gulp.src(versionedFiles)
+  return gulp.src(versionedFiles)
     .pipe(bump({type: 'minor'}))
     .pipe(gulp.dest('./'));
 });
 
 gulp.task('bumpMajor', function () {
-  gulp.src(versionedFiles)
+  return gulp.src(versionedFiles)
     .pipe(bump({type: 'major'}))
     .pipe(gulp.dest('./'));
 });

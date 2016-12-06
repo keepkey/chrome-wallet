@@ -33,14 +33,13 @@ chrome.runtime.onConnect.addListener(function (port) {
   });
 });
 
-chrome.browserAction.onClicked.addListener(function (tab) {
-  chrome.management.launchApp('kfahpadedghlpboomoifdhgoiffoejic');
-  // chrome.windows.update(popupId, {focused: true});
+chrome.browserAction.onClicked.addListener(function () {
+  launchApp();
 });
 
 function launchApp() {
   function getExtensionList() {
-    return $q(function (resolve) {
+    return new Promise(function (resolve) {
       chrome.management.getAll(function (extensions) {
         resolve(extensions);
       });
@@ -48,11 +47,11 @@ function launchApp() {
   }
 
   function proxyApplicationInstalled(extensions) {
-    return $q(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
       setTimeout(function () {
         var extFound = false;
         extensions.forEach(function (ext) {
-          if (ext.id === environmentConfig.keepkeyProxy.applicationId) {
+          if (ext.id === config.keepkeyProxy.applicationId) {
             if (ext.enabled) {
               chrome.management.launchApp(ext.id);
             }
@@ -73,10 +72,10 @@ function launchApp() {
   }
 
   function closeForeignProxies(extensions) {
-    return $q(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
       chrome.management.getAll(function (extensions) {
         extensions.forEach(function (ext) {
-          if (environmentConfig.foreignKeepkeyProxies.indexOf(ext.id) !== -1) {
+          if (config.foreignKeepkeyProxies.indexOf(ext.id) !== -1) {
             if (ext.enabled) {
               chrome.management.setEnabled(ext.id, false);
             }
