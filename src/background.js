@@ -91,7 +91,7 @@ function launchApp() {
     .then(proxyApplicationInstalled)
     .then(closeForeignProxies)
     .catch(function loadProxyDownloadPage() {
-      var keepKeyProxyUrl = "https://chrome.google.com/webstore/detail/" + environmentConfig.keepkeyProxy.applicationId;
+      var keepKeyProxyUrl = "https://chrome.google.com/webstore/detail/" + config.keepkeyProxy.applicationId;
       chrome.tabs.create({url: keepKeyProxyUrl});
     });
 }
