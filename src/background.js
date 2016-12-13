@@ -15,7 +15,7 @@ chrome.browserAction.getPopup({}, function (popup) {
   defaultPopup = popup.substr(trimLength);
 });
 
-chrome.runtime.onMessageExternal.addListener(
+chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
     console.log("External message:", request.messageType);
     switch (request.messageType) {
@@ -26,47 +26,72 @@ chrome.runtime.onMessageExternal.addListener(
   }
 );
 
-chrome.runtime.onMessage.addListener(
-  function (request, sender, sendResponse) {
-    console.log("Internal message:", request.messageType);
-    switch (request.messageType) {
-      case 'OpenInWindow':
-        chrome.windows.create({
-          type: 'popup',
-          url: defaultPopup,
-          width: 342,
-          height: 390
-        }, function (w) {
-          popupId = w.id;
-          chrome.browserAction.setPopup({
-            popup: ''
-          });
-        });
-        break;
-    }
-  }
-);
-
 chrome.runtime.onConnect.addListener(function (port) {
   port.onDisconnect.addListener(function () {
     console.log('connection closed');
-    chrome.runtime.sendMessage(
-      config.keepkeyProxy.applicationId,
-      {messageType: 'Cancel'}
-    );
-
+    chrome.runtime.sendMessage({messageType: 'Cancel'});
   });
 });
 
-chrome.browserAction.onClicked.addListener(function (tab) {
-  chrome.windows.update(popupId, {focused: true});
+chrome.browserAction.onClicked.addListener(function () {
+  launchApp();
 });
 
-chrome.windows.onRemoved.addListener(function (id) {
-  if (popupId === id) {
-    popupId = undefined;
-    chrome.browserAction.setPopup({
-      popup: defaultPopup
+function launchApp() {
+  function getExtensionList() {
+    return new Promise(function (resolve) {
+      chrome.management.getAll(function (extensions) {
+        resolve(extensions);
+      });
     });
   }
-});
+
+  function proxyApplicationInstalled(extensions) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        var extFound = false;
+        extensions.forEach(function (ext) {
+          if (ext.id === config.keepkeyProxy.applicationId) {
+            if (ext.enabled) {
+              chrome.management.launchApp(ext.id);
+            }
+            else {
+              chrome.management.setEnabled(ext.id, true, function () {
+                chrome.management.launchApp(ext.id);
+              });
+            }
+            resolve(ext);
+            extFound = true;
+          }
+        });
+        if (!extFound) {
+          reject();
+        }
+      }, 0);
+    });
+  }
+
+  function closeForeignProxies(extensions) {
+    return new Promise(function (resolve, reject) {
+      chrome.management.getAll(function (extensions) {
+        extensions.forEach(function (ext) {
+          if (config.foreignKeepkeyProxies.indexOf(ext.id) !== -1) {
+            if (ext.enabled) {
+              chrome.management.setEnabled(ext.id, false);
+            }
+          }
+        });
+        resolve(extensions);
+      });
+    });
+
+  }
+
+  getExtensionList()
+    .then(proxyApplicationInstalled)
+    .then(closeForeignProxies)
+    .catch(function loadProxyDownloadPage() {
+      var keepKeyProxyUrl = "https://chrome.google.com/webstore/detail/" + config.keepkeyProxy.applicationId;
+      chrome.tabs.create({url: keepKeyProxyUrl});
+    });
+}
