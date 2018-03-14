@@ -23,6 +23,17 @@ angular.module('kkCommon')
           DECIMAL_PLACES: 8
         })
       },
+      Denarius: {
+        name: 'Denarius',
+        currencySymbol: 'DNR',
+        coinTypeCode: "116'",
+        addressRegExp: /^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$/,
+        dust: 0,
+        decimals: 8,
+        displayAmountConstructor: BigNumber.another({
+          DECIMAL_PLACES: 8
+        })
+      },
       Dogecoin: {
         name: 'Dogecoin',
         currencySymbol: 'DOGE',
